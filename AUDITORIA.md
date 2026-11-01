@@ -63,3 +63,12 @@ Este documento distingue alterações feitas no código de verificações que ai
 - Substituídos nomes provisórios de representação discente por “Representação discente em confirmação”.
 - Preservado o endereço docentes.html para compatibilidade com links existentes.
 - Validação estática das nove páginas concluída. Testes reais de dispositivo e fontes acadêmicas permanecem pendentes.
+
+## Contato e representação técnico-administrativa, 01/11/2026
+- Incluídos Daiana Costa Pereira e Lygia Gottgtroy Fraga Zigolis Filha de Oliveira no mesmo conjunto de dados e cartões de perfis da comunidade, com acesso a perfil individual.
+- Formação e atuação da Daiana baseadas no Banco de Fontes do IFF; Lattes específico ainda não localizado com segurança, portanto nenhum link foi atribuído por suposição.
+- Formação e experiência da Lygia apoiadas no portal Rede Integra, com Lattes 7266848136316618 identificado.
+- Criada a página contato.html com Gustavo da Cunha Guterman, e-mail da coordenação do Tecnólogo, e-mail do Técnico e telefone geral da recepção (22) 2645-9500.
+- E-mail clicável do Tecnólogo inserido na faixa abaixo do cabeçalho em todas as nove páginas previamente existentes.
+- Não confundir contato geral do campus com ramal direto da coordenação. Verificar funcionamento dos endereços de e-mail internamente antes de aprovação externa.
+- Preservada a identidade visual e as regras responsivas existentes, acrescentando apenas estilo discreto para o contato.
