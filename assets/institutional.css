@@ -192,3 +192,14 @@
 .header-refined .headerline{align-items:center!important}
 .header-refined .headerline>.menu-toggle{position:relative!important;grid-column:1!important;grid-row:1!important;align-self:center!important;justify-self:start!important;inset:auto!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;margin:0!important;transform:none!important}
 @media(max-width:780px){.header-refined .headerline>.menu-toggle{align-self:center!important;justify-self:center!important;margin:0!important;transform:none!important}}
+
+
+/* Alinhamento uniforme da navegação em TODAS as páginas */
+.header-refined .headerline{position:relative!important;align-items:center!important;padding-left:62px!important}
+.header-refined .headerline>.menu-toggle{position:absolute!important;top:50%!important;left:6px!important;right:auto!important;bottom:auto!important;transform:translateY(-50%)!important;margin:0!important;align-self:auto!important;justify-self:auto!important;z-index:85!important}
+.header-refined .headerline>.gastrobrand{align-self:center!important}
+.header-refined .headerline>.quick-access{align-self:center!important}
+.calendar-event-add{display:block;margin-top:6px;font-size:12px;font-weight:700;color:#23784b;text-decoration:underline;text-underline-offset:3px}
+.calendar-subscribe .calendar-device-help{font-size:13px;line-height:1.6;color:#566b5e;margin:12px 0!important}
+.calendar-subscribe .calendar-add,.calendar-subscribe .calendar-download{display:inline-flex!important;align-items:center;white-space:normal!important;max-width:100%;margin:7px 0!important}
+@media(max-width:780px){.header-refined .headerline{padding-left:43px!important}.header-refined .headerline>.menu-toggle{left:0!important;top:50%!important;transform:translateY(-50%)!important;line-height:1!important}.header-refined .menu-toggle span:first-child{line-height:1!important}}
