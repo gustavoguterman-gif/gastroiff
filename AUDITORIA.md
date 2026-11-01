@@ -41,3 +41,10 @@ Este documento distingue alterações feitas no código de verificações que ai
 - Links de navegação da página individual de livro corrigidos.
 - Service worker atualizado para incluir a nova ficha individual (cache v10).
 - A versão renderizada ainda requer teste manual de navegador e a auditoria de conteúdo ainda não está aprovada.
+
+## Padronização geográfica de 01/11/2026
+- Identificação visual do campus padronizada como “campus Cabo Frio - RJ” nas nove páginas principais, inclusive no trecho indicado pelo usuário.
+- Conferência automática de nove páginas: todas têm identificação completa, menu e script de transparência; nenhuma apresenta “campus Cabo Frio” sem “- RJ”.
+- Texto institucional, eventos, identificação alternativa do rodapé e manifesto do aplicativo também revisados.
+- Mantidos títulos de obras e nomes próprios que contêm “Cabo Frio”, para não adulterar referências.
+- Validação em navegadores reais continua pendente; a inspeção externa do site não retornou acesso.
