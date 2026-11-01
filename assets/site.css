@@ -39,7 +39,8 @@
 @media(max-width:1020px){.agenda-layout{grid-template-columns:1fr}.events-index{grid-template-columns:repeat(2,minmax(0,1fr))}.agenda-official{align-items:start;flex-direction:column}.agenda-aside{padding:25px 28px}}
 @media(max-width:600px){.gastro-hero-word{font-size:24px;margin:16px 0 -13px}.calendar-panel,.agenda-aside{padding:21px 17px;border-radius:13px}.calendar-header h3{font-size:23px}.calendar-buttons{gap:3px}.calendar-buttons button{height:33px;min-width:32px}.calendar-grid{gap:2px}.calendar-cell{font-size:11px;padding-top:7px;border-radius:6px}.calendar-legend{gap:12px}.calendar-month-footer{margin-top:15px}.events-index{grid-template-columns:1fr}.campus-link{display:block;padding:25px 22px}.campus-link .button{margin-top:20px;max-width:100%;white-space:normal;text-align:center}.campus-link h2{font-size:25px}.event-entry{padding:22px}.agenda-official .link{white-space:normal}}
 
-/* Instalação GASTROIFF: discreta sobre o layout editorial. */
+
+/* Instalação do GASTROIFF: detalhes discretos sobre o layout editorial existente. */
 .install-app-link{border:0;background:none;color:#276743;font-size:12px;font-weight:700;line-height:1.5;padding:10px 2px;display:inline-flex;gap:8px;align-items:center;text-align:left;cursor:pointer}
 .install-app-link:hover{text-decoration:underline}.install-app-link[hidden]{display:none!important}
 .install-app-footer{padding:0;border:0;background:transparent;color:#416b4e;font-size:12px;font-weight:700;text-align:left}
@@ -47,4 +48,101 @@
 .install-dialog::backdrop{background:rgba(19,40,28,.48)}.install-dialog h2{font-size:27px;letter-spacing:-.06em;line-height:1.17;margin:8px 26px 16px 0;font-weight:650}
 .install-dialog .upper{color:#2c7950}.install-dialog ol{margin:0 0 24px;padding-left:20px}.install-dialog li{font-size:14px;color:#526456;line-height:1.65;padding-left:5px;margin-bottom:9px}
 .install-dialog-close{position:absolute;top:17px;right:18px;border:1px solid #d7e1d7;border-radius:8px;background:#fff;padding:6px 10px;font-size:18px;color:#385640}
-.install-dialog .button{width:100%}@media(max-width:600px){.install-dialog{padding:23px 21px}.install-dialog h2{font-size:24px}}
+.install-dialog .button{width:100%}
+@media(max-width:600px){.install-dialog{padding:23px 21px}.install-dialog h2{font-size:24px}}
+
+/* Revisão editorial aprovada para avaliação. Não altera fontes nem cores de base. */
+.gastrobrand{display:flex;flex-direction:column;gap:3px;align-items:flex-start;justify-content:center;text-decoration:none;line-height:1.06;letter-spacing:normal;min-width:180px}
+.gastrobrand-main{font-size:20px;letter-spacing:-.06em;font-weight:800;color:var(--ink);white-space:nowrap}
+.gastrobrand .brand-dot{color:var(--green)}
+.gastrobrand-caption{font-weight:600;font-size:8.3px;letter-spacing:.085em;color:#6f8172;white-space:nowrap}
+.headerline{gap:20px}.navbar{gap:15px}.navbar a{font-weight:600}.navbar a:hover{color:var(--forest)}
+.menu-toggle{border:0;background:transparent;padding:9px 0;min-height:44px}
+.gastroiff-page main{animation:page-appear .38s cubic-bezier(.2,.68,.21,1) both}
+@keyframes page-appear{from{opacity:.6;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:fade-out .16s ease-in both}::view-transition-new(root){animation:fade-in .25s ease-out both}
+@keyframes fade-out{to{opacity:0}}@keyframes fade-in{from{opacity:0}to{opacity:1}}
+/* Editorial navigation: links instead of pseudo-slide buttons in the main hero */
+.hero h1{margin-top:22px}.hero-actions{gap:27px;align-items:center;margin-top:33px}
+.editorial-action{display:inline-flex;gap:12px;align-items:center;min-height:44px;padding:6px 0;border:0;border-bottom:1px solid var(--forest);border-radius:0;background:none;font-size:14px;font-weight:700;color:var(--forest);text-decoration:none;transition:color .2s,border-color .2s,background .2s}
+.editorial-action span{display:inline-block;transition:transform .2s ease;will-change:transform}
+.editorial-action:hover{color:#287a4d;border-bottom-color:#287a4d}.editorial-action:hover span{transform:translateX(5px)}.editorial-action:active{color:var(--green)}
+.hero-actions .editorial-action:nth-of-type(2){font-weight:500;color:#617168;border-color:#cfd7cc}
+.button{border-radius:6px;box-shadow:none;transition:color .2s,background .2s,border-color .2s,transform .2s}
+.button:hover{transform:translateY(-1px)}.button:active{transform:translateY(1px) scale(.992)}
+.link{transition:color .18s ease}.link span{transition:transform .18s ease;display:inline-block}.link:hover span{transform:translateX(4px)}
+.quickrow a{transition:background .25s ease}.quickrow .arr{transition:transform .2s}.quickrow a:hover .arr{transform:translate(3px,-2px)}
+.quickrow img{width:35px;height:35px}.pagehero-art{opacity:.5}.feature .icon{opacity:.13}
+.mobile-install-entry{border:0;background:transparent;color:#315b40;font-size:13px;text-align:left;padding:13px 8px;border-bottom:1px solid #ebefea;font-weight:650}
+/* Curated physical library teaser */
+.library-teaser{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(230px,.8fr);gap:50px;align-items:center;background:#f1f1e9;border:1px solid #e1e6dc;border-radius:16px;padding:48px 54px;overflow:hidden}
+.library-teaser h2{font-size:clamp(33px,3.7vw,52px);font-weight:650;line-height:1.08;letter-spacing:-.065em;max-width:650px;margin:19px 0 14px}
+.library-teaser p{color:#627568;line-height:1.72;font-size:14px;max-width:650px}
+.catalog-data-note{font-size:10px!important;color:#7d897d!important;margin-top:18px}
+.library-teaser-art{height:235px;position:relative;border-bottom:3px solid #345c45;display:flex;align-items:end;justify-content:center;gap:11px;padding:0 12px 12px}
+.library-teaser-art:before{content:'';position:absolute;left:4%;right:4%;bottom:0;border-bottom:1px solid #90ab96}
+.library-teaser-art span{height:76%;border:3px solid #42765a;border-radius:5px 5px 1px 1px;display:flex;align-items:end;justify-content:center;width:66px;transform:rotate(-4deg);padding:15px 0;color:#609274;font-size:11px;letter-spacing:.14em}
+.library-teaser-art span:nth-child(2){height:88%;width:79px;transform:rotate(1deg);border-color:#214a39;background:#e0e7dc}
+.library-teaser-art span:nth-child(3){height:67%;transform:rotate(6deg)}
+@media(max-width:1180px){.gastrobrand{min-width:140px}.gastrobrand-main{font-size:17px}.gastrobrand-caption{font-size:7.1px}.headerline{gap:13px}.navbar{gap:10px}.navbar a{font-size:11px}}
+@media(max-width:980px){.navbar{display:none}.headerline{grid-template-columns:auto 1fr auto}.gastrobrand{margin-left:auto}}
+@media(max-width:600px){.headerline{grid-template-columns:auto 1fr auto;gap:12px}.institution img{width:30px}.wordmark{display:none}.gastrobrand{min-width:0;justify-self:center;align-items:flex-start;margin-left:0;border:0;padding:0}.gastrobrand-main{font-size:20px}.gastrobrand-caption{font-size:7.2px}.menu-toggle{min-height:44px}.hero h1{margin-top:20px}.hero-actions{gap:20px;align-items:flex-start}.editorial-action{font-size:13px}.library-teaser{grid-template-columns:1fr;gap:12px;padding:28px 22px}.library-teaser h2{font-size:38px}.library-teaser-art{height:150px;max-width:270px;margin:0 auto;width:100%}.library-teaser-art span{width:58px}}
+@media(prefers-reduced-motion:reduce){.gastroiff-page main{animation:none}@view-transition{navigation:none}.editorial-action span,.quickrow .arr,.link span{transition:none}.button:active{transform:none}}
+
+
+.screen-reader-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.acervo-section{padding:55px 0 86px}.acervo-intro{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:30px}
+.acervo-intro h2{font-size:clamp(28px,3.3vw,46px);line-height:1.12;font-weight:650;letter-spacing:-.058em;max-width:650px;margin:9px 0 0}
+.acervo-numbers{display:flex;align-items:center;gap:12px}.acervo-numbers strong{font-size:44px;letter-spacing:-.06em;font-weight:650}.acervo-numbers span{font-size:12px;color:#6e7a6f;line-height:1.5}
+.acervo-tools{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:13px}.acervo-search{border:1px solid #d5ddd3;background:#fff;display:flex;align-items:center;gap:12px;padding:0 16px;border-radius:9px}.acervo-search svg{color:#6b8573;flex:none}.acervo-search input{width:100%;min-width:0;height:52px;border:0;background:none;font-size:14px;color:var(--ink);outline:none}.acervo-tools select{height:53px;border:1px solid #d5ddd3;border-radius:9px;background:#fff;color:var(--forest);font-size:13px;padding:0 12px}
+.acervo-filters{display:flex;gap:8px;flex-wrap:wrap;margin:19px 0 27px}.acervo-chip{background:none;border:1px solid #d2ded3;border-radius:999px;min-height:34px;padding:8px 12px;color:#59725e;font-size:11px;font-weight:650;transition:background .2s,color .2s,border .2s}.acervo-chip.selected{background:#1c4e38;color:#fff;border-color:#1c4e38}.acervo-chip:hover:not(.selected){background:#e7eee6}
+.acervo-count{display:flex;justify-content:space-between;gap:20px;padding:0 0 13px;margin-bottom:15px;border-bottom:1px solid var(--line);font-size:12px;color:#637367}
+.acervo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.acervo-card{display:grid;grid-template-columns:93px minmax(0,1fr);gap:16px;border:1px solid #e1e7df;background:#fff;padding:20px;border-radius:13px;min-height:234px;transition:border-color .22s,box-shadow .22s,transform .22s}.acervo-card:hover{border-color:#8cbb97;transform:translateY(-3px);box-shadow:0 8px 22px rgba(24,50,32,.045)}
+.acervo-cover{width:93px;height:143px;display:flex;align-items:center;justify-content:center;background:#f0eee7;border-radius:4px;padding:7px;overflow:hidden}.cover-img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 4px 5px rgba(29,43,29,.09))}.cover-none{font-size:10px;line-height:1.45;color:#748074;text-align:center;max-width:65px}
+.acervo-book-meta{display:flex;flex-direction:column;min-width:0}.acervo-book-meta small{font-size:9px;text-transform:uppercase;font-weight:700;letter-spacing:.08em;color:#51805f;margin-bottom:9px}.acervo-book-meta h3{font-size:16px;line-height:1.22;letter-spacing:-.035em;font-weight:700;margin:0 0 9px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.acervo-author{font-size:11px;color:#718075;line-height:1.45;margin:0 0 10px}.acervo-excerpt{font-size:11px;line-height:1.55;color:#758175;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin:0 0 10px}.acervo-bottom{border-top:1px solid #e9efe9;margin-top:auto;padding-top:9px;display:flex;align-items:center;justify-content:space-between;gap:7px;color:#326947;font-size:11px;font-weight:650}
+.acervo-empty{font-size:15px;padding:45px;color:#647668;text-align:center}.catalog-qualification{border-top:1px solid var(--line);margin-top:35px;padding-top:23px;display:flex;align-items:start;justify-content:space-between;gap:30px}.catalog-qualification p{max-width:670px;font-size:12px;color:#7b857c;line-height:1.66;margin:0}.catalog-qualification a{flex:none}
+.book-profile{display:grid;grid-template-columns:minmax(220px,320px) minmax(0,1fr);gap:66px;align-items:start;max-width:1110px;margin:0 auto}.book-profile-cover{min-height:390px;display:flex;align-items:center;justify-content:center;padding:32px;background:#edece5;border-radius:14px}.book-profile-cover .cover-big{width:100%;max-width:240px;max-height:340px;object-fit:contain;filter:drop-shadow(0 10px 12px rgba(25,46,25,.13))}.book-profile h2{font-size:clamp(32px,3.7vw,53px);font-weight:650;letter-spacing:-.065em;line-height:1.08;margin:19px 0 11px}.book-profile-author{font-size:14px;color:#637264}.book-profile-synopsis{font-size:16px;line-height:1.85;color:#526d58;margin:27px 0}.book-facts{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);border-left:1px solid var(--line);margin:32px 0}.book-facts>div{padding:16px 17px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.book-facts small{display:block;font-size:10px;color:#7e8a7f;letter-spacing:.02em;margin-bottom:8px}.book-facts strong{font-size:14px;font-weight:650;line-height:1.35}.book-actions{display:flex;flex-wrap:wrap;gap:25px}.book-notice{margin-top:27px;line-height:1.6;font-size:11px;color:#829083}
+@media(max-width:1040px){.acervo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.acervo-card{min-height:215px}.catalog-qualification{flex-direction:column}}
+@media(max-width:620px){.acervo-section{padding:34px 0 65px}.acervo-intro{align-items:start}.acervo-intro h2{font-size:32px}.acervo-numbers{display:none}.acervo-tools{grid-template-columns:1fr}.acervo-tools select{width:100%}.acervo-filters{flex-wrap:nowrap;overflow-x:auto;padding-bottom:10px;margin:15px -18px 20px;padding-left:18px}.acervo-chip{white-space:nowrap;flex:none}.acervo-grid{grid-template-columns:1fr;gap:10px}.acervo-card{grid-template-columns:92px 1fr;padding:16px;min-height:177px}.acervo-cover{height:133px}.acervo-excerpt{display:none}.acervo-book-meta h3{font-size:17px}.acervo-book-meta small{margin-bottom:6px}.book-profile{grid-template-columns:1fr;gap:25px}.book-profile-cover{min-height:260px;max-width:280px;margin:auto;width:100%}.book-profile-cover .cover-big{max-height:260px}.book-profile h2{font-size:36px}.book-facts{grid-template-columns:1fr 1fr}.book-facts strong{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.acervo-card,.acervo-chip{transition:none}.acervo-card:hover{transform:none}}
+
+.gastrobrand .gastrobrand-main{color:var(--ink)!important}.gastrobrand .gastrobrand-main .brand-dot{color:var(--green)!important}
+
+\n/* Ajuste aprovado: GASTROIFF à esquerda, identificação do Campus à direita */
+.headerline{grid-template-columns:minmax(170px,auto) 1fr auto auto;gap:19px}
+.headerline>.gastrobrand{grid-column:1;grid-row:1;justify-self:start;padding:0;border-left:0;margin:0}
+.headerline>.navbar{grid-column:2;grid-row:1;justify-content:center;gap:15px}
+.headerline>.institution{grid-column:3;grid-row:1;flex-direction:row;gap:9px;justify-self:end;padding-left:14px;border-left:1px solid var(--line)}
+.headerline>.institution img:not(.minisede){width:31px;height:43px;object-fit:contain}
+.headerline>.institution .minisede{width:54px;height:47px;max-width:54px;object-fit:contain;opacity:.82;mix-blend-mode:multiply;filter:contrast(1.1)}
+.headerline>.institution .wordmark b{font-size:12px}.headerline>.institution .wordmark span{font-size:10px;margin-top:2px}
+.headerline>.menu-toggle{grid-column:4;grid-row:1}
+.hero-sketch img[src*="laboratorio-desenho"]{width:100%;height:auto;max-height:525px;object-fit:contain;mix-blend-mode:multiply;filter:grayscale(1) contrast(1.09);opacity:.86}
+.hero-sketch:before{display:none}
+.calendar-subscribe{border-top:1px solid #dde4da;margin-top:18px;padding-top:18px;display:flex;gap:11px;flex-wrap:wrap;align-items:center}
+.calendar-subscribe>strong{display:block;width:100%;font-size:14px;letter-spacing:-.02em}
+.calendar-subscribe>p{width:100%;font-size:12px;color:#68766b;margin:0}
+.calendar-subscribe .calendar-add,.calendar-subscribe .calendar-download{font-size:12px}
+.calendar-subscribe>small{width:100%;font-size:10px;line-height:1.5;color:#778278}
+.faculty-filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:10px}
+.faculty-filter{padding:10px 15px;border:1px solid #d1ded0;background:transparent;border-radius:999px;color:#446d50;font-size:12px}
+.faculty-filter.selected{background:#234b35;color:#fff;border-color:#234b35}
+.faculty-source-note{font-size:11px;color:#7a887a;margin-bottom:20px}
+.portrait-letter{aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-size:34px;font-weight:550;letter-spacing:-.09em;background:#edf1eb;color:#386247}
+.profile-layout{align-items:start}.profile-side .avatar{width:170px;height:170px;font-size:62px}
+.profile-details{border-top:1px solid var(--line);margin-top:25px;padding-top:24px}
+.profile-details h3{font-size:21px;letter-spacing:-.04em;margin:22px 0 12px}
+.profile-details .profile-record{border-bottom:1px solid #e3eae0;padding:12px 0}
+.profile-record strong{display:block;font-size:13px;font-weight:650;line-height:1.5}
+.profile-record span{font-size:11px;color:#738376}.profile-record p{font-size:12px;color:#6b7c6e;line-height:1.6;margin:6px 0}
+.profile-record a{font-size:12px;color:#266a47;display:inline-block;margin-top:6px;text-decoration:underline;text-underline-offset:3px}
+.profile-muted{font-size:12px;color:#788878;line-height:1.6}
+@media(max-width:1180px){.headerline{gap:11px}.headerline>.navbar{gap:9px}.headerline>.institution .minisede{width:43px;height:39px}.headerline>.institution .wordmark{display:none}}
+@media(max-width:980px){.headerline{grid-template-columns:auto 1fr auto}.headerline>.navbar{display:none}.headerline>.institution{grid-column:2}.headerline>.menu-toggle{grid-column:3}}
+@media(max-width:600px){.headerline{grid-template-columns:minmax(130px,1fr) auto auto;gap:6px;height:78px}.headerline>.gastrobrand{grid-column:1;justify-self:start}.headerline>.institution{grid-column:2;max-width:85px;border:0;padding-left:0}.headerline>.institution img:not(.minisede){width:27px;height:38px}.headerline>.institution .minisede{width:40px;height:36px;max-width:40px}.headerline>.menu-toggle{grid-column:3}.gastrobrand-caption{font-size:7px}.hero-sketch img[src*="laboratorio-desenho"]{max-height:360px}.calendar-subscribe{display:block}.calendar-subscribe>a{display:flex;margin:9px 0}}
+@media(prefers-reduced-motion:reduce){.faculty-filter{transition:none}}
+
+/* Cropped original line drawing keeps the campus miniature legible at header scale. */
+.headerline>.institution .minisede{width:68px;max-width:68px;height:43px;opacity:1;filter:contrast(1.35)}
+@media(max-width:600px){.headerline>.institution .minisede{width:52px;max-width:52px;height:34px;opacity:1}}

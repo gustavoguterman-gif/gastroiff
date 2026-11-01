@@ -1,1 +1,304 @@
-window.GASTROIFF_FACULTY=[{"id": "adriana-paula-slongo-marcussi", "name": "Adriana Paula Slongo Marcussi", "area": "Engenharia de Alimentos", "bio": "Engenheira de alimentos, doutora pela UFSC, com atuação em segurança alimentar, tecnologia culinária, microbiologia e gestão de materiais.", "source": "PPC Tecnólogo 2022", "lattes": "https://lattes.cnpq.br/5707584222197614", "image": "", "initials": "AM"}, {"id": "adriana-vaz-braga", "name": "Adriana Vaz Braga", "area": "Turismo e Hotelaria", "bio": "Bacharel em Turismo e mestre em Arquitetura e Urbanismo, com atuação em hotelaria, gestão de turismo, eventos e ensino superior.", "source": "PPC Tecnólogo 2022", "lattes": "https://lattes.cnpq.br/9344344057313527", "image": "", "initials": "AB"}, {"id": "bernardo-alberto-marcussi", "name": "Bernardo Alberto Marcussi", "area": "Engenharia de Alimentos", "bio": "Engenheiro de alimentos e mestre pela UFSC. Atua em processos de alimentos, higiene e segurança alimentar, microbiologia e gestão.", "source": "PPC Tecnólogo 2022", "lattes": "https://lattes.cnpq.br/2389904822202858", "image": "", "initials": "BM"}, {"id": "catia-cristina-de-oliveira-ramos", "name": "Cátia Cristina de Oliveira Ramos", "area": "Educação", "bio": "Pedagoga e mestre em Educação, com atuação em formação docente, Libras, políticas educacionais e educação ambiental.", "source": "PPC Tecnólogo 2022", "lattes": "https://lattes.cnpq.br/6143287243414665", "image": "", "initials": "CR"}, {"id": "claudia-maria-fiuza-alves", "name": "Cláudia Maria Fiuza Alves", "area": "Matemática e Educação", "bio": "Licenciada em Matemática e mestre pelo PROFMAT, com experiência no ensino de matemática e na formação em Gastronomia.", "source": "PPCs 2022 e 2023", "lattes": "https://lattes.cnpq.br/9836569236408696", "image": "", "initials": "CA"}, {"id": "evelyn-pereira-barbosa", "name": "Evelyn Pereira Barbosa", "area": "Direito e Gestão Ambiental", "bio": "Bacharel em Direito, mestre em Sistemas de Gestão, com experiência em legislação, licenciamento ambiental e segurança do trabalho.", "source": "PPC Tecnólogo 2022", "lattes": "https://lattes.cnpq.br/4128651398315790", "image": "", "initials": "EB"}, {"id": "fernando-antonio-trindade-campos", "name": "Fernando Antônio Trindade Campos", "area": "Computação e Tecnologia", "bio": "Mestre em Sistemas Aplicados à Engenharia e Gestão, com atuação em ciência da computação e sistemas.", "source": "PPCs 2022 e 2023", "lattes": "https://lattes.cnpq.br/6385420797417940", "image": "", "initials": "FC"}, {"id": "gustavo-da-cunha-guterman", "name": "Gustavo da Cunha Guterman", "area": "Gastronomia, Cultura Alimentar e Território", "bio": "Cozinheiro profissional, professor e pesquisador em Gastronomia. Mestre em Geografia pela UFF, investiga culturas alimentares, território e formação profissional.", "source": "PPCs 2022 e 2023", "lattes": "https://lattes.cnpq.br/6146375603214226", "image": "", "initials": "GG"}, {"id": "jaunilson-francisco-da-cruz", "name": "Jaunilson Francisco da Cruz", "area": "Educação Física e Corpo Humano", "bio": "Graduado em Educação Física e Fisioterapia e mestre em Motricidade Humana, com atuação em anatomia, corpo humano e acessibilidade.", "source": "PPC Tecnólogo 2022", "lattes": "https://lattes.cnpq.br/7481541821961960", "image": "", "initials": "JC"}, {"id": "joao-luiz-farah-rayol-fontoura", "name": "João Luiz Farah Rayol Fontoura", "area": "Filosofia", "bio": "Graduado e mestre em Filosofia pela UFRJ, com especialização em Estudos Clássicos.", "source": "PPCs 2022 e 2023", "lattes": "https://lattes.cnpq.br/3999114234693580", "image": "", "initials": "JF"}, {"id": "juliana-vasconcelos-veronese", "name": "Juliana Vasconcelos Veronese", "area": "Biologia e Meio Ambiente", "bio": "Bióloga, mestre em Ecologia e especialista em Análise Ambiental, com atuação em educação ambiental, ecologia, conservação e agroecologia.", "source": "PPC Tecnólogo 2022", "lattes": "https://lattes.cnpq.br/4136625885759892", "image": "", "initials": "JV"}, {"id": "karla-maria-rios-de-macedo", "name": "Karla Maria Rios de Macedo", "area": "Turismo, Patrimônio e Urbanismo", "bio": "Turismóloga, doutora em Arquitetura e Urbanismo pela UFF. Pesquisa história urbana, turismo e relações de trabalho.", "source": "PPC Tecnólogo 2022", "lattes": "https://lattes.cnpq.br/3310714034912905", "image": "", "initials": "KM"}, {"id": "luiz-fernando-de-melo-brettas", "name": "Luiz Fernando de Melo Brettas", "area": "Gastronomia, Turismo e Cultura", "bio": "Graduado em Turismo e Hotelaria e mestre em Bens Culturais e Projetos Sociais, com experiência em gastronomia, bebidas, eventos e serviços.", "source": "PPCs 2022 e 2023", "lattes": "https://lattes.cnpq.br/4258771891384632", "image": "", "initials": "LB"}, {"id": "lygia-gottgtroy-fraga-zigolis-filha-de-oliveira", "name": "Lygia Gottgtroy Fraga Zigolis Filha de Oliveira", "area": "Pedagogia e Educação Ambiental", "bio": "Pedagoga e mestre em Ensino de Ciências da Saúde e do Ambiente, com experiência em currículo, educação ambiental e docência.", "source": "Perfil institucional 2022", "lattes": "https://lattes.cnpq.br/7266848136316618", "image": "", "initials": "LO"}, {"id": "marilia-candida-de-oliveira", "name": "Marilia Cândida de Oliveira", "area": "Agronomia e Meio Ambiente", "bio": "Engenheira agrônoma, doutora em Irrigação e Drenagem, com pesquisas em qualidade da água, projetos agrícolas e extensão rural.", "source": "PPC Tecnólogo 2022", "lattes": "https://lattes.cnpq.br/3813301942748119", "image": "", "initials": "MO"}, {"id": "renato-cerqueira-de-carvalho", "name": "Renato Cerqueira de Carvalho", "area": "Turismo e Gestão", "bio": "Graduado em Turismo e mestre em Planejamento Regional e Gestão de Cidades, com experiência em gestão acadêmica, turismo, hotelaria e eventos.", "source": "PPC Tecnólogo 2022", "lattes": "https://lattes.cnpq.br/9063022893282839", "image": "", "initials": "RC"}, {"id": "vinicius-teixeira-santos", "name": "Vinicius Teixeira Santos", "area": "História e Educação", "bio": "Historiador e doutor em Educação, com pesquisas em História, História da Educação e ensino de História.", "source": "PPC Tecnólogo 2022", "lattes": "https://lattes.cnpq.br/6105016487084538", "image": "", "initials": "VS"}, {"id": "vitor-yoshihara-miano", "name": "Vitor Yoshihara Miano", "area": "Administração e Gestão", "bio": "Graduado e mestre em Administração pela UFF, com atuação em estratégia, gestão, organizações, inovação e pesquisa.", "source": "PPC Tecnólogo 2022", "lattes": "https://lattes.cnpq.br/6541281208044155", "image": "", "initials": "VM"}, {"id": "wellington-vinicius-dos-santos", "name": "Wellington Vinicius dos Santos", "area": "Gastronomia e Alimentação", "bio": "Graduado em Gastronomia, mestre em Nutrição e Alimentos, com experiência em cozinha brasileira, técnicas dietéticas e cultura alimentar.", "source": "PPC Tecnólogo 2022", "lattes": "https://lattes.cnpq.br/1583097455234338", "image": "", "initials": "WS"}, {"id": "yasmim-da-fonseca-wagner", "name": "Yasmim da Fonseca Wagner", "area": "Gastronomia, Nutrição e Confeitaria", "bio": "Graduada em Gastronomia e Nutrição, mestre em Cognição e Linguagem, com especializações em pâtisserie e segurança alimentar.", "source": "PPC Tecnólogo 2022", "lattes": "https://lattes.cnpq.br/8148381908150819", "image": "", "initials": "YW"}, {"id": "aline-bravo-barbosa", "name": "Aline Bravo Barbosa", "area": "Nutrição", "bio": "Docente relacionada no PPC do Curso Técnico em Gastronomia de 2023, na área de Nutrição.", "source": "PPC Técnico 2023", "lattes": "", "image": "", "initials": "AB"}, {"id": "ariana-nadia-lemes-marcelino", "name": "Ariana Nádia Lemes Marcelino", "area": "Primeiros Socorros", "bio": "Docente relacionada no PPC do Curso Técnico em Gastronomia de 2023, na área de primeiros socorros.", "source": "PPC Técnico 2023", "lattes": "", "image": "", "initials": "AM"}, {"id": "brunno-machado-barbosa", "name": "Brunno Machado Barbosa", "area": "Gastronomia", "bio": "Docente relacionado no PPC do Curso Técnico em Gastronomia de 2023, na área de Gastronomia.", "source": "PPC Técnico 2023", "lattes": "", "image": "", "initials": "BB"}, {"id": "lucas-martinelli", "name": "Lucas Martinelli", "area": "Gastronomia", "bio": "Docente relacionado no PPC do Curso Técnico em Gastronomia de 2023, na área de Gastronomia.", "source": "PPC Técnico 2023", "lattes": "", "image": "", "initials": "LM"}, {"id": "sabrina-rita-da-fonseca-rezende", "name": "Sabrina Rita da Fonseca Rezende", "area": "Biologia", "bio": "Docente relacionada no PPC do Curso Técnico em Gastronomia de 2023, na área de Biologia.", "source": "PPC Técnico 2023", "lattes": "", "image": "", "initials": "SR"}];
+window.GASTROIFF_FACULTY=[
+  {
+    "id": "adriana-slongo",
+    "name": "Adriana Slongo",
+    "full": "Adriana Paula Slongo Marcussi",
+    "area": "Segurança e tecnologia dos alimentos",
+    "bio": "Engenheira de alimentos, doutora em Engenharia de Alimentos pela UFSC. Atua na pesquisa de segurança, microbiologia e tecnologia de alimentos.",
+    "lattes": "https://lattes.cnpq.br/5707584222197614",
+    "degree": "Doutorado em Engenharia de Alimentos, UFSC (2008)",
+    "degree_title": "Uso de alta pressão hidrostática em presunto fatiado: avaliação físico-química e sensorial e modelagem do crescimento microbiano",
+    "degree_link": "",
+    "projects": [
+      [
+        "Caracterização da qualidade da água marítima da Região dos Lagos",
+        "Pesquisa de parâmetros físico-químicos e microbiológicos, registrada em currículo acadêmico com início em 2015.",
+        "https://www.escavador.com/sobre/6969141/adriana-paula-slongo-marcussi"
+      ]
+    ],
+    "pubs": [
+      [
+        "Ora-pro-nóbis: alternativa para enriquecimento proteico de alimentos na merenda escolar",
+        "2023",
+        "https://static.even3.com/anais/623641.pdf?v=638967785092760764"
+      ]
+    ],
+    "group": "",
+    "image": "",
+    "colegiado": true,
+    "nde": false,
+    "initials": "AS",
+    "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
+  },
+  {
+    "id": "brunno-barbosa",
+    "name": "Brunno Barbosa",
+    "full": "Brunno Machado Barbosa",
+    "area": "Gastronomia e prática culinária",
+    "bio": "Gastrônomo pela Universidade Vila Velha, com experiência profissional e docente em cozinha e gastronomia.",
+    "lattes": "",
+    "degree": "Formação em Gastronomia, Universidade Vila Velha",
+    "degree_title": "Trabalho de especialização sobre ervas aromáticas (Faculdade Iguaçu, 2023), conforme perfil profissional",
+    "degree_link": "",
+    "projects": [],
+    "pubs": [
+      [
+        "Escolhas alimentares infantis: riscos à saúde e reflexos na vida adulta",
+        "2023",
+        "https://doi.org/10.56238/sevened2023.006-036"
+      ],
+      [
+        "Ora-pro-nóbis: alternativa para enriquecimento proteico de alimentos na merenda escolar",
+        "2023",
+        "https://static.even3.com/anais/623641.pdf?v=638967785092760764"
+      ]
+    ],
+    "group": "",
+    "image": "",
+    "colegiado": true,
+    "nde": true,
+    "initials": "BB",
+    "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
+  },
+  {
+    "id": "claudia-fiuza",
+    "name": "Cláudia Fiuza",
+    "full": "Cláudia Maria Fiuza Alves",
+    "area": "Matemática, educação e gastronomia",
+    "bio": "Mestra pelo PROFMAT/IMPA, licenciada em Matemática e graduada em Gastronomia. Atua no ensino e em atividades acadêmicas da área.",
+    "lattes": "https://lattes.cnpq.br/9836569236408696",
+    "degree": "Mestrado Profissional em Matemática, IMPA (2014)",
+    "degree_title": "O estudo da simetria através da arte de Maurits Cornelis Escher",
+    "degree_link": "https://ptdocz.com/doc/423834/claudia-maria-fiuza-alves-o-estudo-da-simetria",
+    "projects": [
+      [
+        "Curricularização da Extensão CST em Gastronomia",
+        "Projeto de extensão registrado para 2025–2026, com organização de atividades de integração entre ensino, pesquisa e extensão.",
+        "https://integra.iff.edu.br/ecossistema/pessoas/renato-cerqueira-de-carvalho"
+      ]
+    ],
+    "pubs": [
+      [
+        "Escolhas alimentares infantis: riscos à saúde e reflexos na vida adulta",
+        "2023",
+        "https://doi.org/10.56238/sevened2023.006-036"
+      ]
+    ],
+    "group": "",
+    "image": "",
+    "colegiado": true,
+    "nde": false,
+    "initials": "CF",
+    "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
+  },
+  {
+    "id": "evelyn-barbosa",
+    "name": "Evelyn Barbosa",
+    "full": "Evelyn Pereira Barbosa",
+    "area": "Direito, legislação e gestão ambiental",
+    "bio": "Bacharel em Direito pela UFJF e mestra em Sistemas de Gestão pela UFF, com experiência em legislação aplicada, licenciamento ambiental e segurança do trabalho.",
+    "lattes": "https://lattes.cnpq.br/4128651398315790",
+    "degree": "Mestrado em Sistemas de Gestão, UFF",
+    "degree_title": "",
+    "degree_link": "",
+    "projects": [],
+    "pubs": [],
+    "group": "",
+    "image": "",
+    "colegiado": false,
+    "nde": false,
+    "initials": "EB",
+    "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
+  },
+  {
+    "id": "fernando-campos",
+    "name": "Fernando Campos",
+    "full": "Fernando Antônio Trindade Campos",
+    "area": "Tecnologia e sistemas computacionais",
+    "bio": "Mestre em Sistemas Aplicados à Engenharia e Gestão pelo IFF, com experiência em ciência da computação e sistemas.",
+    "lattes": "https://lattes.cnpq.br/6385420797417940",
+    "degree": "Mestrado em Sistemas Aplicados à Engenharia e Gestão, IFF (2019)",
+    "degree_title": "Sistema de gerenciamento da irrigação baseado em rede de sensores sem fio aplicando-se a técnica de escalonamento de aspersores",
+    "degree_link": "https://portal1.iff.edu.br/o-iffluminense/pesquisa/pos-graduacao-stricto-sensu/mestrado-profissional-em-sistemas-aplicados-a-engenharia-e-a-gestao/dissertacoes-defendidas/ingressantes-2017.1/sistema-de-gerenciamento-de-irrigacao-baseado-em-rede-de-sensores-sem-fio-aplicando-se-a-tecnica-de-escalonamento-de-aspersores",
+    "projects": [],
+    "pubs": [],
+    "group": "",
+    "image": "",
+    "colegiado": false,
+    "nde": false,
+    "initials": "FC",
+    "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
+  },
+  {
+    "id": "fernando-mello",
+    "name": "Fernando Mello",
+    "full": "Fernando Mello",
+    "area": "Cultura alimentar e gastronomia regional",
+    "bio": "Professor de Gastronomia e autor de trabalhos sobre a pesca, as tradições culinárias e a identidade alimentar da Região dos Lagos.",
+    "lattes": "",
+    "degree": "",
+    "degree_title": "",
+    "degree_link": "",
+    "projects": [],
+    "pubs": [
+      [
+        "Do mar à mesa: a pesca e a culinária típica da Região do Cabo Frio",
+        "Obra divulgada em reportagem",
+        "https://fontecerta.com/noticias-de-arraial-do-cabo/as-vesperas-do-festival-da-lula-mercado-pesqueiro-de-arraial-do-cabo-se-aquece/"
+      ]
+    ],
+    "group": "",
+    "image": "",
+    "colegiado": true,
+    "nde": false,
+    "initials": "FM",
+    "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
+  },
+  {
+    "id": "gustavo-guterman",
+    "name": "Gustavo Guterman",
+    "full": "Gustavo da Cunha Guterman",
+    "area": "Gastronomia, território e cultura alimentar",
+    "bio": "Cozinheiro profissional, professor e pesquisador. Mestre em Geografia pela UFF, investiga memória alimentar, território, formação e trabalho nas cozinhas.",
+    "lattes": "https://lattes.cnpq.br/6146375603214226",
+    "degree": "Mestrado em Geografia, UFF (2022)",
+    "degree_title": "A cultura alimentar do território de Armação dos Búzios-RJ",
+    "degree_link": "",
+    "projects": [
+      [
+        "Culinária da Baixada Litorânea",
+        "Pesquisa sobre história cultural, saberes alimentares e receitas tradicionais do território, em parceria com pesquisadores da UFRJ.",
+        "https://www.escavador.com/sobre/2330390/gustavo-da-cunha-guterman"
+      ]
+    ],
+    "pubs": [
+      [
+        "Resistência e resiliência: a importância da Feira da Agricultura Familiar de Armação dos Búzios",
+        "2025",
+        "https://periodicos.ufes.br/geografares/pt_BR/article/view/47732"
+      ],
+      [
+        "Culturas alimentares no território de Armação dos Búzios, RJ",
+        "2024",
+        "https://ufs.emnuvens.com.br/geonordeste/article/view/19360"
+      ],
+      [
+        "Gestão de custos do serviço de entrega em negócios gastronômicos",
+        "2022",
+        "https://www.ce.senac.br/wp-content/uploads/2022/03/Trilhas-do-com%C3%A9rcio_Arquivo_final-1.pdf"
+      ]
+    ],
+    "group": "Núcleo de Estudos Rurais e Urbanos (NERU/UFF), conforme artigo acadêmico",
+    "image": "",
+    "colegiado": true,
+    "nde": true,
+    "initials": "GG",
+    "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
+  },
+  {
+    "id": "juliana-veronese",
+    "name": "Juliana Veronese",
+    "full": "Juliana Vasconcelos Veronese",
+    "area": "Ecologia, conservação e educação ambiental",
+    "bio": "Bióloga, mestra em Ecologia e especialista em Análise Ambiental pela UFJF. Atua com ecologia, educação ambiental e paisagem costeira.",
+    "lattes": "https://lattes.cnpq.br/4136625885759892",
+    "degree": "Mestrado em Ecologia, UFJF (2018)",
+    "degree_title": "Análise da paisagem como suporte ao planejamento ambiental para o Parque Estadual da Costa do Sol",
+    "degree_link": "https://repositorio.ufjf.br/jspui/handle/ufjf/6790",
+    "projects": [],
+    "pubs": [],
+    "group": "",
+    "image": "",
+    "colegiado": false,
+    "nde": false,
+    "initials": "JV",
+    "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
+  },
+  {
+    "id": "marco-monteiro",
+    "name": "Marco Monteiro",
+    "full": "Marco Antônio Monteiro",
+    "area": "Perfil acadêmico em conferência",
+    "bio": "Docente indicado para a composição atual da Gastronomia do Campus Cabo Frio. Dados de formação e pesquisa aguardam confirmação em fonte acadêmica individual.",
+    "lattes": "",
+    "degree": "",
+    "degree_title": "",
+    "degree_link": "",
+    "projects": [],
+    "pubs": [],
+    "group": "",
+    "image": "",
+    "colegiado": false,
+    "nde": true,
+    "initials": "MM",
+    "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
+  },
+  {
+    "id": "renato-cerqueira",
+    "name": "Renato Cerqueira",
+    "full": "Renato Cerqueira de Carvalho",
+    "area": "Turismo, gestão e empreendedorismo",
+    "bio": "Mestre em Planejamento Regional e Gestão de Cidades, com experiência em gestão acadêmica, turismo, hotelaria e empreendedorismo.",
+    "lattes": "https://lattes.cnpq.br/9063022893282839",
+    "degree": "Mestrado em Planejamento Regional e Gestão de Cidades (2014)",
+    "degree_title": "O Aeroporto de Cabo Frio: fluxos, redes e logística",
+    "degree_link": "",
+    "projects": [
+      [
+        "Turismo acessível na Costa do Sol",
+        "Projeto de pesquisa de 2025 sobre acessibilidade e inclusão no turismo da região.",
+        "https://integra.iff.edu.br/ecossistema/pessoas/renato-cerqueira-de-carvalho"
+      ],
+      [
+        "Curricularização da Extensão CST em Gastronomia",
+        "Projeto de 2025–2026 articulando ensino, pesquisa e extensão, incluindo a SAGA.",
+        "https://integra.iff.edu.br/ecossistema/pessoas/renato-cerqueira-de-carvalho"
+      ]
+    ],
+    "pubs": [],
+    "group": "Atuação interdisciplinar em turismo, gestão e desenvolvimento regional; grupo formal não confirmado",
+    "image": "",
+    "colegiado": false,
+    "nde": true,
+    "initials": "RC",
+    "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
+  },
+  {
+    "id": "tatiana-almeida",
+    "name": "Tatiana Almeida",
+    "full": "Tatiana Almeida Machado Garrett",
+    "area": "Educação ambiental e sustentabilidade",
+    "bio": "Doutora em Gestão Ambiental, com atuação em educação ambiental, sociedades sustentáveis e turismo sustentável.",
+    "lattes": "https://lattes.cnpq.br/5482553368078815",
+    "degree": "Doutorado em Gestão Ambiental, Universidade Positivo",
+    "degree_title": "Investigação acadêmica em educação e turismo em ecovilas",
+    "degree_link": "",
+    "projects": [],
+    "pubs": [],
+    "group": "",
+    "image": "",
+    "colegiado": false,
+    "nde": false,
+    "initials": "TA",
+    "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
+  },
+  {
+    "id": "vitor-miano",
+    "name": "Vitor Miano",
+    "full": "Vitor Yoshihara Miano",
+    "area": "Administração, organizações e trabalho",
+    "bio": "Doutor em Administração pela FGV/EBAPE, mestre em Administração pela UFF e pesquisador nas relações entre gestão, organizações e trabalho.",
+    "lattes": "https://lattes.cnpq.br/6541281208044155",
+    "degree": "Doutorado em Administração, FGV/EBAPE",
+    "degree_title": "",
+    "degree_link": "",
+    "projects": [],
+    "pubs": [],
+    "group": "Núcleo de Tecnologia e Trabalho (IFF) e Programa de Estudos em Reforma do Estado e Governança (UFF), conforme perfil acadêmico",
+    "image": "",
+    "colegiado": false,
+    "nde": true,
+    "initials": "VM",
+    "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
+  }
+];
