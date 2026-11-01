@@ -36,7 +36,7 @@ window.GASTROIFF_FACULTY=[
     "full": "Brunno Machado Barbosa",
     "area": "Gastronomia e prática culinária",
     "bio": "Gastrônomo pela Universidade Vila Velha, com experiência profissional e docente em cozinha e gastronomia.",
-    "lattes": "",
+    "lattes": "http://lattes.cnpq.br/4600403838708506",
     "degree": "Formação em Gastronomia, Universidade Vila Velha",
     "degree_title": "Trabalho de especialização sobre ervas aromáticas (Faculdade Iguaçu, 2023), conforme perfil profissional",
     "degree_link": "",
