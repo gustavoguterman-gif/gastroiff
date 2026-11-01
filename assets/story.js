@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>{if(location.hash==='#historia'){const details=document.getElementById('historia-detalhes');if(details){details.open=true;requestAnimationFrame(()=>document.getElementById('historia')?.scrollIntoView({block:'start'}));}}});

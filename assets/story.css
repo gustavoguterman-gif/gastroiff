@@ -1,0 +1,30 @@
+
+/* História da Gastronomia e caminhos de ingresso */
+.hero .hero-grid>div:first-child{min-width:0}
+.hero .hero-grid p{font-size:clamp(13px,1.12vw,15px);line-height:1.64;max-width:610px;color:#53685b}
+.hero-actions-academic{gap:12px 20px;margin-top:17px}
+.hero-support-links{display:flex;gap:9px 24px;flex-wrap:wrap;margin-top:15px}
+.hero-support-links a{font-size:12px;line-height:1.5;font-weight:600;color:#467656;text-decoration:underline;text-decoration-color:#acc9b2;text-underline-offset:5px}
+.hero-support-links a:hover{color:#145b38}
+.history-section{border-top:1px solid #dce5db;background:#f5f6f1}
+.history-heading{max-width:830px}
+.history-heading h2{margin:13px 0 12px}
+.history-heading>p{font-size:15px;line-height:1.75;color:#607164;max-width:740px;margin-bottom:22px}
+.history-details{border-top:1px solid #cbd8cc;border-bottom:1px solid #cbd8cc;margin:0 0 25px}
+.history-details>summary{list-style:none;cursor:pointer;min-height:62px;padding:16px 3px;display:flex;justify-content:space-between;align-items:center;gap:18px;font-size:14px;font-weight:700;color:#185538}
+.history-details>summary::-webkit-details-marker{display:none}
+.history-expand{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;border:1px solid #9fbea9;font-size:22px;font-weight:400;line-height:1;transition:transform .2s}
+.history-details[open] .history-expand{transform:rotate(45deg)}
+.history-prose{max-width:830px;padding:12px 0 28px}
+.history-prose p{font-size:15px;line-height:1.84;color:#48594f;margin:0 0 19px}
+.history-prose .history-closing{color:#193e2c;font-weight:650;margin:24px 0 0}
+.history-pathways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.history-pathway{border:1px solid #d9e3d9;border-radius:12px;padding:20px;background:#f8f9f5;display:flex;flex-direction:column;gap:12px;min-height:157px}
+.history-pathway strong{font-size:15px;line-height:1.35;letter-spacing:-.02em;font-weight:650;max-width:270px}
+.history-pathway .editorial-action{margin-top:auto;align-self:start}
+.admissions-note{margin-top:14px;font-size:12px;color:#728072;line-height:1.6}
+#historia{scroll-margin-top:130px}
+#cursos-ofertados{scroll-margin-top:130px}
+@media(max-width:800px){.history-pathways{grid-template-columns:1fr 1fr}.history-pathway:last-child{grid-column:1/-1}}
+@media(max-width:600px){.hero .hero-grid p{font-size:13.5px;line-height:1.65}.hero-support-links{gap:10px 18px}.history-pathways{grid-template-columns:1fr}.history-pathway:last-child{grid-column:auto}.history-pathway{min-height:0;padding:16px}.history-prose p{font-size:14px;line-height:1.78}.history-heading>p{font-size:14px}.history-details>summary{min-height:56px}}
+@media(prefers-reduced-motion:reduce){.history-expand{transition:none}}
