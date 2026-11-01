@@ -583,3 +583,49 @@ main :is(.course-card,.course,.quick-card,.quick-access-card,.access-card,.small
  }
 }
 main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.link,button.link,.hero-support-links a,.calendar-category-download,.research-return-button,.research-result>a,.research-topic-card button,.feature a.link,.smallcard a.link,.docrow a.button,.event-entry a.link):focus-visible{outline:3px solid #2d7950!important;outline-offset:3px!important}
+
+
+/* Alinhamento consistente das ações na página inicial e nos cartões, 01/11/2026 */
+.lab-intro-actions{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:stretch;
+  justify-content:flex-start;
+  gap:12px;
+  margin-top:22px;
+  min-width:0;
+}
+.lab-intro-actions > .editorial-action{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:12px!important;
+  margin:0!important;
+  max-width:100%;
+  min-height:52px;
+  text-align:center;
+  box-sizing:border-box;
+}
+.lab-intro-actions > .editorial-action span{flex:0 0 auto}
+@media(max-width:700px){
+  .lab-intro-actions{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    gap:12px;
+    width:100%;
+  }
+  .lab-intro-actions > .editorial-action{
+    width:100%;
+    min-width:0;
+    justify-content:space-between!important;
+    white-space:normal!important;
+    overflow-wrap:break-word!important;
+    text-align:left;
+    line-height:1.35!important;
+  }
+  main :is(.hero-actions,.coordination-buttons){align-items:stretch}
+  main :is(.hero-actions,.coordination-buttons) > .button{margin:0!important}
+}
+@media(max-width:380px){
+  .lab-intro-actions > .editorial-action{font-size:13px!important;padding:12px!important}
+}
