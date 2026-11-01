@@ -7,6 +7,15 @@ X-WR-CALNAME:GASTROIFF - Eventos de Gastronomia
 X-WR-TIMEZONE:America/Sao_Paulo
 X-WR-CALDESC:Agenda editorial da Gastronomia do IFF Campus Cabo Frio. Confirme sempre informacoes com os organizadores.
 BEGIN:VEVENT
+UID:audiencia-regulamentacao-gastronomo-ceara-2026@gastroiff.github.io
+DTSTAMP:20261101T180000Z
+DTSTART;TZID=America/Fortaleza:20261109T133000
+SUMMARY:Audiência pública sobre regulamentação da profissão de gastrônomo
+DESCRIPTION:Audiência pública sobre a regulamentação da profissão de gastrônomo. Início às 13h30. Divulgação com apoio do mandato do deputado estadual Renato Roseno.\nhttps://www.instagram.com/gastronomia_ufc/
+LOCATION:Assembleia Legislativa do Estado do Ceará\, Fortaleza - CE
+URL:https://www.instagram.com/gastronomia_ufc/
+END:VEVENT
+BEGIN:VEVENT
 UID:entrenos@gastroiff.github.io
 DTSTAMP:20261101T013000Z
 DTSTART;VALUE=DATE:20261107
