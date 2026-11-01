@@ -21,7 +21,7 @@ window.GASTROIFF_EVENTS = [
     "start": "2026-11-07",
     "end": "2026-11-10",
     "site": "https://lp.entrenosgastronomia.com/",
-    "description": "Congresso que aproxima profissionais, chefs, pesquisadores e produtores para discutir a cozinha contemporânea, suas técnicas, gestão e perspectivas de trabalho."
+    "description": "Congresso presencial de 7 a 10 de novembro em Itajaí, com palestras, aulas-show, feira e festival gastronômico, Copa Entre Nós e mostra científica. Há atividades gratuitas e outras com ingresso específico. Programação, preços e inscrição no site do evento. Transmissão online não confirmada."
   },
   {
     "id": "mesa",
@@ -43,7 +43,7 @@ window.GASTROIFF_EVENTS = [
     "start": "2026-11-22",
     "end": "2026-11-25",
     "site": "https://portal.univali.br/eventos/10203",
-    "description": "Encontro científico da Univali entre pesquisa, gastronomia, turismo e hotelaria. A XIV edição tem o enoturismo como tema central."
+    "description": "Fórum científico presencial da Univali em Balneário Camboriú, de 22 a 25 de novembro, com tema Enoturismo. Reúne palestras, mesas-redondas, minicursos e sessões de apresentação de trabalhos científicos. Participação gratuita, com inscrição informada no site oficial até 25/11/2026. Confira no site as orientações específicas para submissão de trabalhos; transmissão online não informada."
   },
   {
     "id": "cgs",
