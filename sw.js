@@ -1,10 +1,10 @@
-const CACHE='gastroiff-offline-v16';
+const CACHE='gastroiff-offline-v17';
 const SHELL=[
  './','./index.html','./contato.html','./cursos.html','./laboratorios.html','./biblioteca.html',
  './docentes.html','./perfil.html','./eventos.html','./acervo.html','./documentos.html','./livro.html',
  './assets/site.css','./assets/refinements.css','./assets/institutional.css','./assets/site.js','./assets/refinements.js','./assets/institutional.js','./assets/transparent-marks.js','./assets/install.js','./assets/events.js','./assets/faculty.js','./assets/acervo.js','./assets/livro.js','./assets/acervo-data.js',
  './assets/instagram.js','./assets/instagram-feed.json','./assets/planta-baixa-laboratorio.webp','./assets/iff.png','./assets/gastroiff-marca.jpg','./assets/iff-marca-oficial.jpg','./assets/campus.png','./assets/sede-cabecalho.png','./assets/laboratorio-desenho.jpg','./agenda-gastroiff.ics',
- './assets/app-icon-180.png','./assets/app-icon-192.png','./assets/app-icon-512.png'
+ './assets/app-icon-round-v2-180.png','./assets/app-icon-round-v2-192.png','./assets/app-icon-round-v2-512.png'
 ];
 self.addEventListener('install',event=>{
  event.waitUntil(caches.open(CACHE).then(cache=>Promise.allSettled(SHELL.map(url=>cache.add(url)))).then(()=>self.skipWaiting()));
