@@ -1,7 +1,7 @@
 {
-  "name": "GASTROIFF | Gastronomia do IFF Cabo Frio",
+  "name": "GASTROIFF | Gastronomia do IFF Cabo Frio - RJ",
   "short_name": "GASTROIFF",
-  "description": "Plataforma experimental dos cursos de Gastronomia do Instituto Federal Fluminense, Campus Cabo Frio.",
+  "description": "Plataforma experimental dos cursos de Gastronomia do Instituto Federal Fluminense, Campus Cabo Frio - RJ.",
   "lang": "pt-BR",
   "id": "./",
   "start_url": "./index.html",
