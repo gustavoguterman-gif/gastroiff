@@ -1,0 +1,22 @@
+
+/* Identidade e governança: revisão novembro de 2026 */
+.header-refined,.header-refined .headerline,.header-refined .institution,.header-refined .gastrobrand{background:#f8f7f3!important}
+.header-refined .logo-gastro-new,.header-refined .logo-iff-new,.footer .logo-footer-official{mix-blend-mode:multiply!important;background:transparent!important;box-shadow:none!important}
+.header-refined .gastrobrand{max-width:285px!important}
+.header-refined .logo-gastro-new{width:100%!important;max-height:84px!important;object-fit:contain!important;object-position:left center!important}
+.header-refined .logo-iff-new{width:100%!important;max-height:83px!important;object-fit:contain!important;object-position:right center!important}
+.header-refined .headerline{grid-template-columns:minmax(210px,290px) minmax(0,1fr) minmax(165px,205px)!important}
+.footer .footer-logo-wrapper{display:block;width:220px;max-width:100%}
+.footer .logo-footer-official{width:100%;height:auto;display:block}
+.facultycard-head .faculty-roles{margin-left:auto;display:flex;flex-wrap:wrap;gap:5px;justify-content:flex-end;max-width:190px}
+.facultycard-head .faculty-roles .pill{font-size:10px!important;padding:5px 8px!important;display:inline-flex!important;min-width:0}
+.facultycard-head .faculty-roles .pill.coleg{color:#186139!important;background:#e6f0e6!important}
+.facultycard-head .faculty-roles .pill.nde{color:#25506b!important;background:#e9eff3!important}
+.governance-panel .governance-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.governance-panel p{line-height:1.72!important;max-width:1000px!important}
+.lab-opening-grid figure,.lab-opening-grid figure>a,.lab-plan-in-hero{padding:0!important;margin:0!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;min-width:0!important}
+.lab-opening-grid figure img{width:100%!important;height:auto!important;max-height:none!important;display:block!important;object-fit:contain!important;filter:contrast(1.13)!important;mix-blend-mode:multiply!important}
+.lab-opening-grid{grid-template-columns:minmax(0,.65fr) minmax(0,1.35fr)!important;gap:24px!important}
+.lab-opening-grid figure figcaption{margin-top:8px!important}
+@media(max-width:1230px){.header-refined .headerline{grid-template-columns:minmax(0,1fr) minmax(155px,205px)!important;position:relative!important;padding-left:60px!important}.header-refined .menu-toggle{position:absolute!important;left:12px!important;top:50%!important;transform:translateY(-50%)!important;padding:8px!important}.header-refined .gastrobrand{grid-column:1!important}.header-refined .institution{grid-column:2!important}.header-refined .navbar{display:none!important}}
+@media(max-width:680px){.header-refined .headerline{padding-left:48px!important;grid-template-columns:minmax(0,1fr) minmax(115px,140px)!important;gap:6px!important}.header-refined .menu-toggle{left:4px!important}.header-refined .menu-toggle span:last-child{display:none!important}.header-refined .logo-gastro-new{max-height:65px!important}.header-refined .logo-iff-new{max-height:65px!important}.governance-panel .governance-grid{grid-template-columns:1fr!important}.lab-opening-grid{display:block!important}.lab-opening-grid figure{margin-top:16px!important}.facultycard-head .faculty-roles{max-width:130px}}
