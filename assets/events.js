@@ -283,14 +283,22 @@ window.GASTROIFF_OFFICIAL_CALENDAR = "https://portal1.iff.edu.br/nossos-campi/ca
   const title=host.querySelector('[data-calendar-title]'),days=host.querySelector('[data-cal-days]'),details=host.querySelector('[data-cal-details]');
   if(!title||!days||!details)return;
   let year=originalYear,month=originalMonth,selected=null;
+  const addGoogleEvent=e=>{
+   const start=e.start.replace(/-/g,'');
+   const inclusive=e.end||e.start;
+   const last=new Date(inclusive+'T12:00:00');last.setDate(last.getDate()+1);
+   const end=[last.getFullYear(),String(last.getMonth()+1).padStart(2,'0'),String(last.getDate()).padStart(2,'0')].join('');
+   const description=[e.description||'',e.place?'Local: '+e.place:'',e.time?'Horário divulgado: '+e.time:'',e.site?'Informações e inscrições: '+e.site:'',e.kind==='IFF'?'Fonte: '+window.GASTROIFF_OFFICIAL_CALENDAR:'Modalidade, transmissão e submissões: consultar a página oficial.'].filter(Boolean).join('\\n\\n');
+   return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(e.name)+'&dates='+start+'/'+end+'&details='+encodeURIComponent(description)+'&location='+encodeURIComponent(e.place||'');
+  };
   function eventAnchor(e,anchorText,when){
    const row=document.createElement('a');
    row.href=e.site || window.GASTROIFF_OFFICIAL_CALENDAR;
-   row.target='_blank';row.rel='noopener noreferrer';
+   row.target='_blank';row.rel='noopener noreferrer';row.addEventListener('click',ev=>{const link=ev.target.closest('.calendar-event-add');if(link){ev.preventDefault();window.open(link.dataset.url,'_blank','noopener,noreferrer')}});
    const time=document.createElement('time');time.textContent=when||dateOnly(e.start).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
    const body=document.createElement('span'),strong=document.createElement('strong');strong.textContent=anchorText||e.name;
    const sub=document.createElement('small');sub.textContent=e.kind==='IFF'?'Calendário acadêmico · IFF':'Evento de Gastronomia · '+(e.place||'');
-   body.append(strong,sub);if(e.time){const schedule=document.createElement('small');schedule.textContent='Início: '+e.time;body.append(schedule);}row.append(time,body);return row;
+   body.append(strong,sub);const link=document.createElement('span');link.className='calendar-event-add';link.textContent='Adicionar este evento ao Google Agenda ↗';link.dataset.url=addGoogleEvent(e);if(e.time){const schedule=document.createElement('small');schedule.textContent='Início: '+e.time;body.append(schedule);}body.append(link);row.append(time,body);return row;
   }
   function draw(){
    title.textContent=monthLabel(year,month);days.replaceChildren();details.replaceChildren();
