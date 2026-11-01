@@ -629,3 +629,16 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
 @media(max-width:380px){
   .lab-intro-actions > .editorial-action{font-size:13px!important;padding:12px!important}
 }
+
+
+/* Alinhamento editorial à esquerda dos botões dentro do conteúdo desktop */
+@media(min-width:781px){
+ main .agenda-official{display:flex!important;align-items:flex-start!important;justify-content:flex-start!important;flex-wrap:wrap!important;gap:14px 22px!important}
+ main .agenda-official p{flex:1 1 100%!important;max-width:75ch!important;margin:0!important}
+ main .agenda-official a{margin:0!important;align-self:flex-start!important;justify-self:start!important}
+ main :is(.campus-link,.faculty-teaser,.lab-intro-box) a.button{justify-self:start!important;align-self:start!important;margin-left:0!important}
+ main :is(.smallcard,.feature,.research-result,.event-entry,.course,.calendar-category-card) a:is(.link,.button,.editorial-action){align-self:flex-start!important;justify-self:start!important;margin-left:0!important}
+ main .brow{align-items:center!important}
+ main .brow>a{margin-left:0!important}
+ main .hero-actions,main .hero-support-links,main .coordination-buttons{justify-content:flex-start!important}
+}
