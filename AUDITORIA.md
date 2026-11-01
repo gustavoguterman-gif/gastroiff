@@ -48,3 +48,11 @@ Este documento distingue alterações feitas no código de verificações que ai
 - Texto institucional, eventos, identificação alternativa do rodapé e manifesto do aplicativo também revisados.
 - Mantidos títulos de obras e nomes próprios que contêm “Cabo Frio”, para não adulterar referências.
 - Validação em navegadores reais continua pendente; a inspeção externa do site não retornou acesso.
+
+## Rodada de revisão de navegação e fontes
+- Conferidos os links HTML locais nas nove páginas do núcleo: nenhum destino .html inexistente foi encontrado na varredura estática. A varredura não comprova resposta de servidores externos ou funcionamento JavaScript.
+- Nome de apresentação “Adriana Slongo” harmonizado no arquivo estruturado de docentes e na listagem; nome completo preservado. Os dados acadêmicos continuam exigindo conferência na fonte.
+- Texto da Biblioteca atualizado para distinguir sinopses editoriais e levantamento histórico de exemplares; descrição da página corrigida.
+- Nota da página de perfis docentes corrigida, sem atribuir todo o acervo de informações aos PPCs de 2022 e 2023.
+- Cache do aplicativo incrementado para v13.
+- Tentativa de abrir o domínio publicado por ferramenta externa falhou: testes visuais e funcionais reais permanecem pendentes.
