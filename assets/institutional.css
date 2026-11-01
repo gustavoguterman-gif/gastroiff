@@ -482,3 +482,35 @@
 .research-result .research-author-profile{color:#286942!important;text-decoration:underline!important;text-underline-offset:3px;font-weight:650!important}
 .research-result .research-author-profile:focus-visible{outline:2px solid #286942;outline-offset:3px}
 @media(min-width:1240px){.header-refined .headerline>.gastrobrand{max-width:510px!important;width:min(510px,calc(100% - 280px))!important}}
+
+
+/* Sistema único de botões de ação nas páginas, exceto cabeçalho e navegação */
+:root{--gastro-action:#173b2d;--gastro-action-hover:#265b42}
+main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.link,button.link,.hero-support-links a,.calendar-category-download,.research-return-button,.research-result>a,.research-topic-card button,.feature a.link,.smallcard a.link,.docrow a.button,.event-entry a.link){
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ gap:9px!important;min-height:42px!important;padding:10px 16px!important;
+ max-width:100%!important;width:fit-content!important;
+ border:1px solid #103825!important;border-radius:9px!important;
+ background:var(--gastro-action)!important;color:#fff!important;
+ font-size:13px!important;font-weight:700!important;line-height:1.35!important;
+ text-align:center!important;text-decoration:none!important;white-space:normal!important;
+ overflow-wrap:anywhere!important;box-shadow:0 3px 0 #0c2a1e,0 5px 10px #0c2a1e22!important;
+ transition:background .16s,box-shadow .16s,transform .16s!important;
+ cursor:pointer!important;
+}
+main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.link,button.link,.hero-support-links a,.calendar-category-download,.research-return-button,.research-result>a,.research-topic-card button,.feature a.link,.smallcard a.link,.docrow a.button,.event-entry a.link):is(:hover,:focus-visible){
+ background:var(--gastro-action-hover)!important;color:#fff!important;
+ border-color:#103825!important;box-shadow:0 4px 0 #0c2a1e,0 7px 12px #0c2a1e24!important;
+ transform:translateY(-1px)!important;
+}
+main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.link,button.link,.hero-support-links a,.calendar-category-download,.research-return-button,.research-result>a,.research-topic-card button,.feature a.link,.smallcard a.link,.docrow a.button,.event-entry a.link):active{
+ transform:translateY(2px)!important;box-shadow:0 1px 0 #0c2a1e!important;
+}
+main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.link,button.link,.hero-support-links a,.calendar-category-download,.research-return-button,.research-result>a,.research-topic-card button,.feature a.link,.smallcard a.link,.docrow a.button,.event-entry a.link) span{color:inherit!important}
+main .hero-support-links{display:flex!important;flex-wrap:wrap!important;gap:10px!important}
+main .hero-actions{display:flex!important;flex-wrap:wrap!important;gap:10px!important}
+main .calendar-category-card .calendar-category-download{margin-top:auto!important}
+@media(max-width:600px){
+ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.link,button.link,.hero-support-links a,.calendar-category-download,.research-return-button,.research-result>a,.research-topic-card button,.feature a.link,.smallcard a.link,.docrow a.button,.event-entry a.link){min-height:42px!important;padding:10px 13px!important;font-size:12px!important}
+}
+@media(prefers-reduced-motion:reduce){main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.link,button.link,.hero-support-links a,.calendar-category-download,.research-return-button,.research-result>a,.research-topic-card button,.feature a.link,.smallcard a.link,.docrow a.button,.event-entry a.link){transition:none!important;transform:none!important}}
