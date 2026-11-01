@@ -1,7 +1,7 @@
 window.GASTROIFF_FACULTY=[
   {
     "id": "adriana-slongo",
-    "name": "Adriana Slongo",
+    "name": "Adriana Marcussi",
     "full": "Adriana Paula Slongo Marcussi",
     "area": "Segurança e tecnologia dos alimentos",
     "bio": "Engenheira de alimentos, doutora em Engenharia de Alimentos pela UFSC. Atua na pesquisa de segurança, microbiologia e tecnologia de alimentos.",
@@ -62,7 +62,7 @@ window.GASTROIFF_FACULTY=[
   },
   {
     "id": "claudia-fiuza",
-    "name": "Cláudia Fiuza",
+    "name": "Cláudia Alves",
     "full": "Cláudia Maria Fiuza Alves",
     "area": "Matemática, educação e gastronomia",
     "bio": "Mestra pelo PROFMAT/IMPA, licenciada em Matemática e graduada em Gastronomia. Atua no ensino e em atividades acadêmicas da área.",
@@ -265,7 +265,7 @@ window.GASTROIFF_FACULTY=[
   },
   {
     "id": "tatiana-almeida",
-    "name": "Tatiana Almeida",
+    "name": "Tatiana Garrett",
     "full": "Tatiana Almeida Machado Garrett",
     "area": "Educação ambiental e sustentabilidade",
     "bio": "Doutora em Gestão Ambiental, com atuação em educação ambiental, sociedades sustentáveis e turismo sustentável.",

@@ -12,7 +12,7 @@ document.querySelectorAll('.facultycard').forEach(card=>{
 document.querySelectorAll('.governance-panel').forEach(box=>{
  const p=box.querySelector('p');if(p)p.innerHTML='<strong>Corpo docente</strong> reúne os professores que atuam nos cursos de Gastronomia. <strong>Colegiado</strong> é o órgão permanente que planeja, avalia e delibera sobre as ações didático-pedagógicas de ensino, pesquisa e extensão do curso, conforme o art. 40 da Regulamentação Didático-Pedagógica do IFF. <strong>NDE</strong>, Núcleo Docente Estruturante, acompanha a concepção, a atualização e o desenvolvimento do Projeto Pedagógico do Curso (PPC), conforme o art. 41 da mesma regulamentação.';
  const titles=box.querySelectorAll('.governance-grid h3');
- titles.forEach(t=>{if(t.textContent.includes('técnico-administrativas')){const v=t.parentElement.querySelector('p');if(v)v.textContent='Daiana Costa Pereira · Lygia Gottgtroy Fraga Zigolis Filha de Oliveira';}
+ titles.forEach(t=>{if(t.textContent.includes('técnico-administrativas')){const v=t.parentElement.querySelector('p');if(v)v.textContent='Daiana Pereira · Lygia Oliveira';}
  if(t.textContent.includes('discente')){const v=t.parentElement.querySelector('p');if(v)v.textContent='Representante discente 1 · Representante discente 2';}});
 });
 document.querySelectorAll('.footbrand').forEach(el=>{
