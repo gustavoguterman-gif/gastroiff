@@ -2,7 +2,7 @@
 (()=>{
  const supportsSW='serviceWorker' in navigator;
  if(supportsSW && window.isSecureContext){
-  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=24',{updateViaCache:'none'}).then(reg=>reg.update()).catch(()=>{}));
+  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=25',{updateViaCache:'none'}).then(reg=>reg.update()).catch(()=>{}));
  }
  let deferredInstall=null;
  const installed=()=>window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true;
