@@ -1,0 +1,135 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//GASTROIFF//Agenda Editorial//PT-BR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:GASTROIFF - Calendário Institucional
+X-WR-TIMEZONE:America/Sao_Paulo
+X-WR-CALDESC:Datas acadêmicas do IFF Campus Cabo Frio.
+BEGIN:VEVENT
+UID:iff-2026-11-02@gastroiff.github.io
+DTSTAMP:20261101T013000Z
+DTSTART;VALUE=DATE:20261102
+DTEND;VALUE=DATE:20261103
+SUMMARY:IFF · Finados
+DESCRIPTION:Feriado nacional | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iff-2026-11-07@gastroiff.github.io
+DTSTAMP:20261101T013000Z
+DTSTART;VALUE=DATE:20261107
+DTEND;VALUE=DATE:20261108
+SUMMARY:IFF · Sábado letivo
+DESCRIPTION:Referente à sexta-feira | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iff-2026-11-13@gastroiff.github.io
+DTSTAMP:20261101T013000Z
+DTSTART;VALUE=DATE:20261113
+DTEND;VALUE=DATE:20261114
+SUMMARY:IFF · Feriado municipal de Cabo Frio
+DESCRIPTION:Feriado previsto no calendário acadêmico | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iff-2026-11-15@gastroiff.github.io
+DTSTAMP:20261101T013000Z
+DTSTART;VALUE=DATE:20261115
+DTEND;VALUE=DATE:20261116
+SUMMARY:IFF · Proclamação da República
+DESCRIPTION:Feriado nacional | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iff-2026-11-20@gastroiff.github.io
+DTSTAMP:20261101T013000Z
+DTSTART;VALUE=DATE:20261120
+DTEND;VALUE=DATE:20261121
+SUMMARY:IFF · Consciência Negra
+DESCRIPTION:Feriado e data de integralização do segundo semestre | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iff-2026-11-30@gastroiff.github.io
+DTSTAMP:20261101T013000Z
+DTSTART;VALUE=DATE:20261130
+DTEND;VALUE=DATE:20261205
+SUMMARY:IFF · Período avaliativo
+DESCRIPTION:De 30 de novembro a 4 de dezembro | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iff-2026-12-14@gastroiff.github.io
+DTSTAMP:20261101T013000Z
+DTSTART;VALUE=DATE:20261214
+DTEND;VALUE=DATE:20261219
+SUMMARY:IFF · Recuperação semestral
+DESCRIPTION:De 14 a 18 de dezembro | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iff-2026-12-18@gastroiff.github.io
+DTSTAMP:20261101T013000Z
+DTSTART;VALUE=DATE:20261218
+DTEND;VALUE=DATE:20261219
+SUMMARY:IFF · Fim do segundo semestre
+DESCRIPTION:Término do período letivo de 2026 | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iff-2026-12-19@gastroiff.github.io
+DTSTAMP:20261101T013000Z
+DTSTART;VALUE=DATE:20261219
+DTEND;VALUE=DATE:20270101
+SUMMARY:IFF · Férias dos estudantes
+DESCRIPTION:A partir de 19 de dezembro de 2026 | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+END:VCALENDAR
