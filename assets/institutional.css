@@ -264,3 +264,26 @@
   .calendar-subscribe{padding:14px!important}
   .calendar-subscribe-options{font-size:13px!important}
 }
+
+
+/* Marca um pouco maior, sempre centrada entre extremidades equivalentes */
+.header-refined .headerline{
+  grid-template-columns:minmax(104px,1fr) minmax(0,460px) minmax(104px,1fr)!important;
+}
+.header-refined .headerline>.gastrobrand{
+  max-width:460px!important;width:100%!important;justify-self:center!important;
+}
+.header-refined .headerline>.gastrobrand img{max-height:87px!important;width:100%!important}
+@media(max-width:780px){
+ .header-refined .headerline{
+   grid-template-columns:100px minmax(0,1fr) 100px!important;
+   min-height:84px!important;gap:3px!important;
+ }
+ .header-refined .headerline>.gastrobrand{max-width:none!important}
+ .header-refined .headerline>.gastrobrand img{max-height:75px!important}
+ .header-refined .headerline>.menu-toggle{justify-self:start!important}
+}
+@media(max-width:400px){
+ .header-refined .headerline{grid-template-columns:96px minmax(0,1fr) 96px!important}
+ .header-refined .quick-item>summary{width:45px!important}
+}
