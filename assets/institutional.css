@@ -398,3 +398,53 @@
 }
 
 .footer.footer-unified{background:#ffffff!important}.footer-unified .footer-logo-wrapper .logo-footer-official,.footer-unified .gastroiff-footer-iff img{mix-blend-mode:normal!important;background:#fff!important}
+
+
+/* Rodapé definitivo: identificação acima e duas marcas na ÚLTIMA linha */
+.footer.footer-unified{background:#fff!important;padding:16px 0 20px!important;border-top:1px solid #e5e9e4!important}
+.footer.footer-unified .footerrow{
+ display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+ grid-template-rows:auto auto!important;gap:16px 20px!important;
+ align-items:center!important;justify-items:stretch!important;
+ width:min(calc(100% - 36px),1200px)!important;margin:0 auto!important;
+}
+.footer.footer-unified .footer-center{
+ grid-column:1 / -1!important;grid-row:1!important;display:flex!important;
+ flex-direction:column!important;align-items:center!important;
+ gap:5px!important;text-align:center!important;
+}
+.footer.footer-unified .footer-logo-wrapper{
+ grid-column:1!important;grid-row:2!important;display:flex!important;
+ width:100%!important;max-width:none!important;justify-content:center!important;
+ align-items:center!important;padding:0!important;margin:0!important;
+ background:#fff!important;min-width:0!important;
+}
+.footer.footer-unified .gastroiff-footer-iff{
+ grid-column:2!important;grid-row:2!important;display:flex!important;
+ width:100%!important;max-width:none!important;justify-self:stretch!important;
+ justify-content:center!important;align-items:center!important;
+ padding:0!important;margin:0!important;background:#fff!important;
+ min-width:0!important;border:0!important;
+}
+.footer.footer-unified .footer-logo-wrapper img,
+.footer.footer-unified .gastroiff-footer-iff img{
+ width:100%!important;height:76px!important;max-height:76px!important;
+ max-width:320px!important;object-fit:contain!important;
+ object-position:center!important;background:#fff!important;
+ mix-blend-mode:normal!important;
+}
+@media(max-width:760px){
+ .footer.footer-unified .footerrow{
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  grid-template-rows:auto auto!important;gap:15px 10px!important;
+  width:calc(100% - 24px)!important;
+ }
+ .footer.footer-unified .footer-center{grid-column:1/-1!important;grid-row:1!important}
+ .footer.footer-unified .footer-logo-wrapper{grid-column:1!important;grid-row:2!important}
+ .footer.footer-unified .gastroiff-footer-iff{grid-column:2!important;grid-row:2!important}
+ .footer.footer-unified .footer-logo-wrapper img,
+ .footer.footer-unified .gastroiff-footer-iff img{
+  height:65px!important;max-height:65px!important;max-width:100%!important;
+  object-position:center!important;
+ }
+}
