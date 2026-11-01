@@ -352,3 +352,19 @@
 .calendar-category-download:hover{background:#17462c}
 @media(max-width:850px){.calendar-unified-layout{grid-template-columns:1fr;gap:16px}.calendar-unified-layout .calendar-month-footer{padding:18px 0 0!important;border-left:0;border-top:1px solid #e0e7dd!important}.calendar-unified-layout .calendar-agenda{max-height:none}}
 @media(max-width:570px){.calendar-category-grid{grid-template-columns:1fr;gap:12px}.calendar-category-card{padding:18px}.calendar-page-heading{margin-bottom:14px}}
+
+
+/* Menu centralizado no intervalo entre a borda esquerda e a marca */
+.header-refined .headerline>.menu-toggle{
+ left:calc((100% - min(490px, 100% - 260px))/4 - 24px)!important;
+ right:auto!important;top:50%!important;transform:translateY(-50%)!important;
+}
+@media(max-width:780px){
+ .header-refined .headerline>.menu-toggle{
+  left:calc(46px - 21px)!important;
+  right:auto!important;top:50%!important;transform:translateY(-50%)!important;
+ }
+}
+@media(max-width:380px){
+ .header-refined .headerline>.menu-toggle{left:calc(43.5px - 21px)!important}
+}
