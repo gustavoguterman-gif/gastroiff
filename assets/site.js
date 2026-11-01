@@ -38,3 +38,6 @@ if(gallery){const slides=[...gallery.querySelectorAll('.gallery-slide')],positio
  let timer=setInterval(()=>set(idx+1),5300);const pause=()=>{clearInterval(timer)};const resume=()=>{clearInterval(timer);if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)timer=setInterval(()=>set(idx+1),5300)};gallery.addEventListener('pointerenter',pause);gallery.addEventListener('pointerleave',resume);gallery.addEventListener('focusin',pause);gallery.addEventListener('focusout',resume);
  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)pause();
 }
+
+// Planta: visualização ampliada, com zoom e rolagem no celular.
+(()=>{const open=document.querySelector('[data-open-plan]'),dialog=document.querySelector('[data-plan-dialog]');if(!open||!dialog)return;const img=dialog.querySelector('img');let zoom=1;const set=()=>{img.style.width=(Math.round(zoom*100))+'%';};open.addEventListener('click',()=>{zoom=1;set();dialog.showModal()});dialog.querySelector('[data-plan-close]').addEventListener('click',()=>dialog.close());dialog.querySelector('[data-plan-zoom-in]').addEventListener('click',()=>{zoom=Math.min(2.5,zoom+.25);set()});dialog.querySelector('[data-plan-zoom-out]').addEventListener('click',()=>{zoom=Math.max(1,zoom-.25);set()});dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});})();
