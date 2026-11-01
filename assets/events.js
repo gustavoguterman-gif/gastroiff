@@ -1,6 +1,18 @@
 /* GASTROIFF - catálogo editorial verificado em 31/10/2026. */
 window.GASTROIFF_EVENTS = [
   {
+    "id": "audiencia-regulamentacao-gastronomo-ceara-2026",
+    "name": "Audiência pública sobre regulamentação da profissão de gastrônomo",
+    "kind": "Acadêmico",
+    "edition": "2026",
+    "place": "Assembleia Legislativa do Estado do Ceará · Fortaleza, CE",
+    "start": "2026-11-09",
+    "end": "2026-11-09",
+    "time": "13h30",
+    "site": "https://www.instagram.com/gastronomia_ufc/",
+    "description": "Audiência pública sobre a regulamentação da profissão de gastrônomo, com participação de estudantes e profissionais da Gastronomia. Início às 13h30. Divulgação com apoio do mandato do deputado estadual Renato Roseno."
+  },
+  {
     "id": "entrenos",
     "name": "Congresso Brasileiro de Gastronomia Entre Nós",
     "kind": "Profissional",
@@ -278,7 +290,7 @@ window.GASTROIFF_OFFICIAL_CALENDAR = "https://portal1.iff.edu.br/nossos-campi/ca
    const time=document.createElement('time');time.textContent=when||dateOnly(e.start).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
    const body=document.createElement('span'),strong=document.createElement('strong');strong.textContent=anchorText||e.name;
    const sub=document.createElement('small');sub.textContent=e.kind==='IFF'?'Calendário acadêmico · IFF':'Evento de Gastronomia · '+(e.place||'');
-   body.append(strong,sub);row.append(time,body);return row;
+   body.append(strong,sub);if(e.time){const schedule=document.createElement('small');schedule.textContent='Início: '+e.time;body.append(schedule);}row.append(time,body);return row;
   }
   function draw(){
    title.textContent=monthLabel(year,month);days.replaceChildren();details.replaceChildren();
@@ -307,7 +319,7 @@ window.GASTROIFF_OFFICIAL_CALENDAR = "https://portal1.iff.edu.br/nossos-campi/ca
  document.querySelectorAll('[data-next-events]').forEach(host=>{
   const next=window.GASTROIFF_EVENTS.filter(e=>e.start && (e.end||e.start)>=dayISO(originalYear,originalMonth,current.getDate())).sort((a,b)=>a.start.localeCompare(b.start)).slice(0,3);
   if(!next.length){let p=document.createElement('p');p.className='upcoming-empty';p.textContent='Não há próximos encontros confirmados neste recorte do calendário. Veja o catálogo completo.';host.append(p);}
-  next.forEach(e=>{let a=document.createElement('a');a.href=e.site;a.rel='noopener noreferrer';a.target='_blank';const name=document.createElement('strong');name.textContent=e.name;const caption=document.createElement('small');caption.textContent=dateDisplay(e.start)+' · '+e.place;a.append(name,caption);host.append(a);});
+  next.forEach(e=>{let a=document.createElement('a');a.href=e.site;a.rel='noopener noreferrer';a.target='_blank';const name=document.createElement('strong');name.textContent=e.name;const caption=document.createElement('small');caption.textContent=dateDisplay(e.start)+(e.time?' · '+e.time:'')+' · '+e.place;a.append(name,caption);host.append(a);});
  });
  const select=document.querySelector('[data-events-filter]');if(select){const cards=[...document.querySelectorAll('[data-event-card]')],counter=document.querySelector('[data-event-count]');const apply=()=>{let n=0;cards.forEach(c=>{const show=select.value==='all'||c.dataset.kind===select.value||(select.value==='IFF'&&c.dataset.kind==='IFF e IFs');c.hidden=!show;if(show)n++});if(counter)counter.textContent=n+' eventos';};select.addEventListener('change',apply);apply();}
 })();
