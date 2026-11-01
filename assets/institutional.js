@@ -23,3 +23,24 @@ document.querySelectorAll('.lab-opening-grid figure').forEach(f=>{f.style.backgr
 };
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',go):go();
 })();
+
+
+/* Botão de cópia para a assinatura opcional da agenda */
+document.addEventListener('click',async function(event){
+ const button=event.target.closest('[data-copy-agenda]');
+ if(!button)return;
+ const url=button.getAttribute('data-copy-agenda');
+ try{
+  await navigator.clipboard.writeText(url);
+  const old=button.textContent;
+  button.textContent='Endereço copiado';
+  window.setTimeout(()=>{button.textContent=old},2200);
+ }catch(error){
+  const field=document.createElement('textarea');
+  field.value=url;field.setAttribute('readonly','');field.style.position='fixed';field.style.opacity='0';
+  document.body.appendChild(field);field.select();
+  const copied=document.execCommand('copy');field.remove();
+  button.textContent=copied?'Endereço copiado':'Selecione e copie o endereço';
+  if(!copied){window.prompt('Copie o endereço da agenda:',url);}
+ }
+});
