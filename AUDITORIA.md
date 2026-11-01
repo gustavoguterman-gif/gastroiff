@@ -56,3 +56,10 @@ Este documento distingue alterações feitas no código de verificações que ai
 - Nota da página de perfis docentes corrigida, sem atribuir todo o acervo de informações aos PPCs de 2022 e 2023.
 - Cache do aplicativo incrementado para v13.
 - Tentativa de abrir o domínio publicado por ferramenta externa falhou: testes visuais e funcionais reais permanecem pendentes.
+
+## Revisão da nomenclatura da comunidade acadêmica
+- Navegação principal e móvel alterada de “Docentes” para “Comunidade” nas nove páginas verificadas.
+- Página de destino intitulada “Comunidade acadêmica”, com subdivisões para corpo docente, Colegiado, representação técnico-administrativa, discente e NDE.
+- Substituídos nomes provisórios de representação discente por “Representação discente em confirmação”.
+- Preservado o endereço docentes.html para compatibilidade com links existentes.
+- Validação estática das nove páginas concluída. Testes reais de dispositivo e fontes acadêmicas permanecem pendentes.
