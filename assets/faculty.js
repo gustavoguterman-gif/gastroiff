@@ -1,7 +1,7 @@
 window.GASTROIFF_FACULTY=[
   {
     "id": "adriana-slongo",
-    "name": "Adriana Marcussi",
+    "name": "Adriana Slongo",
     "full": "Adriana Paula Slongo Marcussi",
     "area": "Segurança e tecnologia dos alimentos",
     "bio": "Engenheira de alimentos, doutora em Engenharia de Alimentos pela UFSC. Atua na pesquisa de segurança, microbiologia e tecnologia de alimentos.",
