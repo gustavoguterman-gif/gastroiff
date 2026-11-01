@@ -28,3 +28,17 @@
 @media(max-width:800px){.history-pathways{grid-template-columns:1fr 1fr}.history-pathway:last-child{grid-column:1/-1}}
 @media(max-width:600px){.hero .hero-grid p{font-size:13.5px;line-height:1.65}.hero-support-links{gap:10px 18px}.history-pathways{grid-template-columns:1fr}.history-pathway:last-child{grid-column:auto}.history-pathway{min-height:0;padding:16px}.history-prose p{font-size:14px;line-height:1.78}.history-heading>p{font-size:14px}.history-details>summary{min-height:56px}}
 @media(prefers-reduced-motion:reduce){.history-expand{transition:none}}
+
+/* Planta interativa em tela cheia */
+.lab-plan-open{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in}
+.lab-plan-open img{display:block;width:100%;height:auto}
+.lab-plan-open:focus-visible{outline:3px solid #29774d;outline-offset:4px}
+.lab-plan-dialog{position:fixed!important;inset:0!important;width:100vw!important;max-width:none!important;height:100dvh!important;max-height:none!important;margin:0!important;border-radius:0!important;display:none;flex-direction:column;overflow:hidden!important}
+.lab-plan-dialog[open]{display:flex!important}
+.lab-plan-toolbar{flex:0 0 auto;flex-wrap:wrap;gap:8px;padding:10px 14px!important}
+.lab-plan-toolbar div{flex-wrap:wrap}
+.lab-plan-scroll{flex:1 1 auto;min-height:0;max-height:none!important;overflow:auto!important;display:block;padding:18px!important}
+.lab-plan-scroll img{width:100%;max-width:none;height:auto;object-fit:contain}
+.lab-plan-dialog::backdrop{background:rgba(13,25,18,.85)}
+@media(max-width:650px){.lab-plan-toolbar{font-size:12px}.lab-plan-scroll img{min-width:650px}.lab-plan-dialog .lab-plan-toolbar button{min-height:38px}}
+.lab-spaces article{break-inside:avoid}
