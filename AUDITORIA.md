@@ -29,3 +29,8 @@ Atualização: 1 de novembro de 2026.
 7. Só então registrar a revisão final como concluída.
 
 Este documento distingue alterações feitas no código de verificações que ainda não foram executadas.
+## Revisão adicional em 01/11/2026
+- Busca de livros agora inclui texto da sinopse; a contagem de exemplares aparece explicitamente como levantamento de 2025, sem insinuar disponibilidade para empréstimo.
+- A apresentação bibliográfica continua parcialmente incompleta: 19 registros sem autor, uma capa ausente e sinopses genéricas. Não preencher campos por aproximação.
+- Conferência da versão pública por ferramenta de navegação não foi concluída: a tentativa de leitura externa falhou. Permanece obrigatório testar em navegador real.
+- Divergência nominal a validar antes da atualização: a página de docentes exibe “Adriana Slongo” e o conjunto estruturado de perfis usa “Adriana Marcussi” com nome completo “Adriana Paula Slongo Marcussi”. Não alterar a identificação sem confirmar o nome de apresentação preferido.
