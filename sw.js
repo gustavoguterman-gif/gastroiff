@@ -1,9 +1,9 @@
-const CACHE='gastroiff-offline-v3';
+const CACHE='gastroiff-offline-v6';
 const SHELL=[
  './','./index.html','./cursos.html','./laboratorios.html','./biblioteca.html',
- './docentes.html','./perfil.html','./eventos.html','./acervo.html','./livro.html',
+ './docentes.html','./perfil.html','./eventos.html','./acervo.html','./documentos.html','./livro.html',
  './assets/site.css','./assets/site.js','./assets/events.js','./assets/faculty.js','./assets/acervo.js','./assets/acervo-data.js',
- './assets/iff.png','./assets/campus.png','./assets/sede-cabecalho.png','./assets/laboratorio-desenho.jpg','./agenda-gastroiff.ics',
+ './assets/instagram.js','./assets/instagram-feed.json','./assets/planta-baixa-laboratorio.webp','./assets/iff.png','./assets/campus.png','./assets/sede-cabecalho.png','./assets/laboratorio-desenho.jpg','./agenda-gastroiff.ics',
  './assets/app-icon-180.png','./assets/app-icon-192.png','./assets/app-icon-512.png'
 ];
 self.addEventListener('install',event=>{
