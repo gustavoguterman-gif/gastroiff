@@ -1,4 +1,4 @@
-const CACHE='gastroiff-offline-v13';
+const CACHE='gastroiff-offline-v14';
 const SHELL=[
  './','./index.html','./cursos.html','./laboratorios.html','./biblioteca.html',
  './docentes.html','./perfil.html','./eventos.html','./acervo.html','./documentos.html','./livro.html',
