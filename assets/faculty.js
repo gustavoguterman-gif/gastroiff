@@ -219,7 +219,7 @@ window.GASTROIFF_FACULTY=[
     "name": "Marco Monteiro",
     "full": "Marco Antônio Monteiro",
     "area": "Perfil acadêmico em conferência",
-    "bio": "Docente indicado para a composição atual da Gastronomia do Campus Cabo Frio. Dados de formação e pesquisa aguardam confirmação em fonte acadêmica individual.",
+    "bio": "Docente indicado para a composição atual da Gastronomia do Campus Cabo Frio - RJ. Dados de formação e pesquisa aguardam confirmação em fonte acadêmica individual.",
     "lattes": "",
     "degree": "",
     "degree_title": "",
