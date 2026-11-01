@@ -301,4 +301,45 @@ window.GASTROIFF_FACULTY=[
     "initials": "VM",
     "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
   }
+,
+{
+  "id": "daiana-costa-pereira",
+  "name": "Daiana Costa Pereira",
+  "full": "Daiana Costa Pereira",
+  "area": "Gestão de pessoas, educação e gastronomia",
+  "bio": "Assistente de alunos e integrante da representação técnico-administrativa. Atua na gestão de pessoas do IFF. Formação em Normal Superior e Gastronomia, com pós-graduação em Planejamento Educacional e Docência do Ensino Superior; registro institucional menciona mestrado ProfEPT em andamento.",
+  "lattes": "",
+  "degree": "Graduação em Normal Superior e Gastronomia; pós-graduação em Planejamento Educacional e Docência do Ensino Superior",
+  "degree_title": "",
+  "degree_link": "",
+  "projects": [],
+  "pubs": [],
+  "group": "Coordenação de Gestão de Pessoas do IFF Campus Cabo Frio - RJ",
+  "image": "",
+  "colegiado": true,
+  "nde": false,
+  "initials": "DC",
+  "category": "Técnico-administrativa",
+  "source": "IFF, Banco de Fontes: https://portal1.iff.edu.br/comunidade/sala-de-imprensa-virtual/banco-de-fontes"
+},
+{
+  "id": "lygia-oliveira",
+  "name": "Lygia Oliveira",
+  "full": "Lygia Gottgtroy Fraga Zigolis Filha de Oliveira",
+  "area": "Pedagogia, avaliação institucional e formação de professores",
+  "bio": "Pedagoga do IFF, mestre em Ensino da Saúde e do Ambiente, especialista em Supervisão Escolar e Orientação Educacional. Atua em avaliação institucional, projetos pedagógicos, currículo e formação de professores.",
+  "lattes": "https://lattes.cnpq.br/7266848136316618",
+  "degree": "Mestrado profissional em Ensino de Ciência da Saúde e do Ambiente; especializações em Supervisão Escolar e Orientação Educacional; graduação em Pedagogia",
+  "degree_title": "A Educação Ambiental na Formação do Futuro Professor do 1º Segmento do Ensino Fundamental",
+  "degree_link": "",
+  "projects": [],
+  "pubs": [],
+  "group": "Pedagogia e acompanhamento pedagógico institucional no IFF",
+  "image": "",
+  "colegiado": true,
+  "nde": false,
+  "initials": "LO",
+  "category": "Técnico-administrativa",
+  "source": "Rede Integra: https://redeintegra.mec.gov.br/p/IFF-lygia-gottgtroy-fraga-zigolis-filha-de-oliveira"
+}
 ];
