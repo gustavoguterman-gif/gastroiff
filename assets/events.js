@@ -289,7 +289,7 @@ window.GASTROIFF_OFFICIAL_CALENDAR = "https://portal1.iff.edu.br/nossos-campi/ca
    const last=new Date(inclusive+'T12:00:00');last.setDate(last.getDate()+1);
    const end=[last.getFullYear(),String(last.getMonth()+1).padStart(2,'0'),String(last.getDate()).padStart(2,'0')].join('');
    const description=[e.description||'',e.place?'Local: '+e.place:'',e.time?'Horário divulgado: '+e.time:'',e.site?'Informações e inscrições: '+e.site:'',e.kind==='IFF'?'Fonte: '+window.GASTROIFF_OFFICIAL_CALENDAR:'Modalidade, transmissão e submissões: consultar a página oficial.'].filter(Boolean).join('\\n\\n');
-   return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(e.name)+'&dates='+start+'/'+end+'&details='+encodeURIComponent(description)+'&location='+encodeURIComponent(e.place||'');
+   const hour=(e.time||'').match(/^(\d{1,2})h(\d{2})$/);let dates=start+'/'+end;let detail=description;if(hour){const hm=Number(hour[1])*60+Number(hour[2]);const finish=hm+60;const full=n=>String(n).padStart(2,'0');dates=start+'T'+full(Math.floor(hm/60))+full(hm%60)+'00/'+start+'T'+full(Math.floor(finish/60))+full(finish%60)+'00';detail+='\n\nHorário de término não informado; duração de 1 hora usada provisoriamente.';}return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(e.name)+'&dates='+dates+'&details='+encodeURIComponent(detail)+'&location='+encodeURIComponent(e.place||'');
   };
   function eventAnchor(e,anchorText,when){
    const row=document.createElement('a');
