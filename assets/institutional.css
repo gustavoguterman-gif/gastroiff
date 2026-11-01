@@ -182,3 +182,8 @@
 .header-refined .quick-access{gap:4px!important}
 }
 @media(prefers-reduced-motion:reduce){.header-refined .quick-panel{animation:none;opacity:1;transform:none}.header-refined .quick-item>summary{transition:none!important}}
+
+/* Menu de navegação permanece acessível também no desktop */
+.header-refined .menu-toggle{display:flex!important;align-items:center!important;justify-content:center!important;cursor:pointer!important}
+.header-refined .mobile-menu.open{display:grid!important;position:absolute!important;z-index:75!important;top:100%!important;left:50%!important;transform:translateX(-50%)!important;max-height:75vh!important;overflow-y:auto!important;background:#fff!important;border:1px solid #dfe6dc!important;border-radius:0 0 14px 14px!important;box-shadow:0 12px 30px #1532201a!important}
+.header-refined{position:relative!important;z-index:45!important}
