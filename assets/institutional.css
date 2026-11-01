@@ -514,3 +514,23 @@ main .calendar-category-card .calendar-category-download{margin-top:auto!importa
  main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.link,button.link,.hero-support-links a,.calendar-category-download,.research-return-button,.research-result>a,.research-topic-card button,.feature a.link,.smallcard a.link,.docrow a.button,.event-entry a.link){min-height:42px!important;padding:10px 13px!important;font-size:12px!important}
 }
 @media(prefers-reduced-motion:reduce){main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.link,button.link,.hero-support-links a,.calendar-category-download,.research-return-button,.research-result>a,.research-topic-card button,.feature a.link,.smallcard a.link,.docrow a.button,.event-entry a.link){transition:none!important;transform:none!important}}
+
+
+/* Padronização complementar dos botões em cartões e seções */
+main :is(.course-card,.course,.quick-card,.quick-access-card,.access-card,.smallcard,.feature,.research-topic-card,.campus-link,.three,.course-pathways,.pathways,.document-card,.lab-card) a:not(.instagram-card-link):not(.hero-sketch):not(.lab-visual-link):not(.facultycard-head):not(.faculty-card-link),
+main :is(.course-card,.course,.quick-card,.quick-access-card,.access-card,.smallcard,.feature,.research-topic-card,.campus-link,.three,.course-pathways,.pathways,.document-card,.lab-card) button:not([data-cal-prev]):not([data-cal-next]):not([data-cal-today]){
+ display:inline-flex!important;justify-content:center!important;align-items:center!important;
+ gap:9px!important;min-height:42px!important;width:fit-content!important;max-width:100%!important;
+ padding:10px 15px!important;background:#173b2d!important;color:#fff!important;
+ border:1px solid #103825!important;border-radius:9px!important;
+ font-size:13px!important;font-weight:700!important;line-height:1.4!important;
+ text-align:center!important;text-decoration:none!important;white-space:normal!important;
+ box-shadow:0 3px 0 #0c2a1e,0 5px 10px #0c2a1e22!important;
+}
+main :is(.course-card,.course,.quick-card,.quick-access-card,.access-card,.smallcard,.feature,.research-topic-card,.campus-link,.three,.course-pathways,.pathways,.document-card,.lab-card) a:not(.instagram-card-link):not(.hero-sketch):not(.lab-visual-link):not(.facultycard-head):not(.faculty-card-link):hover{
+ background:#265b42!important;color:#fff!important;
+}
+main .contact-coordinations{gap:20px!important}
+main .coordination-buttons{display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end;align-items:center;max-width:100%}
+main .coordination-buttons .button{margin:0!important;white-space:normal!important}
+@media(max-width:760px){main .coordination-buttons{width:100%;justify-content:flex-start}}
