@@ -34,3 +34,10 @@ Este documento distingue alterações feitas no código de verificações que ai
 - A apresentação bibliográfica continua parcialmente incompleta: 19 registros sem autor, uma capa ausente e sinopses genéricas. Não preencher campos por aproximação.
 - Conferência da versão pública por ferramenta de navegação não foi concluída: a tentativa de leitura externa falhou. Permanece obrigatório testar em navegador real.
 - Divergência nominal a validar antes da atualização: a página de docentes exibe “Adriana Slongo” e o conjunto estruturado de perfis usa “Adriana Marcussi” com nome completo “Adriana Paula Slongo Marcussi”. Não alterar a identificação sem confirmar o nome de apresentação preferido.
+
+## Revisão de continuidade
+- Correção publicada no código: busca do acervo passa a incluir a sinopse, e a quantidade aparece como número do levantamento, não disponibilidade imediata.
+- Página livro.html antes sem renderização da obra: criado assets/livro.js, utilizando exclusivamente os campos do acervo existente, com mensagem para ID inexistente e retorno à biblioteca.
+- Links de navegação da página individual de livro corrigidos.
+- Service worker atualizado para incluir a nova ficha individual (cache v10).
+- A versão renderizada ainda requer teste manual de navegador e a auditoria de conteúdo ainda não está aprovada.
