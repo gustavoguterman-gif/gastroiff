@@ -60,7 +60,7 @@ window.GASTROIFF_EVENTS = [
     "name": "Semana Acadêmica da Gastronomia · SAGA IFF",
     "kind": "IFF",
     "edition": "2026",
-    "place": "IFF Campus Cabo Frio",
+    "place": "IFF Campus Cabo Frio - RJ",
     "start": null,
     "end": null,
     "site": "https://eventos.iff.edu.br/sagaiff2026",
