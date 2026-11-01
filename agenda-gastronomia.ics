@@ -1,0 +1,69 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//GASTROIFF//Agenda Editorial//PT-BR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:GASTROIFF - Eventos Gastronômicos
+X-WR-TIMEZONE:America/Sao_Paulo
+X-WR-CALDESC:Eventos gastronômicos publicados pelo GASTROIFF.
+BEGIN:VEVENT
+UID:audiencia-regulamentacao-gastronomo-ceara-2026@gastroiff.github.io
+DTSTAMP:20261101T180000Z
+DTSTART;TZID=America/Fortaleza:20261109T133000
+DTEND;TZID=America/Fortaleza:20261109T1430
+SUMMARY:Audiência pública sobre regulamentação da profissão de gastrônomo
+DESCRIPTION:Audiência pública sobre a regulamentação da profissão de gastrônomo. Início às 13h30. Divulgação com apoio do mandato do deputado estadual Renato Roseno.\nhttps://www.instagram.com/gastronomia_ufc/\\nModalidade de participação, inscrições, transmissão e submissão de trabalhos: consulte o link oficial abaixo; informações não confirmadas não foram presumidas.\\nPágina oficial: https://www.instagram.com/gastronomia_ufc/
+LOCATION:Assembleia Legislativa do Estado do Ceará\, Fortaleza - CE
+URL:https://www.instagram.com/gastronomia_ufc/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:entrenos@gastroiff.github.io
+DTSTAMP:20261101T013000Z
+DTSTART;VALUE=DATE:20261107
+DTEND;VALUE=DATE:20261111
+SUMMARY:Congresso Brasileiro de Gastronomia Entre Nós
+DESCRIPTION:Congresso que aproxima profissionais\, chefs\, pesquisadores e produtores para discutir a cozinha contemporânea\, suas técnicas\, gestão e perspectivas de trabalho.\nhttps://lp.entrenosgastronomia.com/\\nModalidade de participação, inscrições, transmissão e submissão de trabalhos: consulte o link oficial abaixo; informações não confirmadas não foram presumidas.\\nPágina oficial: https://lp.entrenosgastronomia.com/\\nPresencial em Itajaí. Feira gastronômica e atividades abertas gratuitas\\, congresso\\, aulas-show\\, Copa Entre Nós e mostra científica. Certas atividades exigem ingressos próprios. Programação e inscrição: https://lp.entrenosgastronomia.com/ . Transmissão online não confirmada.
+LOCATION:Itajaí · SC
+URL:https://lp.entrenosgastronomia.com/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:mesa@gastroiff.github.io
+DTSTAMP:20261101T013000Z
+DTSTART;VALUE=DATE:20261112
+DTEND;VALUE=DATE:20261115
+SUMMARY:Mesa São Paulo
+DESCRIPTION:Encontro com congresso internacional\, aulas-show e feira de produtores. A edição de 2026 discute a hospitalidade\, o futuro da gastronomia e as relações com os territórios.\nhttps://mesasp.com.br/\\nModalidade de participação, inscrições, transmissão e submissão de trabalhos: consulte o link oficial abaixo; informações não confirmadas não foram presumidas.\\nPágina oficial: https://mesasp.com.br/
+LOCATION:São Paulo · SP
+URL:https://mesasp.com.br/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:univali@gastroiff.github.io
+DTSTAMP:20261101T013000Z
+DTSTART;VALUE=DATE:20261122
+DTEND;VALUE=DATE:20261126
+SUMMARY:Fórum Científico de Gastronomia\, Turismo e Hotelaria
+DESCRIPTION:Encontro científico da Univali entre pesquisa\, gastronomia\, turismo e hotelaria. A XIV edição tem o enoturismo como tema central.\nhttps://portal.univali.br/eventos/10203\\nModalidade de participação, inscrições, transmissão e submissão de trabalhos: consulte o link oficial abaixo; informações não confirmadas não foram presumidas.\\nPágina oficial: https://portal.univali.br/eventos/10203\\nPresencial e gratuito\\, na Univali Balneário Camboriú\\, de 22 a 25 de novembro. Tema Enoturismo. Palestras\\, mesas\\, minicursos e apresentação de trabalhos científicos. Inscrição: https://portal.univali.br/eventos/10203 . Confira neste endereço as orientações para submissão. Transmissão online não informada.
+LOCATION:Balneário Camboriú · SC
+URL:https://portal.univali.br/eventos/10203
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+END:VCALENDAR
