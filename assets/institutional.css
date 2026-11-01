@@ -565,3 +565,21 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
  main .contact-card a.link{font-size:12px!important}
  main .contact-container{width:min(calc(100% - 30px),1100px)!important}
 }
+
+
+/* Botões leves: verde-claro, contraste acessível e relevo delicado */
+:root{--gastro-action:#e7f1e7;--gastro-action-hover:#cfe3d1}
+main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.link,button.link,.hero-support-links a,.calendar-category-download,.research-return-button,.research-result>a,.research-topic-card button,.feature a.link,.smallcard a.link,.docrow a.button,.event-entry a.link),
+main :is(.course-card,.course,.quick-card,.quick-access-card,.access-card,.smallcard,.feature,.research-topic-card,.campus-link,.three,.course-pathways,.pathways,.document-card,.lab-card) a:not(.instagram-card-link):not(.hero-sketch):not(.lab-visual-link):not(.facultycard-head):not(.faculty-card-link),
+main :is(.course-card,.course,.quick-card,.quick-access-card,.access-card,.smallcard,.feature,.research-topic-card,.campus-link,.three,.course-pathways,.pathways,.document-card,.lab-card) button:not([data-cal-prev]):not([data-cal-next]):not([data-cal-today]){
+ background:#e7f1e7!important;color:#204b34!important;border:1px solid #bed4c2!important;
+ box-shadow:0 2px 0 #b3cdb9,0 3px 8px rgba(20,60,38,.08)!important;
+}
+@media(hover:hover){
+ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.link,button.link,.hero-support-links a,.calendar-category-download,.research-return-button,.research-result>a,.research-topic-card button,.feature a.link,.smallcard a.link,.docrow a.button,.event-entry a.link):hover,
+ main :is(.course-card,.course,.quick-card,.quick-access-card,.access-card,.smallcard,.feature,.research-topic-card,.campus-link,.three,.course-pathways,.pathways,.document-card,.lab-card) a:not(.instagram-card-link):not(.hero-sketch):not(.lab-visual-link):not(.facultycard-head):not(.faculty-card-link):hover{
+ background:#cfe3d1!important;color:#173b2d!important;border-color:#a4c4ad!important;
+ box-shadow:0 3px 0 #a9c4af,0 5px 10px rgba(20,60,38,.11)!important;
+ }
+}
+main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.link,button.link,.hero-support-links a,.calendar-category-download,.research-return-button,.research-result>a,.research-topic-card button,.feature a.link,.smallcard a.link,.docrow a.button,.event-entry a.link):focus-visible{outline:3px solid #2d7950!important;outline-offset:3px!important}
