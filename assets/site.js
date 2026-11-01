@@ -52,3 +52,29 @@ if(gallery){const slides=[...gallery.querySelectorAll('.gallery-slide')],positio
 
 // Planta: visualização ampliada, com zoom e rolagem no celular.
 (()=>{const opens=document.querySelectorAll('[data-open-plan]'),dialog=document.querySelector('[data-plan-dialog]');if(!opens.length||!dialog)return;const img=dialog.querySelector('img');let zoom=1;const set=()=>{img.style.width=(Math.round(zoom*100))+'%';};opens.forEach(open=>open.addEventListener('click',()=>{zoom=1;set();dialog.showModal()}));dialog.querySelector('[data-plan-close]').addEventListener('click',()=>dialog.close());dialog.querySelector('[data-plan-zoom-in]').addEventListener('click',()=>{zoom=Math.min(2.5,zoom+.25);set()});dialog.querySelector('[data-plan-zoom-out]').addEventListener('click',()=>{zoom=Math.max(1,zoom-.25);set()});dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});})();
+
+
+// Barra compacta de contato e localização em todas as páginas.
+(()=> {
+ const old=document.querySelector('.site-location-bar');
+ if(!old)return;
+ const map='https://www.google.com/maps?q=Instituto%20Federal%20Fluminense%20campus%20Cabo%20Frio%2C%20Estrada%20Cabo%20Frio%20B%C3%BAzios%2C%20Ba%C3%ADa%20Formosa%2C%20Cabo%20Frio%20RJ';
+ const route='https://www.google.com/maps/dir/?api=1&destination=Instituto%20Federal%20Fluminense%20campus%20Cabo%20Frio%2C%20Estrada%20Cabo%20Frio%20B%C3%BAzios%2C%20Ba%C3%ADa%20Formosa%2C%20Cabo%20Frio%20RJ';
+ const bar=document.createElement('section');bar.className='quick-access';bar.setAttribute('aria-label','Informações de contato e localização');
+ bar.innerHTML=`<div class="container quick-access-inner">
+ <details class="quick-item"><summary><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 7 9-7"/></svg>Contato<span class="quick-chevron" aria-hidden="true">⌄</span></summary>
+ <div class="quick-panel"><div class="quick-panel-heading">Fale com o IFF Cabo Frio</div>
+ <a href="tel:+552226459500"><span>Recepção do campus</span><strong>(22) 2645-9500</strong></a>
+ <a href="mailto:tecnicogastronomia.cabofrio@iff.edu.br"><span>Coordenação do Técnico</span><strong>tecnicogastronomia.cabofrio@iff.edu.br</strong></a>
+ <a href="mailto:tecnologo.gastronomia.cabofrio@iff.edu.br"><span>Coordenação do Tecnólogo</span><strong>tecnologo.gastronomia.cabofrio@iff.edu.br</strong></a>
+ </div></details>
+ <details class="quick-item quick-location"><summary><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>Localização<span class="quick-chevron" aria-hidden="true">⌄</span></summary>
+ <div class="quick-panel"><div class="quick-panel-heading">IFF campus Cabo Frio</div><p>Estrada Cabo Frio-Búzios, s/nº, Baía Formosa, Cabo Frio, RJ</p>
+ <iframe title="Mapa do IFF campus Cabo Frio" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="${map}&output=embed"></iframe>
+ <div class="quick-links"><a href="${route}" target="_blank" rel="noopener noreferrer">Traçar rota no Google Maps</a><a href="https://www.salineira.com.br/linhas-e-horarios" target="_blank" rel="noopener noreferrer">Linhas e horários da Salineira</a><a href="https://play.google.com/store/apps/details?id=br.salineira" target="_blank" rel="noopener noreferrer">Aplicativo Salineira para Android</a><a href="https://apps.apple.com/br/app/salineira/id1481524615" target="_blank" rel="noopener noreferrer">Aplicativo Salineira para iPhone</a></div></div></details>
+ </div>`;
+ old.replaceWith(bar);
+ document.querySelectorAll('.trialbar').forEach(el=>el.remove());
+ const items=bar.querySelectorAll('.quick-item');
+ items.forEach(item=>item.addEventListener('toggle',()=>{if(item.open)items.forEach(other=>{if(other!==item)other.open=false})}));
+})();
