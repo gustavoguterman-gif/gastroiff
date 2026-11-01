@@ -10,10 +10,16 @@ BEGIN:VEVENT
 UID:audiencia-regulamentacao-gastronomo-ceara-2026@gastroiff.github.io
 DTSTAMP:20261101T180000Z
 DTSTART;TZID=America/Fortaleza:20261109T133000
+DTEND;TZID=America/Fortaleza:20261109T1430
 SUMMARY:Audiência pública sobre regulamentação da profissão de gastrônomo
-DESCRIPTION:Audiência pública sobre a regulamentação da profissão de gastrônomo. Início às 13h30. Divulgação com apoio do mandato do deputado estadual Renato Roseno.\nhttps://www.instagram.com/gastronomia_ufc/
+DESCRIPTION:Audiência pública sobre a regulamentação da profissão de gastrônomo. Início às 13h30. Divulgação com apoio do mandato do deputado estadual Renato Roseno.\nhttps://www.instagram.com/gastronomia_ufc/\\nModalidade de participação, inscrições, transmissão e submissão de trabalhos: consulte o link oficial abaixo; informações não confirmadas não foram presumidas.\\nPágina oficial: https://www.instagram.com/gastronomia_ufc/
 LOCATION:Assembleia Legislativa do Estado do Ceará\, Fortaleza - CE
 URL:https://www.instagram.com/gastronomia_ufc/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:entrenos@gastroiff.github.io
@@ -21,9 +27,14 @@ DTSTAMP:20261101T013000Z
 DTSTART;VALUE=DATE:20261107
 DTEND;VALUE=DATE:20261111
 SUMMARY:Congresso Brasileiro de Gastronomia Entre Nós
-DESCRIPTION:Congresso que aproxima profissionais\, chefs\, pesquisadores e produtores para discutir a cozinha contemporânea\, suas técnicas\, gestão e perspectivas de trabalho.\nhttps://lp.entrenosgastronomia.com/
+DESCRIPTION:Congresso que aproxima profissionais\, chefs\, pesquisadores e produtores para discutir a cozinha contemporânea\, suas técnicas\, gestão e perspectivas de trabalho.\nhttps://lp.entrenosgastronomia.com/\\nModalidade de participação, inscrições, transmissão e submissão de trabalhos: consulte o link oficial abaixo; informações não confirmadas não foram presumidas.\\nPágina oficial: https://lp.entrenosgastronomia.com/
 LOCATION:Itajaí · SC
 URL:https://lp.entrenosgastronomia.com/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:mesa@gastroiff.github.io
@@ -31,9 +42,14 @@ DTSTAMP:20261101T013000Z
 DTSTART;VALUE=DATE:20261112
 DTEND;VALUE=DATE:20261115
 SUMMARY:Mesa São Paulo
-DESCRIPTION:Encontro com congresso internacional\, aulas-show e feira de produtores. A edição de 2026 discute a hospitalidade\, o futuro da gastronomia e as relações com os territórios.\nhttps://mesasp.com.br/
+DESCRIPTION:Encontro com congresso internacional\, aulas-show e feira de produtores. A edição de 2026 discute a hospitalidade\, o futuro da gastronomia e as relações com os territórios.\nhttps://mesasp.com.br/\\nModalidade de participação, inscrições, transmissão e submissão de trabalhos: consulte o link oficial abaixo; informações não confirmadas não foram presumidas.\\nPágina oficial: https://mesasp.com.br/
 LOCATION:São Paulo · SP
 URL:https://mesasp.com.br/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:univali@gastroiff.github.io
@@ -41,133 +57,14 @@ DTSTAMP:20261101T013000Z
 DTSTART;VALUE=DATE:20261122
 DTEND;VALUE=DATE:20261126
 SUMMARY:Fórum Científico de Gastronomia\, Turismo e Hotelaria
-DESCRIPTION:Encontro científico da Univali entre pesquisa\, gastronomia\, turismo e hotelaria. A XIV edição tem o enoturismo como tema central.\nhttps://portal.univali.br/eventos/10203
+DESCRIPTION:Encontro científico da Univali entre pesquisa\, gastronomia\, turismo e hotelaria. A XIV edição tem o enoturismo como tema central.\nhttps://portal.univali.br/eventos/10203\\nModalidade de participação, inscrições, transmissão e submissão de trabalhos: consulte o link oficial abaixo; informações não confirmadas não foram presumidas.\\nPágina oficial: https://portal.univali.br/eventos/10203
 LOCATION:Balneário Camboriú · SC
 URL:https://portal.univali.br/eventos/10203
-END:VEVENT
-BEGIN:VEVENT
-UID:cgs@gastroiff.github.io
-DTSTAMP:20261101T013000Z
-DTSTART;VALUE=DATE:20260824
-DTEND;VALUE=DATE:20260827
-SUMMARY:Congresso de Gastronomia e Sociobiodiversidade
-DESCRIPTION:Espaço de diálogo sobre formação\, trabalho\, pesquisa\, culturas alimentares\, inovação e sociobiodiversidade. A segunda edição aproximou universidades\, comunidades e profissionais.\nhttps://www.even3.com.br/ii-congresso-de-gastronomia-e-sociobiodiversidade-horizontes-da-atuacao-formacao-e-profissao-736945/
-LOCATION:Porto Alegre · RS
-URL:https://www.even3.com.br/ii-congresso-de-gastronomia-e-sociobiodiversidade-horizontes-da-atuacao-formacao-e-profissao-736945/
-END:VEVENT
-BEGIN:VEVENT
-UID:enpegastro@gastroiff.github.io
-DTSTAMP:20261101T013000Z
-DTSTART;VALUE=DATE:20260608
-DTEND;VALUE=DATE:20260613
-SUMMARY:Encontro de Pesquisas em Gastronomias do Brasil · ENPEGASTRO
-DESCRIPTION:Encontro nacional voltado à produção e ao intercâmbio de pesquisas em Gastronomias\, com atividades acadêmicas\, oficinas e discussões sobre saberes\, corpos e territórios.\nhttps://www.even3.com.br/enpegastro2026-606524/
-LOCATION:Salvador · BA
-URL:https://www.even3.com.br/enpegastro2026-606524/
-END:VEVENT
-BEGIN:VEVENT
-UID:gcm@gastroiff.github.io
-DTSTAMP:20261101T013000Z
-DTSTART;VALUE=DATE:20241107
-DTEND;VALUE=DATE:20241110
-SUMMARY:Encontro de Gastronomia\, Cultura e Memória
-DESCRIPTION:Encontro ligado à UFRJ que reúne debates sobre alimentação\, história\, memória social\, patrimônios e cultura. A sexta edição discutiu hospitalidade.\nhttps://gcm.gastronomia.ufrj.br/vi-encontro-de-gastronomia-cultura-e-memoria/
-LOCATION:Rio de Janeiro · RJ
-URL:https://gcm.gastronomia.ufrj.br/vi-encontro-de-gastronomia-cultura-e-memoria/
-END:VEVENT
-BEGIN:VEVENT
-UID:siga@gastroiff.github.io
-DTSTAMP:20261101T013000Z
-DTSTART;VALUE=DATE:20250828
-DTEND;VALUE=DATE:20250831
-SUMMARY:Simpósio Internacional de Gastronomia da Amazônia · SIGA
-DESCRIPTION:Simpósio sobre gastronomia regional e sustentabilidade\, articulando cultura alimentar amazônica\, pesquisa e os desafios dos sistemas alimentares.\nhttps://siga2025.com.br/
-LOCATION:Belém · PA
-URL:https://siga2025.com.br/
-END:VEVENT
-BEGIN:VEVENT
-UID:social@gastroiff.github.io
-DTSTAMP:20261101T013000Z
-DTSTART;VALUE=DATE:20251112
-DTEND;VALUE=DATE:20251115
-SUMMARY:Encontro Nacional de Gastronomia Social
-DESCRIPTION:Reúne estudantes\, pesquisadores\, coletivos e comunidades para compartilhar práticas\, pesquisas e experiências de transformação social pela Gastronomia.\nhttps://ppggastronomia.ufc.br/888-2/
-LOCATION:Fortaleza · CE
-URL:https://ppggastronomia.ufc.br/888-2/
-END:VEVENT
-BEGIN:VEVENT
-UID:unigran@gastroiff.github.io
-DTSTAMP:20261101T013000Z
-DTSTART;VALUE=DATE:20261007
-DTEND;VALUE=DATE:20261010
-SUMMARY:Jornada Acadêmica de Gastronomia · UNIGRAN
-DESCRIPTION:Jornada acadêmica que combina palestras\, atividades práticas e intercâmbio com egressos e profissionais. A nona edição abordou eventos e buffet.\nhttps://eventos.unigran.br/jornadadegastrounigran2026/
-LOCATION:Dourados · MS
-URL:https://eventos.unigran.br/jornadadegastrounigran2026/
-END:VEVENT
-BEGIN:VEVENT
-UID:puc@gastroiff.github.io
-DTSTAMP:20261101T013000Z
-DTSTART;VALUE=DATE:20250210
-DTEND;VALUE=DATE:20250215
-SUMMARY:Semana de Integração da Gastronomia · PUC Goiás
-DESCRIPTION:Semana de acolhimento e troca entre estudantes e profissionais\, com debates sobre trabalho\, empreendedorismo e gestão em gastronomia.\nhttps://www.pucgoias.edu.br/noticias/gastronomia-promove-15a-semana-de-integracao-com-foco-no-empreendedorismo/
-LOCATION:Goiânia · GO
-URL:https://www.pucgoias.edu.br/noticias/gastronomia-promove-15a-semana-de-integracao-com-foco-no-empreendedorismo/
-END:VEVENT
-BEGIN:VEVENT
-UID:iff-2026-10-12@gastroiff.github.io
-DTSTAMP:20261101T013000Z
-DTSTART;VALUE=DATE:20261012
-DTEND;VALUE=DATE:20261013
-SUMMARY:IFF · Feriado nacional
-DESCRIPTION:Nossa Senhora Aparecida | Consulte o calendário acadêmico oficial para verificar alterações.
-URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
-END:VEVENT
-BEGIN:VEVENT
-UID:iff-2026-10-13@gastroiff.github.io
-DTSTAMP:20261101T013000Z
-DTSTART;VALUE=DATE:20261013
-DTEND;VALUE=DATE:20261015
-SUMMARY:IFF · Recesso escolar
-DESCRIPTION:Recesso de 13 e 14 de outubro | Consulte o calendário acadêmico oficial para verificar alterações.
-URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
-END:VEVENT
-BEGIN:VEVENT
-UID:iff-2026-10-15@gastroiff.github.io
-DTSTAMP:20261101T013000Z
-DTSTART;VALUE=DATE:20261015
-DTEND;VALUE=DATE:20261016
-SUMMARY:IFF · Dia do Professor
-DESCRIPTION:Feriado do calendário acadêmico | Consulte o calendário acadêmico oficial para verificar alterações.
-URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
-END:VEVENT
-BEGIN:VEVENT
-UID:iff-2026-10-16@gastroiff.github.io
-DTSTAMP:20261101T013000Z
-DTSTART;VALUE=DATE:20261016
-DTEND;VALUE=DATE:20261017
-SUMMARY:IFF · Recesso escolar
-DESCRIPTION:Recesso escolar | Consulte o calendário acadêmico oficial para verificar alterações.
-URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
-END:VEVENT
-BEGIN:VEVENT
-UID:iff-2026-10-19@gastroiff.github.io
-DTSTAMP:20261101T013000Z
-DTSTART;VALUE=DATE:20261019
-DTEND;VALUE=DATE:20261024
-SUMMARY:IFF · Semana Cultural Interescolar
-DESCRIPTION:Atividades acadêmicas do campus | Consulte o calendário acadêmico oficial para verificar alterações.
-URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
-END:VEVENT
-BEGIN:VEVENT
-UID:iff-2026-10-28@gastroiff.github.io
-DTSTAMP:20261101T013000Z
-DTSTART;VALUE=DATE:20261028
-DTEND;VALUE=DATE:20261029
-SUMMARY:IFF · Dia do Servidor Público Federal
-DESCRIPTION:Ponto facultativo\, conforme calendário do campus | Consulte o calendário acadêmico oficial para verificar alterações.
-URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:iff-2026-11-02@gastroiff.github.io
@@ -175,8 +72,13 @@ DTSTAMP:20261101T013000Z
 DTSTART;VALUE=DATE:20261102
 DTEND;VALUE=DATE:20261103
 SUMMARY:IFF · Finados
-DESCRIPTION:Feriado nacional | Consulte o calendário acadêmico oficial para verificar alterações.
+DESCRIPTION:Feriado nacional | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
 URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:iff-2026-11-07@gastroiff.github.io
@@ -184,8 +86,13 @@ DTSTAMP:20261101T013000Z
 DTSTART;VALUE=DATE:20261107
 DTEND;VALUE=DATE:20261108
 SUMMARY:IFF · Sábado letivo
-DESCRIPTION:Referente à sexta-feira | Consulte o calendário acadêmico oficial para verificar alterações.
+DESCRIPTION:Referente à sexta-feira | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
 URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:iff-2026-11-13@gastroiff.github.io
@@ -193,8 +100,13 @@ DTSTAMP:20261101T013000Z
 DTSTART;VALUE=DATE:20261113
 DTEND;VALUE=DATE:20261114
 SUMMARY:IFF · Feriado municipal de Cabo Frio
-DESCRIPTION:Feriado previsto no calendário acadêmico | Consulte o calendário acadêmico oficial para verificar alterações.
+DESCRIPTION:Feriado previsto no calendário acadêmico | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
 URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:iff-2026-11-15@gastroiff.github.io
@@ -202,8 +114,13 @@ DTSTAMP:20261101T013000Z
 DTSTART;VALUE=DATE:20261115
 DTEND;VALUE=DATE:20261116
 SUMMARY:IFF · Proclamação da República
-DESCRIPTION:Feriado nacional | Consulte o calendário acadêmico oficial para verificar alterações.
+DESCRIPTION:Feriado nacional | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
 URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:iff-2026-11-20@gastroiff.github.io
@@ -211,8 +128,13 @@ DTSTAMP:20261101T013000Z
 DTSTART;VALUE=DATE:20261120
 DTEND;VALUE=DATE:20261121
 SUMMARY:IFF · Consciência Negra
-DESCRIPTION:Feriado e data de integralização do segundo semestre | Consulte o calendário acadêmico oficial para verificar alterações.
+DESCRIPTION:Feriado e data de integralização do segundo semestre | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
 URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:iff-2026-11-30@gastroiff.github.io
@@ -220,8 +142,13 @@ DTSTAMP:20261101T013000Z
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261205
 SUMMARY:IFF · Período avaliativo
-DESCRIPTION:De 30 de novembro a 4 de dezembro | Consulte o calendário acadêmico oficial para verificar alterações.
+DESCRIPTION:De 30 de novembro a 4 de dezembro | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
 URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:iff-2026-12-14@gastroiff.github.io
@@ -229,8 +156,13 @@ DTSTAMP:20261101T013000Z
 DTSTART;VALUE=DATE:20261214
 DTEND;VALUE=DATE:20261219
 SUMMARY:IFF · Recuperação semestral
-DESCRIPTION:De 14 a 18 de dezembro | Consulte o calendário acadêmico oficial para verificar alterações.
+DESCRIPTION:De 14 a 18 de dezembro | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
 URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:iff-2026-12-18@gastroiff.github.io
@@ -238,8 +170,13 @@ DTSTAMP:20261101T013000Z
 DTSTART;VALUE=DATE:20261218
 DTEND;VALUE=DATE:20261219
 SUMMARY:IFF · Fim do segundo semestre
-DESCRIPTION:Término do período letivo de 2026 | Consulte o calendário acadêmico oficial para verificar alterações.
+DESCRIPTION:Término do período letivo de 2026 | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
 URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:iff-2026-12-19@gastroiff.github.io
@@ -247,7 +184,13 @@ DTSTAMP:20261101T013000Z
 DTSTART;VALUE=DATE:20261219
 DTEND;VALUE=DATE:20270101
 SUMMARY:IFF · Férias dos estudantes
-DESCRIPTION:A partir de 19 de dezembro de 2026 | Consulte o calendário acadêmico oficial para verificar alterações.
+DESCRIPTION:A partir de 19 de dezembro de 2026 | Consulte o calendário acadêmico oficial para verificar alterações.\\nConsulte o calendário acadêmico oficial do IFF para eventuais alterações.\\nPágina oficial: https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
 URL:https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: início amanhã
+TRIGGER:-P1D
+END:VALARM
 END:VEVENT
+END:VCALENDAR
 END:VCALENDAR
