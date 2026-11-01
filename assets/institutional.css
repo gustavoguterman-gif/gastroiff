@@ -203,3 +203,64 @@
 .calendar-subscribe .calendar-device-help{font-size:13px;line-height:1.6;color:#566b5e;margin:12px 0!important}
 .calendar-subscribe .calendar-add,.calendar-subscribe .calendar-download{display:inline-flex!important;align-items:center;white-space:normal!important;max-width:100%;margin:7px 0!important}
 @media(max-width:780px){.header-refined .headerline{padding-left:43px!important}.header-refined .headerline>.menu-toggle{left:0!important;top:50%!important;transform:translateY(-50%)!important;line-height:1!important}.header-refined .menu-toggle span:first-child{line-height:1!important}}
+
+
+/* GASTROIFF: alinhamento único e simétrico em todas as páginas, 01/11/2026 */
+.header-refined .headerline{
+  display:grid!important;
+  grid-template-columns:minmax(112px,1fr) minmax(0,420px) minmax(112px,1fr)!important;
+  padding-left:0!important;
+  gap:10px!important;
+  align-items:center!important;
+  min-height:86px!important;
+  position:relative!important;
+}
+.header-refined .headerline>.menu-toggle{
+  grid-column:1!important;grid-row:1!important;
+  position:static!important;inset:auto!important;
+  transform:none!important;justify-self:start!important;align-self:center!important;
+  margin:0!important;width:48px!important;height:48px!important;
+  padding:0!important;
+}
+.header-refined .headerline>.gastrobrand{
+  grid-column:2!important;grid-row:1!important;
+  justify-self:center!important;align-self:center!important;
+  width:100%!important;max-width:420px!important;
+}
+.header-refined .headerline>.quick-access{
+  grid-column:3!important;grid-row:1!important;
+  justify-self:end!important;align-self:center!important;
+}
+@media(max-width:780px){
+  .header-refined .headerline{
+    grid-template-columns:106px minmax(0,1fr) 106px!important;
+    padding-left:0!important;
+    width:min(calc(100% - 20px),1200px)!important;
+    gap:5px!important;min-height:78px!important;
+  }
+  .header-refined .headerline>.menu-toggle{
+    justify-self:start!important;position:static!important;
+    transform:none!important;left:auto!important;top:auto!important;
+    width:44px!important;height:48px!important;
+  }
+  .header-refined .gastrobrand img{max-height:65px!important}
+  .header-refined .quick-access{gap:4px!important}
+}
+@media(max-width:380px){
+  .header-refined .headerline{grid-template-columns:100px minmax(0,1fr) 100px!important;gap:3px!important}
+  .header-refined .quick-item>summary{width:47px!important}
+}
+.calendar-subscribe{margin-top:18px!important;padding:17px!important}
+.calendar-subscribe>strong{font-size:16px!important;line-height:1.35!important}
+.calendar-subscribe>p{font-size:13px!important;line-height:1.55!important;max-width:55ch}
+.calendar-subscribe-options{margin-top:12px!important;padding-top:10px!important;border-top:1px solid #dce7dd}
+.calendar-subscribe-options>summary{font-size:13px!important;font-weight:700!important;cursor:pointer;color:#255f3f!important;line-height:1.4!important}
+.calendar-subscribe-options>p{font-size:12px!important;line-height:1.5!important;margin:8px 0!important}
+.calendar-subscribe-options code{display:block!important;overflow-wrap:anywhere!important;word-break:break-word!important;white-space:normal!important;font-size:11px!important;line-height:1.45!important;padding:9px!important;background:#f2f5ef;border-radius:7px}
+.calendar-subscribe-options .calendar-add{font-size:12px!important;margin:8px 0!important}
+.calendar-subscribe>small{display:block;margin-top:10px;font-size:11px!important}
+.calendar-copy{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 12px;border:1px solid #cbdccc;border-radius:8px;background:#f4f8f3;color:#24583c;font-size:12px;font-weight:700;cursor:pointer;margin-top:8px}
+@media(max-width:600px){
+  .calendar-subscribe{padding:14px!important}
+  .calendar-subscribe-options{font-size:13px!important}
+}
