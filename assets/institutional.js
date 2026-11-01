@@ -17,7 +17,7 @@ document.querySelectorAll('.governance-panel').forEach(box=>{
 });
 document.querySelectorAll('.footbrand').forEach(el=>{
  const a=document.createElement('a');a.className='footer-logo-wrapper';a.href='index.html';a.setAttribute('aria-label','GASTROIFF, página inicial');
- const im=document.createElement('img');im.src='assets/brand-gastroiff.jpg';im.alt='GASTROIFF Gastronomia campus Cabo Frio - RJ';im.className='logo-footer-official';a.appendChild(im);el.replaceWith(a);
+ const im=document.createElement('img');im.src='assets/gastroiff-marca.jpg';im.alt='GASTROIFF Gastronomia campus Cabo Frio - RJ';im.className='logo-footer-official';a.appendChild(im);el.replaceWith(a);
 });
 document.querySelectorAll('.lab-opening-grid figure').forEach(f=>{f.style.background='transparent';f.style.border='none';const image=f.querySelector('img');const link=f.querySelector('a');if(image){image.src='assets/planta-baixa-laboratorio.webp';image.style.width='100%';image.style.height='auto'}if(link)link.href='assets/planta-baixa-laboratorio.webp'});
 };
