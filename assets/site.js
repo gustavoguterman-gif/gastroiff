@@ -1,6 +1,17 @@
 
 const menuButton=document.querySelector('[data-menu-toggle]');const menu=document.querySelector('[data-mobile-menu]');
-if(menuButton&&menu){menuButton.addEventListener('click',()=>{const open=menu.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));});}
+if(menuButton&&menu){
+ const setOpen=open=>{
+   menu.classList.toggle('open',open);
+   menuButton.setAttribute('aria-expanded',String(open));
+   menuButton.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
+ };
+ menuButton.addEventListener('click',()=>setOpen(!menu.classList.contains('open')));
+ menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setOpen(false)));
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('open')){setOpen(false);menuButton.focus();}});
+ document.addEventListener('pointerdown',e=>{if(menu.classList.contains('open')&&!menu.contains(e.target)&&!menuButton.contains(e.target))setOpen(false);});
+ window.matchMedia('(min-width:1241px)').addEventListener('change',e=>{if(e.matches)setOpen(false)});
+}
 const search=document.querySelector('[data-doc-search]'),filter=document.querySelector('[data-doc-filter]');
 function filterDocuments(){if(!search||!filter)return;const q=search.value.trim().toLowerCase(),type=filter.value;let count=0;document.querySelectorAll('[data-document]').forEach(el=>{const matches=el.textContent.toLowerCase().includes(q)&&(type==='all'||el.dataset.kind===type);el.hidden=!matches;if(matches)count++;});const empty=document.querySelector('[data-empty]');if(empty)empty.hidden=count>0;}
 if(search&&filter){search.addEventListener('input',filterDocuments);filter.addEventListener('change',filterDocuments);}
