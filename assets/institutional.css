@@ -100,3 +100,9 @@
   .header-refined .mobile-menu.open{grid-template-columns:1fr!important}
   .header-refined .mobile-menu a{min-height:45px}
 }
+
+/* Contato junto à identificação do campus, sem aumentar a altura do cabeçalho */
+.site-location-inner{flex-wrap:wrap!important}
+.site-location-inner>.coordination-email{font-size:11px;line-height:1.45;color:#1b6940;font-weight:600;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere;max-width:100%}
+@media(max-width:760px){.site-location-inner>.coordination-email{flex-basis:100%;order:3;font-size:10px}.site-location-inner>.site-location-actions{order:2}}
+@media(min-width:761px){.site-location-inner>.coordination-email{margin-left:auto}.site-location-inner>.site-location-actions{margin-left:8px}}
