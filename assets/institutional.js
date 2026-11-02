@@ -83,3 +83,36 @@ document.querySelectorAll('.gi-nav-dropdown').forEach(root=>{const btn=root.quer
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',prepare);else prepare();
 })();
+
+/* Navegação móvel única: ordem editorial sem seções duplicadas */
+(function(){
+ function organize(){
+  const nav=document.querySelector('[data-mobile-menu]');if(!nav)return;
+  const entries=[
+   ['index.html','Início',''],
+   ['sobre.html','Sobre o GastroIFF',''],
+   ['cursos.html','Ensino',''],
+   ['praticas.html','Fichas técnicas',''],
+   ['pesquisa.html','Pesquisa',''],
+   ['observatorio.html','Observatório',''],
+   ['projetos.html','Território',''],
+   ['oportunidades.html','Estágios e empregos',''],
+   ['laboratorios.html','Laboratórios',''],
+   ['documentos.html','Documentos',''],
+   ['docentes.html','Comunidade',''],
+   ['eventos.html','Calendário',''],
+   ['biblioteca.html','Biblioteca',''],
+   ['contato.html','Contato','']
+  ];
+  const install=nav.querySelector('[data-install-app]');
+  nav.querySelectorAll('a,.gi-mobile-resources,.gi-about-first').forEach(el=>el.remove());
+  for(const [href,label] of entries){
+   const a=document.createElement('a');a.href=href;
+   const strong=document.createElement('strong');strong.textContent=label;a.append(strong);
+   if(location.pathname.endsWith('/'+href)||(href==='index.html'&&location.pathname.endsWith('/gastroiff/')))a.setAttribute('aria-current','page');
+   nav.insertBefore(a,install||null);
+  }
+  if(install)nav.append(install);
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',organize);else organize();
+})();
