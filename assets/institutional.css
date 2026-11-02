@@ -774,3 +774,35 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
  [data-mobile-menu] .gi-axis-extras{border-top:0!important;padding-top:0!important;margin-top:0!important}
  [data-mobile-menu] .gi-axis-extras>a{border-bottom:1px solid rgba(35,75,49,.12)!important}
 }
+
+/* Tipografia e alinhamento consistentes no menu mobile */
+@media(max-width:700px){
+ [data-mobile-menu]>.gi-axis-about,
+ [data-mobile-menu] .gi-axis-toggle,
+ [data-mobile-menu] .gi-axis-extras>a,
+ [data-mobile-menu] .gi-axis-extras [data-install-app]{
+  font-family:inherit!important;font-size:16px!important;font-weight:600!important;
+  line-height:1.4!important;letter-spacing:0!important;text-transform:none!important;
+  text-align:left!important;
+ }
+ [data-mobile-menu]>.gi-axis-about,
+ [data-mobile-menu] .gi-axis-toggle,
+ [data-mobile-menu] .gi-axis-extras>a{
+  min-height:62px!important;box-sizing:border-box!important;
+  padding-top:13px!important;padding-bottom:13px!important;
+ }
+ [data-mobile-menu]>.gi-axis-about,
+ [data-mobile-menu] .gi-axis-extras>a{
+  display:flex!important;align-items:center!important;
+  padding-left:16px!important;padding-right:16px!important;
+ }
+ [data-mobile-menu] .gi-axis-toggle{gap:12px!important}
+ [data-mobile-menu] .gi-axis-toggle .gi-axis-icon{width:34px!important;height:34px!important}
+ [data-mobile-menu] .gi-axis-panel a{font-size:14px!important;font-weight:500!important;line-height:1.4!important}
+ [data-mobile-menu] .gi-axis-extras [data-install-app]{
+  margin:0!important;padding:13px 16px!important;min-height:62px!important;
+  width:100%!important;align-self:stretch!important;display:flex!important;align-items:center!important;
+  background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;
+  color:#234a35!important;
+ }
+}
