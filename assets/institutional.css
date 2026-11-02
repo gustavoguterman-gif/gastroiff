@@ -833,3 +833,13 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
  .header-refined .headerline>.institution{position:relative!important;flex:0 0 auto!important}
  .header-refined .headerline>.quick-access{position:relative!important;flex:0 0 auto!important}
 }
+
+/* Cabeçalho estável e visível durante a rolagem, sem cobrir o conteúdo. */
+@media(min-width:701px){
+ body>.header-refined,body>header.header-refined{position:sticky!important;top:0!important;z-index:1100!important;width:100%!important;isolation:isolate}
+ .header-refined .headerline{min-height:88px!important}
+ .header-refined .navbar .nav-anchor{white-space:nowrap!important}
+}
+@media(max-width:700px){
+ body>.header-refined,body>header.header-refined{position:sticky!important;top:0!important;z-index:1100!important}
+}
