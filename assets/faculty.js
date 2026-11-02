@@ -335,5 +335,24 @@ window.GASTROIFF_FACULTY=[
   "initials": "LO",
   "category": "Técnico-administrativa",
   "source": "Rede Integra: https://redeintegra.mec.gov.br/p/IFF-lygia-gottgtroy-fraga-zigolis-filha-de-oliveira"
+},
+{
+  "id":"wellington-santos",
+  "name":"Wellington Santos",
+  "full":"Wellington Santos",
+  "area":"Gastronomia, extensão e cultura alimentar",
+  "bio":"Docente da Gastronomia do IFFluminense, campus Cabo Frio, atualmente afastado para doutoramento. Idealizador do projeto de extensão IFF na Feira, com atuação em atividades que aproximam a formação gastronômica das comunidades e da agricultura familiar.",
+  "lattes":"",
+  "degree":"",
+  "degree_title":"",
+  "degree_link":"",
+  "projects":[["IFF na Feira","Projeto de extensão idealizado pelo professor Wellington Santos, voltado à relação entre Gastronomia, agricultores, feira livre e comunidade.","projetos.html"]],
+  "pubs":[],
+  "group":"",
+  "image":"",
+  "colegiado":false,
+  "nde":false,
+  "initials":"WS",
+  "source":"Portal IFFluminense: notícia do IFF na Feira de 2019 e atividades extensionistas com agricultores de Cantagalo."
 }
 ];
