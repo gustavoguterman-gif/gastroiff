@@ -68,15 +68,9 @@ window.GASTROIFF_FACULTY=[
     "bio": "Mestra pelo PROFMAT/IMPA, licenciada em Matemática e graduada em Gastronomia. Atua no ensino e em atividades acadêmicas da área.",
     "lattes": "https://lattes.cnpq.br/9836569236408696",
     "degree": "Mestrado Profissional em Matemática, IMPA (2014)",
-    "degree_title": "O estudo da simetria através da arte de Maurits Cornelis Escher",
-    "degree_link": "https://ptdocz.com/doc/423834/claudia-maria-fiuza-alves-o-estudo-da-simetria",
-    "projects": [
-      [
-        "Curricularização da Extensão CST em Gastronomia",
-        "Projeto de extensão registrado para 2025–2026, com organização de atividades de integração entre ensino, pesquisa e extensão.",
-        "https://integra.iff.edu.br/ecossistema/pessoas/renato-cerqueira-de-carvalho"
-      ]
-    ],
+    "degree_title": "",
+    "degree_link": "",
+    "projects": [],
     "pubs": [
       [
         "Escolhas alimentares infantis: riscos à saúde e reflexos na vida adulta",
