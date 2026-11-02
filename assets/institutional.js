@@ -84,35 +84,50 @@ document.querySelectorAll('.gi-nav-dropdown').forEach(root=>{const btn=root.quer
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',prepare);else prepare();
 })();
 
-/* Navegação móvel única: ordem editorial sem seções duplicadas */
+/* Navegação móvel por três eixos, com ícones e um único grupo aberto */
 (function(){
  function organize(){
   const nav=document.querySelector('[data-mobile-menu]');if(!nav)return;
-  const entries=[
-   ['index.html','Início',''],
-   ['sobre.html','Sobre o GastroIFF',''],
-   ['cursos.html','Ensino',''],
-   ['praticas.html','Fichas técnicas',''],
-   ['pesquisa.html','Pesquisa',''],
-   ['observatorio.html','Observatório',''],
-   ['projetos.html','Território',''],
-   ['oportunidades.html','Estágios e empregos',''],
-   ['laboratorios.html','Laboratórios',''],
-   ['documentos.html','Documentos',''],
-   ['docentes.html','Comunidade',''],
-   ['eventos.html','Calendário',''],
-   ['biblioteca.html','Biblioteca',''],
-   ['contato.html','Contato','']
+  const groups=[
+   {name:'Ensino',icon:'graduation',items:[['cursos.html','Cursos de Gastronomia'],['docentes.html','Comunidade acadêmica'],['documentos.html','Documentos acadêmicos'],['laboratorios.html','Laboratórios'],['biblioteca.html','Biblioteca'],['praticas.html','Fichas técnicas']]},
+   {name:'Pesquisa',icon:'book',items:[['pesquisa.html','Pesquisas e publicações'],['observatorio.html','Observatório da formação']]},
+   {name:'Território',icon:'pin',items:[['projetos.html','Projetos de extensão'],['oportunidades.html','Estágios e empregos'],['eventos.html','Calendário de eventos']]}
   ];
-  const install=nav.querySelector('[data-install-app]');
-  nav.querySelectorAll('a,.gi-mobile-resources,.gi-about-first').forEach(el=>el.remove());
-  for(const [href,label] of entries){
-   const a=document.createElement('a');a.href=href;
-   const strong=document.createElement('strong');strong.textContent=label;a.append(strong);
-   if(location.pathname.endsWith('/'+href)||(href==='index.html'&&location.pathname.endsWith('/gastroiff/')))a.setAttribute('aria-current','page');
-   nav.insertBefore(a,install||null);
+  const icons={
+   graduation:'<path d="m2 9 10-5 10 5-10 5-10-5Z"/><path d="M6 11v5c3.8 3 8.2 3 12 0v-5"/><path d="M22 9v7"/>',
+   book:'<path d="M12 7v14"/><path d="M3 5.5c3-1.5 6-1.5 9 0v15c-3-1.5-6-1.5-9 0z"/><path d="M21 5.5c-3-1.5-6-1.5-9 0v15c3-1.5 6-1.5 9 0z"/>',
+   pin:'<path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>'
+  };
+  const previousInstall=nav.querySelector('[data-install-app]');
+  nav.replaceChildren();
+  const current=location.pathname.split('/').pop()||'index.html';
+  let activeGroup=null;
+  for(const group of groups){
+   const wrapper=document.createElement('div');wrapper.className='gi-axis';
+   const button=document.createElement('button');button.type='button';button.className='gi-axis-toggle';button.setAttribute('aria-expanded','false');
+   const icon=document.createElement('span');icon.className='gi-axis-icon';icon.setAttribute('aria-hidden','true');
+   icon.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+icons[group.icon]+'</svg>';
+   const label=document.createElement('span');label.textContent=group.name;
+   const arrow=document.createElement('span');arrow.className='gi-axis-chevron';arrow.setAttribute('aria-hidden','true');arrow.textContent='⌄';
+   button.append(icon,label,arrow);
+   const panel=document.createElement('div');panel.className='gi-axis-panel';panel.hidden=true;
+   panel.id='gi-axis-'+group.icon;button.setAttribute('aria-controls',panel.id);
+   for(const [href,title] of group.items){const a=document.createElement('a');a.href=href;a.textContent=title;if(href===current){a.setAttribute('aria-current','page');activeGroup=wrapper}panel.append(a)}
+   button.addEventListener('click',()=>{
+    const expanded=button.getAttribute('aria-expanded')==='true';
+    nav.querySelectorAll('.gi-axis-toggle').forEach(b=>b.setAttribute('aria-expanded','false'));
+    nav.querySelectorAll('.gi-axis-panel').forEach(p=>p.hidden=true);
+    if(!expanded){button.setAttribute('aria-expanded','true');panel.hidden=false}
+   });
+   wrapper.append(button,panel);nav.append(wrapper);
   }
-  if(install)nav.append(install);
+  const extras=document.createElement('div');extras.className='gi-axis-extras';
+  for(const [href,title] of [['sobre.html','Sobre o GastroIFF'],['contato.html','Contato']]){
+   const a=document.createElement('a');a.href=href;a.textContent=title;if(href===current)a.setAttribute('aria-current','page');extras.append(a);
+  }
+  if(previousInstall){previousInstall.classList.add('gi-axis-install');extras.append(previousInstall)}
+  nav.append(extras);
+  if(activeGroup){const btn=activeGroup.querySelector('.gi-axis-toggle');btn.setAttribute('aria-expanded','true');activeGroup.querySelector('.gi-axis-panel').hidden=false}
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',organize);else organize();
 })();
