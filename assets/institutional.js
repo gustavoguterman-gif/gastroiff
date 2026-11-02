@@ -58,7 +58,7 @@ document.querySelectorAll('.gi-nav-dropdown').forEach(root=>{const btn=root.quer
   const mobile=document.querySelector('[data-mobile-menu]');
   if(mobile && !mobile.querySelector('.gi-about-first')){
    const a=document.createElement('a');a.href='sobre.html';a.className='gi-about-first';a.innerHTML='<strong>Sobre o GastroIFF</strong><span>Conheça o projeto e seus objetivos</span>';
-   mobile.prepend(a);
+   const first=mobile.querySelector('a');if(first)first.after(a);else mobile.append(a);
    const duplicate=mobile.querySelector('.gi-mobile-resources a[href="sobre.html"]');if(duplicate)duplicate.remove();
   }
   const first=document.querySelector('main .hero .hero-actions-academic');
