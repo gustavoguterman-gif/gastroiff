@@ -694,3 +694,13 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
  .header-refined .headerline>.gastrobrand::before,.header-refined .headerline>.gastrobrand::after{content:none!important;display:none!important}
  .header-refined .headerline>.menu-toggle,.header-refined .headerline>.quick-access{z-index:3!important}
 }
+
+/* Ajuste de contenção: marca dentro do espaço entre controles no mobile */
+@media(max-width:700px){
+ .header-refined .headerline{grid-template-columns:40px minmax(0,1fr) 102px!important;gap:4px!important;padding:0 7px!important;min-height:76px!important}
+ .header-refined .headerline>.gastrobrand{position:relative!important;grid-column:2!important;grid-row:1!important;left:auto!important;top:auto!important;right:auto!important;bottom:auto!important;transform:none!important;justify-self:center!important;align-self:center!important;width:100%!important;max-width:100%!important;min-width:0!important;overflow:hidden!important}
+ .header-refined .headerline>.gastrobrand img{width:100%!important;max-width:100%!important;height:auto!important;max-height:60px!important;object-fit:contain!important}
+ .header-refined .headerline>.menu-toggle{grid-column:1!important;grid-row:1!important;width:40px!important;min-width:0!important}
+ .header-refined .headerline>.quick-access{grid-column:3!important;grid-row:1!important;width:102px!important;max-width:102px!important;gap:3px!important}
+ .header-refined .headerline>.quick-access>*{width:49px!important;min-width:0!important;font-size:9px!important}
+}
