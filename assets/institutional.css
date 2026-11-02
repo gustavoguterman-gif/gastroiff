@@ -875,3 +875,18 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
  .header-refined .headerline>.navbar.gi-unified-desktop{gap:5px!important}
  .gi-unified-desktop .gi-axis-icon{width:23px!important;height:23px!important}
 }
+
+/* Cabeçalho desktop com três eixos e respiro real entre marca, menu e ações. */
+@media(min-width:701px){
+ .header-refined .headerline{box-sizing:border-box!important;width:100%!important;max-width:1500px!important;padding:0 clamp(18px,2vw,36px)!important;gap:clamp(16px,2vw,34px)!important;justify-content:space-between!important}
+ .header-refined .headerline>.gastrobrand{flex:0 0 clamp(230px,26vw,350px)!important;width:clamp(230px,26vw,350px)!important;max-width:350px!important;min-width:0!important}
+ .header-refined .headerline>.navbar.gi-unified-desktop{flex:1 1 auto!important;min-width:0!important;justify-content:space-around!important;gap:clamp(12px,1.4vw,30px)!important}
+ .header-refined .headerline>.quick-access{flex:0 0 auto!important;display:flex!important;gap:9px!important;margin-left:auto!important;align-items:center!important}
+ .header-refined .gi-unified-desktop .gi-axis-toggle{font-family:inherit!important;font-size:clamp(14px,1vw,17px)!important;font-weight:600!important}
+ .header-refined .gi-unified-desktop .gi-desktop-about{font-size:clamp(14px,1vw,17px)!important}
+}
+@media(min-width:701px) and (max-width:1100px){
+ .header-refined .headerline>.gastrobrand{flex-basis:210px!important;width:210px!important}
+ .header-refined .headerline>.navbar.gi-unified-desktop{gap:7px!important}
+ .header-refined .gi-unified-desktop .gi-axis-icon{display:none!important}
+}
