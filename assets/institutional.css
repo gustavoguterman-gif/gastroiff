@@ -843,3 +843,11 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
 @media(max-width:700px){
  body>.header-refined,body>header.header-refined{position:sticky!important;top:0!important;z-index:1100!important}
 }
+
+/* Revisão desktop: recursos fora da barra principal e navegação legível. */
+@media(min-width:701px){
+ .header-refined .navbar .gi-nav-dropdown{display:none!important}
+ .header-refined .headerline>.navbar{flex-wrap:nowrap!important;overflow:visible!important;gap:clamp(5px,.65vw,14px)!important}
+ .header-refined .navbar>.nav-anchor{font-size:clamp(11px,.88vw,14px)!important;white-space:nowrap!important;padding:9px 2px!important}
+ .header-refined .headerline>.gastrobrand{flex-basis:clamp(180px,18vw,265px)!important}
+}
