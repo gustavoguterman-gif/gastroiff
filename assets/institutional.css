@@ -704,3 +704,15 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
  .header-refined .headerline>.quick-access{grid-column:3!important;grid-row:1!important;width:102px!important;max-width:102px!important;gap:3px!important}
  .header-refined .headerline>.quick-access>*{width:49px!important;min-width:0!important;font-size:9px!important}
 }
+/* Marca do cabeçalho em telas pequenas: o símbolo é extraído da própria marca aprovada. */
+.gi-mobile-wordmark{display:none}
+@media(max-width:700px){
+ .header-refined .headerline>.gastrobrand{position:relative!important;grid-column:2!important;grid-row:1!important;left:auto!important;top:auto!important;transform:none!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:visible!important;width:100%!important;min-width:0!important;max-width:100%!important}
+ .header-refined .headerline>.gastrobrand>img{display:none!important}
+ .gi-mobile-wordmark{display:flex!important;width:100%;height:53px;align-items:center;justify-content:center;gap:2px;min-width:0;overflow:visible}
+ .gi-mobile-symbol{display:block;flex:0 0 50px;width:50px;height:50px;background-image:url('gastroiff-marca.jpg');background-repeat:no-repeat;background-size:210px auto;background-position:left center}
+ .gi-mobile-lettering{display:flex;flex-direction:column;justify-content:center;min-width:0;flex:0 1 auto;line-height:1.05}
+ .gi-mobile-name{font-family:Arial,Helvetica,sans-serif;font-weight:900;color:#2c211d;font-size:clamp(17px,5.6vw,23px);letter-spacing:-.07em;white-space:nowrap}
+ .gi-mobile-name>span{color:#279a39}
+ .gi-mobile-subtitle{font-family:Arial,Helvetica,sans-serif;color:#3c332e;font-size:clamp(6.5px,1.87vw,8px);font-weight:600;white-space:nowrap;letter-spacing:-.025em;margin-top:2px}
+}
