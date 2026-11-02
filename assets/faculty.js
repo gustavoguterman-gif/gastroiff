@@ -162,7 +162,7 @@ window.GASTROIFF_FACULTY=[
       [
         "Culinária da Baixada Litorânea",
         "Pesquisa sobre história cultural, saberes alimentares e receitas tradicionais do território, em parceria com pesquisadores da UFRJ.",
-        "https://www.escavador.com/sobre/2330390/gustavo-da-cunha-guterman"
+        ""
       ]
     ],
     "pubs": [
