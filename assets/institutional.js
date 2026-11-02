@@ -87,7 +87,7 @@ document.querySelectorAll('.gi-nav-dropdown').forEach(root=>{const btn=root.quer
 /* Navegação móvel por três eixos, com ícones e um único grupo aberto */
 (function(){
  function organize(){
-  const nav=document.querySelector('[data-mobile-menu]');if(!nav)return;
+  const nav=document.querySelector('[data-mobile-menu]');if(!nav||!window.matchMedia('(max-width:700px)').matches)return;
   const groups=[
    {name:'Ensino',icon:'graduation',items:[['cursos.html','Cursos de Gastronomia'],['docentes.html','Comunidade acadêmica'],['documentos.html','Documentos acadêmicos'],['laboratorios.html','Laboratórios'],['biblioteca.html','Biblioteca'],['praticas.html','Fichas técnicas']]},
    {name:'Pesquisa',icon:'book',items:[['pesquisa.html','Pesquisas e publicações'],['observatorio.html','Observatório da formação']]},
