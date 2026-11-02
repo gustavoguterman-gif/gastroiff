@@ -84,51 +84,46 @@ document.querySelectorAll('.gi-nav-dropdown').forEach(root=>{const btn=root.quer
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',prepare);else prepare();
 })();
 
-/* Navegação móvel por três eixos, com ícones e um único grupo aberto */
+/* Navegação compartilhada: os mesmos eixos no computador e no celular. */
 (function(){
- function organize(){
-  const nav=document.querySelector('[data-mobile-menu]');if(!nav||!window.matchMedia('(max-width:700px)').matches)return;
-  const groups=[
-   {name:'Ensino',icon:'graduation',items:[['cursos.html','Cursos de Gastronomia'],['docentes.html','Comunidade acadêmica'],['documentos.html','Documentos acadêmicos'],['laboratorios.html','Laboratórios'],['biblioteca.html','Biblioteca'],['praticas.html','Fichas técnicas']]},
-   {name:'Pesquisa',icon:'book',items:[['pesquisa.html','Pesquisas e publicações'],['observatorio.html','Observatório da formação']]},
-   {name:'Território',icon:'pin',items:[['projetos.html','Projetos de extensão'],['oportunidades.html','Estágios e empregos'],['eventos.html','Calendário de eventos']]}
-  ];
-  const icons={
-   graduation:'<path d="m2 9 10-5 10 5-10 5-10-5Z"/><path d="M6 11v5c3.8 3 8.2 3 12 0v-5"/><path d="M22 9v7"/>',
-   book:'<path d="M12 7v14"/><path d="M3 5.5c3-1.5 6-1.5 9 0v15c-3-1.5-6-1.5-9 0z"/><path d="M21 5.5c-3-1.5-6-1.5-9 0v15c3-1.5 6-1.5 9 0z"/>',
-   pin:'<path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>'
-  };
-  const previousInstall=nav.querySelector('[data-install-app]');
-  nav.replaceChildren();
+ const groups=[
+ {name:'Ensino',icon:'graduation-cap',items:[['cursos.html','Cursos de Gastronomia'],['docentes.html','Comunidade acadêmica'],['documentos.html','Documentos acadêmicos'],['laboratorios.html','Laboratórios'],['biblioteca.html','Biblioteca'],['praticas.html','Fichas técnicas']]},
+ {name:'Pesquisa',icon:'book-open',items:[['pesquisa.html','Pesquisas e publicações'],['revistas.html','Revistas acadêmicas de Gastronomia'],['observatorio.html','Observatório da formação']]},
+ {name:'Território',icon:'map-pin',items:[['projetos.html','Projetos e extensão'],['oportunidades.html','Estágios e empregos'],['eventos.html','Calendário de eventos']]}
+ ];
+ const paths={
+ 'graduation-cap':'<path d="m2 9 10-5 10 5-10 5-10-5Z"/><path d="M6 11v5c3.8 3 8.2 3 12 0v-5"/><path d="M22 9v7"/>',
+ 'book-open':'<path d="M12 7v14"/><path d="M3 5.5c3-1.5 6-1.5 9 0v15c-3-1.5-6-1.5-9 0z"/><path d="M21 5.5c-3-1.5-6-1.5-9 0v15c3-1.5 6-1.5 9 0z"/>',
+ 'map-pin':'<path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>'
+ };
+ function build(nav,kind){
+  if(!nav)return;const install=nav.querySelector('[data-install-app]');nav.replaceChildren();nav.classList.add('gi-unified-nav','gi-unified-'+kind);
   const current=location.pathname.split('/').pop()||'index.html';
-  let activeGroup=null;
-  const about=document.createElement('a');about.href='sobre.html';about.className='gi-axis-about';about.textContent='Sobre o GastroIFF';if(current==='sobre.html')about.setAttribute('aria-current','page');nav.append(about);
+  function link(href,label,cls){const a=document.createElement('a');a.href=href;a.textContent=label;a.className=cls||'';if(current===href)a.setAttribute('aria-current','page');return a}
+  if(kind==='mobile')nav.append(link('sobre.html','Sobre o GastroIFF','gi-axis-about'));
+  else nav.append(link('sobre.html','Sobre o GastroIFF','gi-desktop-about'));
+  let count=0;
   for(const group of groups){
-   const wrapper=document.createElement('div');wrapper.className='gi-axis';
-   const button=document.createElement('button');button.type='button';button.className='gi-axis-toggle';button.setAttribute('aria-expanded','false');
-   const icon=document.createElement('span');icon.className='gi-axis-icon';icon.setAttribute('aria-hidden','true');
-   icon.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+icons[group.icon]+'</svg>';
+   const wrap=document.createElement('div');wrap.className='gi-axis';
+   const b=document.createElement('button');b.className='gi-axis-toggle';b.type='button';b.setAttribute('aria-expanded','false');
+   const ic=document.createElement('span');ic.className='gi-axis-icon';ic.setAttribute('aria-hidden','true');ic.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+paths[group.icon]+'</svg>';
    const label=document.createElement('span');label.textContent=group.name;
-   const arrow=document.createElement('span');arrow.className='gi-axis-chevron';arrow.setAttribute('aria-hidden','true');arrow.textContent='⌄';
-   button.append(icon,label,arrow);
-   const panel=document.createElement('div');panel.className='gi-axis-panel';panel.hidden=true;
-   panel.id='gi-axis-'+group.icon;button.setAttribute('aria-controls',panel.id);
-   for(const [href,title] of group.items){const a=document.createElement('a');a.href=href;a.textContent=title;if(href===current){a.setAttribute('aria-current','page');activeGroup=wrapper}panel.append(a)}
-   button.addEventListener('click',()=>{
-    const expanded=button.getAttribute('aria-expanded')==='true';
-    nav.querySelectorAll('.gi-axis-toggle').forEach(b=>b.setAttribute('aria-expanded','false'));
-    nav.querySelectorAll('.gi-axis-panel').forEach(p=>p.hidden=true);
-    if(!expanded){button.setAttribute('aria-expanded','true');panel.hidden=false}
+   const chev=document.createElement('span');chev.className='gi-axis-chevron';chev.textContent='⌄';chev.setAttribute('aria-hidden','true');
+   b.append(ic,label,chev);
+   const panel=document.createElement('div');panel.className='gi-axis-panel';panel.id='gi-nav-'+kind+'-'+count++;panel.hidden=true;b.setAttribute('aria-controls',panel.id);
+   let containsCurrent=false;
+   for(const item of group.items){const a=link(item[0],item[1]);if(item[0]===current)containsCurrent=true;panel.append(a)}
+   if(containsCurrent){wrap.classList.add('gi-axis-current');if(kind==='mobile'){b.setAttribute('aria-expanded','true');panel.hidden=false}}
+   b.addEventListener('click',()=>{
+    const wasOpen=b.getAttribute('aria-expanded')==='true';
+    nav.querySelectorAll('.gi-axis-toggle').forEach(x=>x.setAttribute('aria-expanded','false'));
+    nav.querySelectorAll('.gi-axis-panel').forEach(x=>x.hidden=true);
+    if(!wasOpen){b.setAttribute('aria-expanded','true');panel.hidden=false}
    });
-   wrapper.append(button,panel);nav.append(wrapper);
+   wrap.append(b,panel);nav.append(wrap);
   }
-  const extras=document.createElement('div');extras.className='gi-axis-extras';
-  for(const [href,title] of [['contato.html','Contato']]){
-   const a=document.createElement('a');a.href=href;a.textContent=title;if(href===current)a.setAttribute('aria-current','page');extras.append(a);
-  }
-  if(previousInstall){previousInstall.classList.add('gi-axis-install');extras.append(previousInstall)}
-  nav.append(extras);
-  if(activeGroup){const btn=activeGroup.querySelector('.gi-axis-toggle');btn.setAttribute('aria-expanded','true');activeGroup.querySelector('.gi-axis-panel').hidden=false}
+  if(kind==='mobile'){const extras=document.createElement('div');extras.className='gi-axis-extras';extras.append(link('contato.html','Contato'));if(install)extras.append(install);nav.append(extras)}
  }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',organize);else organize();
+ function init(){build(document.querySelector('[data-mobile-menu]'),'mobile');build(document.querySelector('.header-refined .navbar'),'desktop')}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
