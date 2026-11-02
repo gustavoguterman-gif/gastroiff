@@ -806,3 +806,10 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
   color:#234a35!important;
  }
 }
+
+/* Identidade aprovada: cabeçalho usa a mesma imagem integral da página Sobre. */
+@media(max-width:700px){
+ .header-refined .headerline>.gastrobrand{overflow:hidden!important;display:flex!important;align-items:center!important;justify-content:center!important}
+ .header-refined .headerline>.gastrobrand>img{display:block!important;width:100%!important;max-width:100%!important;height:auto!important;max-height:62px!important;object-fit:contain!important;position:static!important;opacity:1!important;visibility:visible!important}
+ .header-refined .headerline>.gastrobrand>.gi-mobile-wordmark{display:none!important}
+}
