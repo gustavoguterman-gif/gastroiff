@@ -766,3 +766,11 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
  [data-mobile-menu] .gi-axis-extras>a{display:block!important;padding:10px 16px!important;font-size:13px!important;min-height:0!important;font-weight:500!important;background:transparent!important;box-shadow:none!important}
  [data-mobile-menu] .gi-axis-extras [data-install-app]{align-self:flex-start!important;margin:9px 16px!important}
 }
+
+/* Refinamento: apresentação primeiro e separadores únicos no menu móvel */
+@media(max-width:700px){
+ [data-mobile-menu]>.gi-axis-about{display:block!important;padding:15px 16px!important;margin:0!important;min-height:0!important;font-size:15px!important;font-weight:650!important;line-height:1.35!important;color:#234a35!important;background:transparent!important;border:0!important;border-bottom:1px solid rgba(35,75,49,.12)!important;border-radius:0!important;box-shadow:none!important;text-decoration:none!important}
+ [data-mobile-menu]>.gi-axis-about[aria-current="page"]{color:#267544!important}
+ [data-mobile-menu] .gi-axis-extras{border-top:0!important;padding-top:0!important;margin-top:0!important}
+ [data-mobile-menu] .gi-axis-extras>a{border-bottom:1px solid rgba(35,75,49,.12)!important}
+}
