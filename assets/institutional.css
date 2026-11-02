@@ -851,3 +851,27 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
  .header-refined .navbar>.nav-anchor{font-size:clamp(11px,.88vw,14px)!important;white-space:nowrap!important;padding:9px 2px!important}
  .header-refined .headerline>.gastrobrand{flex-basis:clamp(180px,18vw,265px)!important}
 }
+
+/* Desktop: mesma estrutura do menu mobile, adaptada à largura de tela. */
+@media(min-width:701px){
+ .header-refined .headerline{display:flex!important;align-items:center!important;gap:clamp(14px,2vw,32px)!important;justify-content:space-between!important;min-height:104px!important}
+ .header-refined .headerline>.gastrobrand{flex:0 0 clamp(280px,27vw,420px)!important;width:clamp(280px,27vw,420px)!important;max-width:420px!important;min-width:0!important}
+ .header-refined .headerline>.gastrobrand>img{width:100%!important;max-height:92px!important;object-fit:contain!important}
+ .header-refined .headerline>.navbar.gi-unified-desktop{display:flex!important;align-items:center!important;justify-content:space-evenly!important;gap:clamp(10px,1.5vw,32px)!important;flex:1 1 auto!important;min-width:0!important;overflow:visible!important;flex-wrap:nowrap!important}
+ .gi-unified-desktop .gi-desktop-about{font-size:clamp(13px,1vw,16px)!important;font-weight:600!important;color:#214c34!important;text-decoration:none!important;white-space:nowrap!important}
+ .gi-unified-desktop .gi-axis{position:relative!important;flex:0 0 auto!important;border:0!important}
+ .gi-unified-desktop .gi-axis-toggle{display:flex!important;align-items:center!important;gap:8px!important;font:600 clamp(13px,1.05vw,17px)/1.3 inherit!important;color:#214c34!important;background:transparent!important;border:0!important;border-radius:9px!important;padding:10px 5px!important;box-shadow:none!important;white-space:nowrap!important;cursor:pointer!important}
+ .gi-unified-desktop .gi-axis-icon{display:inline-flex!important;width:28px!important;height:28px!important;align-items:center!important;justify-content:center!important;color:#327b4d!important;background:#eaf4e9!important;border-radius:7px!important}
+ .gi-unified-desktop .gi-axis-icon svg{width:19px!important;height:19px!important}
+ .gi-unified-desktop .gi-axis-chevron{font-size:19px!important;line-height:1!important;margin-left:3px!important}
+ .gi-unified-desktop .gi-axis-panel[hidden]{display:none!important}
+ .gi-unified-desktop .gi-axis-panel{position:absolute!important;left:0!important;top:100%!important;z-index:1200!important;display:flex!important;flex-direction:column!important;width:max-content!important;min-width:245px!important;max-width:335px!important;padding:9px!important;background:#fff!important;border:1px solid #d7e6d7!important;border-radius:12px!important;box-shadow:0 14px 28px #12291d22!important}
+ .gi-unified-desktop .gi-axis-panel a{display:block!important;font-size:14px!important;line-height:1.35!important;color:#214c34!important;font-weight:500!important;text-decoration:none!important;padding:11px 12px!important;border-radius:7px!important;white-space:normal!important}
+ .gi-unified-desktop .gi-axis-panel a:hover{background:#edf6ee!important}
+ .gi-unified-desktop .gi-axis-current>.gi-axis-toggle{color:#277442!important}
+}
+@media(min-width:701px) and (max-width:1150px){
+ .header-refined .headerline>.gastrobrand{flex-basis:clamp(195px,24vw,270px)!important;width:clamp(195px,24vw,270px)!important}
+ .header-refined .headerline>.navbar.gi-unified-desktop{gap:5px!important}
+ .gi-unified-desktop .gi-axis-icon{width:23px!important;height:23px!important}
+}
