@@ -674,27 +674,23 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
  .header-refined .headerline>.institution{display:none!important}
 }
 
-/* Refinamento pontual da marca no cabeçalho móvel */
+/* Correção definitiva: centro geométrico da marca, sem pseudo-texto e sem deformação */
 @media(max-width:700px){
+ .header-refined .headerline{position:relative!important}
  .header-refined .headerline>.gastrobrand{
-  position:absolute!important;
-  left:50%!important;top:50%!important;
+  position:absolute!important;display:flex!important;align-items:center!important;justify-content:center!important;
+  grid-column:auto!important;grid-row:auto!important;
+  top:50%!important;bottom:auto!important;left:50%!important;right:auto!important;
   transform:translate(-50%,-50%)!important;
-  width:min(54vw,215px)!important;
-  max-width:calc(100% - 178px)!important;
-  justify-self:auto!important;z-index:1!important;
+  width:min(54vw,215px)!important;max-width:min(54vw,215px)!important;
+  height:auto!important;min-width:0!important;margin:0!important;padding:0!important;
+  justify-self:auto!important;align-self:auto!important;z-index:1!important;
  }
  .header-refined .headerline>.gastrobrand img{
-  width:100%!important;height:auto!important;max-height:70px!important;
+  position:static!important;display:block!important;width:100%!important;height:auto!important;
+  max-width:100%!important;max-height:none!important;object-fit:contain!important;
+  transform:none!important;margin:0!important;padding:0!important;
  }
- .header-refined .headerline>.menu-toggle,.header-refined .headerline>.quick-access{z-index:2!important}
- .header-refined .headerline>.gastrobrand::after{
-  content:"Gastronomia • campus Cabo Frio - RJ";
-  position:absolute!important;left:26%!important;right:0!important;
-  top:67%!important;
-  color:#332a24!important;background:#f8f7f3!important;
-  font-size:clamp(7.5px,2.15vw,9.5px)!important;line-height:1.2!important;
-  letter-spacing:0!important;text-align:center!important;white-space:nowrap!important;
-  padding:2px 0 1px!important;pointer-events:none!important;
- }
+ .header-refined .headerline>.gastrobrand::before,.header-refined .headerline>.gastrobrand::after{content:none!important;display:none!important}
+ .header-refined .headerline>.menu-toggle,.header-refined .headerline>.quick-access{z-index:3!important}
 }
