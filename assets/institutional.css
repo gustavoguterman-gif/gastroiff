@@ -930,3 +930,18 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
     letter-spacing:-.03em!important;
   }
 }
+
+/* Hierarquia entre título da página e primeira seção no celular */
+@media(max-width:760px){
+ body.gastroiff-page .pagehero + .section{padding-top:42px!important}
+ body.gastroiff-page .pagehero + .contentgroup{padding-top:42px!important}
+ body.gastroiff-page .pagehero + .section .container > .gi-intro > h2.h2,
+ body.gastroiff-page .pagehero + .section .container > .gi-entry > h2.h2{
+  font-size:clamp(22px,5.5vw,28px)!important;
+  line-height:1.28!important;
+  letter-spacing:-.025em!important;
+  font-weight:630!important;
+  margin-bottom:20px!important;
+ }
+ body.gastroiff-page .pagehero + .section .gi-intro > p:first-of-type{margin-top:0!important}
+}
