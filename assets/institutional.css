@@ -822,3 +822,14 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
  .header-refined .headerline>.gastrobrand>img{display:block!important}
  .header-refined .headerline>.gastrobrand>.gi-mobile-wordmark{display:none!important}
 }
+
+/* Desktop: restauração rigorosa da navegação horizontal. */
+@media(min-width:701px){
+ .header-refined .menu-toggle,.header-refined [data-menu-toggle],.header-refined [data-mobile-menu],.header-refined .mobile-menu{display:none!important;visibility:hidden!important;pointer-events:none!important}
+ .header-refined .headerline{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;position:relative!important}
+ .header-refined .headerline>.gastrobrand{position:relative!important;left:auto!important;top:auto!important;transform:none!important;flex:0 1 255px!important;min-width:160px!important;max-width:255px!important;width:auto!important;overflow:visible!important}
+ .header-refined .headerline>.gastrobrand>img{display:block!important;width:100%!important;height:auto!important;max-height:64px!important;object-fit:contain!important}
+ .header-refined .headerline>.navbar{display:flex!important;position:relative!important;flex:1 1 auto!important;align-items:center!important;justify-content:center!important;flex-wrap:wrap!important;width:auto!important;min-width:0!important;gap:4px!important}
+ .header-refined .headerline>.institution{position:relative!important;flex:0 0 auto!important}
+ .header-refined .headerline>.quick-access{position:relative!important;flex:0 0 auto!important}
+}
