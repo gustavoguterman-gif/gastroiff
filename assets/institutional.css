@@ -890,3 +890,16 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
  .header-refined .headerline>.navbar.gi-unified-desktop{gap:7px!important}
  .header-refined .gi-unified-desktop .gi-axis-icon{display:none!important}
 }
+
+/* Comunidade: organizacao do colegiado e NDE, responsividade e legibilidade */
+.governance-panel .gi-governance-sections{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start;margin-top:22px}
+.governance-panel .gi-governance-section{min-width:0;background:#fff;border:1px solid #dce5db;border-radius:16px;padding:26px;overflow-wrap:anywhere}
+.governance-panel .gi-governance-section h3{font-size:clamp(20px,2vw,26px);line-height:1.25;margin:0 0 16px;color:#203c2c}
+.governance-panel .gi-governance-section h4{font-size:17px;line-height:1.4;margin:23px 0 9px;color:#203c2c}
+.governance-panel .gi-governance-section p{font-size:16px;line-height:1.7;margin:0 0 10px;color:#5d6d61}
+.governance-panel .gi-regulation-source{margin-top:22px;font-size:13px;overflow-wrap:anywhere}
+.faculty-toolbar,.faculty-filters,.facultygrid{min-width:0}
+.faculty-toolbar input{max-width:100%;min-width:0}
+.facultycard{min-width:0;overflow-wrap:anywhere}
+@media(max-width:800px){.governance-panel .gi-governance-sections{grid-template-columns:minmax(0,1fr);gap:14px}.governance-panel .gi-governance-section{padding:22px}.governance-panel .gi-governance-section p{font-size:15px;line-height:1.65}}
+@media(max-width:430px){.governance-panel .gi-governance-section{padding:19px}.governance-panel .gi-governance-section h3{font-size:21px}.governance-panel .gi-governance-section h4{font-size:16px}.governance-panel .gi-governance-section p{font-size:15px}}
