@@ -716,3 +716,36 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
  .gi-mobile-name>span{color:#279a39}
  .gi-mobile-subtitle{font-family:Arial,Helvetica,sans-serif;color:#3c332e;font-size:clamp(6.5px,1.87vw,8px);font-weight:600;white-space:nowrap;letter-spacing:-.025em;margin-top:2px}
 }
+
+/* Revisão mobile de densidade, autoria, perfis e ações - 2026-11 */
+@media(max-width:760px){
+ /* Autoria é texto navegável, não botão de ação. */
+ main .research-result a.research-author-profile,
+ main .research-result a.research-author-profile:is(:hover,:focus-visible,:active){
+  display:inline!important;width:auto!important;max-width:none!important;min-width:0!important;
+  padding:0!important;margin:0 3px 0 0!important;min-height:0!important;
+  color:#286942!important;background:transparent!important;border:0!important;border-radius:0!important;
+  box-shadow:none!important;transform:none!important;font-size:inherit!important;
+  line-height:inherit!important;font-weight:650!important;text-align:left!important;
+  text-decoration:underline!important;text-underline-offset:2px!important;white-space:normal!important;
+ }
+ main .research-result{min-width:0!important}
+ main .research-result :is(.research-authors,.research-author-list,.research-result-authors){display:block!important;line-height:1.6!important}
+ main .research-result :is(.research-authors,.research-author-list,.research-result-authors) a{vertical-align:baseline!important}
+ /* Fotos ou iniciais proporcionais, sem cartões gigantes. */
+ .profile-layout{grid-template-columns:minmax(0,1fr)!important;gap:14px!important}
+ .profile-side{display:flex!important;align-items:center!important;justify-content:flex-start!important;
+  width:100%!important;max-width:100%!important;padding:12px 14px!important;border-radius:14px!important;
+  min-height:0!important;box-sizing:border-box!important}
+ .profile-side .avatar{flex:0 0 76px!important;width:76px!important;height:76px!important;min-width:76px!important;
+  max-width:76px!important;max-height:76px!important;font-size:27px!important;line-height:1!important;
+  border-radius:13px!important;margin:0!important}
+ .profile-side .avatar img{width:100%!important;height:100%!important;object-fit:cover!important;border-radius:inherit!important}
+ .profile-main{padding:4px 0!important;min-width:0!important}
+ .profile-main h2{font-size:clamp(28px,8vw,38px)!important;line-height:1.1!important}
+ .profile-record{padding-block:12px!important}
+ .profile-actions{gap:8px!important}
+ /* Reduz espaço vazio e repetições ornamentais sem esconder conteúdo. */
+ .profile-meta,.facultyfoot{font-size:12px!important;line-height:1.5!important}
+ .research-result :is(.link,.button):not(.research-author-profile){align-self:flex-start!important}
+}
