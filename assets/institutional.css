@@ -903,3 +903,30 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
 .facultycard{min-width:0;overflow-wrap:anywhere}
 @media(max-width:800px){.governance-panel .gi-governance-sections{grid-template-columns:minmax(0,1fr);gap:14px}.governance-panel .gi-governance-section{padding:22px}.governance-panel .gi-governance-section p{font-size:15px;line-height:1.65}}
 @media(max-width:430px){.governance-panel .gi-governance-section{padding:19px}.governance-panel .gi-governance-section h3{font-size:21px}.governance-panel .gi-governance-section h4{font-size:16px}.governance-panel .gi-governance-section p{font-size:15px}}
+
+/* Tipografia responsiva global: títulos longos em celular */
+@media(max-width:760px){
+  body.gastroiff-page .pagehero h1,
+  body.gastroiff-page .hero h1{
+    font-size:clamp(29px,7.4vw,43px)!important;
+    line-height:1.13!important;
+    letter-spacing:-.035em!important;
+    font-weight:650!important;
+    overflow-wrap:normal;
+    word-break:normal;
+    hyphens:none;
+    max-width:100%;
+  }
+  body.gastroiff-page .pagehero-row,
+  body.gastroiff-page .pagehero-row>div,
+  body.gastroiff-page .hero-grid,
+  body.gastroiff-page .hero-grid>div{min-width:0}
+  body.gastroiff-page .pagehero .kicker{font-size:11px;line-height:1.5;letter-spacing:.08em}
+}
+@media(max-width:390px){
+  body.gastroiff-page .pagehero h1,
+  body.gastroiff-page .hero h1{
+    font-size:clamp(27px,7.7vw,31px)!important;
+    letter-spacing:-.03em!important;
+  }
+}
