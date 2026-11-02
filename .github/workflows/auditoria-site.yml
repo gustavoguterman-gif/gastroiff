@@ -1,0 +1,36 @@
+name: Auditoria completa de navegacao e responsividade
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '**.html'
+      - 'assets/**'
+      - 'sw.js'
+      - 'tests/**'
+      - '.github/workflows/auditoria-site.yml'
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar navegador e ferramentas
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Servir site local
+        run: |
+          mkdir -p reports
+          python3 -m http.server 8765 --bind 127.0.0.1 >reports/http.log 2>&1 &
+      - name: Executar auditoria nas tres larguras de tela
+        run: node tests/auditoria.js
+      - name: Salvar relatorio e capturas de tela
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auditoria-gastroiff
+          path: reports/
