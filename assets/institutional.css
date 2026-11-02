@@ -749,3 +749,20 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
  .profile-meta,.facultyfoot{font-size:12px!important;line-height:1.5!important}
  .research-result :is(.link,.button):not(.research-author-profile){align-self:flex-start!important}
 }
+
+/* Menu móvel: três eixos com ícones e subitens compactos */
+@media(max-width:700px){
+ [data-mobile-menu] .gi-axis{display:block!important;width:100%!important;border-bottom:1px solid rgba(35,75,49,.12)}
+ [data-mobile-menu] .gi-axis-toggle{appearance:none;display:flex!important;align-items:center!important;gap:12px!important;width:100%!important;min-height:55px!important;padding:10px 16px!important;text-align:left!important;border:0!important;border-radius:0!important;background:transparent!important;color:#234a35!important;box-shadow:none!important;font:inherit!important;font-weight:700!important;cursor:pointer}
+ [data-mobile-menu] .gi-axis-icon{display:inline-flex;align-items:center;justify-content:center;flex:none;width:34px;height:34px;border-radius:9px;background:#edf5ed;color:#2f7544}
+ [data-mobile-menu] .gi-axis-icon svg{width:21px;height:21px;display:block}
+ [data-mobile-menu] .gi-axis-chevron{margin-left:auto;font-size:22px;line-height:1;transition:transform .16s}
+ [data-mobile-menu] .gi-axis-toggle[aria-expanded="true"] .gi-axis-chevron{transform:rotate(180deg)}
+ [data-mobile-menu] .gi-axis-panel[hidden]{display:none!important}
+ [data-mobile-menu] .gi-axis-panel{padding:0 10px 8px 60px!important;background:transparent!important}
+ [data-mobile-menu] .gi-axis-panel a{display:block!important;padding:10px 5px!important;margin:0!important;min-height:0!important;font-size:14px!important;font-weight:500!important;line-height:1.35!important;background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important}
+ [data-mobile-menu] .gi-axis-panel a[aria-current="page"]{color:#225f37!important;font-weight:750!important}
+ [data-mobile-menu] .gi-axis-extras{display:flex;flex-direction:column;gap:0;padding:9px 0 0;margin-top:5px;border-top:1px solid rgba(35,75,49,.15)}
+ [data-mobile-menu] .gi-axis-extras>a{display:block!important;padding:10px 16px!important;font-size:13px!important;min-height:0!important;font-weight:500!important;background:transparent!important;box-shadow:none!important}
+ [data-mobile-menu] .gi-axis-extras [data-install-app]{align-self:flex-start!important;margin:9px 16px!important}
+}
