@@ -39,7 +39,7 @@ if(prof&&Array.isArray(window.GASTROIFF_FACULTY)){
    if(p.degree_title && p.degree_link){details.append(el('h3','','Trabalhos acadêmicos'));const div=el('div','profile-record');div.append(el('strong','',p.degree_title),urlLink('Acessar texto integral ↗',p.degree_link));details.append(div)}
    if(details.childElementCount)main.append(details);
    main.append(el('p','profile-meta','Os registros desta página são uma seleção de fontes identificadas, não um espelho atualizado automaticamente do currículo Lattes.'));
-   prof.append(side,main);document.title=p.name+' | GASTROIFF';
+   prof.append(side,main);document.title=p.name+' | GASTROIFF';const heroTitle=document.querySelector('.pagehero h1');if(heroTitle)heroTitle.textContent=p.category==='Técnico-administrativa'?'Perfil profissional.':'Perfil docente.';
  }
 }
 const filters=document.querySelectorAll('[data-faculty-group]');
