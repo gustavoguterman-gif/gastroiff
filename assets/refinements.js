@@ -3,7 +3,7 @@
 (function(){
 const whenReady=fn=>document.readyState==='loading'?document.addEventListener('DOMContentLoaded',fn,{once:true}):fn();
 whenReady(()=>{
-const email='tecnologogastronomia.cabofrio@iff.edu.br';
+const email='tecnologo.gastronomia.cabofrio@iff.edu.br';
 document.querySelectorAll('.navbar .contact-nav').forEach(a=>a.remove());
 document.querySelectorAll('.nav-tip').forEach(t=>{t.style.textAlign='left';if(t.textContent.includes('Livros físicos'))t.textContent='Acervo da biblioteca';});
 document.querySelectorAll('.location-address strong').forEach(x=>x.textContent='Endereço:');
