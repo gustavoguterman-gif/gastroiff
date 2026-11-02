@@ -102,6 +102,7 @@ document.querySelectorAll('.gi-nav-dropdown').forEach(root=>{const btn=root.quer
   nav.replaceChildren();
   const current=location.pathname.split('/').pop()||'index.html';
   let activeGroup=null;
+  const about=document.createElement('a');about.href='sobre.html';about.className='gi-axis-about';about.textContent='Sobre o GastroIFF';if(current==='sobre.html')about.setAttribute('aria-current','page');nav.append(about);
   for(const group of groups){
    const wrapper=document.createElement('div');wrapper.className='gi-axis';
    const button=document.createElement('button');button.type='button';button.className='gi-axis-toggle';button.setAttribute('aria-expanded','false');
@@ -122,7 +123,7 @@ document.querySelectorAll('.gi-nav-dropdown').forEach(root=>{const btn=root.quer
    wrapper.append(button,panel);nav.append(wrapper);
   }
   const extras=document.createElement('div');extras.className='gi-axis-extras';
-  for(const [href,title] of [['sobre.html','Sobre o GastroIFF'],['contato.html','Contato']]){
+  for(const [href,title] of [['contato.html','Contato']]){
    const a=document.createElement('a');a.href=href;a.textContent=title;if(href===current)a.setAttribute('aria-current','page');extras.append(a);
   }
   if(previousInstall){previousInstall.classList.add('gi-axis-install');extras.append(previousInstall)}
