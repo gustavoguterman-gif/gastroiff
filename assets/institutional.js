@@ -46,3 +46,25 @@ document.addEventListener('click',async function(event){
 });
 
 document.querySelectorAll('.gi-nav-dropdown').forEach(root=>{const btn=root.querySelector('.gi-nav-trigger');if(!btn)return;btn.addEventListener('click',()=>{const open=root.classList.toggle('is-open');btn.setAttribute('aria-expanded',String(open))});document.addEventListener('click',e=>{if(!root.contains(e.target)){root.classList.remove('is-open');btn.setAttribute('aria-expanded','false')}});root.addEventListener('keydown',e=>{if(e.key==='Escape'){root.classList.remove('is-open');btn.setAttribute('aria-expanded','false');btn.focus()}})});
+
+/* Organização da navegação e alinhamento das ações sem alterar conteúdo */
+(function(){
+ function apply(){
+  const desktop=document.querySelector('.header-refined .navbar');
+  if(desktop && !desktop.querySelector('.gi-about-first')){
+   const a=document.createElement('a');a.className='nav-anchor gi-about-first';a.href='sobre.html';a.innerHTML='<span class="nav-name">Sobre</span><span class="nav-tip" role="tooltip">O que é o GastroIFF</span>';
+   const first=desktop.querySelector('.nav-anchor');if(first)first.after(a);else desktop.prepend(a);
+  }
+  const mobile=document.querySelector('[data-mobile-menu]');
+  if(mobile && !mobile.querySelector('.gi-about-first')){
+   const a=document.createElement('a');a.href='sobre.html';a.className='gi-about-first';a.innerHTML='<strong>Sobre o GastroIFF</strong><span>Conheça o projeto e seus objetivos</span>';
+   mobile.prepend(a);
+   const duplicate=mobile.querySelector('.gi-mobile-resources a[href="sobre.html"]');if(duplicate)duplicate.remove();
+  }
+  const first=document.querySelector('main .hero .hero-actions-academic');
+  const second=document.querySelector('main .hero .hero-support-links');
+  if(first&&second&&!first.dataset.unified){[...second.querySelectorAll('a')].forEach(a=>first.appendChild(a));first.dataset.unified='true'}
+  if(location.pathname.endsWith('/sobre.html')){document.querySelectorAll('.gi-about-first').forEach(a=>a.setAttribute('aria-current','page'))}
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
+})();
