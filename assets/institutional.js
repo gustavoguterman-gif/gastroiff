@@ -68,3 +68,18 @@ document.querySelectorAll('.gi-nav-dropdown').forEach(root=>{const btn=root.quer
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
 })();
+
+/* Marca responsiva: mantém o símbolo original e permite texto com tamanho independente. */
+(function(){
+ function prepare(){
+  document.querySelectorAll('.header-refined .headerline > .gastrobrand').forEach(brand=>{
+   if(brand.querySelector('.gi-mobile-wordmark'))return;
+   const mark=document.createElement('span');
+   mark.className='gi-mobile-wordmark';
+   mark.setAttribute('aria-hidden','true');
+   mark.innerHTML='<span class="gi-mobile-symbol"></span><span class="gi-mobile-lettering"><span class="gi-mobile-name">GASTRO<span>IFF</span></span><span class="gi-mobile-subtitle">Gastronomia • campus Cabo Frio - RJ</span></span>';
+   brand.appendChild(mark);
+  });
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',prepare);else prepare();
+})();
