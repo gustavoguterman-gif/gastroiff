@@ -813,3 +813,12 @@ main :is(a.button,button.button,a.editorial-action,button.editorial-action,a.lin
  .header-refined .headerline>.gastrobrand>img{display:block!important;width:100%!important;max-width:100%!important;height:auto!important;max-height:62px!important;object-fit:contain!important;position:static!important;opacity:1!important;visibility:visible!important}
  .header-refined .headerline>.gastrobrand>.gi-mobile-wordmark{display:none!important}
 }
+
+/* Isolamento definitivo dos componentes móveis em telas de computador. */
+@media(min-width:701px){
+ .header-refined [data-mobile-menu],.header-refined #mobile-menu,.header-refined .mobile-menu{display:none!important;visibility:hidden!important;position:absolute!important;pointer-events:none!important}
+ .header-refined .menu-toggle{display:none!important}
+ .header-refined .navbar{display:flex!important}
+ .header-refined .headerline>.gastrobrand>img{display:block!important}
+ .header-refined .headerline>.gastrobrand>.gi-mobile-wordmark{display:none!important}
+}
