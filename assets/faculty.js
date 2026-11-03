@@ -307,21 +307,27 @@ window.GASTROIFF_FACULTY=[
   {
     "id": "marco-monteiro",
     "name": "Marco Monteiro",
-    "full": "Marco Antônio Monteiro",
-    "area": "Perfil acadêmico em conferência",
-    "bio": "Docente indicado para a composição atual da Gastronomia do Campus Cabo Frio - RJ. Dados de formação e pesquisa aguardam confirmação em fonte acadêmica individual.",
+    "full": "Marco Antonio Garcia Monteiro",
+    "area": "Gestão de negócios, planejamento e formação em Gastronomia",
+    "bio": "Professor do IFFluminense, Campus Cabo Frio, e coordenador do Curso Técnico em Gastronomia. Integra o NDE do Curso Superior de Tecnologia em Gastronomia. Atua no ensino de Negócios em Gastronomia, Gestão Financeira, Gestão de Materiais, Noções de Direito e Segurança do Trabalho, articulando gestão, empreendedorismo e formação profissional.",
     "lattes": "",
     "degree": "",
     "degree_title": "",
     "degree_link": "",
-    "projects": [],
+    "projects": [
+      [
+        "Da Bancada à Mesa",
+        "Projeto de ensino e extensão relacionado às atividades práticas de Cozinha Internacional I no curso Técnico em Gastronomia, desenvolvido em 2026.",
+        ""
+      ]
+    ],
     "pubs": [],
     "group": "",
     "image": "",
     "colegiado": false,
     "nde": true,
     "initials": "MM",
-    "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
+    "source": "Composição e informações acadêmicas fornecidas pela coordenação da Gastronomia do IFF Campus Cabo Frio, 2026. Projetos e disciplinas informados em comunicações institucionais."
   },
   {
     "id": "renato-cerqueira",
@@ -397,7 +403,7 @@ window.GASTROIFF_FACULTY=[
     "full": "Daiana Costa Pereira",
     "area": "Gestão de pessoas, educação e gastronomia",
     "bio": "Assistente de alunos e integrante da representação técnico-administrativa. Atua na gestão de pessoas do IFF. Formação em Normal Superior e Gastronomia, com pós-graduação em Planejamento Educacional e Docência do Ensino Superior; registro institucional menciona mestrado ProfEPT em andamento.",
-    "lattes": "",
+    "lattes": "http://lattes.cnpq.br/4693043291593785",
     "degree": "Graduação em Normal Superior e Gastronomia; pós-graduação em Planejamento Educacional e Docência do Ensino Superior",
     "degree_title": "",
     "degree_link": "",
@@ -435,11 +441,11 @@ window.GASTROIFF_FACULTY=[
     "id": "wellington-santos",
     "name": "Wellington Santos",
     "full": "Wellington Vinicius dos Santos",
-    "area": "Gastronomia, extensão e cultura alimentar",
-    "bio": "Docente da Gastronomia do IFFluminense, campus Cabo Frio, atualmente afastado para doutoramento. Idealizador do projeto de extensão IFF na Feira, com atuação em atividades que aproximam a formação gastronômica das comunidades e da agricultura familiar.",
+    "area": "Gastronomia, ciência dos alimentos e cultura alimentar",
+    "bio": "Gastrônomo pela Faculdade Cambury e mestre em Nutrição e Alimentos pela Unisinos. Possui especializações em Gestão de Negócios em Serviços da Alimentação e Gastronomia. Professor da Rede Federal desde 2010, atua na formação profissional, nas técnicas culinárias, na alimentação e na pesquisa em ciência dos alimentos. Doutorando em Alimentos e Nutrição na Unicamp, idealizou o projeto de extensão IFF na Feira.",
     "lattes": "http://lattes.cnpq.br/1583097455234338",
-    "degree": "",
-    "degree_title": "",
+    "degree": "Mestrado em Nutrição e Alimentos, Unisinos (2017); doutoramento em Alimentos e Nutrição, Unicamp (em andamento)",
+    "degree_title": "Condensado e creme de arroz culinários: desenvolvimento e aceitabilidade de produtos feitos a partir da farinha e da quirera de arroz",
     "degree_link": "",
     "projects": [
       [
@@ -470,6 +476,6 @@ window.GASTROIFF_FACULTY=[
     "colegiado": false,
     "nde": false,
     "initials": "WS",
-    "source": "Portal IFFluminense: notícia do IFF na Feira de 2019 e atividades extensionistas com agricultores de Cantagalo."
+    "source": "Portal IFFluminense, Colegiado de Gastronomia: https://portal2015.iff.edu.br/nossos-campi/cabo-frio/colegiados/colegiado-do-curso-de-tecnologo-em-gastronomia; registros de produção científica publicados."
   }
 ];
