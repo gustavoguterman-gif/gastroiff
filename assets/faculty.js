@@ -348,7 +348,7 @@ window.GASTROIFF_FACULTY=[
       [
         "Curricularização da Extensão CST em Gastronomia",
         "Projeto de 2025–2026 articulando ensino, pesquisa e extensão, incluindo a SAGA.",
-        "https://portal1.iff.edu.br/nossos-campi/cabo-frio/arquivo/projeto-pedagogico-22.pdf"
+        ""
       ]
     ],
     "pubs": [],
