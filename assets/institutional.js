@@ -6,7 +6,7 @@ document.querySelectorAll('.facultycard').forEach(card=>{
  const old=anchor.querySelector('.pill.neutral');
  if(old)old.remove();
  let wrap=anchor.querySelector('.faculty-roles');if(!wrap){wrap=document.createElement('span');wrap.className='faculty-roles';anchor.appendChild(wrap)}
- const roles=['Docente'];if(card.dataset.colegiado==='1')roles.push('Colegiado');if(card.dataset.nde==='1')roles.push('NDE');
+ const roles=[card.dataset.docente==='0'?'Técnico-administrativa':'Docente'];if(card.dataset.colegiado==='1')roles.push('Colegiado');if(card.dataset.nde==='1')roles.push('NDE');
  wrap.replaceChildren(...roles.map(name=>{const el=document.createElement('span');el.className='pill neutral '+(name==='Colegiado'?'coleg':name==='NDE'?'nde':'');el.textContent=name;return el}));
 });
 /* As definições e composições dos órgãos estão no HTML institucional. */
