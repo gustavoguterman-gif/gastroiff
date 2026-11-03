@@ -437,7 +437,7 @@ window.GASTROIFF_FACULTY=[
     "full": "Wellington Santos",
     "area": "Gastronomia, extensão e cultura alimentar",
     "bio": "Docente da Gastronomia do IFFluminense, campus Cabo Frio, atualmente afastado para doutoramento. Idealizador do projeto de extensão IFF na Feira, com atuação em atividades que aproximam a formação gastronômica das comunidades e da agricultura familiar.",
-    "lattes": "",
+    "lattes": "http://lattes.cnpq.br/1583097455234338",
     "degree": "",
     "degree_title": "",
     "degree_link": "",
