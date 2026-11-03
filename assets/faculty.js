@@ -193,9 +193,9 @@ window.GASTROIFF_FACULTY=[
     "name": "Fernando Mello",
     "full": "Luiz Fernando de Melo Brettas",
     "area": "Cultura alimentar e gastronomia regional",
-    "bio": "Professor de Gastronomia e autor de trabalhos sobre a pesca, as tradições culinárias e a identidade alimentar da Região dos Lagos.",
-    "lattes": "",
-    "degree": "",
+    "bio": "Graduado em Turismo e Hotelaria pela Universidade Estácio de Sá e mestre em Bens Culturais e Projetos Sociais pela FGV. Professor do IFFluminense, campus Cabo Frio, com atuação em gastronomia regional, bebidas, serviços, eventos, turismo e hotelaria.",
+    "lattes": "https://lattes.cnpq.br/4258771891384632",
+    "degree": "Mestrado em Bens Culturais e Projetos Sociais, FGV (2018)",
     "degree_title": "",
     "degree_link": "",
     "projects": [],
@@ -226,7 +226,7 @@ window.GASTROIFF_FACULTY=[
     "colegiado": true,
     "nde": false,
     "initials": "FM",
-    "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
+    "source": "Portal IFFluminense, perfil do Colegiado do CST em Gastronomia (2022), e publicações bibliográficas cadastradas."
   },
   {
     "id": "gustavo-guterman",
