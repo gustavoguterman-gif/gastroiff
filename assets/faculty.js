@@ -434,7 +434,7 @@ window.GASTROIFF_FACULTY=[
   {
     "id": "wellington-santos",
     "name": "Wellington Santos",
-    "full": "Wellington Santos",
+    "full": "Wellington Vinicius dos Santos",
     "area": "Gastronomia, extensão e cultura alimentar",
     "bio": "Docente da Gastronomia do IFFluminense, campus Cabo Frio, atualmente afastado para doutoramento. Idealizador do projeto de extensão IFF na Feira, com atuação em atividades que aproximam a formação gastronômica das comunidades e da agricultura familiar.",
     "lattes": "http://lattes.cnpq.br/1583097455234338",
@@ -448,7 +448,23 @@ window.GASTROIFF_FACULTY=[
         "projetos.html"
       ]
     ],
-    "pubs": [],
+    "pubs": [
+      [
+        "Equivalência e potência de doçura de geleias de cupuaçu adoçadas com diferentes edulcorantes",
+        "Trabalho em anais SLACAN, 2023",
+        "https://proceedings.science/slacan-2023/trabalhos/equivalencia-e-potencia-de-docura-de-geleias-de-cupuacu-adocadas-com-diferentes?lang=pt-br"
+      ],
+      [
+        "Microbiological evaluation of dark chocolates made with plants extracts",
+        "Trabalho em anais SLACAN, 2023",
+        "https://proceedings.science/slacan-2023/trabalhos/microbiological-evaluation-of-dark-chocolates-made-with-plants-extracts?lang=pt-br"
+      ],
+      [
+        "Capacitação para merendeiras e manipuladores de alimentos do município de Trindade",
+        "Resumo em anais ENPSSAN, 2016",
+        "https://www.ceresan.net.br/wp-content/uploads/2017/08/II-ENPSSAN-2016-Anais.pdf"
+      ]
+    ],
     "group": "",
     "image": "",
     "colegiado": false,
