@@ -298,7 +298,7 @@ window.GASTROIFF_FACULTY=[
 ,
 {
   "id": "daiana-costa-pereira",
-  "name": "Daiana Costa Pereira",
+  "name": "Daiana Pereira",
   "full": "Daiana Costa Pereira",
   "area": "Gestão de pessoas, educação e gastronomia",
   "bio": "Assistente de alunos e integrante da representação técnico-administrativa. Atua na gestão de pessoas do IFF. Formação em Normal Superior e Gastronomia, com pós-graduação em Planejamento Educacional e Docência do Ensino Superior; registro institucional menciona mestrado ProfEPT em andamento.",
@@ -312,7 +312,7 @@ window.GASTROIFF_FACULTY=[
   "image": "",
   "colegiado": true,
   "nde": false,
-  "initials": "DC",
+  "initials": "DP",
   "category": "Técnico-administrativa",
   "source": "IFF, Banco de Fontes: https://portal1.iff.edu.br/comunidade/sala-de-imprensa-virtual/banco-de-fontes"
 },
