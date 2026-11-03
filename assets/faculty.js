@@ -263,13 +263,19 @@ window.GASTROIFF_FACULTY=[
       ],
       [
         "Plantas alimentícias não convencionais: popularização versus gourmetização",
-        "Artigo, 2022 (sumário da edição)",
-        "https://livrariaepamig.com.br/wp-content/uploads/2022/09/IA-318-pags-iniciais.pdf"
+        "Artigo · Informe Agropecuário · 2022",
+        "https://livrariaepamig.com.br/wp-content/uploads/2022/09/IA-318-pags-iniciais.pdf",
+        "https://drive.google.com/file/d/1FgrphpH-60XodPV3hr48ud5_Ffj9B84g/view?usp=sharing"
       ],
       [
         "Perfil do turista gastronômico: comer e viajar é só começar!",
         "Capítulo, 2022",
         "https://pt.scribd.com/document/574826515/Ebook-Turismo-Gastronomico-para-Gestores-de-Tu"
+      ],
+      [
+        "Desenvolvimento e Desafios dos Cursos de Gastronomia no IFF - campus Cabo Frio",
+        "Artigo · Revista de Ciência de Alimentos e Gastronomia (IFPR) · 2025",
+        "https://revistas.ifpr.edu.br/index.php/rcagt/article/view/2151"
       ]
     ],
     "group": "Núcleo de Estudos Rurais e Urbanos (NERU/UFF), conforme artigo acadêmico",
