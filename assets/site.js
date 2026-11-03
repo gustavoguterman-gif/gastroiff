@@ -35,7 +35,7 @@ if(prof&&Array.isArray(window.GASTROIFF_FACULTY)){
    if(p.degree){details.append(el('h3','','Formação acadêmica'),el('p','',p.degree));}
    if(p.group){details.append(el('h3','','Grupo de pesquisa'),el('p','',p.group));}
    if(p.projects?.length){details.append(el('h3','','Pesquisa e extensão'));for(const r of p.projects){const div=el('div','profile-record');div.append(el('strong','',r[0]));if(r[1])div.append(el('p','',r[1]));if(r[2])div.append(urlLink('Conhecer projeto ↗',r[2]));details.append(div)}}
-   if(p.pubs?.length){details.append(el('h3','','Publicações'));for(const r of p.pubs.slice(0,3)){const div=el('div','profile-record');div.append(el('strong','',r[0]));if(r[1])div.append(el('span','',r[1]));if(r[2])div.append(urlLink('Ler publicação ↗',r[2]));details.append(div)}}
+   if(p.pubs?.length){details.append(el('h3','','Publicações'));for(const r of p.pubs){const div=el('div','profile-record');div.append(el('strong','',r[0]));if(r[1])div.append(el('span','',r[1]));if(r[2])div.append(urlLink('Ler publicação ↗',r[2]));details.append(div)}}
    if(p.degree_title && p.degree_link){details.append(el('h3','','Trabalhos acadêmicos'));const div=el('div','profile-record');div.append(el('strong','',p.degree_title),urlLink('Acessar texto integral ↗',p.degree_link));details.append(div)}
    if(details.childElementCount)main.append(details);
    main.append(el('p','profile-meta','Os registros desta página são uma seleção de fontes identificadas, não um espelho atualizado automaticamente do currículo Lattes.'));
