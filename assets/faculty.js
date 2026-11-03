@@ -337,12 +337,12 @@ window.GASTROIFF_FACULTY=[
       [
         "Turismo acessível na Costa do Sol",
         "Projeto de pesquisa de 2025 sobre acessibilidade e inclusão no turismo da região.",
-        "https://integra.iff.edu.br/ecossistema/pessoas/renato-cerqueira-de-carvalho"
+        ""
       ],
       [
         "Curricularização da Extensão CST em Gastronomia",
         "Projeto de 2025–2026 articulando ensino, pesquisa e extensão, incluindo a SAGA.",
-        "https://integra.iff.edu.br/ecossistema/pessoas/renato-cerqueira-de-carvalho"
+        "https://portal1.iff.edu.br/nossos-campi/cabo-frio/arquivo/projeto-pedagogico-22.pdf"
       ]
     ],
     "pubs": [],
