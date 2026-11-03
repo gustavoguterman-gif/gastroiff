@@ -62,7 +62,7 @@ window.GASTROIFF_FACULTY=[
   },
   {
     "id": "claudia-fiuza",
-    "name": "Cláudia Alves",
+    "name": "Cláudia Fiuza",
     "full": "Cláudia Maria Fiuza Alves",
     "area": "Matemática, educação e gastronomia",
     "bio": "Mestra pelo PROFMAT/IMPA, licenciada em Matemática e graduada em Gastronomia. Atua no ensino e em atividades acadêmicas da área.",
