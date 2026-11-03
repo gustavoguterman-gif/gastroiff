@@ -1,14 +1,8 @@
 name: Auditoria completa de navegacao e responsividade
+# Execução automática suspensa para evitar falhas recorrentes e emails.
+# Reativar apenas depois de corrigir e validar a auditoria.
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '**.html'
-      - 'assets/**'
-      - 'sw.js'
-      - 'tests/**'
-      - '.github/workflows/auditoria-site.yml'
 jobs:
   site:
     runs-on: ubuntu-latest
