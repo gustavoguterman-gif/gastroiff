@@ -51,6 +51,11 @@ window.GASTROIFF_FACULTY=[
         "Escolhas alimentares infantis: riscos à saúde e reflexos na vida adulta",
         "Artigo, 2023",
         "https://doi.org/10.54751/revistafoco.v16n9-069"
+      ],
+      [
+        "Formação humana e a agregação de valor, voltada à área de pesca da mesorregião da Baixada Litorânea Fluminense",
+        "Resumo em anais, 2011",
+        "https://editoraessentia.iff.edu.br/index.php/ENNUPAS/article/view/1627"
       ]
     ],
     "group": "",
@@ -85,7 +90,7 @@ window.GASTROIFF_FACULTY=[
       [
         "Ora-pro-nóbis: alternativa para enriquecimento proteico de alimentos na merenda escolar",
         "Artigo, 2023",
-        "https://ojs.focopublicacoes.com.br/foco/article/view/3074"
+        "https://doi.org/10.54751/revistafoco.v16n9-068"
       ],
       [
         "Escolhas alimentares infantis: riscos à saúde e reflexos na vida adulta",
