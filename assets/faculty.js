@@ -56,6 +56,11 @@ window.GASTROIFF_FACULTY=[
         "Formação humana e a agregação de valor, voltada à área de pesca da mesorregião da Baixada Litorânea Fluminense",
         "Resumo em anais, 2011",
         "https://editoraessentia.iff.edu.br/index.php/ENNUPAS/article/view/1627"
+      ],
+      [
+        "Análise crítica de rótulos de alimentos industrializados e o papel do discurso do marketing",
+        "Capítulo, 2019",
+        "https://atenaeditora.com.br/catalogo/post/analise-critica-de-rotulos-de-alimentos-industrializados-e-o-papel-do-discurso-do-marketing"
       ]
     ],
     "group": "",
