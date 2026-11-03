@@ -21,6 +21,36 @@ window.GASTROIFF_FACULTY=[
         "Ora-pro-nóbis: alternativa para enriquecimento proteico de alimentos na merenda escolar",
         "2023",
         "https://static.even3.com/anais/623641.pdf?v=638967785092760764"
+      ],
+      [
+        "Capacitação básica em panificação para jovens em vulnerabilidade social do município de Cabo Frio",
+        "Anais CEIAH, 2023",
+        "https://anais.eventos.iff.edu.br/index.php/ceaih/article/view/1610"
+      ],
+      [
+        "Capacitação básica em panificação para jovens em vulnerabilidade social do município de Cabo Frio",
+        "Anais CoBICET, 2023",
+        "https://static.even3.com/anais/665734.pdf"
+      ],
+      [
+        "Cadeia produtiva: criação de um podcast gastronômico como auxílio no processo de ensino-aprendizagem",
+        "Anais CEIAH, 2023",
+        "https://anais.eventos.iff.edu.br/index.php/ceaih/article/download/1605/1815"
+      ],
+      [
+        "As tradições alimentares da cidade de Saquarema pelos relatos de trabalhadores da pesca e da agricultura local",
+        "Anais, 2023 (acervo externo)",
+        "https://pt.scribd.com/document/886031083/Seminario-Internacional-do-Patrimonio-Industrial-Alimentos-e-Sustentabilidade"
+      ],
+      [
+        "Escolhas alimentares infantis: riscos à saúde e reflexos na vida adulta",
+        "Capítulo, 2023",
+        "https://doi.org/10.56238/sevened2023.006-036"
+      ],
+      [
+        "Escolhas alimentares infantis: riscos à saúde e reflexos na vida adulta",
+        "Artigo, 2023",
+        "https://doi.org/10.54751/revistafoco.v16n9-069"
       ]
     ],
     "group": "",
@@ -51,6 +81,16 @@ window.GASTROIFF_FACULTY=[
         "Ora-pro-nóbis: alternativa para enriquecimento proteico de alimentos na merenda escolar",
         "2023",
         "https://static.even3.com/anais/623641.pdf?v=638967785092760764"
+      ],
+      [
+        "Ora-pro-nóbis: alternativa para enriquecimento proteico de alimentos na merenda escolar",
+        "Artigo, 2023",
+        "https://ojs.focopublicacoes.com.br/foco/article/view/3074"
+      ],
+      [
+        "Escolhas alimentares infantis: riscos à saúde e reflexos na vida adulta",
+        "Artigo, 2023",
+        "https://doi.org/10.54751/revistafoco.v16n9-069"
       ]
     ],
     "group": "",
@@ -76,6 +116,21 @@ window.GASTROIFF_FACULTY=[
         "Escolhas alimentares infantis: riscos à saúde e reflexos na vida adulta",
         "2023",
         "https://doi.org/10.56238/sevened2023.006-036"
+      ],
+      [
+        "Capacitação básica em panificação para jovens em vulnerabilidade social do município de Cabo Frio",
+        "Anais CoBICET, 2023",
+        "https://static.even3.com/anais/665734.pdf"
+      ],
+      [
+        "Utilização da pimenta rosa (Schinus terebinthifolia) como forma de agregar valor a produtos regionais na comunidade quilombola da Baía Formosa, Armação dos Búzios, RJ",
+        "Anais, 2023 (acervo externo)",
+        "https://pt.scribd.com/document/886031083/Seminario-Internacional-do-Patrimonio-Industrial-Alimentos-e-Sustentabilidade"
+      ],
+      [
+        "Escolhas alimentares infantis: riscos à saúde e reflexos na vida adulta",
+        "Artigo, 2023",
+        "https://doi.org/10.54751/revistafoco.v16n9-069"
       ]
     ],
     "group": "",
@@ -126,7 +181,7 @@ window.GASTROIFF_FACULTY=[
   {
     "id": "fernando-mello",
     "name": "Fernando Mello",
-    "full": "Fernando Mello",
+    "full": "Luiz Fernando de Melo Brettas",
     "area": "Cultura alimentar e gastronomia regional",
     "bio": "Professor de Gastronomia e autor de trabalhos sobre a pesca, as tradições culinárias e a identidade alimentar da Região dos Lagos.",
     "lattes": "",
@@ -139,6 +194,21 @@ window.GASTROIFF_FACULTY=[
         "Do mar à mesa: a pesca e a culinária típica da Região do Cabo Frio",
         "Obra divulgada em reportagem",
         "https://fontecerta.com/noticias-de-arraial-do-cabo/as-vesperas-do-festival-da-lula-mercado-pesqueiro-de-arraial-do-cabo-se-aquece/"
+      ],
+      [
+        "“Cambuí do Cabo”, uma (in)fusão de sabores e saberes da comunidade de Arraial do Cabo e da Restinga de Massambaba",
+        "Anais CEIAH, 2023",
+        "https://anais.eventos.iff.edu.br/index.php/ceaih/article/download/1590/1821"
+      ],
+      [
+        "Culinária e gastronomia: entre o local e o global",
+        "Capítulo, 2019",
+        "https://www.ccta.ufpb.br/editoraccta/contents/titulos/hotelaria/alimentacao-e-turismo/alimentacaoeturismo_criatividade.pdf"
+      ],
+      [
+        "A pesca artesanal e a culinária típica em Arraial do Cabo antes da instalação da Companhia Nacional de Álcalis, RJ",
+        "Capítulo, 2019",
+        "https://plone.ufpb.br/editoraccta/contents/titulos/hotelaria/processos-sociais-sistemas-culinarios-em-contexto-de-ressignificacoes-comensalidades-processos-discursivos-e-religiosos/livro-5-unirio.pdf"
       ]
     ],
     "group": "",
@@ -180,6 +250,16 @@ window.GASTROIFF_FACULTY=[
         "Gestão de custos do serviço de entrega em negócios gastronômicos",
         "2022",
         "https://www.ce.senac.br/wp-content/uploads/2022/03/Trilhas-do-com%C3%A9rcio_Arquivo_final-1.pdf"
+      ],
+      [
+        "Plantas alimentícias não convencionais: popularização versus gourmetização",
+        "Artigo, 2022 (sumário da edição)",
+        "https://livrariaepamig.com.br/wp-content/uploads/2022/09/IA-318-pags-iniciais.pdf"
+      ],
+      [
+        "Perfil do turista gastronômico: comer e viajar é só começar!",
+        "Capítulo, 2022",
+        "https://pt.scribd.com/document/574826515/Ebook-Turismo-Gastronomico-para-Gestores-de-Tu"
       ]
     ],
     "group": "Núcleo de Estudos Rurais e Urbanos (NERU/UFF), conforme artigo acadêmico",
@@ -294,65 +374,70 @@ window.GASTROIFF_FACULTY=[
     "nde": true,
     "initials": "VM",
     "source": "Composição enviada pela coordenação, 31/10/2026. Formação e produção: fontes vinculadas aos registros."
+  },
+  {
+    "id": "daiana-costa-pereira",
+    "name": "Daiana Pereira",
+    "full": "Daiana Costa Pereira",
+    "area": "Gestão de pessoas, educação e gastronomia",
+    "bio": "Assistente de alunos e integrante da representação técnico-administrativa. Atua na gestão de pessoas do IFF. Formação em Normal Superior e Gastronomia, com pós-graduação em Planejamento Educacional e Docência do Ensino Superior; registro institucional menciona mestrado ProfEPT em andamento.",
+    "lattes": "",
+    "degree": "Graduação em Normal Superior e Gastronomia; pós-graduação em Planejamento Educacional e Docência do Ensino Superior",
+    "degree_title": "",
+    "degree_link": "",
+    "projects": [],
+    "pubs": [],
+    "group": "Coordenação de Gestão de Pessoas do IFF Campus Cabo Frio - RJ",
+    "image": "",
+    "colegiado": true,
+    "nde": false,
+    "initials": "DP",
+    "category": "Técnico-administrativa",
+    "source": "IFF, Banco de Fontes: https://portal1.iff.edu.br/comunidade/sala-de-imprensa-virtual/banco-de-fontes"
+  },
+  {
+    "id": "lygia-oliveira",
+    "name": "Lygia Oliveira",
+    "full": "Lygia Gottgtroy Fraga Zigolis Filha de Oliveira",
+    "area": "Pedagogia, avaliação institucional e formação de professores",
+    "bio": "Pedagoga do IFF, mestre em Ensino da Saúde e do Ambiente, especialista em Supervisão Escolar e Orientação Educacional. Atua em avaliação institucional, projetos pedagógicos, currículo e formação de professores.",
+    "lattes": "https://lattes.cnpq.br/7266848136316618",
+    "degree": "Mestrado profissional em Ensino de Ciência da Saúde e do Ambiente; especializações em Supervisão Escolar e Orientação Educacional; graduação em Pedagogia",
+    "degree_title": "A Educação Ambiental na Formação do Futuro Professor do 1º Segmento do Ensino Fundamental",
+    "degree_link": "",
+    "projects": [],
+    "pubs": [],
+    "group": "Pedagogia e acompanhamento pedagógico institucional no IFF",
+    "image": "",
+    "colegiado": true,
+    "nde": false,
+    "initials": "LO",
+    "category": "Técnico-administrativa",
+    "source": "Rede Integra: https://redeintegra.mec.gov.br/p/IFF-lygia-gottgtroy-fraga-zigolis-filha-de-oliveira"
+  },
+  {
+    "id": "wellington-santos",
+    "name": "Wellington Santos",
+    "full": "Wellington Santos",
+    "area": "Gastronomia, extensão e cultura alimentar",
+    "bio": "Docente da Gastronomia do IFFluminense, campus Cabo Frio, atualmente afastado para doutoramento. Idealizador do projeto de extensão IFF na Feira, com atuação em atividades que aproximam a formação gastronômica das comunidades e da agricultura familiar.",
+    "lattes": "",
+    "degree": "",
+    "degree_title": "",
+    "degree_link": "",
+    "projects": [
+      [
+        "IFF na Feira",
+        "Projeto de extensão idealizado pelo professor Wellington Santos, voltado à relação entre Gastronomia, agricultores, feira livre e comunidade.",
+        "projetos.html"
+      ]
+    ],
+    "pubs": [],
+    "group": "",
+    "image": "",
+    "colegiado": false,
+    "nde": false,
+    "initials": "WS",
+    "source": "Portal IFFluminense: notícia do IFF na Feira de 2019 e atividades extensionistas com agricultores de Cantagalo."
   }
-,
-{
-  "id": "daiana-costa-pereira",
-  "name": "Daiana Pereira",
-  "full": "Daiana Costa Pereira",
-  "area": "Gestão de pessoas, educação e gastronomia",
-  "bio": "Assistente de alunos e integrante da representação técnico-administrativa. Atua na gestão de pessoas do IFF. Formação em Normal Superior e Gastronomia, com pós-graduação em Planejamento Educacional e Docência do Ensino Superior; registro institucional menciona mestrado ProfEPT em andamento.",
-  "lattes": "",
-  "degree": "Graduação em Normal Superior e Gastronomia; pós-graduação em Planejamento Educacional e Docência do Ensino Superior",
-  "degree_title": "",
-  "degree_link": "",
-  "projects": [],
-  "pubs": [],
-  "group": "Coordenação de Gestão de Pessoas do IFF Campus Cabo Frio - RJ",
-  "image": "",
-  "colegiado": true,
-  "nde": false,
-  "initials": "DP",
-  "category": "Técnico-administrativa",
-  "source": "IFF, Banco de Fontes: https://portal1.iff.edu.br/comunidade/sala-de-imprensa-virtual/banco-de-fontes"
-},
-{
-  "id": "lygia-oliveira",
-  "name": "Lygia Oliveira",
-  "full": "Lygia Gottgtroy Fraga Zigolis Filha de Oliveira",
-  "area": "Pedagogia, avaliação institucional e formação de professores",
-  "bio": "Pedagoga do IFF, mestre em Ensino da Saúde e do Ambiente, especialista em Supervisão Escolar e Orientação Educacional. Atua em avaliação institucional, projetos pedagógicos, currículo e formação de professores.",
-  "lattes": "https://lattes.cnpq.br/7266848136316618",
-  "degree": "Mestrado profissional em Ensino de Ciência da Saúde e do Ambiente; especializações em Supervisão Escolar e Orientação Educacional; graduação em Pedagogia",
-  "degree_title": "A Educação Ambiental na Formação do Futuro Professor do 1º Segmento do Ensino Fundamental",
-  "degree_link": "",
-  "projects": [],
-  "pubs": [],
-  "group": "Pedagogia e acompanhamento pedagógico institucional no IFF",
-  "image": "",
-  "colegiado": true,
-  "nde": false,
-  "initials": "LO",
-  "category": "Técnico-administrativa",
-  "source": "Rede Integra: https://redeintegra.mec.gov.br/p/IFF-lygia-gottgtroy-fraga-zigolis-filha-de-oliveira"
-},
-{
-  "id":"wellington-santos",
-  "name":"Wellington Santos",
-  "full":"Wellington Santos",
-  "area":"Gastronomia, extensão e cultura alimentar",
-  "bio":"Docente da Gastronomia do IFFluminense, campus Cabo Frio, atualmente afastado para doutoramento. Idealizador do projeto de extensão IFF na Feira, com atuação em atividades que aproximam a formação gastronômica das comunidades e da agricultura familiar.",
-  "lattes":"",
-  "degree":"",
-  "degree_title":"",
-  "degree_link":"",
-  "projects":[["IFF na Feira","Projeto de extensão idealizado pelo professor Wellington Santos, voltado à relação entre Gastronomia, agricultores, feira livre e comunidade.","projetos.html"]],
-  "pubs":[],
-  "group":"",
-  "image":"",
-  "colegiado":false,
-  "nde":false,
-  "initials":"WS",
-  "source":"Portal IFFluminense: notícia do IFF na Feira de 2019 e atividades extensionistas com agricultores de Cantagalo."
-}
 ];
