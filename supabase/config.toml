@@ -1,0 +1,3 @@
+# Arquivos de preparação. Não ativar sem configuração de um projeto seguro.
+[functions.receber-ocorrencia]
+verify_jwt = false
