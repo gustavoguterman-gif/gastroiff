@@ -1,6 +1,7 @@
 name: Testar recebimento seguro de ocorrências
 on:
   push:
+    branches: [main]
     paths:
       - 'supabase/functions/receber-ocorrencia/**'
       - 'tests/receber-ocorrencia.test.mjs'
@@ -12,6 +13,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: testar-ocorrencias-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   testes:
