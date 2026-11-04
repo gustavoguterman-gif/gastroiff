@@ -32,7 +32,7 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 >reports/servidor-validacao.log 2>&1 &
       - name: Testes estaticos e unitarios
         run: |
-          node --test tests/integridade-site.test.mjs tests/receber-ocorrencia.test.mjs tests/ocorrencias-formulario.test.mjs tests/ciclos-csv.test.cjs tests/apps-script-simulacao.test.cjs tests/insumos-csv.test.cjs
+          node --test tests/integridade-site.test.mjs tests/receber-ocorrencia.test.mjs tests/ocorrencias-formulario.test.mjs tests/ciclos-csv.test.cjs tests/apps-script-simulacao.test.cjs tests/insumos-csv.test.cjs tests/conciliacao-insumos.test.cjs
       - name: Teste funcional de perfis e ocorrencias
         run: node tests/verificar-perfis-navegador.cjs
       - name: Teste funcional do calendario
