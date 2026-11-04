@@ -82,7 +82,7 @@ document.querySelectorAll('.gi-nav-dropdown').forEach(root=>{const btn=root.quer
 /* Navegação compartilhada: os mesmos eixos no computador e no celular. */
 (function(){
  const groups=[
- {name:'Ensino',icon:'graduation-cap',items:[['cursos.html','Cursos de Gastronomia'],['docentes.html','Comunidade acadêmica'],['documentos.html','Documentos acadêmicos'],['laboratorios.html','Laboratórios'],['ocorrencias.html','Livro de ocorrências'],['biblioteca.html','Biblioteca'],['praticas.html','Fichas técnicas'],['participacao.html','Participação acadêmica']]},
+ {name:'Ensino',icon:'graduation-cap',items:[['cursos.html','Cursos de Gastronomia'],['docentes.html','Comunidade acadêmica'],['documentos.html','Documentos acadêmicos'],['laboratorios.html','Laboratórios'],['ocorrencias.html','Livro de ocorrências'],['biblioteca.html','Biblioteca'],['praticas.html','Fichas técnicas'],['trajetorias.html','Trajetórias na Gastronomia'],['participacao.html','Participação acadêmica']]},
  {name:'Pesquisa',icon:'book-open',items:[['pesquisa.html','Pesquisas e publicações'],['revistas.html','Revistas acadêmicas de Gastronomia'],['observatorio.html','Observatório da formação']]},
  {name:'Território',icon:'map-pin',items:[['projetos.html','Projetos e extensão'],['oportunidades.html','Estágios e empregos'],['eventos.html','Calendário de eventos']]}
  ];
