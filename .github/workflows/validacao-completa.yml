@@ -1,0 +1,55 @@
+name: Validacao completa GASTROIFF
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validacao-completa-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verificacao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar Playwright e Chromium
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Iniciar servidor HTTP de teste
+        run: |
+          mkdir -p reports
+          python3 -m http.server 8765 --bind 127.0.0.1 >reports/servidor-validacao.log 2>&1 &
+      - name: Testes estaticos e unitarios
+        run: |
+          node --test tests/integridade-site.test.mjs tests/receber-ocorrencia.test.mjs tests/ocorrencias-formulario.test.mjs tests/ciclos-csv.test.cjs tests/apps-script-simulacao.test.cjs
+      - name: Teste funcional de perfis e ocorrencias
+        run: node tests/verificar-perfis-navegador.cjs
+      - name: Teste funcional do calendario
+        run: node tests/verificar-calendario-navegador.cjs
+      - name: Teste funcional do planejamento docente
+        run: node tests/planejamento-docente-navegador.cjs
+      - name: Inspecao de todas as paginas em celular e desktop
+        run: node tests/auditoria-geral.cjs
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Conferir tipos do servico protegido
+        run: deno check supabase/functions/receber-ocorrencia/index.ts
+      - name: Guardar evidencias
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validacao-completa-gastroiff
+          path: reports/
+          if-no-files-found: ignore
