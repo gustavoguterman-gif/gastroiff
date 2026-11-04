@@ -13,7 +13,8 @@ const customFile=(rows,name="planilha-customizada.xlsx")=>{
  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rows),"Itens");
  return {name,mimeType:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",buffer:Buffer.from(XLSX.write(wb,{type:"buffer",bookType:"xlsx"}))};
 };
-\n(async()=>{
+
+(async()=>{
  const browser=await chromium.launch({headless:true});
  try{
   for(const [name,width,height] of [["celular",390,844],["tablet",768,1024],["desktop",1440,900]]){
