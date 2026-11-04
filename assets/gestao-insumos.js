@@ -1,92 +1,135 @@
-/* Conferência local. Não salva, publica ou transmite planilhas. */
+/* Conferência administrativa local e reversível: não transmite arquivos. */
 (() => {
  "use strict";
  const stages=["pedidoDocente","pedidoFornecedor","respostaFornecedor","recebimentoFisico"];
- const state=Object.fromEntries(stages.map(key=>[key,{sheets:[],parsed:null}]));
+ const state=Object.fromEntries(stages.map(key=>[key,{sheets:[],parsed:null,errors:[],overrides:{},ready:false}]));
  const $=id=>document.getElementById(id);
  const sections=Object.fromEntries(stages.map(key=>[key,document.querySelector('[data-stage="'+key+'"]')]));
  const msg=(key,value)=>{sections[key].querySelector(".status").textContent=value};
  function invalidate(){
   $("result").hidden=true;$("items").replaceChildren();
-  $("compare").disabled=!state.pedidoDocente.parsed;
+  $("compare").disabled=!state.pedidoDocente.ready||stages.some(k=>state[k].sheets.length>0&&!state[k].ready);
  }
- function showSheet(key){
-  const current=state[key],select=sections[key].querySelector("select"),selected=select.value;
-  current.parsed=null;invalidate();
+ function setOptions(select,values,selected){
+  select.replaceChildren();
+  values.forEach(([value,label])=>{
+   const opt=document.createElement("option");opt.value=value;opt.textContent=label;select.append(opt);
+  });
+  if(selected!==undefined)select.value=String(selected);
+ }
+ function configureMapping(key){
+  const current=state[key],section=sections[key],selected=section.querySelector(".sheet-select").value;
+  const editor=section.querySelector(".mapping");
+  editor.hidden=true;
+  const entry=current.sheets[Number(selected)];
+  if(selected==="all"||!entry)return;
+  const sheet=entry.sheet,override=current.overrides[selected],detected=sheet.detected;
+  const rowIndex=override?.headerRow??detected?.headerRow??0;
+  const rowSelect=section.querySelector(".header-row");
+  setOptions(rowSelect,sheet.matrix.slice(0,Math.min(sheet.matrix.length,30)).map((row,i)=>[String(i),"Linha "+(i+1)+": "+row.slice(0,5).join(" | ").slice(0,95)]),rowIndex);
+  const mapping=override?.maps??detected?.maps??{};
+  for(const field of ["insumo","unidade","quantidade"]){
+   const select=section.querySelector(".map-"+field);
+   const cols=Array.from({length:Math.min(60,Math.max(1,...sheet.matrix.slice(0,30).map(r=>r.length)))},(_,i)=>[String(i),"Coluna "+(i+1)+": "+String((sheet.matrix[rowIndex]||[])[i]??"").slice(0,65)]);
+   setOptions(select,[["","Escolha uma coluna"],...cols],mapping[field]===undefined?"":mapping[field]);
+  }
+  editor.hidden=false;
+ }
+ function review(key){
+  const current=state[key],section=sections[key],selected=section.querySelector(".sheet-select").value;
+  current.parsed=null;current.ready=false;invalidate();configureMapping(key);
   if(!current.sheets.length)return;
-  try{
-   const chosen=selected==="all"?current.sheets.filter(x=>x.sheet.detected?.score===3):
-    current.sheets.filter((_,i)=>String(i)===selected);
-   if(!chosen.length)throw Error("Nenhuma aba com três colunas reconhecidas. Escolha uma aba e confira o cabeçalho.");
-   const rows=[],warnings=[];
-   for(const entry of chosen){
-    try{
-     const parsed=window.GASTROIFF_EXCEL.extract(entry.sheet);
-     rows.push(...parsed.rows);warnings.push(...parsed.warnings.map(x=>entry.file+": "+x));
-    }catch(e){warnings.push(entry.file+" / "+entry.sheet.name+": "+e.message)}
-   }
-   if(!rows.length)throw Error("Nenhum item válido nas abas selecionadas. "+warnings.slice(0,2).join(" "));
-   current.parsed={rows,warnings};
-   msg(key,rows.length+" itens reconhecidos de "+chosen.length+" aba(s). "+
-     (warnings.length?warnings.length+" avisos de revisão: "+warnings.slice(0,2).join(" "):"Confira os itens antes de comparar."));
-  }catch(e){msg(key,"Não foi possível interpretar: "+e.message)}
-  invalidate();
+  const chosen=selected==="all"?current.sheets.map((entry,i)=>({entry,i})).filter(({entry,i})=>entry.sheet.detected?.score===3||current.overrides[i]):
+   current.sheets.map((entry,i)=>({entry,i})).filter(({i})=>String(i)===selected);
+  if(!chosen.length){msg(key,"Nenhuma aba reconhecida. Selecione uma aba e defina as colunas.");return}
+  const rows=[],warnings=[];
+  for(const {entry,i} of chosen){
+   try{
+    const parsed=window.GASTROIFF_EXCEL.extract(entry.sheet,current.overrides[i]);
+    rows.push(...parsed.rows.map(r=>({...r,arquivo:entry.file})));
+    warnings.push(...parsed.warnings.map(w=>entry.file+" / "+entry.sheet.name+": "+w));
+   }catch(error){warnings.push(entry.file+" / "+entry.sheet.name+": "+error.message)}
+  }
+  current.parsed={rows,warnings};
+  // Uma extração parcial nunca deve fundamentar uma conclusão sobre fornecimento.
+  current.ready=rows.length>0&&warnings.length===0&&current.errors.length===0;
+  const ignored=current.sheets.length-chosen.length;
+  let report=rows.length+" item(ns) lido(s) em "+chosen.length+" aba(s).";
+  if(ignored)report+=" "+ignored+" aba(s) fora da seleção automática; revise a seleção.";
+  if(current.errors.length)report+=" Arquivo(s) recusado(s): "+current.errors.join(" ");
+  if(warnings.length)report+=" "+warnings.length+" inconsistência(s): "+warnings.slice(0,5).join(" ");
+  report+=current.ready?" Conferência pronta para comparação.":" Comparação bloqueada até corrigir os problemas.";
+  msg(key,report);invalidate();
  }
  async function load(key,files){
-  const select=sections[key].querySelector("select");
-  state[key]={sheets:[],parsed:null};invalidate();select.disabled=true;select.replaceChildren();
-  const fileList=Array.from(files||[]);
-  if(!fileList.length){msg(key,"Nenhum arquivo selecionado.");return}
-  if(fileList.length>20){msg(key,"Selecione no máximo 20 arquivos por etapa.");return}
-  msg(key,"Lendo os arquivos localmente...");
-  const errors=[];
-  for(const file of fileList){
+  const section=sections[key],sheetSelect=section.querySelector(".sheet-select");
+  state[key]={sheets:[],parsed:null,errors:[],overrides:{},ready:false};
+  invalidate();section.querySelector(".mapping").hidden=true;sheetSelect.disabled=true;sheetSelect.replaceChildren();
+  const selectedFiles=Array.from(files||[]);
+  if(!selectedFiles.length){msg(key,"Nenhum arquivo selecionado.");return}
+  if(selectedFiles.length>20){msg(key,"Selecione no máximo 20 arquivos por etapa.");return}
+  msg(key,"Conferindo os arquivos Excel localmente...");
+  for(const file of selectedFiles){
    try{
     const wb=await window.GASTROIFF_EXCEL.readFile(file,window.XLSX);
-    wb.sheets.forEach(sheet=>state[key].sheets.push({sheet,file:file.name}));
-   }catch(e){errors.push(file.name+": "+e.message)}
+    for(const sheet of wb.sheets)state[key].sheets.push({sheet,file:file.name});
+   }catch(error){state[key].errors.push(file.name+": "+error.message)}
   }
-  if(!state[key].sheets.length){msg(key,"Falha ao ler Excel: "+errors.join(" "));return}
-  const all=document.createElement("option");all.value="all";all.textContent="Todas as abas com colunas reconhecidas";select.append(all);
-  state[key].sheets.forEach((entry,i)=>{
-   const opt=document.createElement("option");opt.value=String(i);
-   opt.textContent=entry.file+" / "+entry.sheet.name+(entry.sheet.detected?.score===3?" (reconhecida)":" (conferir)");
-   select.append(opt);
-  });
-  select.disabled=false;select.value="all";showSheet(key);
-  if(errors.length)msg(key,sections[key].querySelector(".status").textContent+" Arquivos recusados: "+errors.join(" "));
+  if(!state[key].sheets.length){msg(key,"Nenhuma planilha válida: "+state[key].errors.join(" "));return}
+  setOptions(sheetSelect,[["all","Todas as abas reconhecidas"],...state[key].sheets.map((entry,i)=>[String(i),entry.file+" / "+entry.sheet.name+(entry.sheet.detected?.score===3?" (identificada)":" (revisar colunas)")])],"all");
+  sheetSelect.disabled=false;review(key);
  }
  for(const key of stages){
   const section=sections[key];
-  section.querySelector("input").addEventListener("change",e=>load(key,e.target.files));
-  section.querySelector("select").addEventListener("change",()=>showSheet(key));
+  section.querySelector("input[type=file]").addEventListener("change",e=>load(key,e.target.files));
+  section.querySelector(".sheet-select").addEventListener("change",()=>review(key));
+  section.querySelector(".header-row").addEventListener("change",()=>{
+   const index=section.querySelector(".sheet-select").value;
+   const row=Number(section.querySelector(".header-row").value);
+   const overrides=state[key].overrides[index]||{};
+   overrides.headerRow=row;
+   overrides.maps={};
+   state[key].overrides[index]=overrides;
+   review(key);
+  });
+  section.querySelector(".mapping-apply").addEventListener("click",()=>{
+   const index=section.querySelector(".sheet-select").value;
+   if(index==="all")return;
+   const maps={};
+   for(const field of ["insumo","unidade","quantidade"]){
+    const value=section.querySelector(".map-"+field).value;
+    if(value===""){msg(key,"Defina as três colunas antes de aplicar.");state[key].ready=false;invalidate();return}
+    maps[field]=Number(value);
+   }
+   if(new Set(Object.values(maps)).size!==3){msg(key,"Selecione colunas diferentes para descrição, unidade e quantidade.");state[key].ready=false;invalidate();return}
+   state[key].overrides[index]={headerRow:Number(section.querySelector(".header-row").value),maps};
+   review(key);
+  });
  }
  $("compare").addEventListener("click",()=>{
+  if($("compare").disabled)return;
   const data=Object.fromEntries(stages.map(key=>[key,state[key].parsed?.rows||[]]));
-  if(!data.pedidoDocente.length)return;
   try{
    const result=window.GASTROIFF_CONCILIACAO.compare(data);
-   const host=$("items");host.replaceChildren();
+   $("items").replaceChildren();
    for(const item of result){
     const tr=document.createElement("tr");
-    const fields=[item.insumo,item.unidade,item.solicitado,item.encaminhado,item.confirmado,item.recebido,item.status];
-    fields.forEach((value,index)=>{
-     const td=document.createElement("td");
-     td.textContent=value===null?"Sem informação":String(value);
+    [item.insumo,item.unidade,item.solicitado,item.encaminhado,item.confirmado,item.recebido,item.status].forEach((v,index)=>{
+     const td=document.createElement("td");td.textContent=v===null?"Sem informação":String(v);
      if(index>=2&&index<=5)td.className="num";
      tr.append(td);
-    });host.append(tr);
+    });$("items").append(tr);
    }
-   $("summary").textContent=result.length+" itens na conferência. Revise as diferenças e as unidades antes de utilizar o resultado.";
+   $("summary").textContent=result.length+" item(ns) comparado(s). Resultado demonstrativo, sem publicação institucional.";
    $("result").hidden=false;
-  }catch(e){$("summary").textContent="Não foi possível comparar: "+e.message;$("result").hidden=true}
+  }catch(error){$("summary").textContent="Falha na comparação: "+error.message;$("result").hidden=true}
  });
  $("clear").addEventListener("click",()=>{
   for(const key of stages){
-   state[key]={sheets:[],parsed:null};const section=sections[key];
-   section.querySelector("input").value="";
-   const select=section.querySelector("select");select.replaceChildren();select.disabled=true;
-   msg(key,"Nenhum arquivo selecionado.");
+   state[key]={sheets:[],parsed:null,errors:[],overrides:{},ready:false};
+   const section=sections[key];section.querySelector("input[type=file]").value="";
+   const select=section.querySelector(".sheet-select");select.replaceChildren();select.disabled=true;
+   section.querySelector(".mapping").hidden=true;msg(key,"Nenhum arquivo selecionado.");
   }
   $("summary").textContent="Adicione pelo menos o pedido docente para iniciar a comparação.";invalidate();
  });
