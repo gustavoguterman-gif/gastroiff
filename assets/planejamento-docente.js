@@ -125,6 +125,54 @@ function escapeCsv(value) {
  const safe=/^[\s\uFEFF]*[=+@-]/.test(text)?"'"+text:text;
  return '"'+safe.replaceAll('"','""')+'"';
 }
+const importFile=$("gi-import-file"),importStatus=$("gi-import-status"),importPreview=$("gi-import-preview");
+const importConfirm=$("gi-import-confirm");let pending=[];
+function isDuplicate(value,list){
+ return list.some(x=>x.teacher===value.teacher&&x.course===value.course&&x.subject.toLocaleLowerCase("pt-BR")===value.subject.toLocaleLowerCase("pt-BR")&&x.start===value.start&&x.end===value.end);
+}
+function resetImport(){
+ pending=[];importConfirm.disabled=true;importPreview.hidden=true;importPreview.replaceChildren();importFile.value="";
+}
+importFile.addEventListener("change",async()=>{
+ resetImportPreviewOnly();
+ const file=importFile.files?.[0];
+ if(!file)return;
+ if(!/\\.csv$/i.test(file.name)||file.size>window.GASTROIFF_CSV.MAX_BYTES){
+   importStatus.textContent="Escolha um arquivo CSV de até 256 KB, exportado da aba Ciclos.";return;
+ }
+ try{
+  const rows=window.GASTROIFF_CSV.parseCycles(await file.text());
+  const errors=[],candidates=[];
+  for(const [i,row] of rows.entries()){
+    if(row.id_ciclo.startsWith("TESTE-")||row.fonte.toUpperCase().includes("DADOS FICTÍCIOS")){
+      errors.push("Linha "+(i+2)+": exemplo fictício não pode ser incluído.");continue;
+    }
+    const value=validate({teacher:row.docente,course:row.curso,subject:row.disciplina,room:row.laboratorio,start:row.inicio,end:row.fim});
+    if(!value){errors.push("Linha "+(i+2)+": docente, curso ou data não reconhecidos.");continue}
+    if(isDuplicate(value,cycles)||isDuplicate(value,candidates)){
+      errors.push("Linha "+(i+2)+": ciclo já registrado.");continue;
+    }
+    candidates.push(value);
+  }
+  pending=candidates;
+  const heading=document.createElement("p");
+  heading.textContent=candidates.length+" ciclo(s) conferido(s). "+errors.length+" registro(s) recusado(s).";
+  importPreview.append(heading);
+  if(errors.length){const ul=document.createElement("ul");errors.slice(0,12).forEach(x=>{const li=document.createElement("li");li.textContent=x;ul.append(li)});importPreview.append(ul)}
+  importPreview.hidden=false;
+  importConfirm.disabled=!candidates.length||candidates.length+cycles.length>MAX_CYCLES;
+  importStatus.textContent="Prévia concluída. Nenhum ciclo foi adicionado sem sua confirmação.";
+ }catch(error){importStatus.textContent="Não foi possível importar: "+(error instanceof Error?error.message:"arquivo inválido");}
+});
+function resetImportPreviewOnly(){pending=[];importConfirm.disabled=true;importPreview.hidden=true;importPreview.replaceChildren()}
+importConfirm.addEventListener("click",()=>{
+ if(!pending.length||cycles.length+pending.length>MAX_CYCLES)return;
+ const fresh=pending.filter(x=>!isDuplicate(x,cycles));
+ cycles.push(...fresh);
+ save();render();resetImport();
+ importStatus.textContent=fresh.length+" ciclo(s) adicionado(s) ao dispositivo. O Drive e o site público não foram alterados.";
+});
+$("gi-import-cancel").addEventListener("click",()=>{resetImport();importStatus.textContent="Prévia descartada. Nenhum ciclo foi adicionado."});
 exportButton.addEventListener("click",()=>{
  if(!cycles.length)return;
  const rows=[["Docente","Curso","Disciplina","Local","Início","Término"]];
