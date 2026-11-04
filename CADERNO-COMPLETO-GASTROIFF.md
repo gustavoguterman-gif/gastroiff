@@ -137,3 +137,6 @@ Em cada novo pedido, preservar este caderno e atualizar os estados. Se uma ideia
 - Corrigida a chave excedente que interrompia a função de interpretação de calendários. Adicionada verificação automática de scripts embutidos em todas as páginas HTML ao workflow estático de integridade.
 - Segunda auditoria geral concluída com **50 verificações aprovadas e zero ocorrências nos critérios testados**. Resultados confirmados em 04/11/2026. Isso não garante perfeição visual ou links externos; exige revisão continuada.
 - Criado teste funcional `tests/verificar-calendario-navegador.cjs` e workflow `.github/workflows/testar-calendario.yml` para confirmar que um calendário com evento de vários dias produz um único compromisso, preserva datas inclusivas na interface e exporta apenas rascunho, sem alegar publicação.
+
+## 17. Verificação funcional do calendário concluída
+- O workflow `testar-calendario.yml` foi executado com sucesso em 04/11/2026. Usou um evento de 8 a 10 de novembro, expresso em arquivo de agenda com término exclusivo em 11 de novembro; a Central de Gestão exibiu **um único evento** e exportou rascunho com datas inclusivas corretas. Esta validação cobre importação e exportação de rascunho, não comprova publicação automática na agenda pública ou no calendário pessoal.
