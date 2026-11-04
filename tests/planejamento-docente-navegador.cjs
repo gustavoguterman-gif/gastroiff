@@ -24,7 +24,7 @@ async function waitForImportPreview(page,errors){
    const page=await context.newPage();
    const errors=[];
    page.on("pageerror",e=>errors.push(e.message));
-   const res=await page.goto(origin+"planejamento-docente.html",{waitUntil:"domcontentloaded"});
+   const res=await page.goto(origin+"gestao-praticas.html",{waitUntil:"domcontentloaded"});
    assert.equal(res.status(),200,"abertura "+view);
    assert.ok(await page.locator("#gi-teacher option").count()>10,"lista docente "+view);
    assert.equal(await page.locator("#gi-export").isDisabled(),true);
@@ -81,7 +81,7 @@ async function waitForImportPreview(page,errors){
    assert.equal(await page.locator(".gi-plan-card").count(),1,"ciclo importado permanece no dispositivo");
    await page.locator(".gi-plan-remove").click();
    assert.equal(await page.locator(".gi-plan-card").count(),0);
-   console.log("Planejamento docente aprovado:",view,"importação local, persistência, validação, duplicata, exportação, exclusão");
+   console.log("Ciclos de práticas na Gestão aprovados:",view,"importação local, persistência, validação, duplicata, exportação, exclusão");
    await context.close();
   }
  }finally{await browser.close()}
