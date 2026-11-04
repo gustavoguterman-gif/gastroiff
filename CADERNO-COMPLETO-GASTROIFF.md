@@ -125,3 +125,9 @@ O portal deve:
 
 ## 14. Regra de continuidade
 Em cada novo pedido, preservar este caderno e atualizar os estados. Se uma ideia nova chegar durante uma tarefa, entregar ambas no mesmo ciclo, quando tecnicamente viável. Nunca declarar implantação real de banco, Apps Script, login, email ou coleta recorrente sem evidência de execução.
+
+## 15. Testes desta rodada e auditoria ampliada
+- O workflow de integridade estática `.github/workflows/integridade-site.yml` passou após atualização dos arquivos da página inicial e PWA. Ele verifica arquivos locais referenciados, sintaxe de scripts e ausência de coleta pessoal na personalização simples.
+- O workflow `.github/workflows/testar-perfis-navegador.yml` foi executado e aprovado em 04/11: testes em larguras 390, 768 e 1440 px, mudança e persistência do perfil, preenchimento e exibição da lista de docentes, ausência de erros de JavaScript e rolagem horizontal nos dois fluxos testados.
+- Criado `tests/auditoria-geral.cjs` e workflow `.github/workflows/inspecao-geral.yml` para levantamento de status HTTP, erros de JavaScript, imagens locais quebradas e transbordamento horizontal em todas as páginas HTML, em celular e desktop. Tratar resultados como **diagnóstico inicial**: o teste não confere a qualidade editorial, não substitui inspeção visual humana e não valida links externos.
+- Os testes abrangentes anteriores `tests/auditoria.js` e `.github/workflows/auditoria-site.yml` permanecem desativados até análise das falhas históricas.
