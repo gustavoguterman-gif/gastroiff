@@ -175,3 +175,12 @@ Em cada novo pedido, preservar este caderno e atualizar os estados. Se uma ideia
 - A partir desta rodada, registrar para cada alteração: commit, arquivos modificados, testes de unidade, teste estático, teste de navegador aplicável, resultado real, link/número da execução e pendências. Uma falha não fica resolvida apenas pela existência de novo código; exige teste verde na revisão adequada.
 - Não misturar auditoria técnica com implementação nova enquanto houver falhas atuais sem classificação. Não apagar nem omitir solicitações anteriores: as seções 1 a 17 continuam válidas, sujeitas a verificação objetiva e atualização pontual.
 - A execução de testes específicos não equivale a uma auditoria completa: links externos, acessibilidade, funcionamento real de integrações, privacidade, interface e PWA ainda precisam de verificação própria. Não declarar zero erros absolutos quando a cobertura for parcial.
+
+
+## 19. Verificação e novo módulo de insumos (04/11/2026)
+- Conferida a execução `41851650553` (commit `a0948ab7`): validação completa aprovada; publicação pelo GitHub Pages também aprovada.
+- Conferidas as três abas da planilha privada demonstrativa no Google Drive: `Ciclos`, `Insumos`, `Instrucoes`. Apenas dados fictícios, com identificação explícita, sem previsão de entrega inventada.
+- Implementado o leitor `assets/insumos-csv.js` e incluído `tests/insumos-csv.test.cjs` com dez verificações de CSV: campos obrigatórios, estrutura, quantidades, datas, duplicações, limites e distinção entre registros demonstrativos e registros com fonte e data documentadas. A marcação de origem documentada não autentica a confirmação institucional.
+- Os testes novos foram incluídos em `.github/workflows/validacao-completa.yml`. Proposta isolada PR 1 aprovada na execução `41852880067` e integrada após aprovação pelo commit `e923eaa`.
+- Essa etapa habilita apenas o leitor para desenvolvimento e testes; **a interface ainda não importa nem apresenta status de insumos**, e não há sincronização com Drive, dados institucionais publicados ou avisos automáticos.
+- A versão integrada exige nova conferência dos workflows de validação completa, integridade e publicação. O próximo incremento funcional é vincular `id_ciclo` dos insumos aos ciclos reais do planejamento local, disponibilizar prévia de arquivo com confirmação e testar em celular, tablet e computador. Proibir confusão entre dados fictícios e confirmação institucional.
