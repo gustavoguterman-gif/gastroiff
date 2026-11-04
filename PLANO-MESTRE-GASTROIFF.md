@@ -72,3 +72,9 @@ Incorporar referências verificadas e casos de políticas públicas, inclusive C
 ## Registro de entregas e validações
 - 04/11/2026: `gestao.html` criado como primeira Central de Gestão para conferência. Contém painel de módulos, descrição objetiva do fluxo, importação local de arquivos ICS, identificação de campos ausentes/possíveis duplicidades, revisão manual e exportação de rascunho JSON. Não possui autenticação, base de dados, notificações, publicação no site ou processamento por IA. Não usar com documentos pessoais ou sigilosos. O código foi publicado, mas ainda exige teste de interface em navegadores reais.
 - Próxima etapa de implementação: autenticação e base protegida, encaminhamento persistente de solicitações e notificações, respeitando a finalidade institucional. Manter todas as demais etapas do plano mestre.
+
+## Decisão editorial e de usabilidade (04/11/2026)
+- Não mostrar siglas ou formatos técnicos (ICS, JSON, API, etc.) sem explicação em linguagem comum. Dar preferência à ação esperada: 'Quero atualizar calendário', 'Colocar arquivo aqui', 'Conferir e aprovar'.
+- Administração guiada por três ações: enviar, conferir e aprovar. Explicar sempre o que funciona agora, o que não está ativo e o efeito real de cada botão.
+- Objetivo final: aceitar imagens, PDF, planilhas, textos e calendários na mesma entrada e publicar atualizações sincronizadas apenas após aprovação humana.
+- 04/11: simplificados textos da tela gestao.html. Importador continua restrito a arquivos de calendário .ics e exporta um arquivo técnico de rascunho, ainda sem publicação automática. Não confundir essa entrega com automação concluída.
