@@ -1,6 +1,21 @@
 const { chromium }=require("playwright");
 const assert=require("node:assert/strict");
 const origin="http://127.0.0.1:8765/";
+async function waitForImportPreview(page,errors){
+ try {await page.locator("#gi-import-preview").waitFor({state:"visible",timeout:8000});}
+ catch(error){
+  const snapshot=await page.evaluate(()=>({
+   importStatus:document.getElementById("gi-import-status")?.textContent,
+   fileCount:document.getElementById("gi-import-file")?.files?.length,
+   fileName:document.getElementById("gi-import-file")?.files?.[0]?.name,
+   csvReady:!!window.GASTROIFF_CSV,
+   previewHidden:document.getElementById("gi-import-preview")?.hidden,
+   previewText:document.getElementById("gi-import-preview")?.textContent
+  }));
+  throw new Error("Falha na prévia de importação: "+JSON.stringify({snapshot,pageErrors:errors})+"; "+error.message);
+ }
+}
+
 (async()=>{
  const browser=await chromium.launch({headless:true});
  try{
@@ -52,12 +67,12 @@ const origin="http://127.0.0.1:8765/";
    const columns="id_ciclo,curso,disciplina,docente,inicio,fim,laboratorio,status_conferencia,data_conferencia,fonte";
    const demo=columns+"\nTESTE-CICLO-001,Tecnólogo em Gastronomia,DISCIPLINA DEMONSTRATIVA,DOCENTE DE TESTE,2026-11-12,2026-11-16,LABORATÓRIO DE TESTE,A conferir,,DADOS FICTÍCIOS. NÃO PUBLICAR";
    await page.locator("#gi-import-file").setInputFiles({name:"ciclos-teste.csv",mimeType:"text/csv",buffer:Buffer.from(demo)});
-   await page.locator("#gi-import-preview").waitFor({state:"visible",timeout:5000});
+   await waitForImportPreview(page,errors);
    assert.match(await page.locator("#gi-import-preview").innerText(),/exemplo fictício não pode ser incluído/i);
    assert.equal(await page.locator("#gi-import-confirm").isDisabled(),true);
    const valid=columns+"\nCICLO-001,Tecnólogo em Gastronomia,Disciplina importada,"+teacher+",2026-11-12,2026-11-16,Bloco G,A conferir,,Fonte de teste";
    await page.locator("#gi-import-file").setInputFiles({name:"ciclos-revisao.csv",mimeType:"text/csv",buffer:Buffer.from(valid)});
-   await page.locator("#gi-import-preview").waitFor({state:"visible",timeout:5000});
+   await waitForImportPreview(page,errors);
    assert.match(await page.locator("#gi-import-preview").innerText(),/1 ciclo\(s\) conferido\(s\)/);
    assert.equal(await page.locator(".gi-plan-card").count(),0,"prévia não publica ciclos automaticamente");
    await page.locator("#gi-import-confirm").click();
