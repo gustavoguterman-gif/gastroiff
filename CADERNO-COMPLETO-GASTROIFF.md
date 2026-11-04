@@ -131,3 +131,9 @@ Em cada novo pedido, preservar este caderno e atualizar os estados. Se uma ideia
 - O workflow `.github/workflows/testar-perfis-navegador.yml` foi executado e aprovado em 04/11: testes em larguras 390, 768 e 1440 px, mudança e persistência do perfil, preenchimento e exibição da lista de docentes, ausência de erros de JavaScript e rolagem horizontal nos dois fluxos testados.
 - Criado `tests/auditoria-geral.cjs` e workflow `.github/workflows/inspecao-geral.yml` para levantamento de status HTTP, erros de JavaScript, imagens locais quebradas e transbordamento horizontal em todas as páginas HTML, em celular e desktop. Tratar resultados como **diagnóstico inicial**: o teste não confere a qualidade editorial, não substitui inspeção visual humana e não valida links externos.
 - Os testes abrangentes anteriores `tests/auditoria.js` e `.github/workflows/auditoria-site.yml` permanecem desativados até análise das falhas históricas.
+
+## 16. Resultado da auditoria e correção da Central de Gestão
+- Auditoria de navegador `tests/auditoria-geral.cjs`: 25 páginas HTML em celular (390 px) e desktop (1440 px), 50 verificações. A primeira execução detectou uma falha de sintaxe na Central de Gestão (`gestao.html`) nas duas larguras.
+- Corrigida a chave excedente que interrompia a função de interpretação de calendários. Adicionada verificação automática de scripts embutidos em todas as páginas HTML ao workflow estático de integridade.
+- Segunda auditoria geral concluída com **50 verificações aprovadas e zero ocorrências nos critérios testados**. Resultados confirmados em 04/11/2026. Isso não garante perfeição visual ou links externos; exige revisão continuada.
+- Criado teste funcional `tests/verificar-calendario-navegador.cjs` e workflow `.github/workflows/testar-calendario.yml` para confirmar que um calendário com evento de vários dias produz um único compromisso, preserva datas inclusivas na interface e exporta apenas rascunho, sem alegar publicação.
