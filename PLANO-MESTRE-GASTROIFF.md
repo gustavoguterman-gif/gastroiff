@@ -139,3 +139,9 @@ Incorporar referências verificadas e casos de políticas públicas, inclusive C
 - A página `gestao.html` passou a apresentar endereço direto para o mapa de construção, tornando explícito o que já funciona e o que está planejado.
 - `conferir-vigencia.yml` e `auditar_vigencia.py` existem no código, mas a execução agendada e as notificações por issue ainda precisam ser validadas. O verificador não procura novos editais ou vagas na internet.
 - Fase seguinte deverá priorizar segurança, autenticação e definição de um fluxo de dados persistente, preservando o uso público atual. Qualquer configuração de serviços de terceiros exige credenciais e decisão de custos/gestão.
+
+## Fase 2 iniciada: infraestrutura protegida (04/11/2026)
+- Criada migração inicial `supabase/migrations/202611040001_gastroiff_base.sql`, com tabelas de administração, ocorrências e solicitações, anexos, histórico, fila editorial, recomendações e notificações. RLS ativa, acesso público revogado, leitura de registros apenas para perfis autorizados. Escrita pública direta desativada.
+- Criado `FASE-2-ACESSO-PROTEGIDO.md`, guia de implantação e critérios de segurança. O banco Supabase/Postgres é proposta de infraestrutura, ainda sem projeto provisionado ou credenciais.
+- A interface atual de `gestao.html` permanece demonstrativa, sem autenticação. Não receber nem testar dados pessoais nela.
+- Próximo incremento: testes reproduzíveis de autorização, função de recebimento no servidor, envio de anexos privados e geração de protocolo. A ativação real dependerá de serviço seguro e governança de dados.
