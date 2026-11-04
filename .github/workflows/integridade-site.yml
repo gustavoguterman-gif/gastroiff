@@ -1,6 +1,7 @@
 name: Conferir integridade estática do portal
 on:
   push:
+    branches: [main]
     paths:
       - '*.html'
       - 'assets/**'
@@ -11,6 +12,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: integridade-site-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   integridade:
