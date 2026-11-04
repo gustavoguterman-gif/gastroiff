@@ -120,7 +120,7 @@ Deno.serve(async req => {
       await supabaseCall(service, secret, "/storage/v1/object/" + PRIVATE_BUCKET + "/" + objectPath, {
         method: "POST",
         headers: { "Content-Type": photo.type, "x-upsert": "false" },
-        body: photo.bytes,
+        body: new Blob([new Uint8Array(photo.bytes)], { type: photo.type }),
       });
 
     let requestId: string | null = null;
