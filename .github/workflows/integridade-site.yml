@@ -1,0 +1,24 @@
+name: Conferir integridade estática do portal
+on:
+  push:
+    paths:
+      - '*.html'
+      - 'assets/**'
+      - 'sw.js'
+      - 'tests/integridade-site.test.mjs'
+      - '.github/workflows/integridade-site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integridade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verificar arquivos, links e scripts
+        run: node --test tests/integridade-site.test.mjs
