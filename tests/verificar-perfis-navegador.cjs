@@ -1,0 +1,52 @@
+const { chromium } = require("playwright");
+const fs = require("node:fs");
+const assert = require("node:assert/strict");
+const root = "http://127.0.0.1:8765/";
+(async()=>{
+  fs.mkdirSync("reports",{recursive:true});
+  const browser=await chromium.launch({headless:true});
+  const results=[];
+  try{
+    for(const [name,width,height] of [["celular",390,844],["tablet",768,1024],["desktop",1440,900]]){
+      const context=await browser.newContext({viewport:{width,height}});
+      const page=await context.newPage();
+      const errors=[];
+      page.on("pageerror",e=>errors.push(e.message));
+      const response=await page.goto(root+"index.html",{waitUntil:"domcontentloaded"});
+      assert.equal(response.status(),200,"index: "+name);
+      await page.locator("#gi-profile-choice").waitFor();
+      assert.equal(await page.locator("#gi-profile-choice").inputValue(),"visitante");
+      await page.locator("#gi-profile-choice").selectOption("docente");
+      assert.match(await page.locator(".gi-personal-panel").innerText(),/Livro de Ocorrências/);
+      assert.ok(await page.locator('.gi-personal-links a[href="ocorrencias.html"]').count());
+      await page.reload({waitUntil:"domcontentloaded"});
+      await page.locator("#gi-profile-choice").waitFor();
+      assert.equal(await page.locator("#gi-profile-choice").inputValue(),"docente","perfil persistiu: "+name);
+      await page.locator("#gi-profile-choice").selectOption("estudante");
+      assert.match(await page.locator(".gi-personal-panel").innerText(),/Gastronomia em ação/);
+      const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+      assert.ok(overflow<=2,"rolagem horizontal na página inicial: "+name+" = "+overflow);
+      assert.deepEqual(errors,[],"erros JS na página inicial: "+name);
+      await page.screenshot({path:"reports/perfis-"+name+".png",fullPage:false});
+      const oc=await page.goto(root+"ocorrencias.html",{waitUntil:"domcontentloaded"});
+      assert.equal(oc.status(),200);
+      await page.locator("#role").selectOption("Docente");
+      assert.equal(await page.locator("#teacher").isVisible(),true);
+      const teacherOptions=await page.locator("#teacher option").count();
+      assert.ok(teacherOptions>10,"lista docente carregada: "+name);
+      await page.locator("#teacher").selectOption({index:1});
+      await page.locator("#role").selectOption("Estudante");
+      assert.equal(await page.locator("#name").isVisible(),true);
+      assert.equal(await page.locator("#name").getAttribute("required"),"");
+      assert.equal(await page.locator("#teacher").isVisible(),false);
+      const ocOverflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+      assert.ok(ocOverflow<=2,"rolagem horizontal nas ocorrências: "+name+" = "+ocOverflow);
+      assert.deepEqual(errors,[],"erros JS: "+name);
+      await page.screenshot({path:"reports/ocorrencias-"+name+".png",fullPage:false});
+      results.push({viewport:name,profilePersistence:true,teacherOptions,overflow,ocOverflow,errors});
+      await context.close();
+    }
+    fs.writeFileSync("reports/teste-perfis.json",JSON.stringify(results,null,2));
+    console.log("Navegador: testes aprovados para",results.map(x=>x.viewport).join(", "));
+  }finally{await browser.close()}
+})().catch(e=>{console.error(e);process.exitCode=1});
