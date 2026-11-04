@@ -6,7 +6,7 @@
   const status = document.querySelector("[data-opportunities-status]");
   const summary = document.querySelector("[data-monitor-summary]");
   if (!host || !summary || !button) return;
-  const FEED = "https://raw.githubusercontent.com/gustavoguterman-gif/gastroiff/main/data/oportunidades-monitoradas.json";
+  const FEED = "data/oportunidades-monitoradas.json";
   const OFFICIAL = "https://bancodetalentos.grupojose.com.br/";
   const trusted = value => {
     try {
