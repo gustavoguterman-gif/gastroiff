@@ -48,6 +48,21 @@ Incorporar referências verificadas e casos de políticas públicas, inclusive C
 9. **Gastronomia e Sociedade:** mostrar caminhos profissionais, políticas públicas, iniciativas de pesquisa, territorialidade e exemplos reais de egressos autorizados.
 10. **Validação final e projeto de extensão:** segurança, acessibilidade, desempenho, testes com usuários, metodologia de pesquisa e indicadores de impacto, relatórios oficiais e redação da proposta de extensão.
 
+
+## Usabilidade e administração assistida (decisão de 04/11/2026)
+- Regra central: **a plataforma deve trabalhar junto com a coordenação**, reduzindo tarefas repetitivas, esquecimentos e volume de mensagens. Preservar navegação simples e intuitiva para visitantes e processos objetivos para o administrador único.
+- Texto curto, com ação, estado e próximo passo claros. Evitar telas e instruções extensas; ajuda contextual apenas quando necessária. Funcionar em computador e celular.
+- **Caixa única de entrada da Gestão GASTROIFF:** todas as contribuições, formulários, pesquisas, documentos, eventos, vagas e solicitações entram num só painel, com assunto, origem, data, responsável, prioridade, prazo, status e ação recomendada.
+- **Triagem automática com revisão humana:** identificar tipo, extrair dados de imagem/PDF/texto, conferir campos obrigatórios, detectar duplicatas, localizar registros relacionados, sugerir encaminhamento e rascunho de resposta. Perguntar somente o que estiver ausente e for essencial. Nunca publicar, inventar, aprovar compra ou enviar decisão institucional sem confirmação.
+- **Estados compartilhados:** novo; faltam informações; pronto para revisão; publicado/encaminhado; aguardando retorno; concluído; arquivado. Alterações devem ser rastreáveis e reversíveis. Demandas urgentes de manutenção precisam de fluxo explícito.
+- **Alertas úteis, não excesso de notificações:** e-mail imediato somente em demandas urgentes e ações com prazo curto; resumo diário ou semanal dos demais itens; avisos de pendência perto do prazo, eventos sem inscrição/link, vagas vencendo, links quebrados, pesquisa com baixa taxa de resposta, documentos desatualizados e solicitações sem resposta. Frequência e canal ajustáveis, com opção de silenciar.
+- **Resumo de administração:** “recebidos desde a última visita”, “exigem sua decisão”, “aguardam terceiros”, “vencem em breve”, “resolvidos”. Ordenar pela urgência real; filtros, busca e ações em lote seguras.
+- **Mensagens e respostas prontas:** ao aprovar/encaminhar, oferecer respostas breves com dados do registro; enviar atualização ao solicitante após autorização. Não expor dados pessoais em e-mails de resumo, preferindo link autenticado.
+- **Publicação assistida:** uma única submissão deve atualizar todas as partes aplicáveis do site, calendário/ICS, oportunidades, perfis, pesquisa e indicadores. Prévia comparativa antes de publicar e confirmação das mudanças.
+- **Verificação periódica:** rotinas programadas de integridade do site, prazos, oportunidades, eventos e pendências. Não prometer monitoramento até implantar execução agendada e os conectores correspondentes.
+- **Indicadores administrativos:** solicitações recebidas/concluídas/pendentes, tempo de resposta, manutenção atendida, propostas de visitas técnicas, encaminhamentos curriculares, taxa de atualização de conteúdos e resultados das ações institucionais.
+- **Implantação em estágios:** primeiro desenho da caixa de entrada e do fluxo; depois banco protegido/autenticação; então envios reais e notificações; por fim automação de triagem, publicação e relatórios. O atual `participacao.html` encaminha por e-mail e não alimenta caixa de entrada nem envia alertas próprios.
+
 ## Próximas decisões técnicas
 - Consultar a instituição sobre hospedagem, custódia, política de privacidade e integração possível com SUAP.
 - Definir plataforma segura para formulários e arquivos e custos de API para leitura de documentos.
