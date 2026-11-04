@@ -33,6 +33,10 @@ const sheetFile=(type,quantity)=>{
    assert.deepEqual(errors,[],name+" JS");
    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
    assert.ok(overflow<=3,name+" rolagem horizontal "+overflow);
+   await page.locator('[data-stage="pedidoDocente"] input').setInputFiles([sheetFile("xlsx",10),sheetFile("xls",2)]);
+   await page.waitForFunction(()=>document.querySelector('[data-stage="pedidoDocente"] .status')?.textContent.includes("2 itens reconhecidos"));
+   await page.locator("#compare").click();
+   assert.match(await page.locator("#items tr").innerText(),/12/,"somar pedidos de arquivos distintos");
    await page.locator("#clear").click();
    assert.equal(await page.locator("#items tr").count(),0);
    await context.close();
