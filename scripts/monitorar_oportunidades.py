@@ -7,7 +7,7 @@ import json
 import re
 import unicodedata
 import urllib.request
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urljoin
 from pathlib import Path
 
 SOURCE_URL = "https://bancodetalentos.grupojose.com.br/"
@@ -78,6 +78,7 @@ def parse_grupo_bz(page, fetched_on):
         if not title or not city:
             continue
         link, role, locality = html.unescape(title.group(1)), clean(title.group(2)), clean(city.group(1))
+        link = urljoin(SOURCE_BZ, link)
         parsed = urlsplit(link)
         if parsed.scheme != "https" or parsed.netloc != "grupobzbuzios.rhgestor.com.br" or not parsed.path.startswith("/vagas/detalhes/"):
             continue
