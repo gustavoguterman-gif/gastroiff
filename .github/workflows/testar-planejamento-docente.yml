@@ -6,6 +6,8 @@ on:
       - 'assets/planejamento-docente.*'
       - 'assets/ciclos-csv.js'
       - 'tests/ciclos-csv.test.cjs'
+      - 'apps-script/simular-avisos.gs'
+      - 'tests/apps-script-simulacao.test.cjs'
       - 'tests/planejamento-docente-navegador.cjs'
       - '.github/workflows/testar-planejamento-docente.yml'
   workflow_dispatch:
@@ -28,6 +30,6 @@ jobs:
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/gastroiff-planejamento-http.log 2>&1 &
       - name: Testar leitura CSV
-        run: node --test tests/ciclos-csv.test.cjs
+        run: node --test tests/ciclos-csv.test.cjs tests/apps-script-simulacao.test.cjs
       - name: Testar planejamento docente
         run: node tests/planejamento-docente-navegador.cjs
