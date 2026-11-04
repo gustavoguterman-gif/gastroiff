@@ -1,16 +1,12 @@
 name: Testar perfis e ocorrencias no navegador
 on:
-  push:
-    paths:
-      - 'index.html'
-      - 'ocorrencias.html'
-      - 'assets/perfis-publicos.*'
-      - 'assets/faculty.js'
-      - 'tests/verificar-perfis-navegador.cjs'
-      - '.github/workflows/testar-perfis-navegador.yml'
   workflow_dispatch:
 permissions:
   contents: read
+
+concurrency:
+  group: testar-perfis-navegador-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   navegador:
     runs-on: ubuntu-latest
