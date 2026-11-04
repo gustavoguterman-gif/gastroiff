@@ -137,7 +137,7 @@ importFile.addEventListener("change",async()=>{
  resetImportPreviewOnly();
  const file=importFile.files?.[0];
  if(!file)return;
- if(!/\\.csv$/i.test(file.name)||file.size>window.GASTROIFF_CSV.MAX_BYTES){
+ if(!/\.csv$/i.test(file.name)||file.size>window.GASTROIFF_CSV.MAX_BYTES){
    importStatus.textContent="Escolha um arquivo CSV de até 256 KB, exportado da aba Ciclos.";return;
  }
  try{
