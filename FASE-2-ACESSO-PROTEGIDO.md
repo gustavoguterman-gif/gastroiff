@@ -74,3 +74,8 @@ Controle de acesso a arquivos: https://supabase.com/docs/guides/storage/security
 6. Conectar o formulário público com o desafio; pedir consentimento explícito para armazenar nome/e-mail e mostrar termos de privacidade.
 7. Realizar teste integral com dados fictícios: relato, foto, protocolo, acesso negado para terceiros, consulta administrativa, exclusão e histórico.
 8. Só então ativar envios reais. O formulário atual por e-mail continua sendo o canal disponível até lá.
+
+## Identificação do solicitante no formulário
+- Docentes escolhem o nome a partir do cadastro já apresentado no portal, sem digitação repetida. Isso facilita o formulário, mas a seleção não prova identidade.
+- Estudantes informam apenas nome completo; matrícula não é solicitada nesta etapa.
+- Em dados protegidos, o envio com nome ou e-mail exige confirmação de que os dados serão usados para registrar e acompanhar a ocorrência. Identificação e resposta seguem os canais autorizados e as regras institucionais.
