@@ -72,3 +72,11 @@ Este documento distingue alterações feitas no código de verificações que ai
 - E-mail clicável do Tecnólogo inserido na faixa abaixo do cabeçalho em todas as nove páginas previamente existentes.
 - Não confundir contato geral do campus com ramal direto da coordenação. Verificar funcionamento dos endereços de e-mail internamente antes de aprovação externa.
 - Preservada a identidade visual e as regras responsivas existentes, acrescentando apenas estilo discreto para o contato.
+
+## Conferência incremental da área docente (04/11/2026)
+- Página `planejamento-docente.html` criada com cadastro de ciclos local, lista de docentes do próprio site, curso, disciplina, local, início/fim e quadro de providências prévias às práticas.
+- Interface não apresenta previsão de compras ou recebimentos como fato; sem integração com Drive, SIAPE, matrícula ou serviços de e-mail.
+- Código de teste preparado em `tests/planejamento-docente-navegador.cjs` e execução automatizada em `.github/workflows/testar-planejamento-docente.yml`.
+- Verificação estática de caminhos e sintaxe realizada pelo workflow `integridade-site.yml`, aprovado na versão inicial. A validação de navegador da página nova será registrada separadamente após o resultado.
+- O teste usa informações fictícias em ambiente temporário, incluindo cenário de término anterior ao início, repetição de ciclo, persistência no navegador e exportação, além de adaptação em diferentes larguras.
+- A fonte institucional de ciclos e o status das aquisições ainda não foram conectados, logo não há aviso automático nem confirmação de insumos nesta entrega.
