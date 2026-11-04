@@ -140,3 +140,11 @@ Em cada novo pedido, preservar este caderno e atualizar os estados. Se uma ideia
 
 ## 17. Verificação funcional do calendário concluída
 - O workflow `testar-calendario.yml` foi executado com sucesso em 04/11/2026. Usou um evento de 8 a 10 de novembro, expresso em arquivo de agenda com término exclusivo em 11 de novembro; a Central de Gestão exibiu **um único evento** e exportou rascunho com datas inclusivas corretas. Esta validação cobre importação e exportação de rascunho, não comprova publicação automática na agenda pública ou no calendário pessoal.
+
+## Incremento de 04/11/2026: Planejamento docente e decisão de infraestrutura
+- Criada `planejamento-docente.html`, com cadastro local de ciclos de práticas (docente escolhido na lista já existente, curso, disciplina, local, início e término). A tela calcula prazos relativos à data local, evidencia conferência de insumos e equipamentos e oferece exportação CSV.
+- Arquivos associados `assets/planejamento-docente.css` e `assets/planejamento-docente.js`. Sem acesso a informações institucionais de compras, sem registro no servidor, sem e-mails e sem calendário oficial sincronizado; o usuário informa seus próprios ciclos e pode apagar os registros do dispositivo.
+- Acesso incluído no menu Ensino e nos destaques da página inicial quando escolhido o perfil docente. Cache do PWA atualizado para v44.
+- Testes de navegador: `tests/planejamento-docente-navegador.cjs` e workflow `.github/workflows/testar-planejamento-docente.yml`, com verificações de calendário inconsistente, duplicata, persistência local, exportação, exclusão, carregamento e largura em celular, tablet e desktop.
+- Criado `DECISAO-INFRAESTRUTURA-DRIVE.md` com critérios para testar Drive/Planilhas/Apps Script e Supabase antes de comprometer dados reais. Nenhuma conta, pasta, automação de envio ou banco foi conectada.
+- Critério da próxima fase: testar uma planilha de ciclos e insumos com dados fictícios e a atualização confiável do status pela fonte responsável. Lembrete automático de 7 dias depende de integração programada e confirmação de destinatário, sem previsão de entrega inventada.
