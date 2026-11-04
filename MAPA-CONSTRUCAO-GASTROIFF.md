@@ -127,3 +127,10 @@ Ao encerrar cada fase, registrar: data, arquivos alterados, links, o que foi tes
 - Novo teste de navegador foi preparado em `tests/verificar-perfis-navegador.cjs`, verificando celulares, tablet, desktop, persistência do perfil, lista docente e rolagem horizontal; conferir resultados do workflow antes de declarar os testes visuais aprovados.
 - Alternativa Drive/Planilhas/Apps Script permanece em **avaliação técnica**, não foi provisionada. O banco Supabase também está preparado, não ativo. Não decidir hospedagem de dados pessoais apenas por capacidade de armazenamento; avaliar permissões, cotas, responsabilidades, LGPD, backups, manutenção e integração com o IFF.
 - Próxima construção: resolver falhas apontadas na auditoria de navegador e iniciar painel docente com ciclos, solicitações de insumos, prazos e links a ocorrências, **sem inventar status de compras ou horários**.
+
+## Fechamento desta rodada de teste
+- Conferência estática de arquivos locais e scripts aprovada.
+- Personalização simples por perfil e lista de docentes testadas em navegador para celular, tablet e desktop.
+- Auditoria geral de 25 páginas em celular e desktop: 50 verificações, zero ocorrências após corrigir a sintaxe de `gestao.html`.
+- Importação de um único evento multidiário na Gestão testada e aprovada, com término inclusivo e exportação de rascunho, sem publicação automática.
+- Pendências desta fase: teste humano visual de todas as páginas, conferência externa de URLs, busca automática de novos editais e vagas, cadastro real de usuários, Drive/Apps Script ou banco protegido provisionado, compras e notificações com dados reais.
