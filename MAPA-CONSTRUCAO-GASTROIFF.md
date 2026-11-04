@@ -142,3 +142,8 @@ Ao encerrar cada fase, registrar: data, arquivos alterados, links, o que foi tes
 - Testes de navegador: `tests/planejamento-docente-navegador.cjs` e workflow `.github/workflows/testar-planejamento-docente.yml`, com verificações de calendário inconsistente, duplicata, persistência local, exportação, exclusão, carregamento e largura em celular, tablet e desktop.
 - Criado `DECISAO-INFRAESTRUTURA-DRIVE.md` com critérios para testar Drive/Planilhas/Apps Script e Supabase antes de comprometer dados reais. Nenhuma conta, pasta, automação de envio ou banco foi conectada.
 - Critério da próxima fase: testar uma planilha de ciclos e insumos com dados fictícios e a atualização confiável do status pela fonte responsável. Lembrete automático de 7 dias depende de integração programada e confirmação de destinatário, sem previsão de entrega inventada.
+
+## Resultado confirmado da rodada de testes do planejamento docente
+- Execução GitHub Actions 41847452493 concluída com sucesso em 04/11/2026. Navegador Chromium testado em celular 390 px, tablet 768 px e desktop 1440 px.
+- Passaram verificações de carregamento, lista docente, rejeição de datas invertidas, criação de ciclo fictício, permanência após recarga, rejeição de duplicatas, exportação CSV com datas, remoção e ausência de transbordamento horizontal ou erros JavaScript nos fluxos testados.
+- A versão ainda é um planejador local sem calendário institucional conectado, envio automático, banco compartilhado ou situação real de compras. A implantação integrada permanece pendente.
