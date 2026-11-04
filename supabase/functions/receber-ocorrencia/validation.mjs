@@ -54,6 +54,7 @@ export function validateOccurrence(input) {
   if (email && (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || /[\r\n]/.test(email)))
     throw new InputError("Verifique o e-mail informado.");
   const name = optionalString(input.name, 120);
+  if ((role === "Estudante" || role === "Docente") && !name) throw new InputError("Informe seu nome completo.");
   if (name && !input.contactConsent) throw new InputError("Confirme a autorização para guardar seu nome.");
   if (email && !input.contactConsent) throw new InputError("Confirme a autorização para guardar seu e-mail.");
   return {
