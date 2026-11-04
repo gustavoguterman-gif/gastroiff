@@ -153,6 +153,9 @@ def main():
             found_locations = re.findall(
                 r'<div\\s+class="localizacao-vaga[^"]*"[^>]*>(.*?)</div>', bz_html, re.I | re.S)
             print("Amostras de localização do Grupo BZ:", [clean(s)[:80] for s in found_locations[:3]])
+            sample = bz_html.split('class="item-vaga col-md-6"')[1]
+            print("Primeira ficha BZ, HTML reduzido:", repr(sample[:1000]))
+            print("Indicadores de localidade na ficha:", "Búzios" in sample, "Buzios" in sample)
         current = jose_rows + bz_rows
     state, new = build_state(previous, current, today)
     state["encontradas_por_fonte"] = {
