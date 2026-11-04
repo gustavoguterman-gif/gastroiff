@@ -10,8 +10,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: validacao-completa-${{ github.ref }}
-  cancel-in-progress: false
+  group: validacao-completa-v2-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   verificacao:
