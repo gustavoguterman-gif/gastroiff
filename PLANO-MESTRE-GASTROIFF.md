@@ -68,3 +68,7 @@ Incorporar referências verificadas e casos de políticas públicas, inclusive C
 - Definir plataforma segura para formulários e arquivos e custos de API para leitura de documentos.
 - Não inserir chaves de API ou dados identificáveis no JavaScript público nem no repositório.
 - Instalar analítica somente após configuração das credenciais e da base de medição; não exibir números fictícios como reais.
+
+## Registro de entregas e validações
+- 04/11/2026: `gestao.html` criado como primeira Central de Gestão para conferência. Contém painel de módulos, descrição objetiva do fluxo, importação local de arquivos ICS, identificação de campos ausentes/possíveis duplicidades, revisão manual e exportação de rascunho JSON. Não possui autenticação, base de dados, notificações, publicação no site ou processamento por IA. Não usar com documentos pessoais ou sigilosos. O código foi publicado, mas ainda exige teste de interface em navegadores reais.
+- Próxima etapa de implementação: autenticação e base protegida, encaminhamento persistente de solicitações e notificações, respeitando a finalidade institucional. Manter todas as demais etapas do plano mestre.
