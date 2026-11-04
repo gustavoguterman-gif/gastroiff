@@ -1,0 +1,18 @@
+/* Preferência pública de navegação: não altera autenticação ou visibilidade. */
+.gi-personal-section{padding:22px 0 27px;background:#f4f8f1;border-bottom:1px solid #d9e8d7}
+.gi-personal-section .container{max-width:1180px}
+.gi-personal-head{display:flex;justify-content:space-between;align-items:end;gap:22px;flex-wrap:wrap}
+.gi-personal-head h2{font-size:clamp(1.35rem,2.7vw,1.85rem);line-height:1.2;margin:0 0 7px;color:#245638}
+.gi-personal-head p{max-width:660px;color:#4d6653;margin:0;font-size:.95rem}
+.gi-personal-choice{display:grid;gap:5px;min-width:min(100%,280px)}
+.gi-personal-choice label{font-size:.86rem;font-weight:650;color:#294c33}
+.gi-personal-choice select{font:inherit;border:1px solid #a9c5ad;border-radius:10px;padding:10px 12px;background:#fff;color:#23492f;width:100%}
+.gi-personal-panel{background:#fff;border:1px solid #d8e4d7;border-radius:14px;margin-top:15px;padding:18px 20px}
+.gi-personal-panel h3{font-size:1.1rem;color:#245638;margin:0 0 6px}
+.gi-personal-panel>p{margin:0 0 12px;line-height:1.5}
+.gi-personal-links{display:flex;flex-wrap:wrap;gap:9px}
+.gi-personal-links a{display:inline-block;background:#e1efe0;border:1px solid #b5cfb6;border-radius:10px;padding:9px 13px;color:#235337;font-size:.92rem;font-weight:650;text-decoration:none}
+.gi-personal-links a:hover{background:#cee5ce}
+.gi-personal-links a:focus-visible,.gi-personal-choice select:focus-visible{outline:3px solid #639f71;outline-offset:2px}
+.gi-personal-foot{font-size:.82rem;color:#677b69;margin-top:13px!important;margin-bottom:0!important}
+@media(max-width:660px){.gi-personal-section{padding:18px 0}.gi-personal-head{align-items:stretch}.gi-personal-choice{width:100%}.gi-personal-panel{padding:15px}}
