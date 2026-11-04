@@ -54,7 +54,7 @@
   // Uma extração parcial nunca deve fundamentar uma conclusão sobre fornecimento.
   current.ready=rows.length>0&&warnings.length===0&&current.errors.length===0&&(selected!=="all"||chosen.length===current.sheets.length);
   const ignored=current.sheets.length-chosen.length;
-  let report=rows.length+" item(ns) lido(s) em "+chosen.length+" aba(s).";
+  let report=rows.length+" itens reconhecidos em "+chosen.length+" aba(s).";
   if(ignored)report+=" "+ignored+" aba(s) não reconhecida(s). Para comparar, revise as colunas ou selecione uma aba específica.";
   if(current.errors.length)report+=" Arquivo(s) recusado(s): "+current.errors.join(" ");
   if(warnings.length)report+=" "+warnings.length+" inconsistência(s): "+warnings.slice(0,5).join(" ");
