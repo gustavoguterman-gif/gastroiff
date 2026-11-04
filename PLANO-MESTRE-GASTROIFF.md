@@ -145,3 +145,9 @@ Incorporar referências verificadas e casos de políticas públicas, inclusive C
 - Criado `FASE-2-ACESSO-PROTEGIDO.md`, guia de implantação e critérios de segurança. O banco Supabase/Postgres é proposta de infraestrutura, ainda sem projeto provisionado ou credenciais.
 - A interface atual de `gestao.html` permanece demonstrativa, sem autenticação. Não receber nem testar dados pessoais nela.
 - Próximo incremento: testes reproduzíveis de autorização, função de recebimento no servidor, envio de anexos privados e geração de protocolo. A ativação real dependerá de serviço seguro e governança de dados.
+
+## Fase 2, segundo incremento: serviço de recebimento e testes
+- Criados `supabase/functions/receber-ocorrencia/index.ts`, `validation.mjs` e `supabase/config.toml` para posterior implantação do recebimento público seguro via função de servidor. Exige proteção Cloudflare Turnstile, serviço e credenciais privadas. O site público NÃO está conectado.
+- A validação cobre curso, vínculo, categoria, local, descrição, impacto, data, autorização de contatos pessoais e fotos JPG/PNG/WebP (até 5 MB). Anexos previstos em armazenamento privado. Serviço recebe número único do banco e prepara histórico de recebimento.
+- Criados `tests/receber-ocorrencia.test.mjs` e workflow `.github/workflows/testar-ocorrencias.yml` para testes com Node e verificação de tipos Deno. Durante os testes foi localizado e corrigido um erro de tipo no envio de imagem.
+- Próximo passo: testar a função com serviço de armazenamento real em ambiente isolado, habilitar proteção antiabuso e formulário com consentimento, fazer testes de permissões e somente então abrir o recebimento aos estudantes.
