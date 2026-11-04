@@ -57,7 +57,7 @@ export function validateOccurrence(input) {
   if (name && !input.contactConsent) throw new InputError("Confirme a autorização para guardar seu nome.");
   if (email && !input.contactConsent) throw new InputError("Confirme a autorização para guardar seu e-mail.");
   return {
-    origin: "occurrence", course, category, title: category + " | " + location,
+    origin: "occurrence", course, submitter_role: role, category, title: category + " | " + location,
     description, location, observed_on: observed, impact,
     proposed_action: optionalString(input.proposal, 1800),
     submitter_name: name, submitter_email: email,
