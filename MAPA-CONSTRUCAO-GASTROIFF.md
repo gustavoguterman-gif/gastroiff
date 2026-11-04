@@ -111,3 +111,10 @@ Ao encerrar cada fase, registrar: data, arquivos alterados, links, o que foi tes
 
 ## Arquivos que compõem o histórico
 `PLANO-MESTRE-GASTROIFF.md`, `ARQUITETURA-GESTAO-DADOS.md`, `GUIA-MANUTENCAO.md`, `AUDITORIA.md`, este documento e o histórico de commits do repositório.
+
+## Incremento validado em 04/11: identificação simples no Livro de Ocorrências
+- Ao escolher **Docente**, o formulário `ocorrencias.html` mostra uma lista de nomes proveniente do próprio cadastro `assets/faculty.js`, excluindo os dois perfis técnico-administrativos cadastrados. A lista é de conveniência, não constitui autenticação do(a) docente. Se a lista falhar, o formulário não deve simular escolha válida.
+- Ao escolher **Estudante**, solicita apenas nome completo, sem exigir número de matrícula. E-mail para retorno continua opcional. Para outros vínculos, nome pode ser opcional.
+- A versão pública ainda prepara envio pelo aplicativo de e-mail e não envia foto automaticamente. O backend planejado exige nome para docentes e estudantes e consentimento explícito para guardar qualquer identificação pessoal no banco.
+- Foram adicionados testes de interface estática, exclusão de perfis não docentes, carregamento de cadastro e sintaxe de JavaScript, além dos testes de validação e checagem de tipos do serviço protegido.
+- O fluxo de backend foi preparado mas ainda não foi ativado. A execução real e os testes de permissões em banco dependem da infraestrutura protegida.
