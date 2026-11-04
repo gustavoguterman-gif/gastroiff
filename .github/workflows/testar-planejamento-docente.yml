@@ -1,0 +1,29 @@
+name: Testar planejamento docente
+on:
+  push:
+    paths:
+      - 'planejamento-docente.html'
+      - 'assets/planejamento-docente.*'
+      - 'tests/planejamento-docente-navegador.cjs'
+      - '.github/workflows/testar-planejamento-docente.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  navegador:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar navegador
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Servir paginas
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/gastroiff-planejamento-http.log 2>&1 &
+      - name: Testar planejamento docente
+        run: node tests/planejamento-docente-navegador.cjs
