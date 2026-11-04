@@ -64,7 +64,8 @@ const customFile=(rows,name="planilha-customizada.xlsx")=>{
    assert.equal(await page.locator("#compare").isDisabled(),false,name+" mapeamento manual");
    await page.locator("#compare").click();
    assert.match(await page.locator("#items tr").innerText(),/Farinha de trigo/);
-\n   await page.locator("#clear").click();
+
+   await page.locator("#clear").click();
    assert.equal(await page.locator("#items tr").count(),0);
    await context.close();
    console.log("Excel administrativo aprovado:",name);
