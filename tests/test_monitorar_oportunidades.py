@@ -28,6 +28,20 @@ BZ_HTML = """
 """
 
 class MonitorTests(unittest.TestCase):
+    def test_anuncios_antigos_nao_aparecem_como_vagas_recentes(self):
+        rows = parse_grupo_jose(HTML.replace("20/10/2026", "20/07/2026"), DATE)
+        state, alerts = build_state({}, rows, DATE)
+        self.assertEqual(len(alerts), 1)
+        self.assertEqual(len(state["ids_vistos"]), 2)
+        self.assertTrue(all(item["publicada_em"] >= "2026-10-05" for item in state["candidatas"]))
+        # Mesmo quando reaparece em consulta posterior, o item antigo não gera alerta novo.
+        after, second_alerts = build_state(state, rows, DATE)
+        self.assertEqual(len(second_alerts), 0)
+    def test_vaga_sem_data_pode_ter_link_individual_mas_exige_conferencia(self):
+        bz = parse_grupo_bz(BZ_HTML, DATE)
+        state, new = build_state({}, bz, DATE)
+        self.assertEqual(len(new), 1)
+        self.assertEqual(state["candidatas"][0]["publicada_em"], None)
     def test_grupo_bz_filtra_link_e_cidade_verdadeiros(self):
         rows = parse_grupo_bz(BZ_HTML, DATE)
         self.assertEqual(len(rows), 1)
