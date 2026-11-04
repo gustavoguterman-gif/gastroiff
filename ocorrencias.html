@@ -17,7 +17,7 @@
 <div class="gi-actions"><button type="submit" class="gi-action">Preparar relato para enviar</button><button id="copy" class="gi-action alt" type="button">Copiar relato</button></div><p id="status" class="gi-status" aria-live="polite"></p></form>
 <div class="gi-note"><h2>Outras propostas para melhorar o curso</h2><p>Para sugerir visitas técnicas, mudanças em disciplinas, projetos, atividades ou outras melhorias na formação, utilize a página de Participação Acadêmica.</p><a class="gi-action alt" href="participacao.html">Abrir Participação Acadêmica</a></div>
 </main><footer class="footer"><div class="container"><p>GASTROIFF · Instituto Federal Fluminense, campus Cabo Frio</p></div></footer>
-<script defer src="assets/site.js?v=20261103-layout4"></script><script defer src="assets/institutional.js?v=20261104-ocorrencias"></script><script src="assets/faculty.js?v=20261104" defer></script>
+<script defer src="assets/site.js?v=20261103-layout4"></script><script defer src="assets/institutional.js?v=20261104-ocorrencias"></script><script src="assets/faculty.js?v=20261104"></script>
 <script>
 (()=>{'use strict';const f=document.getElementById('record'),get=id=>document.getElementById(id).value.trim(),status=document.getElementById('status'),photo=document.getElementById('photo'),preview=document.getElementById('preview');let url=null;
 const role=document.getElementById('role'),teacher=document.getElementById('teacher'),teacherWrap=document.getElementById('teacher-wrap'),nameWrap=document.getElementById('name-wrap'),name=document.getElementById('name'),nameLabel=document.getElementById('name-label');
@@ -30,7 +30,7 @@ function updateIdentity(){
 }
 function loadTeachers(){
  const records=Array.isArray(window.GASTROIFF_FACULTY)?window.GASTROIFF_FACULTY:[];
- const exclude=new Set(['daiana-pereira','lyg ia-oliveira'.replace(' ','')]);
+ const exclude=new Set(['daiana-pereira','lygia-oliveira']);
  for(const record of records){if(!record?.id||!record?.name||exclude.has(record.id))continue;
  const option=document.createElement('option');option.value=record.full||record.name;option.textContent=record.name;teacher.append(option)}
  if(teacher.options.length===1){const option=document.createElement('option');option.value='';option.textContent='Lista indisponível. Selecione outro vínculo ou tente novamente.';teacher.append(option)}
