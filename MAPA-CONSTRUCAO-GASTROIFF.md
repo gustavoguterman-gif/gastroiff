@@ -51,6 +51,7 @@ As páginas abaixo foram confirmadas como arquivos no repositório durante esta 
 | Proposta a partir de percurso | `gastronomia-em-acao.html` -> `participacao.html` | Implementado no código: leva título e contexto ao formulário sem pedir repetição | vínculo com fluxo protegido de propostas e avaliação institucional |
 | Auditoria semanal do calendário | `.github/workflows/conferir-vigencia.yml` e `scripts/auditar_vigencia.py` | Código de rotina agendada criado: revisa campos e eventos próximos, tenta abrir ou atualizar issue no GitHub | confirmar execução real, permissões e funcionamento; não descobre novos eventos |
 | Arquitetura de dados | `ARQUITETURA-GESTAO-DADOS.md` | Especificação escrita | provisionamento, credenciais, execução e segurança |
+| Estrutura protegida inicial | `supabase/migrations/202611040001_gastroiff_base.sql` | Migração SQL preparada no código, não executada em servidor | selecionar/provisionar serviço, testar permissões, implantar autenticação e recebimento real |
 
 ## Oportunidades: compromisso integral
 O banco público deverá aceitar emprego, estágio, concurso, edital, bolsa, seleção acadêmica, extensão, formação, projetos e oportunidades comunitárias. Deve apresentar função, empregador/organização, cidade, modalidade, requisitos, prazo, remuneração informada, contato público, canal direto de candidatura e data da última conferência. Priorizar busca automática permitida em sites de empresas, restaurantes, hotéis, pousadas, municípios, instituições e bancos de vagas, depois expandir a Instagram e Facebook apenas com meios autorizados. Deduplicar, identificar encerramento e registrar fonte. Não dar como automática uma busca que não esteja realmente ativa. Produzir indicadores de exigências profissionais e campos emergentes, sem confundir clique com contratação.
@@ -83,6 +84,7 @@ Entregáveis: mapa integral atualizado; verificação estática; revisão de ris
 Entregáveis: mapa das áreas, percursos regionais, ligação com eventos futuros internos, conexão de proposta já preenchida e ajustes de navegação; revisão de fontes. Aceite: estudante consegue escolher percurso, conhecer aplicação e enviar proposta sem reescrever o tema. **Parcialmente construído.**
 
 ### Fase 2. Infraestrutura segura de administração
+Etapa inicial concluída no código em 04/11: modelo de tabelas, regras de acesso, armazenamento de anexos privado e guia de ativação em `FASE-2-ACESSO-PROTEGIDO.md`. Nenhum banco em funcionamento, envio real ou login ativo foi afirmado.
 Entregáveis: autenticação, serviço de dados, permissões por papel, arquivos privados, política de dados, backup e área protegida. Aceite: dados pessoais não aparecem no GitHub Pages; administrador acessa somente após login; teste de envio e recuperação. **A construir.**
 
 ### Fase 3. Livro de Ocorrências e Participação efetivos
