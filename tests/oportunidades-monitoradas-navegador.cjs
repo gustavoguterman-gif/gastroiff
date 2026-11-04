@@ -22,7 +22,7 @@ const assert=require("node:assert/strict");
    assert.equal(response.status(),200);
    await page.waitForFunction(()=>document.querySelector("[data-monitor-summary]")?.textContent.includes("04/11/2026"));
    assert.equal(await page.locator("[data-monitored-opportunities] article").count(),1,"somente origem autorizada");
-   assert.match(await page.locator("[data-monitored-opportunities]").innerText(),/conferir se a seleção continua aberta/i);
+   assert.match(await page.locator("[data-monitored-opportunities]").innerText(),/confira se a seleção continua aberta/i);
    const link=page.locator("[data-monitored-opportunities] article a");
    assert.equal(await link.getAttribute("href"),"https://bancodetalentos.grupojose.com.br/");
    await page.locator("[data-refresh-opportunities]").click();
