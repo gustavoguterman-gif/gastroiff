@@ -7,7 +7,7 @@ import json
 import re
 import unicodedata
 import urllib.request
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urljoin
 from pathlib import Path
 
 SOURCE_URL = "https://bancodetalentos.grupojose.com.br/"
@@ -78,6 +78,7 @@ def parse_grupo_bz(page, fetched_on):
         if not title or not city:
             continue
         link, role, locality = html.unescape(title.group(1)), clean(title.group(2)), clean(city.group(1))
+        link = urljoin(SOURCE_BZ, link)
         parsed = urlsplit(link)
         if parsed.scheme != "https" or parsed.netloc != "grupobzbuzios.rhgestor.com.br" or not parsed.path.startswith("/vagas/detalhes/"):
             continue
@@ -141,7 +142,22 @@ def main():
     if args.html:
         current = parse_grupo_jose(Path(args.html).read_text(encoding="utf-8"), today)
     else:
-        current = parse_grupo_jose(fetch(SOURCE_URL), today) + parse_grupo_bz(fetch(SOURCE_BZ), today)
+        jose_html = fetch(SOURCE_URL)
+        bz_html = fetch(SOURCE_BZ)
+        jose_rows = parse_grupo_jose(jose_html, today)
+        bz_rows = parse_grupo_bz(bz_html, today)
+        print("Diagnóstico da fonte Grupo José:", len(jose_html), "caracteres,",
+              jose_html.count('class="card vaga-card"'), "cartões,", len(jose_rows), "itens gastronômicos")
+        print("Diagnóstico da fonte Grupo BZ:", len(bz_html), "caracteres,",
+              bz_html.count('class="item-vaga col-md-6"'), "cartões,", len(bz_rows), "itens gastronômicos")
+        if not bz_rows and 'class="item-vaga col-md-6"' in bz_html:
+            found_locations = re.findall(
+                r'<div\\s+class="localizacao-vaga[^"]*"[^>]*>(.*?)</div>', bz_html, re.I | re.S)
+            print("Amostras de localização do Grupo BZ:", [clean(s)[:80] for s in found_locations[:3]])
+            sample = bz_html.split('class="item-vaga col-md-6"')[1]
+            print("Primeira ficha BZ, HTML reduzido:", repr(sample[:1000]))
+            print("Indicadores de localidade na ficha:", "Búzios" in sample, "Buzios" in sample)
+        current = jose_rows + bz_rows
     state, new = build_state(previous, current, today)
     state["encontradas_por_fonte"] = {
         "Grupo José": sum(j["empresa"] == "Grupo José" for j in current),
