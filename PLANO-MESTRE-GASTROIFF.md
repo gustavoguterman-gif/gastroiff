@@ -94,3 +94,9 @@ Incorporar referências verificadas e casos de políticas públicas, inclusive C
 - O contato pessoal confirmado pelo responsável ficará reservado para notificações administrativas configuráveis no futuro sistema com acesso protegido.
 - Demandas acadêmicas e de infraestrutura seguem aos canais institucionais responsáveis. Evitar encaminhar dados pessoais de estudantes para caixas particulares.
 - A Central de Gestão deverá permitir alterar destinatários de notificações e responsáveis por tipo de solicitação, sem mudar o código do site.
+
+## Nova entrega em 04/11/2026: Trajetórias e arquitetura de dados
+- Criada `trajetorias.html`, página pública de campos de atuação, referências institucionais verificadas, vínculo com o portal de cursos, pesquisa, oportunidades, documentos, Observatório da Formação e Participação Acadêmica. Não apresenta resultados de egressos inexistentes.
+- Incluída no menu Ensino. Referências adotadas: catálogo MEC, Escola de Gastronomia Social Ivens Dias Branco, serviços de consultoria do Senac Ceará e Lei 17.608/2021.
+- Criado `ARQUITETURA-GESTAO-DADOS.md`, especificação da estrutura segura para ocorrências, notificações, pesquisas, egressos, administração e devolutivas institucionais. Não representa banco implementado.
+- Próxima fase: escolher e provisionar infraestrutura protegida, autenticação e primeiro fluxo persistente do Livro de Ocorrências, sem enviar mensagens institucionais para endereço pessoal automaticamente.
