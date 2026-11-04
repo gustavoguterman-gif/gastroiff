@@ -8,6 +8,15 @@
   if (!host || !summary || !button) return;
   const FEED = "https://raw.githubusercontent.com/gustavoguterman-gif/gastroiff/main/data/oportunidades-monitoradas.json";
   const OFFICIAL = "https://bancodetalentos.grupojose.com.br/";
+  const trusted = value => {
+    try {
+      const u = new URL(value);
+      return u.protocol === "https:" && (
+        value === OFFICIAL ||
+        (u.hostname === "grupobzbuzios.rhgestor.com.br" && u.pathname.startsWith("/vagas/detalhes/"))
+      );
+    } catch { return false; }
+  };
   const format = date => /^\d{4}-\d{2}-\d{2}$/.test(date||"") ? date.split("-").reverse().join("/") : "data não informada";
   const text = (parent,tag,value,css) => {
     const el = document.createElement(tag);
@@ -19,7 +28,7 @@
     const rows = Array.isArray(feed.candidatas) ? feed.candidatas : [];
     const safe = rows.filter(x =>
       x && typeof x.cargo==="string" && typeof x.empresa==="string" &&
-      typeof x.cidade==="string" && x.url===OFFICIAL &&
+      typeof x.cidade==="string" && trusted(x.url) &&
       x.situacao==="encontrada_na_fonte_nao_verificada_individualmente"
     ).slice(0,40);
     summary.textContent = feed.ultima_consulta
@@ -37,7 +46,7 @@
       text(card,"p",x.empresa+" · "+x.cidade,"gi-vacancy-meta");
       text(card,"p","Anúncio encontrado na fonte. Confira se a seleção continua aberta antes de se candidatar.","gi-vacancy-note");
       text(card,"p","Publicado na fonte em "+format(x.publicada_em)+". Consulta em "+format(x.consulta_em)+".","gi-vacancy-source");
-      const link=document.createElement("a");link.href=OFFICIAL;link.target="_blank";link.rel="noopener noreferrer";
+      const link=document.createElement("a");link.href=x.url;link.target="_blank";link.rel="noopener noreferrer";
       link.className="gi-vacancy-apply";link.textContent="Conferir na página de recrutamento";
       card.append(link);grid.append(card);
     });
