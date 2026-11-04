@@ -1,0 +1,46 @@
+name: Testar Gestão das práticas
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'planejamento-docente.html'
+      - 'gestao-praticas.html'
+      - 'gestao-documentos-praticas.html'
+      - 'gestao.html'
+      - 'assets/gestao-praticas-ciclos.js'
+      - 'assets/praticas-regras.js'
+      - 'assets/praticas-documentos-leitor.js'
+      - 'assets/praticas-documentos-ui.js'
+      - 'tests/praticas-regras.test.cjs'
+      - 'tests/praticas-documentos-leitor.test.cjs'
+      - 'tests/praticas-gestao-navegador.cjs'
+      - 'tests/planejamento-docente-navegador.cjs'
+      - '.github/workflows/testar-praticas-gestao.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+concurrency:
+  group: praticas-gestao-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Testar validações e leitura de documentos
+        run: node --test tests/praticas-regras.test.cjs tests/praticas-documentos-leitor.test.cjs
+      - name: Instalar navegador
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Iniciar servidor de teste
+        run: python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/gastroiff-praticas.log 2>&1 &
+      - name: Testar cadastro administrativo dos ciclos
+        run: node tests/planejamento-docente-navegador.cjs
+      - name: Testar painel docente e conferência administrativa
+        run: node tests/praticas-gestao-navegador.cjs
