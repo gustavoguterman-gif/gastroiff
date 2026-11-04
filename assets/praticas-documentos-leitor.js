@@ -35,6 +35,7 @@
     if(!libs.pdfjs?.getDocument)throw Error("Leitor PDF indisponível. Não foi possível analisar o arquivo.");
     const pdf=await libs.pdfjs.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
     const limit=Math.min(pdf.numPages,MAX_PAGES);
+    let readablePages=0;
     for(let i=1;i<=limit;i++){
       const page=await pdf.getPage(i);
       const contents=await page.getTextContent();
@@ -48,9 +49,11 @@
         result.warnings.push("Página "+i+": texto identificado por OCR; confira manualmente.");
       }
       if(!text)result.warnings.push("Página "+i+": sem texto legível; envie imagem nítida ou registre manualmente.");
+      else readablePages++;
       result.text+="Página "+i+": "+text+"\n";
     }
     if(pdf.numPages>MAX_PAGES)result.warnings.push("PDF tem mais de seis páginas. Documento lido parcialmente.");
+    if(!readablePages)throw Error("Nenhuma informação legível encontrada.");
   }else{
     if(!libs.ocr?.recognize)throw Error("Reconhecimento de imagens indisponível. Não foi possível ler a imagem.");
     const response=await libs.ocr.recognize(file,"por");
