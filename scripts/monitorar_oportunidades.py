@@ -141,7 +141,7 @@ def main():
     # Somente fonte e links oficiais, nenhuma informação individual do candidato.
     summary = [f"Consulta em {today}: {len(current)} oportunidades compatíveis; {len(new)} registros novos.",
                "São registros encontrados na fonte, NÃO vagas individualmente confirmadas."]
-    summary += [f"* {j['cargo']} | {j['cidade']} | {j['publicada_em']} | {j['url']}" for j in new]
+    summary += [f"* {j['cargo']} | {j['cidade']} | {j['publicada_em'] or 'data não informada'} | {j['url']}" for j in new]
     Path(args.resumo).write_text("\n".join(summary) + "\n", encoding="utf-8")
     print(summary[0])
 
