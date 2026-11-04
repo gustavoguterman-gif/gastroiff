@@ -1,7 +1,7 @@
 import datetime as dt
 import json
 import unittest
-from scripts.monitorar_oportunidades import parse_grupo_jose, build_state
+from scripts.monitorar_oportunidades import parse_grupo_jose, parse_grupo_bz, build_state
 
 DATE = "2026-11-04"
 HTML = """
@@ -19,7 +19,24 @@ HTML = """
 <div class="vaga-meta"><span>Publicada em 28/10/2026</span></div>
 </div>
 """
+BZ_HTML = """
+<div class="item-vaga col-md-6"><div class="box hover"><h5>
+<a href="https://grupobzbuzios.rhgestor.com.br/vagas/detalhes/F2Ucbz319700c7K9Qdx"><strong>COZINHEIRO DE RESTAURANTE</strong></a>
+</h5><div class="localizacao-vaga corprincipal cor-detalhe"><i></i> Armação dos Búzios - RJ</div></div></div>
+<div class="item-vaga col-md-6"><h5><a href="https://evil.invalid/vagas/detalhes/123456"><strong>CHEFE DE COZINHA</strong></a></h5>
+<div class="localizacao-vaga corprincipal">Armação dos Búzios - RJ</div></div>
+"""
+
 class MonitorTests(unittest.TestCase):
+    def test_grupo_bz_filtra_link_e_cidade_verdadeiros(self):
+        rows = parse_grupo_bz(BZ_HTML, DATE)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["cargo"], "COZINHEIRO DE RESTAURANTE")
+        self.assertTrue(rows[0]["url"].startswith("https://grupobzbuzios.rhgestor.com.br/vagas/detalhes/"))
+        self.assertIsNone(rows[0]["publicada_em"])
+    def test_grupo_bz_estrutura_ausente_exige_revisao(self):
+        with self.assertRaises(ValueError):
+            parse_grupo_bz("<main>sem cards</main>", DATE)
     def test_extrai_vagas_de_gastronomia_com_fonte(self):
         result = parse_grupo_jose(HTML, DATE)
         self.assertEqual(len(result), 2)
