@@ -15,6 +15,7 @@ const valid = overrides => ({...base,...overrides});
 test("aceita ocorrência mínima e normaliza os dados",()=>{
  const data=validateOccurrence(valid());
  assert.equal(data.course,"technologist");
+ assert.equal(data.submitter_role,"Estudante");
  assert.equal(data.impact,"disruptive");
  assert.equal(data.origin,"occurrence");
  assert.equal(data.submitter_email,null);
