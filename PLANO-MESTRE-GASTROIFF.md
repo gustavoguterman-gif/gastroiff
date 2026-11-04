@@ -132,3 +132,10 @@ Incorporar referências verificadas e casos de políticas públicas, inclusive C
 - Indicadores institucionais: anúncios por município e campo de atuação, tipos de requisito e competências demandadas, cliques de encaminhamento e possíveis lacunas curriculares. Clique não comprova candidatura nem contratação; resultados efetivos exigem questionários voluntários e acompanhamento de egressos.
 - A automação completa depende de infraestrutura de execução agendada, conectores ou fontes públicas permitidas, credenciais e testes. A inspeção semanal do calendário já implementada em workflow é diferente da descoberta de vagas.
 - Estruturar a descoberta como extensões por fonte, sem expor credenciais na página pública e sem depender de serviços de pesquisa encerrados ou indisponíveis para novos usuários.
+
+## Documento consolidado de controle e continuidade
+- `MAPA-CONSTRUCAO-GASTROIFF.md` é o inventário central de requisitos, estado real das funcionalidades e fases com critérios de aceite, complementando este plano mestre, a auditoria e a arquitetura de dados.
+- Em 04/11/2026, foi ajustado o fluxo `gastronomia-em-acao.html` -> `participacao.html` para transportar automaticamente o tema e o contexto escolhidos pelo estudante, reduzindo redigitação na proposta educativa. Funcionalidade publicada no código, requer teste no navegador real.
+- A página `gestao.html` passou a apresentar endereço direto para o mapa de construção, tornando explícito o que já funciona e o que está planejado.
+- `conferir-vigencia.yml` e `auditar_vigencia.py` existem no código, mas a execução agendada e as notificações por issue ainda precisam ser validadas. O verificador não procura novos editais ou vagas na internet.
+- Fase seguinte deverá priorizar segurança, autenticação e definição de um fluxo de dados persistente, preservando o uso público atual. Qualquer configuração de serviços de terceiros exige credenciais e decisão de custos/gestão.
