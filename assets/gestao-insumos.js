@@ -2,7 +2,7 @@
 (() => {
  "use strict";
  const stages=["pedidoDocente","pedidoFornecedor","respostaFornecedor","recebimentoFisico"];
- const state=Object.fromEntries(stages.map(key=>[key,{sheet:null,parsed:null}]));
+ const state=Object.fromEntries(stages.map(key=>[key,{sheets:[],parsed:null}]));
  const $=id=>document.getElementById(id);
  const sections=Object.fromEntries(stages.map(key=>[key,document.querySelector('[data-stage="'+key+'"]')]));
  const msg=(key,value)=>{sections[key].querySelector(".status").textContent=value};
@@ -13,39 +13,52 @@
  function showSheet(key){
   const current=state[key],select=sections[key].querySelector("select"),selected=select.value;
   current.parsed=null;invalidate();
-  if(!current.sheet)return;
+  if(!current.sheets.length)return;
   try{
-   const sheet=current.sheet.sheets[Number(selected)];
-   if(!sheet)throw Error("Aba não encontrada.");
-   const parsed=window.GASTROIFF_EXCEL.extract(sheet);
-   current.parsed=parsed;
-   msg(key,"Aba "+sheet.name+": "+parsed.rows.length+" itens reconhecidos. "+
-     (parsed.warnings.length?parsed.warnings.length+" linhas precisam de revisão: "+parsed.warnings.slice(0,3).join(" "):"Confira os itens antes de comparar."));
-  }catch(e){msg(key,"Não foi possível interpretar a aba: "+e.message)}
+   const chosen=selected==="all"?current.sheets.filter(x=>x.sheet.detected?.score===3):
+    current.sheets.filter((_,i)=>String(i)===selected);
+   if(!chosen.length)throw Error("Nenhuma aba com três colunas reconhecidas. Escolha uma aba e confira o cabeçalho.");
+   const rows=[],warnings=[];
+   for(const entry of chosen){
+    try{
+     const parsed=window.GASTROIFF_EXCEL.extract(entry.sheet);
+     rows.push(...parsed.rows);warnings.push(...parsed.warnings.map(x=>entry.file+": "+x));
+    }catch(e){warnings.push(entry.file+" / "+entry.sheet.name+": "+e.message)}
+   }
+   if(!rows.length)throw Error("Nenhum item válido nas abas selecionadas. "+warnings.slice(0,2).join(" "));
+   current.parsed={rows,warnings};
+   msg(key,rows.length+" itens reconhecidos de "+chosen.length+" aba(s). "+
+     (warnings.length?warnings.length+" avisos de revisão: "+warnings.slice(0,2).join(" "):"Confira os itens antes de comparar."));
+  }catch(e){msg(key,"Não foi possível interpretar: "+e.message)}
   invalidate();
  }
- async function load(key,file){
+ async function load(key,files){
   const select=sections[key].querySelector("select");
-  state[key]={sheet:null,parsed:null};invalidate();select.disabled=true;select.replaceChildren();
-  if(!file){msg(key,"Nenhum arquivo selecionado.");return}
-  msg(key,"Lendo arquivo localmente...");
-  try{
-   const wb=await window.GASTROIFF_EXCEL.readFile(file,window.XLSX);
-   state[key].sheet=wb;
-   wb.sheets.forEach((sheet,i)=>{
-    const opt=document.createElement("option");opt.value=String(i);
-    opt.textContent=sheet.name+" ("+sheet.rows+" linhas"+(sheet.detected?", cabeçalho localizado":"")+ ")";
-    select.append(opt);
-   });
-   select.disabled=false;
-   const recommended=wb.sheets.findIndex(s=>s.detected?.score===3);
-   if(recommended>=0)select.value=String(recommended);
-   showSheet(key);
-  }catch(e){msg(key,"Falha ao ler Excel: "+e.message)}
+  state[key]={sheets:[],parsed:null};invalidate();select.disabled=true;select.replaceChildren();
+  const fileList=Array.from(files||[]);
+  if(!fileList.length){msg(key,"Nenhum arquivo selecionado.");return}
+  if(fileList.length>20){msg(key,"Selecione no máximo 20 arquivos por etapa.");return}
+  msg(key,"Lendo os arquivos localmente...");
+  const errors=[];
+  for(const file of fileList){
+   try{
+    const wb=await window.GASTROIFF_EXCEL.readFile(file,window.XLSX);
+    wb.sheets.forEach(sheet=>state[key].sheets.push({sheet,file:file.name}));
+   }catch(e){errors.push(file.name+": "+e.message)}
+  }
+  if(!state[key].sheets.length){msg(key,"Falha ao ler Excel: "+errors.join(" "));return}
+  const all=document.createElement("option");all.value="all";all.textContent="Todas as abas com colunas reconhecidas";select.append(all);
+  state[key].sheets.forEach((entry,i)=>{
+   const opt=document.createElement("option");opt.value=String(i);
+   opt.textContent=entry.file+" / "+entry.sheet.name+(entry.sheet.detected?.score===3?" (reconhecida)":" (conferir)");
+   select.append(opt);
+  });
+  select.disabled=false;select.value="all";showSheet(key);
+  if(errors.length)msg(key,sections[key].querySelector(".status").textContent+" Arquivos recusados: "+errors.join(" "));
  }
  for(const key of stages){
   const section=sections[key];
-  section.querySelector("input").addEventListener("change",e=>load(key,e.target.files[0]));
+  section.querySelector("input").addEventListener("change",e=>load(key,e.target.files));
   section.querySelector("select").addEventListener("change",()=>showSheet(key));
  }
  $("compare").addEventListener("click",()=>{
@@ -70,7 +83,7 @@
  });
  $("clear").addEventListener("click",()=>{
   for(const key of stages){
-   state[key]={sheet:null,parsed:null};const section=sections[key];
+   state[key]={sheets:[],parsed:null};const section=sections[key];
    section.querySelector("input").value="";
    const select=section.querySelector("select");select.replaceChildren();select.disabled=true;
    msg(key,"Nenhum arquivo selecionado.");
