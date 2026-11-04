@@ -141,7 +141,19 @@ def main():
     if args.html:
         current = parse_grupo_jose(Path(args.html).read_text(encoding="utf-8"), today)
     else:
-        current = parse_grupo_jose(fetch(SOURCE_URL), today) + parse_grupo_bz(fetch(SOURCE_BZ), today)
+        jose_html = fetch(SOURCE_URL)
+        bz_html = fetch(SOURCE_BZ)
+        jose_rows = parse_grupo_jose(jose_html, today)
+        bz_rows = parse_grupo_bz(bz_html, today)
+        print("Diagnóstico da fonte Grupo José:", len(jose_html), "caracteres,",
+              jose_html.count('class="card vaga-card"'), "cartões,", len(jose_rows), "itens gastronômicos")
+        print("Diagnóstico da fonte Grupo BZ:", len(bz_html), "caracteres,",
+              bz_html.count('class="item-vaga col-md-6"'), "cartões,", len(bz_rows), "itens gastronômicos")
+        if not bz_rows and 'class="item-vaga col-md-6"' in bz_html:
+            found_locations = re.findall(
+                r'<div\\s+class="localizacao-vaga[^"]*"[^>]*>(.*?)</div>', bz_html, re.I | re.S)
+            print("Amostras de localização do Grupo BZ:", [clean(s)[:80] for s in found_locations[:3]])
+        current = jose_rows + bz_rows
     state, new = build_state(previous, current, today)
     state["encontradas_por_fonte"] = {
         "Grupo José": sum(j["empresa"] == "Grupo José" for j in current),
