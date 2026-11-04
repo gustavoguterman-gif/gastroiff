@@ -1,14 +1,5 @@
 name: Testar recebimento seguro de ocorrências
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'supabase/functions/receber-ocorrencia/**'
-      - 'tests/receber-ocorrencia.test.mjs'
-      - 'tests/ocorrencias-formulario.test.mjs'
-      - 'ocorrencias.html'
-      - 'assets/faculty.js'
-      - '.github/workflows/testar-ocorrencias.yml'
   workflow_dispatch:
 
 permissions:
