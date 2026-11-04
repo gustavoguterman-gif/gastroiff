@@ -13,7 +13,7 @@ const base = {
 };
 const valid = overrides => ({...base,...overrides});
 test("aceita ocorrência mínima e normaliza os dados",()=>{
- const data=validateOccurrence(valid());
+ const data=validateOccurrence(valid({name:"Estudante Exemplo",contactConsent:true}));
  assert.equal(data.course,"technologist");
  assert.equal(data.submitter_role,"Estudante");
  assert.equal(data.impact,"disruptive");
@@ -22,8 +22,8 @@ test("aceita ocorrência mínima e normaliza os dados",()=>{
  assert.equal(data.status,undefined);
 });
 test("aceita modalidade técnica e ambos os cursos",()=>{
- assert.equal(validateOccurrence(valid({course:"Técnico em Gastronomia"})).course,"technical");
- assert.equal(validateOccurrence(valid({course:"Ambos os cursos"})).course,"both");
+ assert.equal(validateOccurrence(valid({course:"Técnico em Gastronomia",name:"Estudante Exemplo",contactConsent:true})).course,"technical");
+ assert.equal(validateOccurrence(valid({course:"Ambos os cursos",name:"Estudante Exemplo",contactConsent:true})).course,"both");
 });
 test("recusa modalidade, impacto e categoria desconhecidos",()=>{
  for(const key of ["course","priority","kind"]) assert.throws(()=>validateOccurrence(valid({[key]:"valor inventado"})),InputError);
@@ -33,9 +33,15 @@ test("recusa descrição curta ou campos extensos",()=>{
  assert.throws(()=>validateOccurrence(valid({details:"a".repeat(4001)})),InputError);
  assert.throws(()=>validateOccurrence(valid({place:"b".repeat(171)})),InputError);
 });
+test("estudante e docente precisam informar nome no recebimento protegido",()=>{
+ assert.throws(()=>validateOccurrence(valid()),InputError);
+ assert.throws(()=>validateOccurrence(valid({role:"Docente"})),InputError);
+ assert.equal(validateOccurrence(valid({name:"Estudante Exemplo",contactConsent:true})).submitter_name,"Estudante Exemplo");
+ assert.equal(validateOccurrence(valid({role:"Docente",name:"Docente Exemplo",contactConsent:true})).submitter_name,"Docente Exemplo");
+});
 test("contato pessoal exige autorização explícita",()=>{
  assert.throws(()=>validateOccurrence(valid({reply:"estudante@exemplo.org"})),InputError);
- const data=validateOccurrence(valid({reply:"estudante@exemplo.org",contactConsent:true}));
+ const data=validateOccurrence(valid({reply:"estudante@exemplo.org",name:"Estudante Exemplo",contactConsent:true}));
  assert.equal(data.submitter_email,"estudante@exemplo.org");
 });
 test("nome pessoal exige autorização explícita",()=>{
@@ -47,7 +53,7 @@ test("e-mail inválido e data inexistente são rejeitados",()=>{
  assert.throws(()=>validateOccurrence(valid({when:"2026-02-31"})),InputError);
 });
 test("datas válidas são preservadas",()=>{
- assert.equal(validateOccurrence(valid({when:"2026-11-04"})).observed_on,"2026-11-04");
+ assert.equal(validateOccurrence(valid({when:"2026-11-04",name:"Estudante Exemplo",contactConsent:true})).observed_on,"2026-11-04");
 });
 test("imagem PNG válida é identificada pela assinatura",()=>{
  const image=new Uint8Array([137,80,78,71,13,10,26,10,0,0]);
