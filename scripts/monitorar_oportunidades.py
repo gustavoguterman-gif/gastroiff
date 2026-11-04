@@ -61,8 +61,7 @@ def parse_grupo_jose(page, fetched_on):
         })
         if len(offers) >= MAX_ITEMS:
             break
-    if not offers:
-        raise ValueError("Nenhuma oportunidade compatível encontrada; conservar estado anterior")
+    # Uma consulta válida pode retornar zero vagas; isso não é uma falha de automação.
     return list({job["id"]: job for job in offers}.values())
 
 def fetch(url):
