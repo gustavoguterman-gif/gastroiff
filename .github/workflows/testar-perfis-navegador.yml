@@ -1,0 +1,38 @@
+name: Testar perfis e ocorrencias no navegador
+on:
+  push:
+    paths:
+      - 'index.html'
+      - 'ocorrencias.html'
+      - 'assets/perfis-publicos.*'
+      - 'assets/faculty.js'
+      - 'tests/verificar-perfis-navegador.cjs'
+      - '.github/workflows/testar-perfis-navegador.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  navegador:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar ferramentas de navegador
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Iniciar servidor para testes
+        run: |
+          mkdir -p reports
+          python3 -m http.server 8765 --bind 127.0.0.1 >reports/http.log 2>&1 &
+      - name: Testar perfis e ocorrencias nas tres larguras
+        run: node tests/verificar-perfis-navegador.cjs
+      - name: Guardar evidencias e capturas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perfis-ocorrencias-testes
+          path: reports/
