@@ -35,6 +35,15 @@
 <p id="gi-form-message" role="status" aria-live="polite"></p>
 </form>
 </section>
+<section class="gi-plan-section" aria-labelledby="import-title">
+<h2 id="import-title">Trazer ciclos de uma planilha</h2>
+<p>Se o planejamento estiver no Google Planilhas, exporte somente a aba <strong>Ciclos</strong> como CSV. Selecione o arquivo abaixo para conferir os registros antes de acrescentá-los a este dispositivo. A planilha original não será modificada.</p>
+<div class="gi-plan-field"><label for="gi-import-file">Arquivo de ciclos (CSV)</label><input id="gi-import-file" type="file" accept=".csv,text/csv"></div>
+<p class="gi-plan-muted" id="gi-import-status" aria-live="polite">Nenhum arquivo selecionado.</p>
+<div id="gi-import-preview" hidden></div>
+<div class="gi-plan-actions"><button id="gi-import-confirm" class="gi-plan-btn" type="button" disabled>Adicionar ciclos conferidos</button><button id="gi-import-cancel" class="gi-plan-btn secondary" type="button">Cancelar prévia</button></div>
+<p class="gi-plan-muted">Nomes docentes que não estiverem no cadastro do GASTROIFF, datas inválidas e registros de demonstração serão recusados. A importação não sincroniza automaticamente com o Drive nem confirma a situação dos insumos.</p>
+</section>
 <section class="gi-plan-section" aria-labelledby="cycles-title">
 <div class="gi-plan-section-head"><div><h2 id="cycles-title">Ciclos registrados neste dispositivo</h2><p id="gi-cycle-count" class="gi-plan-muted">Nenhum ciclo registrado.</p></div><button class="gi-plan-btn secondary" type="button" id="gi-export" disabled>Exportar planejamento</button></div>
 <div id="gi-cycles" class="gi-plan-cards" aria-live="polite"><p class="gi-plan-empty">Adicione o primeiro ciclo para visualizar os prazos de conferência.</p></div>
@@ -57,5 +66,6 @@
 <script src="assets/faculty.js?v=20261104"></script>
 <script defer src="assets/site.js?v=20261103-layout4"></script>
 <script defer src="assets/institutional.js?v=20261104-planejamento"></script>
-<script defer src="assets/planejamento-docente.js?v=1"></script>
+<script src="assets/ciclos-csv.js?v=1"></script>
+<script defer src="assets/planejamento-docente.js?v=2"></script>
 </body></html>
