@@ -14,6 +14,8 @@ const assert=require("node:assert/strict");
       versao:1,ultima_consulta:"2026-11-04",candidatas:[
        {cargo:"Cozinheiro(a)",empresa:"Grupo José",cidade:"Cabo Frio",url:"https://bancodetalentos.grupojose.com.br/",
         publicada_em:"2026-11-03",consulta_em:"2026-11-04",situacao:"encontrada_na_fonte_nao_verificada_individualmente"},
+       {cargo:"CHEFE DE COZINHA",empresa:"Grupo BZ",cidade:"Armação dos Búzios",url:"https://grupobzbuzios.rhgestor.com.br/vagas/detalhes/F2Ucbz319700c7K9Qdx",
+        publicada_em:null,consulta_em:"2026-11-04",situacao:"encontrada_na_fonte_nao_verificada_individualmente"},
        {cargo:"<img src=x onerror=alert(1)>",empresa:"Site malicioso",cidade:"Cabo Frio",url:"https://evil.invalid/",
         publicada_em:"2026-11-03",consulta_em:"2026-11-04",situacao:"encontrada_na_fonte_nao_verificada_individualmente"}
       ]})});
@@ -21,10 +23,10 @@ const assert=require("node:assert/strict");
    const response=await page.goto("http://127.0.0.1:8765/oportunidades.html",{waitUntil:"load"});
    assert.equal(response.status(),200);
    await page.waitForFunction(()=>document.querySelector("[data-monitor-summary]")?.textContent.includes("04/11/2026"));
-   assert.equal(await page.locator("[data-monitored-opportunities] article").count(),1,"somente origem autorizada");
+   assert.equal(await page.locator("[data-monitored-opportunities] article").count(),2,"somente origens autorizadas");
    assert.match(await page.locator("[data-monitored-opportunities]").innerText(),/confira se a seleção continua aberta/i);
-   const link=page.locator("[data-monitored-opportunities] article a");
-   assert.equal(await link.getAttribute("href"),"https://bancodetalentos.grupojose.com.br/");
+   const links=await page.locator("[data-monitored-opportunities] article a").evaluateAll(nodes=>nodes.map(a=>a.getAttribute("href")));
+   assert.deepEqual(links.sort(),["https://bancodetalentos.grupojose.com.br/","https://grupobzbuzios.rhgestor.com.br/vagas/detalhes/F2Ucbz319700c7K9Qdx"].sort());
    await page.locator("[data-refresh-opportunities]").click();
    await page.waitForFunction(()=>document.querySelector("[data-opportunities-status]")?.textContent.includes("Consulta concluída"));
    assert.equal(requests,2,"botão deve consultar inventário atualizado");
