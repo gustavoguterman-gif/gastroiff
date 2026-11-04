@@ -78,3 +78,13 @@ Incorporar referências verificadas e casos de políticas públicas, inclusive C
 - Administração guiada por três ações: enviar, conferir e aprovar. Explicar sempre o que funciona agora, o que não está ativo e o efeito real de cada botão.
 - Objetivo final: aceitar imagens, PDF, planilhas, textos e calendários na mesma entrada e publicar atualizações sincronizadas apenas após aprovação humana.
 - 04/11: simplificados textos da tela gestao.html. Importador continua restrito a arquivos de calendário .ics e exporta um arquivo técnico de rascunho, ainda sem publicação automática. Não confundir essa entrega com automação concluída.
+
+## Fase incremental: Livro de Ocorrências e retorno institucional (04/11/2026)
+- Página `ocorrencias.html` implantada no repositório, acessível pelo menu Ensino e pela página Participação Acadêmica.
+- Permite selecionar curso, vínculo, categoria de ocorrência, local, data, gravidade de impacto, descrição, providência sugerida e identificação opcional. Foto pode ser escolhida ou feita pelo celular com prévia local; o arquivo precisa ser anexado manualmente ao e-mail. O envio real depende de a pessoa concluir a mensagem no aplicativo de e-mail.
+- Livro de Ocorrências e Participação Acadêmica não criam protocolo, não armazenam respostas e não contabilizam quantas ocorrências foram recebidas. A central de gestão não deve exibir 0 como se fosse métrica.
+- O painel `painel.html` agora apresenta a ligação entre registros e potenciais decisões institucionais (manutenção, materiais, visitas, currículo, pesquisas com estudantes/egressos).
+- No sistema persistente futuro: fotos anexadas automaticamente em base privada, autenticação opcional conforme natureza, protocolo, status, confirmação de recebimento, notificação à coordenação, consentimento, indicadores agregados e histórico de providências.
+- Garantir uso intuitivo para potenciais ingressantes, estudantes, docentes e comunidade externa: mensagens curtas, exemplos e caminhos claros. Não exigir que usuários compreendam arquivos ICS/JSON; explicar formatos só quando necessário.
+- Não importar dados de egressos, pesquisas ou demandas individuais ao GitHub Pages.
+- Referências externas a aprofundar para **Gastronomia e Sociedade**: Laboratório de Criação da Escola de Gastronomia Social Ivens Dias Branco, com pesquisa aplicada, desenvolvimento de produtos/processos e devolutiva social (https://gastronomiasocial.org.br/laboratorio-de-criacao/); Lei estadual do Ceará 17.608/2021, que conecta gastronomia, educação, produção, indústria, comércio e participação social (https://www2.al.ce.gov.br/legislativo/tramit2021/au202_21.htm). Experiências devem alimentar propostas e pesquisas, não virar alegações de impactos locais sem avaliação.
