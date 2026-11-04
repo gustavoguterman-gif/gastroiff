@@ -80,3 +80,8 @@ Este documento distingue alterações feitas no código de verificações que ai
 - Verificação estática de caminhos e sintaxe realizada pelo workflow `integridade-site.yml`, aprovado na versão inicial. A validação de navegador da página nova será registrada separadamente após o resultado.
 - O teste usa informações fictícias em ambiente temporário, incluindo cenário de término anterior ao início, repetição de ciclo, persistência no navegador e exportação, além de adaptação em diferentes larguras.
 - A fonte institucional de ciclos e o status das aquisições ainda não foram conectados, logo não há aviso automático nem confirmação de insumos nesta entrega.
+
+## Resultado confirmado da rodada de testes do planejamento docente
+- Execução GitHub Actions 41847452493 concluída com sucesso em 04/11/2026. Navegador Chromium testado em celular 390 px, tablet 768 px e desktop 1440 px.
+- Passaram verificações de carregamento, lista docente, rejeição de datas invertidas, criação de ciclo fictício, permanência após recarga, rejeição de duplicatas, exportação CSV com datas, remoção e ausência de transbordamento horizontal ou erros JavaScript nos fluxos testados.
+- A versão ainda é um planejador local sem calendário institucional conectado, envio automático, banco compartilhado ou situação real de compras. A implantação integrada permanece pendente.
