@@ -20,6 +20,7 @@ REGIONS = ("cabo frio", "arraial do cabo", "armacao dos buzios", "buzios",
            "sao pedro da aldeia", "araruama", "iguaba grande", "saquarema")
 MAX_HTML_BYTES = 800_000
 MAX_ITEMS = 80
+MAX_AGE_DAYS = 30
 
 def clean(value):
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", value))).strip()
@@ -112,9 +113,15 @@ def fetch(url):
 
 def build_state(previous, current, today):
     previous_ids = set(previous.get("ids_vistos", []))
-    candidates = sorted(current, key=lambda j: (j.get("publicada_em") or "", j["cargo"]), reverse=True)
-    # Persistir IDs conhecidos para não notificar novamente quando houver mudança de paginação.
-    all_ids = sorted(previous_ids | {j["id"] for j in candidates})
+    # Preservar IDs históricos para não reabrir uma vaga antiga como novidade.
+    all_ids = sorted(previous_ids | {j["id"] for j in current})
+    reference = dt.date.fromisoformat(today)
+    candidates = [
+        j for j in current
+        if j.get("publicada_em") is None or
+        0 <= (reference - dt.date.fromisoformat(j["publicada_em"])).days <= MAX_AGE_DAYS
+    ]
+    candidates = sorted(candidates, key=lambda j: (j.get("publicada_em") or "", j["cargo"]), reverse=True)
     new = [j for j in candidates if j["id"] not in previous_ids]
     state = {"versao": 1, "ultima_consulta": today, "fonte": SOURCE_URL,
              "total_encontrado": len(candidates), "ids_vistos": all_ids,
@@ -136,6 +143,12 @@ def main():
     else:
         current = parse_grupo_jose(fetch(SOURCE_URL), today) + parse_grupo_bz(fetch(SOURCE_BZ), today)
     state, new = build_state(previous, current, today)
+    state["encontradas_por_fonte"] = {
+        "Grupo José": sum(j["empresa"] == "Grupo José" for j in current),
+        "Grupo BZ": sum(j["empresa"] == "Grupo BZ" for j in current)
+    }
+    print("Itens por fonte:", state["encontradas_por_fonte"],
+          "| Recentes após filtro de recência:", state["total_encontrado"])
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     # Somente fonte e links oficiais, nenhuma informação individual do candidato.
