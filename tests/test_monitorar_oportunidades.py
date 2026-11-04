@@ -21,7 +21,7 @@ HTML = """
 """
 BZ_HTML = """
 <div class="item-vaga col-md-6"><div class="box hover"><h5>
-<a href="https://grupobzbuzios.rhgestor.com.br/vagas/detalhes/F2Ucbz319700c7K9Qdx"><strong>COZINHEIRO DE RESTAURANTE</strong></a>
+<a href="/vagas/detalhes/F2Ucbz319700c7K9Qdx"><strong>COZINHEIRO DE RESTAURANTE</strong></a>
 </h5><div class="localizacao-vaga corprincipal cor-detalhe"><i></i> Armação dos Búzios - RJ</div></div></div>
 <div class="item-vaga col-md-6"><h5><a href="https://evil.invalid/vagas/detalhes/123456"><strong>CHEFE DE COZINHA</strong></a></h5>
 <div class="localizacao-vaga corprincipal">Armação dos Búzios - RJ</div></div>
@@ -48,6 +48,10 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(rows[0]["cargo"], "COZINHEIRO DE RESTAURANTE")
         self.assertTrue(rows[0]["url"].startswith("https://grupobzbuzios.rhgestor.com.br/vagas/detalhes/"))
         self.assertIsNone(rows[0]["publicada_em"])
+    def test_grupo_bz_rejeita_endereco_relativo_que_aponta_para_outro_dominio(self):
+        html = BZ_HTML.replace('/vagas/detalhes/F2Ucbz319700c7K9Qdx',
+                               'https://evil.invalid/vagas/detalhes/F2Ucbz319700c7K9Qdx')
+        self.assertEqual(parse_grupo_bz(html, DATE), [])
     def test_grupo_bz_estrutura_ausente_exige_revisao(self):
         with self.assertRaises(ValueError):
             parse_grupo_bz("<main>sem cards</main>", DATE)
