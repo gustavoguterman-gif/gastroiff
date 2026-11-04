@@ -72,7 +72,7 @@
  });
  $("p-cancel").addEventListener("click",()=>{abortPreview();$("p-file-status").textContent="Leitura descartada."});
  $("p-check").addEventListener("click",update);
- for(const el of document.querySelectorAll("#details input,#details select,#p-weekdays input"))el.addEventListener("change",update);
+ for(const el of document.querySelectorAll(".panel input:not([type=file]),.panel select,#p-weekdays input"))el.addEventListener("change",update);
  function comparisons(){
   const result={};for(const stage of ["pedidoDocente","pedidoFornecedor","respostaFornecedor","recebimentoFisico"]){
    result[stage]=state.documents.filter(d=>d.stage===stage&&d.reviewed).flatMap(d=>d.rows||[]);
