@@ -1,3 +1,4 @@
+// Rodada de conferência após correção do importador de calendários.
 const { chromium } = require("playwright");
 const fs=require("node:fs");
 const path=require("node:path");
