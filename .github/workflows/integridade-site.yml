@@ -1,13 +1,5 @@
 name: Conferir integridade estática do portal
 on:
-  push:
-    branches: [main]
-    paths:
-      - '*.html'
-      - 'assets/**'
-      - 'sw.js'
-      - 'tests/integridade-site.test.mjs'
-      - '.github/workflows/integridade-site.yml'
   workflow_dispatch:
 
 permissions:
