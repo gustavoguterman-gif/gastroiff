@@ -7,7 +7,13 @@ const sheetFile=(type,quantity)=>{
  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rows),"Disciplina");
  return {name:"insumos."+type,mimeType:type==="xls"?"application/vnd.ms-excel":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",buffer:Buffer.from(XLSX.write(wb,{type:"buffer",bookType:type}))};
 };
-(async()=>{
+
+const customFile=(rows,name="planilha-customizada.xlsx")=>{
+ const wb=XLSX.utils.book_new();
+ XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rows),"Itens");
+ return {name,mimeType:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",buffer:Buffer.from(XLSX.write(wb,{type:"buffer",bookType:"xlsx"}))};
+};
+\n(async()=>{
  const browser=await chromium.launch({headless:true});
  try{
   for(const [name,width,height] of [["celular",390,844],["tablet",768,1024],["desktop",1440,900]]){
@@ -37,7 +43,27 @@ const sheetFile=(type,quantity)=>{
    await page.waitForFunction(()=>document.querySelector('[data-stage="pedidoDocente"] .status')?.textContent.includes("2 itens reconhecidos"));
    await page.locator("#compare").click();
    assert.match(await page.locator("#items tr").innerText(),/12/,"somar pedidos de arquivos distintos");
-   await page.locator("#clear").click();
+
+   // A leitura parcial ou ambígua precisa bloquear conclusões sobre fornecimento.
+   await page.locator('[data-stage="pedidoDocente"] input').setInputFiles(customFile([
+    ["Produto","Unidade","Quantidade"],["Farinha de trigo","kg",10],["Sal","kg","valor inválido"]
+   ]));
+   await page.waitForFunction(()=>document.querySelector('[data-stage="pedidoDocente"] .status')?.textContent.includes("inconsistência"));
+   assert.equal(await page.locator("#compare").isDisabled(),true,name+" bloqueia linha incorreta");
+   assert.match(await page.locator('[data-stage="pedidoDocente"] .status').innerText(),/bloqueada/i);
+   await page.locator('[data-stage="pedidoDocente"] input').setInputFiles(customFile([
+    ["Ingrediente personalizado","Medida manual","Volume solicitado"],["Farinha de trigo","kg",10]
+   ]));
+   await page.locator('[data-stage="pedidoDocente"] .sheet-select').selectOption("0");
+   await page.locator('[data-stage="pedidoDocente"] .map-insumo').selectOption("0");
+   await page.locator('[data-stage="pedidoDocente"] .map-unidade').selectOption("1");
+   await page.locator('[data-stage="pedidoDocente"] .map-quantidade').selectOption("2");
+   await page.locator('[data-stage="pedidoDocente"] .mapping-apply').click();
+   await page.waitForFunction(()=>document.querySelector('[data-stage="pedidoDocente"] .status')?.textContent.includes("pronta para comparação"));
+   assert.equal(await page.locator("#compare").isDisabled(),false,name+" mapeamento manual");
+   await page.locator("#compare").click();
+   assert.match(await page.locator("#items tr").innerText(),/Farinha de trigo/);
+\n   await page.locator("#clear").click();
    assert.equal(await page.locator("#items tr").count(),0);
    await context.close();
    console.log("Excel administrativo aprovado:",name);
