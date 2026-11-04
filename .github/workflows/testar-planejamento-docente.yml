@@ -1,6 +1,7 @@
 name: Testar planejamento docente
 on:
   push:
+    branches: [main]
     paths:
       - 'planejamento-docente.html'
       - 'assets/planejamento-docente.*'
@@ -13,6 +14,10 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+
+concurrency:
+  group: testar-planejamento-docente-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   navegador:
     runs-on: ubuntu-latest
