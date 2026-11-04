@@ -48,3 +48,29 @@ Implementar recebimento de solicitações por função no servidor, protegida co
 Documentação Supabase de autenticação: https://supabase.com/docs/guides/auth
 Controle de acesso a tabelas: https://supabase.com/docs/guides/database/postgres/row-level-security
 Controle de acesso a arquivos: https://supabase.com/docs/guides/storage/security/access-control
+
+## Incremento testável de 04/11/2026: recebimento seguro
+- Criados `supabase/functions/receber-ocorrencia/validation.mjs` e `index.ts`, serviço de recebimento preparado **mas não implantado**.
+- O serviço confere a origem do GASTROIFF, exige resposta válida do desafio antiabuso Cloudflare Turnstile (nome da ação: `gastroiff_ocorrencia`, domínio publicado), rejeita envios grandes e valida informações obrigatórias.
+- Quando há foto, são aceitas apenas imagens JPG, PNG ou WebP de até 5 MB, com assinatura básica de arquivo conferida; o caminho de armazenamento é aleatório e o local é privado.
+- O registro recebe número único gerado pelo banco, sem exposição de informação pessoal na resposta. Nome e e-mail são opcionais e somente podem ser armazenados com autorização explícita.
+- Falhas durante etapas posteriores geram tentativa de desfazer escrita e retirar arquivo. Antes de uso real, serão necessários testes completos de compensação, auditoria de arquivos órfãos, limite de taxa por origem e monitoramento de abusos.
+- A função não envia e-mails nem notifica a coordenação nesta versão. A implantação real exigirá armazenamento configurado, credenciais secretas, uma chave pública do desafio de validação no formulário e revisão de privacidade.
+- A função não contém chaves ou endereços de destinatários. A gestão permanente do projeto permanece separada dos responsáveis institucionais.
+
+## Verificações técnicas automatizadas
+- Código de testes: `tests/receber-ocorrencia.test.mjs`.
+- Execução programada para cada atualização do serviço: `.github/workflows/testar-ocorrencias.yml`.
+- Testes realizados na rotina incluem campos obrigatórios, identidade facultativa e consentimento, modalidade do curso, vínculo do solicitante, datas, imagens inválidas ou grandes, origem e resposta antifraude.
+- Uma primeira checagem de tipos detectou incompatibilidade no corpo enviado ao armazenamento e foi corrigida. A continuação da verificação de tipos é executada no workflow.
+- Não se considera comprovada a segurança de produção apenas por testes unitários e checagem de tipos; faltam testes de integração com serviço real, armazenamento, permissão de usuários e privacidade.
+
+## Preparação da ativação futura
+1. Escolher hospedagem, custódia e responsabilidades legais dos dados dos estudantes.
+2. Criar e proteger a infraestrutura Supabase e configurar autenticação.
+3. Configurar o desafio Cloudflare Turnstile para o domínio do portal, com segredo apenas no servidor.
+4. Executar e testar a migração em ambiente isolado, sem dados reais.
+5. Implantar a função `receber-ocorrencia`, mantendo a verificação de JWT desabilitada **apenas para esta função pública** porque ela exige desafio antiabuso validado no servidor.
+6. Conectar o formulário público com o desafio; pedir consentimento explícito para armazenar nome/e-mail e mostrar termos de privacidade.
+7. Realizar teste integral com dados fictícios: relato, foto, protocolo, acesso negado para terceiros, consulta administrativa, exclusão e histórico.
+8. Só então ativar envios reais. O formulário atual por e-mail continua sendo o canal disponível até lá.
