@@ -30,7 +30,7 @@ function updateIdentity(){
 }
 function loadTeachers(){
  const records=Array.isArray(window.GASTROIFF_FACULTY)?window.GASTROIFF_FACULTY:[];
- const exclude=new Set(['daiana-pereira','lygia-oliveira']);
+ const exclude=new Set(['daiana-costa-pereira','lygia-oliveira']);
  for(const record of records){if(!record?.id||!record?.name||exclude.has(record.id))continue;
  const option=document.createElement('option');option.value=record.full||record.name;option.textContent=record.name;teacher.append(option)}
  if(teacher.options.length===1){const option=document.createElement('option');option.value='';option.textContent='Lista indisponível. Selecione outro vínculo ou tente novamente.';teacher.append(option)}
