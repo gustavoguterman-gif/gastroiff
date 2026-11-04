@@ -1,0 +1,46 @@
+name: Testar monitor de oportunidades
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/monitorar_oportunidades.py'
+      - 'tests/test_monitorar_oportunidades.py'
+      - 'assets/oportunidades.js'
+      - 'assets/oportunidades-monitoradas.js'
+      - 'oportunidades.html'
+      - 'tests/oportunidades-monitoradas-navegador.cjs'
+      - '.github/workflows/testar-monitor-oportunidades.yml'
+      - '.github/workflows/monitorar-oportunidades.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: testar-monitor-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Testar motor sem rede e casos de erro
+        run: python -m unittest discover -s tests -p 'test_monitorar_oportunidades.py' -v
+      - name: Consultar fontes públicas reais sem publicar
+        run: |
+          python scripts/monitorar_oportunidades.py --saida /tmp/gastroiff-monitor-candidatos.json --resumo /tmp/gastroiff-monitor-candidatos.txt
+          python -c "import json; d=json.load(open('/tmp/gastroiff-monitor-candidatos.json')); assert d['versao']==1 and len(d['fontes'])==2; print('Fontes e inventário verificados')"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar navegador de teste
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Servir portal localmente
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/gastroiff-monitoramento.log 2>&1 &
+      - name: Testar atualização, segurança e celular, tablet e desktop
+        run: node tests/oportunidades-monitoradas-navegador.cjs
