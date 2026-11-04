@@ -1,16 +1,5 @@
 name: Testar planejamento docente
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'planejamento-docente.html'
-      - 'assets/planejamento-docente.*'
-      - 'assets/ciclos-csv.js'
-      - 'tests/ciclos-csv.test.cjs'
-      - 'apps-script/simular-avisos.gs'
-      - 'tests/apps-script-simulacao.test.cjs'
-      - 'tests/planejamento-docente-navegador.cjs'
-      - '.github/workflows/testar-planejamento-docente.yml'
   workflow_dispatch:
 permissions:
   contents: read
