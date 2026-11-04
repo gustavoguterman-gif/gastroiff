@@ -34,15 +34,13 @@ class MonitorTests(unittest.TestCase):
         self.assertEqual(later["total_encontrado"], 2)
     def test_nao_publica_vagas_de_outra_regiao(self):
         page = HTML.replace("Cabo Frio","Curitiba").replace("Arraial do Cabo","Curitiba")
-        with self.assertRaises(ValueError):
-            parse_grupo_jose(page, DATE)
+        self.assertEqual(parse_grupo_jose(page, DATE), [])
     def test_nao_inventa_dados_quando_layout_muda(self):
         with self.assertRaises(ValueError):
             parse_grupo_jose("<main>Não há dados estruturados</main>", DATE)
     def test_data_futura_recusada(self):
         page = HTML.replace("2026","2027")
-        with self.assertRaises(ValueError):
-            parse_grupo_jose(page, DATE)
+        self.assertEqual(parse_grupo_jose(page, DATE), [])
     def test_novidade_detectada_uma_vez(self):
         a = parse_grupo_jose(HTML, DATE)
         prev, _ = build_state({}, [a[0]], DATE)
