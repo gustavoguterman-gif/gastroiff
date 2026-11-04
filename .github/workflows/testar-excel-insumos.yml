@@ -1,6 +1,7 @@
 name: Testar importacao Excel administrativa
 on:
   push:
+    branches: [main]
     paths:
       - 'gestao-insumos.html'
       - 'assets/excel-insumos.js'
@@ -10,6 +11,7 @@ on:
       - 'tests/excel-insumos-navegador.cjs'
       - '.github/workflows/testar-excel-insumos.yml'
   pull_request:
+    branches: [main]
     paths:
       - 'gestao-insumos.html'
       - 'assets/excel-insumos.js'
@@ -21,6 +23,10 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+
+concurrency:
+  group: testar-excel-insumos-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   excel:
     runs-on: ubuntu-latest
