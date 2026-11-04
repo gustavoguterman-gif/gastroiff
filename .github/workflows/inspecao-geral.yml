@@ -1,0 +1,34 @@
+name: Inspecao geral das paginas GASTROIFF
+on:
+  push:
+    paths:
+      - 'tests/auditoria-geral.cjs'
+      - '.github/workflows/inspecao-geral.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspecao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar navegador
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Servir paginas para conferir
+        run: |
+          mkdir -p reports
+          python3 -m http.server 8765 --bind 127.0.0.1 >reports/http-geral.log 2>&1 &
+      - name: Revisar todas as paginas em celular e desktop
+        run: node tests/auditoria-geral.cjs
+      - name: Guardar relatorio completo
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auditoria-geral-gastroiff
+          path: reports/
