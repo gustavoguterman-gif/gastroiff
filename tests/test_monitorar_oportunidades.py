@@ -1,7 +1,8 @@
 import datetime as dt
 import json
 import unittest
-from scripts.monitorar_oportunidades import parse_grupo_jose, parse_grupo_bz, build_state
+from unittest.mock import patch
+from scripts.monitorar_oportunidades import parse_grupo_jose, parse_grupo_bz, build_state, fetch_validated
 
 DATE = "2026-11-04"
 HTML = """
@@ -42,6 +43,17 @@ class MonitorTests(unittest.TestCase):
         state, new = build_state({}, bz, DATE)
         self.assertEqual(len(new), 1)
         self.assertEqual(state["candidatas"][0]["publicada_em"], None)
+    def test_repetir_fonte_temporariamente_sem_cards(self):
+        with patch("scripts.monitorar_oportunidades.fetch", side_effect=["página temporária", HTML]) as fake_fetch:
+            with patch("scripts.monitorar_oportunidades.time.sleep"):
+                result = fetch_validated("https://exemplo.invalid/", 'class="card vaga-card"')
+        self.assertIn("Ajudante de padeiro", result)
+        self.assertEqual(fake_fetch.call_count, 2)
+    def test_fonte_permanentemente_invalida_falha_sem_fabricar_vagas(self):
+        with patch("scripts.monitorar_oportunidades.fetch", return_value="página temporária"):
+            with patch("scripts.monitorar_oportunidades.time.sleep"):
+                with self.assertRaises(ValueError):
+                    fetch_validated("https://exemplo.invalid/", 'class="card vaga-card"')
     def test_grupo_bz_filtra_link_e_cidade_verdadeiros(self):
         rows = parse_grupo_bz(BZ_HTML, DATE)
         self.assertEqual(len(rows), 1)
