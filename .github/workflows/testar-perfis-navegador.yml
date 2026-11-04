@@ -1,6 +1,7 @@
 name: Testar perfis e ocorrencias no navegador
 on:
   push:
+    branches: [main]
     paths:
       - 'index.html'
       - 'ocorrencias.html'
@@ -11,6 +12,10 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+
+concurrency:
+  group: testar-perfis-navegador-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   navegador:
     runs-on: ubuntu-latest
