@@ -4,7 +4,7 @@ const assert=require("node:assert/strict");
  const browser=await chromium.launch({headless:true});
  try {
   for(const [device,width,height] of [["celular",390,844],["tablet",768,1024],["desktop",1440,900]]){
-   const ctx=await browser.newContext({viewport:{width,height}});
+   const ctx=await browser.newContext({viewport:{width,height},serviceWorkers:"block"});
    const page=await ctx.newPage();
    const errors=[];page.on("pageerror",e=>errors.push(e.message));
    let requests=0;
