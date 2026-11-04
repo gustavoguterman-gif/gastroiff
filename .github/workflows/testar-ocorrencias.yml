@@ -1,0 +1,22 @@
+name: Testar recebimento seguro de ocorrências
+on:
+  push:
+    paths:
+      - 'supabase/functions/receber-ocorrencia/**'
+      - 'tests/receber-ocorrencia.test.mjs'
+      - '.github/workflows/testar-ocorrencias.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Testar validação de ocorrências
+        run: node --test tests/receber-ocorrencia.test.mjs
