@@ -29,6 +29,7 @@
       description: "Encontre os materiais acadêmicos, as atividades e os caminhos para registrar necessidades.",
       links: [
         ["Calendário de atividades", "eventos.html"],
+        ["Planejamento das práticas", "planejamento-docente.html"],
         ["Laboratórios e manual", "laboratorios.html"],
         ["Livro de Ocorrências", "ocorrencias.html"],
         ["Documentos dos cursos", "documentos.html"],
