@@ -134,3 +134,11 @@ Ao encerrar cada fase, registrar: data, arquivos alterados, links, o que foi tes
 - Auditoria geral de 25 páginas em celular e desktop: 50 verificações, zero ocorrências após corrigir a sintaxe de `gestao.html`.
 - Importação de um único evento multidiário na Gestão testada e aprovada, com término inclusivo e exportação de rascunho, sem publicação automática.
 - Pendências desta fase: teste humano visual de todas as páginas, conferência externa de URLs, busca automática de novos editais e vagas, cadastro real de usuários, Drive/Apps Script ou banco protegido provisionado, compras e notificações com dados reais.
+
+## Incremento de 04/11/2026: Planejamento docente e decisão de infraestrutura
+- Criada `planejamento-docente.html`, com cadastro local de ciclos de práticas (docente escolhido na lista já existente, curso, disciplina, local, início e término). A tela calcula prazos relativos à data local, evidencia conferência de insumos e equipamentos e oferece exportação CSV.
+- Arquivos associados `assets/planejamento-docente.css` e `assets/planejamento-docente.js`. Sem acesso a informações institucionais de compras, sem registro no servidor, sem e-mails e sem calendário oficial sincronizado; o usuário informa seus próprios ciclos e pode apagar os registros do dispositivo.
+- Acesso incluído no menu Ensino e nos destaques da página inicial quando escolhido o perfil docente. Cache do PWA atualizado para v44.
+- Testes de navegador: `tests/planejamento-docente-navegador.cjs` e workflow `.github/workflows/testar-planejamento-docente.yml`, com verificações de calendário inconsistente, duplicata, persistência local, exportação, exclusão, carregamento e largura em celular, tablet e desktop.
+- Criado `DECISAO-INFRAESTRUTURA-DRIVE.md` com critérios para testar Drive/Planilhas/Apps Script e Supabase antes de comprometer dados reais. Nenhuma conta, pasta, automação de envio ou banco foi conectada.
+- Critério da próxima fase: testar uma planilha de ciclos e insumos com dados fictícios e a atualização confiável do status pela fonte responsável. Lembrete automático de 7 dias depende de integração programada e confirmação de destinatário, sem previsão de entrega inventada.
