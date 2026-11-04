@@ -24,8 +24,8 @@ const role=document.getElementById('role'),teacher=document.getElementById('teac
 function updateIdentity(){
   const isTeacher=role.value==='Docente',student=role.value==='Estudante';
   teacherWrap.hidden=!isTeacher;nameWrap.hidden=isTeacher;
-  teacher.required=isTeacher;name.required=!isTeacher;
-  nameLabel.textContent=student?'Nome completo *':'Seu nome *';
+  teacher.required=isTeacher;name.required=student;
+  nameLabel.textContent=student?'Nome completo *':'Seu nome (opcional)';
   if(isTeacher)name.value=teacher.value||'';else teacher.value='';
 }
 function loadTeachers(){
