@@ -1,6 +1,7 @@
 name: Testar calendario multidiario
 on:
   push:
+    branches: [main]
     paths:
       - 'gestao.html'
       - 'tests/verificar-calendario-navegador.cjs'
@@ -8,6 +9,10 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+
+concurrency:
+  group: testar-calendario-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   teste:
     runs-on: ubuntu-latest
