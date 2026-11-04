@@ -1,0 +1,66 @@
+name: Monitorar vagas e estágios
+on:
+  schedule:
+    - cron: '25 11 * * 1-5'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/monitorar_oportunidades.py'
+      - 'tests/test_monitorar_oportunidades.py'
+      - '.github/workflows/monitorar-oportunidades.yml'
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: monitoramento-vagas
+  cancel-in-progress: false
+
+jobs:
+  buscar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Testar extração, recência e duplicatas
+        run: python -m unittest discover -s tests -p 'test_monitorar_oportunidades.py' -v
+      - name: Consultar fonte pública e registrar candidatos
+        id: monitorar
+        run: |
+          mkdir -p data
+          python scripts/monitorar_oportunidades.py --saida data/oportunidades-monitoradas.json --resumo /tmp/resumo-oportunidades.txt
+      - name: Atualizar inventário, quando houver mudança
+        id: gravar
+        run: |
+          git config user.name 'gastroiff-bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/oportunidades-monitoradas.json
+          if git diff --staged --quiet; then
+            echo "mudou=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m 'Atualizar monitoramento público de oportunidades'
+            git push
+            echo "mudou=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Avisar uma vez sobre novas oportunidades
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          if grep -qE '; [1-9][0-9]* registros novos' /tmp/resumo-oportunidades.txt; then
+            {
+              echo 'O monitor encontrou novos anúncios em página de recrutamento. São candidatos à divulgação e ainda precisam de conferência individual.'
+              echo ''
+              cat /tmp/resumo-oportunidades.txt
+              echo ''
+              echo 'Confira se a vaga continua aberta, o prazo e o link de candidatura antes de publicá-la como confirmada.'
+            } >/tmp/issue-oportunidades.md
+            gh issue create --title "Conferir novos anúncios de vagas e estágios" --body-file /tmp/issue-oportunidades.md
+          fi
