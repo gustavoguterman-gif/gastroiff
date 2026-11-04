@@ -88,3 +88,9 @@ Incorporar referências verificadas e casos de políticas públicas, inclusive C
 - Garantir uso intuitivo para potenciais ingressantes, estudantes, docentes e comunidade externa: mensagens curtas, exemplos e caminhos claros. Não exigir que usuários compreendam arquivos ICS/JSON; explicar formatos só quando necessário.
 - Não importar dados de egressos, pesquisas ou demandas individuais ao GitHub Pages.
 - Referências externas a aprofundar para **Gastronomia e Sociedade**: Laboratório de Criação da Escola de Gastronomia Social Ivens Dias Branco, com pesquisa aplicada, desenvolvimento de produtos/processos e devolutiva social (https://gastronomiasocial.org.br/laboratorio-de-criacao/); Lei estadual do Ceará 17.608/2021, que conecta gastronomia, educação, produção, indústria, comércio e participação social (https://www2.al.ce.gov.br/legislativo/tramit2021/au202_21.htm). Experiências devem alimentar propostas e pesquisas, não virar alegações de impactos locais sem avaliação.
+
+## Continuidade da gestão do projeto
+- A administração da plataforma pertence ao responsável pelo projeto e deve continuar independentemente do exercício de cargo de coordenação.
+- O contato pessoal confirmado pelo responsável ficará reservado para notificações administrativas configuráveis no futuro sistema com acesso protegido.
+- Demandas acadêmicas e de infraestrutura seguem aos canais institucionais responsáveis. Evitar encaminhar dados pessoais de estudantes para caixas particulares.
+- A Central de Gestão deverá permitir alterar destinatários de notificações e responsáveis por tipo de solicitação, sem mudar o código do site.
