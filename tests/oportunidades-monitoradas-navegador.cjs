@@ -23,6 +23,8 @@ const assert=require("node:assert/strict");
    const response=await page.goto("http://127.0.0.1:8765/oportunidades.html",{waitUntil:"load"});
    assert.equal(response.status(),200);
    await page.waitForFunction(()=>document.querySelector("[data-monitor-summary]")?.textContent.includes("04/11/2026"));
+   await page.waitForFunction(()=>!document.querySelector("[data-refresh-opportunities]").disabled && document.querySelector("[data-opportunities-status]")?.textContent.includes("Consulta concluída"));
+   assert.equal(requests,1,"a primeira consulta precisa terminar antes do novo clique");
    assert.equal(await page.locator("[data-monitored-opportunities] article").count(),2,"somente origens autorizadas");
    assert.match(await page.locator("[data-monitored-opportunities]").innerText(),/confira se a seleção continua aberta/i);
    const links=await page.locator("[data-monitored-opportunities] article a").evaluateAll(nodes=>nodes.map(a=>a.getAttribute("href")));
