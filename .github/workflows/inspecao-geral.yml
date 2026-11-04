@@ -1,12 +1,17 @@
 name: Inspecao geral das paginas GASTROIFF
 on:
   push:
+    branches: [main]
     paths:
       - 'tests/auditoria-geral.cjs'
       - '.github/workflows/inspecao-geral.yml'
   workflow_dispatch:
 permissions:
   contents: read
+
+concurrency:
+  group: inspecao-geral-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   inspecao:
     runs-on: ubuntu-latest
