@@ -1,0 +1,42 @@
+name: Testar importacao Excel administrativa
+on:
+  push:
+    paths:
+      - 'gestao-insumos.html'
+      - 'assets/excel-insumos.js'
+      - 'assets/gestao-insumos.js'
+      - 'assets/conciliacao-insumos.js'
+      - 'tests/excel-insumos.test.cjs'
+      - 'tests/excel-insumos-navegador.cjs'
+      - '.github/workflows/testar-excel-insumos.yml'
+  pull_request:
+    paths:
+      - 'gestao-insumos.html'
+      - 'assets/excel-insumos.js'
+      - 'assets/gestao-insumos.js'
+      - 'assets/conciliacao-insumos.js'
+      - 'tests/excel-insumos.test.cjs'
+      - 'tests/excel-insumos-navegador.cjs'
+      - '.github/workflows/testar-excel-insumos.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  excel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar leitor Excel oficial e navegador
+        run: |
+          npm install --no-save playwright https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
+          npx playwright install --with-deps chromium
+      - name: Testes XLS e XLSX binarios
+        run: node --test tests/excel-insumos.test.cjs
+      - name: Servir interface local
+        run: python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/gastroiff-excel-http.log 2>&1 &
+      - name: Validar importacao em tres tamanhos de tela
+        run: node tests/excel-insumos-navegador.cjs
