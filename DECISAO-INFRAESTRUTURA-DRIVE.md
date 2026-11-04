@@ -39,3 +39,12 @@ Quando faltarem 7 dias para o início, preparar lembrete ao docente responsável
 
 ## Condições para produção
 Confirmar autorização de custódia e responsabilidades; validar quem alimentará dados de compra; definir política de dados e backups; provisionar credenciais em serviço privado; configurar limites de uso; testar comportamento no Android/iOS e computadores; verificar prazos e fontes oficiais; documentar solução de falhas, reversão e manutenção.
+
+## Teste realizado: planilha separada e importação local (04/11/2026)
+- Foi criada no Drive conectado uma planilha nativa **GASTROIFF | TESTE | Ciclos e Insumos**, inteiramente demonstrativa, com as abas `Ciclos`, `Insumos` e `Instrucoes`. A leitura de retorno confirmou a estrutura e os valores de teste. O identificador privado dessa planilha **não foi adicionado ao código público**.
+- A aba `Ciclos` inclui os campos: `id_ciclo`, `curso`, `disciplina`, `docente`, `inicio`, `fim`, `laboratorio`, `status_conferencia`, `data_conferencia`, `fonte`.
+- A aba `Insumos` inclui: `id_item`, `id_ciclo`, `insumo_ou_material`, `quantidade`, `unidade`, `situacao`, `previsao_entrega`, `recebido_em`, `atualizado_em`, `fonte`.
+- O cadastro público de ciclos pode receber **um arquivo CSV exportado manualmente da aba Ciclos**. Para isso, no Google Planilhas, selecionar somente a aba Ciclos e usar Arquivo → Fazer download → Valores separados por vírgulas (.csv). Não exportar a aba de insumos como ciclos.
+- O GASTROIFF examina o cabeçalho, separa linhas, valida o nome docente contra o cadastro público, verifica curso e datas, detecta duplicação e rejeita linhas identificadas como fictícias. O usuário recebe uma prévia e confirma antes de adicionar ao dispositivo. Nenhuma alteração é enviada automaticamente à planilha original.
+- A exportação é local, sem sincronização em tempo real nem confirmação de compras. Para dados institucionais reais, a aba `Insumos` precisará de responsabilidade formal pelo preenchimento, fonte, data de atualização, controle de acesso e regra de publicação de status.
+- A etapa seguinte será um teste controlado de leitura das informações de insumos, sem atribuir a status “Não informado” a interpretação de entrega ou atraso. A automação de avisos por Apps Script será testada em modo simulação, sem enviar mensagens reais, antes de ativar gatilhos ou destinatários.
