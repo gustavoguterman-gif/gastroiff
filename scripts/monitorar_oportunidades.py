@@ -7,6 +7,7 @@ import json
 import re
 import unicodedata
 import urllib.request
+import time
 from urllib.parse import urlsplit, urljoin
 from pathlib import Path
 
@@ -112,6 +113,21 @@ def fetch(url):
             raise ValueError("Fonte ultrapassa tamanho permitido")
         return result.decode("utf-8", errors="replace")
 
+def fetch_validated(url, marker, attempts=3):
+    last_error = None
+    for attempt in range(attempts):
+        try:
+            document = fetch(url)
+            if marker in document:
+                return document
+            last_error = ValueError("A fonte respondeu sem os cartões de vagas esperados")
+        except (OSError, ValueError) as error:
+            last_error = error
+        if attempt + 1 < attempts:
+            time.sleep(2 * (attempt + 1))
+    raise ValueError("A fonte não pôde ser verificada após tentativas: " + url) from last_error
+
+
 def build_state(previous, current, today):
     previous_ids = set(previous.get("ids_vistos", []))
     # Preservar IDs históricos para não reabrir uma vaga antiga como novidade.
@@ -142,8 +158,8 @@ def main():
     if args.html:
         current = parse_grupo_jose(Path(args.html).read_text(encoding="utf-8"), today)
     else:
-        jose_html = fetch(SOURCE_URL)
-        bz_html = fetch(SOURCE_BZ)
+        jose_html = fetch_validated(SOURCE_URL, 'class="card vaga-card"')
+        bz_html = fetch_validated(SOURCE_BZ, 'class="item-vaga col-md-6"')
         jose_rows = parse_grupo_jose(jose_html, today)
         bz_rows = parse_grupo_bz(bz_html, today)
         print("Diagnóstico da fonte Grupo José:", len(jose_html), "caracteres,",
