@@ -28,6 +28,7 @@ create table if not exists public.gi_requests (
   protocol text not null unique default ('GI-' || upper(substr(replace(gen_random_uuid()::text,'-',''),1,12))),
   origin text not null check (origin in ('occurrence','suggestion','visit','project','other')),
   course text not null check (course in ('technical','technologist','both','external')),
+  submitter_role text not null,
   category text not null,
   title text not null,
   description text not null,
