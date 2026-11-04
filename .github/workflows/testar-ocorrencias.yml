@@ -4,6 +4,9 @@ on:
     paths:
       - 'supabase/functions/receber-ocorrencia/**'
       - 'tests/receber-ocorrencia.test.mjs'
+      - 'tests/ocorrencias-formulario.test.mjs'
+      - 'ocorrencias.html'
+      - 'assets/faculty.js'
       - '.github/workflows/testar-ocorrencias.yml'
   workflow_dispatch:
 
@@ -19,7 +22,7 @@ jobs:
         with:
           node-version: '22'
       - name: Testar validação de ocorrências
-        run: node --test tests/receber-ocorrencia.test.mjs
+        run: node --test tests/receber-ocorrencia.test.mjs tests/ocorrencias-formulario.test.mjs
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
