@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f7f3">
 <meta name="description" content="Planejamento de ciclos práticos e conferência de materiais para docentes de Gastronomia do IFF campus Cabo Frio.">
-<title>Planejamento das práticas | GASTROIFF</title>
+<title>Acompanhamento docente das práticas | GASTROIFF</title>
 <link rel="icon" href="assets/app-icon-round-v2-192.png">
 <link rel="stylesheet" href="assets/site.css"><link rel="stylesheet" href="assets/refinements.css?v=19"><link rel="stylesheet" href="assets/institutional.css?v=20261103-layout4">
 <link rel="stylesheet" href="assets/planejamento-docente.css?v=1">
@@ -16,56 +16,26 @@
 <button aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" data-menu-toggle type="button"><span aria-hidden="true">☰</span><span>Menu</span></button>
 </div><nav class="mobile-menu container" data-mobile-menu id="mobile-menu" aria-label="Menu para celular"><a href="index.html">Início</a><a href="cursos.html">Ensino</a><a href="pesquisa.html">Pesquisa</a><a href="projetos.html">Território</a></nav></header>
 <main class="gi-plan container">
-<p class="gi-plan-kicker">Ensino · Organização das práticas</p>
-<h1>Planejamento docente</h1>
-<p class="gi-plan-lead">Organize ciclos de disciplinas práticas e confira o que precisa estar pronto antes das aulas. A ferramenta ainda não consulta compras institucionais nem envia e-mails. O planejamento inserido aqui permanece neste navegador até você decidir exportá-lo.</p>
-<div class="gi-plan-notice"><strong>Versão inicial para planejamento</strong><p>As informações cadastradas por você não representam confirmação de entrega de materiais nem substituem o procedimento oficial do campus. Evite incluir nomes de estudantes ou dados pessoais.</p></div>
-<section class="gi-plan-section" aria-labelledby="add-title">
-<h2 id="add-title">Registrar um ciclo de aulas</h2>
-<form id="gi-cycle-form" novalidate>
+<p class="gi-plan-kicker">Ensino · Acompanhamento das práticas</p>
+<h1>Minhas práticas e insumos</h1>
+<p class="gi-plan-lead">O acompanhamento dos ciclos será alimentado pelas informações revisadas pela coordenação. Aqui o(a) docente poderá consultar horários, datas, insumos confirmados pelo fornecedor, itens não fornecidos e pendências para preparar as fichas técnicas.</p>
+<div class="gi-plan-notice"><strong>Painel docente em preparação</strong><p>As informações de cada disciplina só serão disponibilizadas após autenticação institucional e conferência da coordenação. Não há cadastro de ciclos ou importação de documentos nesta página.</p></div>
+<section class="gi-plan-section" aria-labelledby="practice-panel-title">
+<h2 id="practice-panel-title">Informações da minha disciplina</h2>
+<p class="gi-plan-muted" role="status">Nenhum quadro individual está disponível nesta versão. A seleção de nome em página pública não comprova identidade e não permite acesso a documentos administrativos.</p>
 <div class="gi-plan-grid">
-<div class="gi-plan-field"><label for="gi-teacher">Docente responsável *</label><select id="gi-teacher" required><option value="">Selecione</option></select></div>
-<div class="gi-plan-field"><label for="gi-course">Curso *</label><select id="gi-course" required><option value="">Selecione</option><option>Técnico em Gastronomia</option><option>Tecnólogo em Gastronomia</option></select></div>
-<div class="gi-plan-field"><label for="gi-subject">Disciplina ou atividade *</label><input id="gi-subject" required maxlength="110" placeholder="Nome da disciplina"></div>
-<div class="gi-plan-field"><label for="gi-room">Laboratório ou local</label><input id="gi-room" maxlength="110" placeholder="Ex.: Bloco G"></div>
-<div class="gi-plan-field"><label for="gi-start">Início do ciclo *</label><input id="gi-start" required type="date"></div>
-<div class="gi-plan-field"><label for="gi-end">Término do ciclo *</label><input id="gi-end" required type="date"></div>
+<article><h3>Datas e horários</h3><p>A coordenação informará início, término, dias da semana, horários e local das aulas práticas.</p></article>
+<article><h3>Lista solicitada</h3><p>Você acompanhará os insumos requisitados para a disciplina e as respectivas quantidades.</p></article>
+<article><h3>Fornecimento confirmado</h3><p>A plataforma distinguirá quantidades confirmadas, não atendidas e ainda sem resposta do setor de compras ou fornecedor.</p></article>
+<article><h3>Preparação das aulas</h3><p>As divergências orientarão a revisão das fichas técnicas. A decisão sobre adaptações e substituições permanecerá com o(a) docente.</p></article>
 </div>
-<div class="gi-plan-actions"><button class="gi-plan-btn" type="submit">Adicionar ciclo ao planejamento</button><button class="gi-plan-btn secondary" id="gi-example-clear" type="button">Limpar planejamento</button></div>
-<p id="gi-form-message" role="status" aria-live="polite"></p>
-</form>
 </section>
-<section class="gi-plan-section" aria-labelledby="import-title">
-<h2 id="import-title">Trazer ciclos de uma planilha</h2>
-<p>Se o planejamento estiver no Google Planilhas, exporte somente a aba <strong>Ciclos</strong> como CSV. Selecione o arquivo abaixo para conferir os registros antes de acrescentá-los a este dispositivo. A planilha original não será modificada.</p>
-<div class="gi-plan-field"><label for="gi-import-file">Arquivo de ciclos (CSV)</label><input id="gi-import-file" type="file" accept=".csv,text/csv"></div>
-<p class="gi-plan-muted" id="gi-import-status" aria-live="polite">Nenhum arquivo selecionado.</p>
-<div id="gi-import-preview" hidden></div>
-<div class="gi-plan-actions"><button id="gi-import-confirm" class="gi-plan-btn" type="button" disabled>Adicionar ciclos conferidos</button><button id="gi-import-cancel" class="gi-plan-btn secondary" type="button">Cancelar prévia</button></div>
-<p class="gi-plan-muted">Nomes docentes que não estiverem no cadastro do GASTROIFF, datas inválidas e registros de demonstração serão recusados. A importação não sincroniza automaticamente com o Drive nem confirma a situação dos insumos.</p>
-</section>
-<section class="gi-plan-section" aria-labelledby="cycles-title">
-<div class="gi-plan-section-head"><div><h2 id="cycles-title">Ciclos registrados neste dispositivo</h2><p id="gi-cycle-count" class="gi-plan-muted">Nenhum ciclo registrado.</p></div><button class="gi-plan-btn secondary" type="button" id="gi-export" disabled>Exportar planejamento</button></div>
-<div id="gi-cycles" class="gi-plan-cards" aria-live="polite"><p class="gi-plan-empty">Adicione o primeiro ciclo para visualizar os prazos de conferência.</p></div>
-</section>
-<section class="gi-plan-section gi-plan-check" aria-labelledby="check-title">
-<h2 id="check-title">O que verificar antes do início das práticas?</h2>
-<div class="gi-plan-grid">
-<article><h3>Materiais e insumos</h3><p>Conferir solicitação, quantidades, recebimento efetivo, itens faltantes e alternativas pedagógicas possíveis, em diálogo com o setor responsável.</p></article>
-<article><h3>Equipamentos e utensílios</h3><p>Conferir condições de funcionamento, necessidades de manutenção e disponibilidade para as atividades planejadas.</p></article>
-<article><h3>Planejamento pedagógico</h3><p>Revisar aulas, preparações, objetivos, fichas técnicas, acessibilidade e condições de segurança dos alimentos.</p></article>
-<article><h3>Providências e registros</h3><p>Registrar problemas no Livro de Ocorrências e acompanhar o retorno da coordenação e dos setores competentes.</p></article>
-</div>
-<div class="gi-plan-actions"><a class="gi-plan-btn" href="ocorrencias.html">Registrar necessidade</a><a class="gi-plan-btn secondary" href="laboratorios.html">Laboratórios e manual</a><a class="gi-plan-btn secondary" href="praticas.html">Fichas técnicas</a><a class="gi-plan-btn secondary" href="documentos.html">Documentos dos cursos</a></div>
-</section>
-<section class="gi-plan-section" aria-labelledby="next-title"><h2 id="next-title">Como esta área será ampliada?</h2>
-<p>Na próxima etapa, os ciclos serão alimentados por uma fonte institucional conferida, e cada disciplina poderá reunir suas solicitações de insumos, situação informada pelo setor de compras, providências pendentes e avisos automáticos, inicialmente sete dias antes do começo das aulas. Datas e previsões de entrega só aparecerão quando houver fonte confirmada.</p>
-<p>As decisões e as etapas de implantação estão registradas no <a href="https://github.com/gustavoguterman-gif/gastroiff/blob/main/CADERNO-COMPLETO-GASTROIFF.md" target="_blank" rel="noopener noreferrer">caderno completo do projeto</a>.</p></section>
+<section class="gi-plan-section"><h2>Comunicação antes do início do ciclo</h2><p>O aviso previsto será preparado sete dias antes da primeira aula, depois da confirmação do calendário, dos contatos e das informações do fornecedor. O envio automático ainda depende de uma ferramenta institucional autorizada.</p><div class="gi-plan-actions"><a class="gi-plan-btn secondary" href="ocorrencias.html">Comunicar necessidade</a><a class="gi-plan-btn secondary" href="praticas.html">Consultar fichas técnicas</a></div></section>
 </main>
 <footer class="footer"><div class="container"><p>GASTROIFF · Gastronomia, IFF campus Cabo Frio</p></div></footer>
 <script src="assets/faculty.js?v=20261104"></script>
 <script defer src="assets/site.js?v=20261103-layout4"></script>
 <script defer src="assets/institutional.js?v=20261104-planejamento"></script>
-<script src="assets/ciclos-csv.js?v=1"></script>
-<script defer src="assets/planejamento-docente.js?v=2"></script>
+
+
 </body></html>
