@@ -1,8 +1,92 @@
 {
   "versao": 1,
-  "ultima_consulta": null,
+  "ultima_consulta": "2026-11-04",
   "fonte": "https://bancodetalentos.grupojose.com.br/",
-  "total_encontrado": 0,
-  "ids_vistos": [],
-  "candidatas": []
+  "total_encontrado": 6,
+  "ids_vistos": [
+    "grupo-jose:ajudante-de-cozinha-cabo-frio-2026-08-20",
+    "grupo-jose:ajudante-de-padeiro-cabo-frio-2026-10-20",
+    "grupo-jose:confeiteiro-a-cabo-frio-2026-09-29",
+    "grupo-jose:cozinheiro-a-cabo-frio-2026-09-01",
+    "grupo-jose:gerente-de-restaurante-cabo-frio-2026-07-27",
+    "grupo-jose:pizzaiolo-cabo-frio-2026-10-01"
+  ],
+  "fontes": [
+    "https://bancodetalentos.grupojose.com.br/",
+    "https://grupobzbuzios.rhgestor.com.br/vagas"
+  ],
+  "candidatas": [
+    {
+      "id": "grupo-jose:ajudante-de-padeiro-cabo-frio-2026-10-20",
+      "cargo": "Ajudante de padeiro",
+      "empresa": "Grupo José",
+      "cidade": "Cabo Frio",
+      "modalidade": "Oportunidade profissional",
+      "publicada_em": "2026-10-20",
+      "consulta_em": "2026-11-04",
+      "fonte": "Banco de Talentos do Grupo José",
+      "url": "https://bancodetalentos.grupojose.com.br/",
+      "situacao": "encontrada_na_fonte_nao_verificada_individualmente"
+    },
+    {
+      "id": "grupo-jose:pizzaiolo-cabo-frio-2026-10-01",
+      "cargo": "Pizzaiolo",
+      "empresa": "Grupo José",
+      "cidade": "Cabo Frio",
+      "modalidade": "Oportunidade profissional",
+      "publicada_em": "2026-10-01",
+      "consulta_em": "2026-11-04",
+      "fonte": "Banco de Talentos do Grupo José",
+      "url": "https://bancodetalentos.grupojose.com.br/",
+      "situacao": "encontrada_na_fonte_nao_verificada_individualmente"
+    },
+    {
+      "id": "grupo-jose:confeiteiro-a-cabo-frio-2026-09-29",
+      "cargo": "Confeiteiro(a)",
+      "empresa": "Grupo José",
+      "cidade": "Cabo Frio",
+      "modalidade": "Oportunidade profissional",
+      "publicada_em": "2026-09-29",
+      "consulta_em": "2026-11-04",
+      "fonte": "Banco de Talentos do Grupo José",
+      "url": "https://bancodetalentos.grupojose.com.br/",
+      "situacao": "encontrada_na_fonte_nao_verificada_individualmente"
+    },
+    {
+      "id": "grupo-jose:cozinheiro-a-cabo-frio-2026-09-01",
+      "cargo": "Cozinheiro(a)",
+      "empresa": "Grupo José",
+      "cidade": "Cabo Frio",
+      "modalidade": "Oportunidade profissional",
+      "publicada_em": "2026-09-01",
+      "consulta_em": "2026-11-04",
+      "fonte": "Banco de Talentos do Grupo José",
+      "url": "https://bancodetalentos.grupojose.com.br/",
+      "situacao": "encontrada_na_fonte_nao_verificada_individualmente"
+    },
+    {
+      "id": "grupo-jose:ajudante-de-cozinha-cabo-frio-2026-08-20",
+      "cargo": "Ajudante de cozinha",
+      "empresa": "Grupo José",
+      "cidade": "Cabo Frio",
+      "modalidade": "Oportunidade profissional",
+      "publicada_em": "2026-08-20",
+      "consulta_em": "2026-11-04",
+      "fonte": "Banco de Talentos do Grupo José",
+      "url": "https://bancodetalentos.grupojose.com.br/",
+      "situacao": "encontrada_na_fonte_nao_verificada_individualmente"
+    },
+    {
+      "id": "grupo-jose:gerente-de-restaurante-cabo-frio-2026-07-27",
+      "cargo": "Gerente de Restaurante",
+      "empresa": "Grupo José",
+      "cidade": "Cabo Frio",
+      "modalidade": "Oportunidade profissional",
+      "publicada_em": "2026-07-27",
+      "consulta_em": "2026-11-04",
+      "fonte": "Banco de Talentos do Grupo José",
+      "url": "https://bancodetalentos.grupojose.com.br/",
+      "situacao": "encontrada_na_fonte_nao_verificada_individualmente"
+    }
+  ]
 }
