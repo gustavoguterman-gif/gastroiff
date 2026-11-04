@@ -1,7 +1,7 @@
-const CACHE='gastroiff-offline-v35';
+const CACHE='gastroiff-offline-v36';
 const SHELL=[
  './','./index.html','./contato.html','./cursos.html','./laboratorios.html','./biblioteca.html',
- './docentes.html','./pesquisa.html','./projetos.html','./manual-laboratorio.html','./perfil.html','./eventos.html','./acervo.html','./documentos.html','./livro.html',
+ './docentes.html','./participacao.html','./painel.html','./pesquisa.html','./projetos.html','./manual-laboratorio.html','./perfil.html','./eventos.html','./acervo.html','./documentos.html','./livro.html',
  './assets/site.css','./assets/story.css','./assets/refinements.css','./assets/institutional.css','./assets/site.js','./assets/refinements.js','./assets/institutional.js','./assets/transparent-marks.js','./assets/install.js','./assets/events.js','./assets/calendar-device.js','./assets/faculty.js','./assets/acervo.js','./assets/livro.js','./assets/acervo-data.js',
  './assets/instagram.js','./assets/instagram-feed.json','./assets/planta-baixa-laboratorio.webp','./assets/iff.png','./assets/gastroiff-marca.jpg','./assets/iff-marca-oficial.jpg','./assets/campus.png','./assets/sede-cabecalho.png','./assets/laboratorio-desenho.jpg','./agenda-gastroiff.ics',
  './assets/app-icon-round-v2-180.png','./assets/app-icon-round-v2-192.png','./assets/app-icon-round-v2-512.png'
