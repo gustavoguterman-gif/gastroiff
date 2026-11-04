@@ -8,7 +8,7 @@ const assert=require("node:assert/strict");
    const page=await ctx.newPage();
    const errors=[];page.on("pageerror",e=>errors.push(e.message));
    let requests=0;
-   await page.route("https://raw.githubusercontent.com/gustavoguterman-gif/gastroiff/main/data/oportunidades-monitoradas.json**",route=>{
+   await page.route("**/data/oportunidades-monitoradas.json?**",route=>{
     requests++;
     return route.fulfill({status:200,contentType:"application/json",body:JSON.stringify({
       versao:1,ultima_consulta:"2026-11-04",candidatas:[
