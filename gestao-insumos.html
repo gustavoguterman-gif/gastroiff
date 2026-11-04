@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Conferência de insumos Excel | GASTROIFF</title>
+<link rel="icon" href="assets/app-icon-round-v2-192.png">
+<style>
+:root{font-family:system-ui,Arial,sans-serif;color:#23412d;background:#f8f7f3}*{box-sizing:border-box}body{margin:0;line-height:1.5}
+.wrap{width:min(1100px,calc(100% - 32px));margin:auto}header{padding:16px 0;border-bottom:1px solid #d5e0d4;background:#fff}
+header a{color:#24573a;text-decoration:none;font-weight:700}main{padding:26px 0 70px}h1{font-size:clamp(1.7rem,4vw,2.55rem);line-height:1.14}h2{font-size:1.2rem}
+p{max-width:830px}.notice{border:1px solid #d8dfd5;border-radius:12px;background:#f1f5ec;padding:14px 18px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:20px 0}.card{padding:17px;background:#fff;border:1px solid #d8e2d6;border-radius:14px;min-width:0}
+label{display:block;margin:10px 0 5px;font-weight:600}input,select,button{font:inherit;max-width:100%}input[type=file],select{width:100%;padding:8px;border:1px solid #b7cbb7;border-radius:8px;background:white}
+button{background:#dcebdc;border:1px solid #98ba9d;color:#204c31;border-radius:9px;padding:10px 17px;font-weight:650;cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}.muted{font-size:.9rem;color:#59695e}
+.tablewrap{overflow:auto;border:1px solid #d8e2d6;border-radius:10px;background:#fff}table{width:100%;min-width:820px;border-collapse:collapse;text-align:left;font-size:.9rem}
+th,td{padding:10px 12px;border-bottom:1px solid #e5eae2}th{background:#eef3eb}td.num{text-align:right;font-variant-numeric:tabular-nums}
+#result{margin-top:24px}.notice + .grid{margin-top:18px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}main{padding-top:16px}td,th{padding:9px}}
+</style></head><body><header><div class="wrap"><a href="gestao.html">GASTROIFF · Central de Gestão</a></div></header>
+<main class="wrap"><p class="muted">Protótipo administrativo · leitura local</p><h1>Conferir pedidos e fornecimento de insumos</h1>
+<p>Selecione as planilhas Excel de cada etapa. Confira a aba, os itens e as quantidades reconhecidas. A comparação diferencia pedidos, resposta do fornecedor e chegada física ao campus.</p>
+<div class="notice">Ferramenta demonstrativa sem login ou armazenamento institucional. Os arquivos ficam neste navegador durante a conferência e não são enviados ao GASTROIFF. Não utilize documentos com dados pessoais ou informações restritas nesta versão pública.</div>
+<div class="grid">
+<section class="card" data-stage="pedidoDocente"><h2>1. Pedido do(a) docente</h2><label>Arquivo Excel (.xlsx ou .xls)<input type="file" accept=".xlsx,.xls"></label><label>Aba da planilha<select disabled><option>Selecione um arquivo</option></select></label><p class="muted status" aria-live="polite">Nenhum arquivo selecionado.</p></section>
+<section class="card" data-stage="pedidoFornecedor"><h2>2. Pedido encaminhado ao fornecedor</h2><label>Arquivo Excel (.xlsx ou .xls)<input type="file" accept=".xlsx,.xls"></label><label>Aba da planilha<select disabled><option>Selecione um arquivo</option></select></label><p class="muted status" aria-live="polite">Nenhum arquivo selecionado.</p></section>
+<section class="card" data-stage="respostaFornecedor"><h2>3. Resposta do fornecedor</h2><label>Arquivo Excel (.xlsx ou .xls)<input type="file" accept=".xlsx,.xls"></label><label>Aba da planilha<select disabled><option>Selecione um arquivo</option></select></label><p class="muted status" aria-live="polite">Nenhum arquivo selecionado.</p></section>
+<section class="card" data-stage="recebimentoFisico"><h2>4. Recebimento físico, quando disponível</h2><label>Arquivo Excel (.xlsx ou .xls)<input type="file" accept=".xlsx,.xls"></label><label>Aba da planilha<select disabled><option>Selecione um arquivo</option></select></label><p class="muted status" aria-live="polite">Nenhum arquivo selecionado.</p></section>
+</div>
+<button id="compare" type="button" disabled>Comparar as informações</button> <button id="clear" type="button">Limpar conferência</button>
+<p id="summary" aria-live="polite" class="muted">Adicione pelo menos o pedido docente para iniciar a comparação.</p>
+<section id="result" hidden><h2>Comparação dos itens</h2><p class="muted">Valores em branco significam informação não recebida. A confirmação do fornecedor não equivale ao recebimento físico.</p><div class="tablewrap"><table><thead><tr><th>Insumo</th><th>Unidade</th><th>Solicitado</th><th>Encaminhado</th><th>Confirmado</th><th>Recebido</th><th>Situação</th></tr></thead><tbody id="items"></tbody></table></div></section>
+<p class="muted">A associação à disciplina, o acesso exclusivo do(a) docente e a publicação de informações administrativas ainda dependem de controle de acesso e validação institucional.</p>
+</main>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<script src="assets/excel-insumos.js"></script><script src="assets/conciliacao-insumos.js"></script><script src="assets/gestao-insumos.js"></script>
+</body></html>
