@@ -58,7 +58,7 @@ test("scripts embutidos das páginas possuem sintaxe válida",()=>{
  const failures=[];
  for(const page of pages){
    const html=fs.readFileSync(path.join(root,page),"utf8");
-   for(const m of html.matchAll(/<script(?:\\s[^>]*)?>([\\s\\S]*?)<\\/script>/g)){
+   for(const m of html.matchAll(/<script[^>]*>([^]*?)<\/script>/g)){
      if(!m[1].trim())continue;
      try{new vm.Script(m[1],{filename:page})}
      catch(e){failures.push(page+": "+e.message)}
