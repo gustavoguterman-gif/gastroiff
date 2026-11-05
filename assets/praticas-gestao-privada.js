@@ -96,5 +96,60 @@
   fail(result,"Consulta dos ciclos");
   return result.data||[];
  }
- return {TABLES,BUCKET,STAGES,ensureManager,staff,cyclePayload,createCycle,inspectFile,storeDocument,listCycles};
+ async function listDocuments(client,cycleId){
+  await ensureManager(client);
+  const result=await client.from(TABLES.docs)
+   .select("id,cycle_id,kind,filename,revision,reviewed,reviewed_at,uploaded_at")
+   .eq("cycle_id",cycleId).order("uploaded_at",{ascending:false}).limit(100);
+  fail(result,"Consulta de documentos privados");
+  return result.data||[];
+ }
+ async function reviewDocument(client,documentId){
+  await ensureManager(client);
+  if(!documentId)throw Error("Selecione o documento a revisar");
+  const result=await client.rpc("gastroiff_review_document",{p_document:documentId});
+  fail(result,"Revisão do documento");
+  return true;
+ }
+ async function listItems(client,cycleId){
+  await ensureManager(client);
+  const result=await client.from(TABLES.items)
+   .select("id,cycle_id,description,unit,requested,forwarded,confirmed,received,approved")
+   .eq("cycle_id",cycleId).order("description");
+  fail(result,"Consulta de insumos estruturados");
+  return result.data||[];
+ }
+ function normalizedRows(rows){
+  if(!Array.isArray(rows)||rows.length<1||rows.length>250)throw Error("Quantidade de insumos inválida");
+  return rows.map((r,index)=>{
+   const n=v=>{
+    if(v===null||v===undefined||v==="")return null;
+    const x=Number(v);if(!Number.isFinite(x)||x<0||x>99999999.9999)throw Error("Quantidade inválida na linha "+(index+1));
+    return x;
+   };
+   const description=String(r.description??r.insumo??"").trim(),unit=String(r.unit??r.unidade??"").trim();
+   const requested=n(r.requested??r.solicitado),forwarded=n(r.forwarded??r.encaminhado),
+    confirmed=n(r.confirmed??r.confirmado),received=n(r.received??r.recebido);
+   if(description.length<2||description.length>180||!unit||unit.length>32||requested===null||forwarded===null)
+    throw Error("Insuficiência de dados da linha "+(index+1));
+   return {description,unit,requested,forwarded,confirmed,received};
+  });
+ }
+ async function saveReviewedItems(client,cycleId,responseId,items){
+  await ensureManager(client);
+  const payload=normalizedRows(items);
+  const result=await client.rpc("gastroiff_save_practice_items",{
+   p_cycle:cycleId,p_response_document:responseId,p_items:payload
+  });
+  fail(result,"Gravação dos insumos conferidos");
+  return result.data;
+ }
+ async function approveCycle(client,cycleId){
+  await ensureManager(client);
+  const result=await client.rpc("gastroiff_approve_cycle",{p_cycle:cycleId});
+  fail(result,"Aprovação do ciclo");
+  return true;
+ }
+
+ return {TABLES,BUCKET,STAGES,ensureManager,staff,cyclePayload,createCycle,inspectFile,storeDocument,listCycles,listDocuments,reviewDocument,listItems,normalizedRows,saveReviewedItems,approveCycle};
 });
