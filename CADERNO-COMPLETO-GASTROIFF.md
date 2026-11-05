@@ -406,3 +406,12 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - O quadro é ocultado antes da resposta remota de logout. Falhas de encerramento ficam explícitas e não são comunicadas como sucesso.
 - O ensaio de navegador força uma resposta atrasada após o usuário encerrar a sessão e verifica que nenhum ciclo reaparece, repetindo a verificação em celular, tablet e desktop.
 - A autenticação real e a revogação de tokens ainda dependem do Supabase isolado autorizado. A configuração pública permanece desativada.
+
+ 
+## Ensaio isolado de compactação das oportunidades (05/11/2026)
+- Implementação de interface em ramificação isolada, sem misturar alterações com as revisões 26 (autenticação docente) e 27 (evolução constitucional).
+- A página de oportunidades passa a utilizar estilos exclusivos em `assets/oportunidades-compactas.css`: redução moderada de margens e espaços, tipografia legível e cartões em 3 colunas em desktop, 2 no tablet e 1 no celular.
+- Textos de requisitos, benefícios, origem, datas e ações dos anúncios cadastrados e monitorados não são eliminados ou truncados. A fonte e a forma de candidatura continuam visíveis.
+- Teste automatizado ampliado em `tests/oportunidades-monitoradas-navegador.cjs` para conferir colunas responsivas, legibilidade mínima, botões e fonte em 390, 768 e 1440 px, além da verificação de transbordamento existente.
+- Não se afirma aprovação ou publicação antes de examinar o CI. Após aprovação, considerar comparação de capturas e tarefas reais de leitura para avaliar o equilíbrio entre densidade e usabilidade.
+- Preservar integralmente a proposta mais abrangente de orientação profissional, docência e pesquisa de egressos registrada na revisão 27; esta etapa altera somente apresentação de oportunidades.
