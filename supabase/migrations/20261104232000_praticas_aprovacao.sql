@@ -6,12 +6,16 @@ begin;
 create or replace function public.gastroiff_guard_practice_cycle()
 returns trigger language plpgsql set search_path='' as $$
 begin
+ if TG_OP='DELETE' then
+   if OLD.status='aprovado' and current_user='authenticated' then raise exception 'Não é permitido excluir ciclo aprovado'; end if;
+   return OLD;
+ end if;
  if TG_OP='INSERT' and NEW.status<>'rascunho' then
    raise exception 'Novo ciclo deve ser rascunho';
  end if;
  if TG_OP='UPDATE' and (
    NEW.status='aprovado' and OLD.status<>'aprovado' or
-   OLD.status='aprovado' and row(NEW.*) is distinct from row(OLD.*)
+   OLD.status='aprovado' and to_jsonb(NEW) is distinct from to_jsonb(OLD)
  ) then
    -- As funções de revisão usam privilégios do proprietário do banco.
    if current_user='authenticated' then
@@ -28,11 +32,20 @@ for each row execute function public.gastroiff_guard_practice_cycle();
 create or replace function public.gastroiff_guard_practice_documents()
 returns trigger language plpgsql set search_path='' as $$
 begin
+ if TG_OP='DELETE' then
+   if current_user='authenticated' and exists(select 1 from public.gastroiff_practice_cycles c where c.id=OLD.cycle_id and c.status='aprovado') then
+    raise exception 'Documento de ciclo aprovado não pode ser apagado'; end if;
+   return OLD;
+ end if;
  if TG_OP='INSERT' and (NEW.reviewed or NEW.reviewed_by is not null) then
    raise exception 'Documento novo deve aguardar conferência';
  end if;
+ if TG_OP='INSERT' and exists(select 1 from public.gastroiff_practice_cycles c where c.id=NEW.cycle_id and c.status='aprovado') then
+    raise exception 'Ciclo aprovado não aceita novos documentos'; end if;
+ if TG_OP='INSERT' and exists(select 1 from public.gastroiff_practice_cycles c where c.id=NEW.cycle_id and c.status='aprovado') then
+  raise exception 'Ciclo aprovado não aceita novos insumos'; end if;
  if TG_OP='UPDATE' and current_user='authenticated' and
-    (NEW.reviewed is distinct from OLD.reviewed or
+    (OLD.reviewed or NEW.reviewed is distinct from OLD.reviewed or
      NEW.reviewed_by is distinct from OLD.reviewed_by or
      NEW.reviewed_at is distinct from OLD.reviewed_at) then
    raise exception 'Conferência deve ocorrer pela função de aprovação';
@@ -41,12 +54,17 @@ begin
 end;
 $$;
 drop trigger if exists gastroiff_guard_document on public.gastroiff_practice_documents;
-create trigger gastroiff_guard_document before insert or update on public.gastroiff_practice_documents
+create trigger gastroiff_guard_document before insert or update or delete on public.gastroiff_practice_documents
 for each row execute function public.gastroiff_guard_practice_documents();
 
 create or replace function public.gastroiff_guard_practice_items()
 returns trigger language plpgsql set search_path='' as $$
 begin
+ if TG_OP='DELETE' then
+   if current_user='authenticated' and exists(select 1 from public.gastroiff_practice_cycles c where c.id=OLD.cycle_id and c.status='aprovado') then
+     raise exception 'Insumo de ciclo aprovado não pode ser apagado'; end if;
+   return OLD;
+ end if;
  if TG_OP='INSERT' and NEW.approved then
    raise exception 'Insumos novos aguardam aprovação do ciclo';
  end if;
@@ -58,7 +76,7 @@ begin
 end;
 $$;
 drop trigger if exists gastroiff_guard_item on public.gastroiff_practice_items;
-create trigger gastroiff_guard_item before insert or update on public.gastroiff_practice_items
+create trigger gastroiff_guard_item before insert or update or delete on public.gastroiff_practice_items
 for each row execute function public.gastroiff_guard_practice_items();
 
 -- O vínculo entre item e documento deve permanecer no mesmo ciclo.
