@@ -248,3 +248,77 @@ Em cada novo pedido, preservar este caderno e atualizar os estados. Se uma ideia
 - **Próximo bloqueio arquitetural central:** escolher, implementar e testar autenticação e autorização com papéis Gestão/docente; custódia privada institucional; tabelas e arquivos versionados por ciclo, disciplina e docente; registro de aprovação; sincronização apenas de dados autorizados para o painel docente; envio de avisos em D-7 com deduplicação, auditoria, tratamento de falhas, consentimentos e endereço confiável. Drive e Apps Script permanecem alternativa a comparar em conjunto com backend protegido. Um site estático público não substitui esse controle.
 - **Pendências do restante do projeto:** operacionalizar Livro de Ocorrências com protocolo e devolutiva; atualizar calendário e oportunidades com fontes verificadas e revisão editorial; atualizar Instagram apenas com conector/API autorizado; indicadores reais de navegação e utilização; pesquisas de ingresso, permanência, avaliação curricular, conclusão e egressos Técnico/Tecnólogo por coortes; instrumentos sobre território, setor produtivo, projetos de pesquisa/extensão e devolutivas; avaliação de acessibilidade, link checker externo, revisão visual mobile/desktop, cache/PWA, uniformidade dos botões, menus, páginas de revistas científicas, perfis docentes/TAEs, Lattes e conteúdo editorial. Não declarar os módulos sem fontes reais como operacionais.
 - **Sequência de aceite:** segurança/identidade institucional; modelo persistente privado de ciclos e anexos; processamento assistido de documentos reais com correções rastreáveis; apresentação individual autenticada; aviso real somente com dados confirmados; demais automações e pesquisas após testes unitários, integração, navegador e execução real. O roadmap não autoriza publicação de dados de estudantes ou docentes em repositório aberto.
+
+
+## 26. Documento-mãe atualizado: retomada das decisões, matriz de execução e bloqueios (04/11/2026)
+
+Esta seção organiza todas as ideias consolidadas nas seções 1 a 25, no Plano Mestre, no Mapa de Construção, no Plano de Conciliação Excel e na Auditoria das Automações. Ela não substitui os detalhes históricos, os links, os critérios editoriais nem as decisões registradas anteriormente. Sempre que surgir uma ideia nova, acrescentá-la ao caderno e associá-la a uma etapa, estado, teste e responsável pela informação.
+
+### 26.1. Padrão inegociável de avanço e de apresentação
+
+O GASTROIFF tem **duas experiências obrigatórias**: navegador de computador e aplicativo web/PWA no celular. O mesmo conteúdo e a mesma informação devem funcionar nas duas configurações, com diferenças apenas apropriadas de navegação, layout, toque, teclado e tamanho de tela. Testes automáticos mínimos: 390 × 844 px (celular), 768 × 1024 px (tablet), 1440 × 900 px (desktop); quando houver quebra, ampliar para 360 px, 1280 px e dispositivos adicionais. Verificar título, margem, contraste, alinhamento, botões uniformes, menu, cabeçalho, rodapé, e-mails não cortados, elementos sobrepostos, downloads, links, formulários, responsividade e erros de JavaScript.
+
+A auditoria `tests/auditoria-geral.cjs` anteriormente **registrava** anomalias sem reprovar o workflow; esta rodada altera o comportamento para **falhar** quando detectar erro de script, arquivo/imagem local ou transbordamento horizontal. Acrescenta evidências em PNG para páginas representativas de Gestão, planejamento, início e oportunidades. O novo `tests/pwa-mobile-desktop.cjs` verifica manifesto, ícones, service worker, cache local, navegação e acesso offline em celular e computador. O restante da revisão humana dos layouts e a verificação de links externos continuam sendo critérios adicionais, não substituídos por verificações de largura.
+
+**Nenhuma nova entrega é concluída com teste obrigatório vermelho ou sem resultado.** Diferenciar rigorosamente: falha de commit antigo; falha persistente na revisão corrente; teste aprovado; pendência de fonte externa; funcionalidade apenas preparada; funcionalidade realmente em execução. Nenhum arquivo gerado prova sozinho uma implantação em servidor.
+
+### 26.2. Auditoria dos e-mails e regressões
+
+Lidos e associados aos logs todos os dez e-mails de falha do GitHub encontrados no Gmail. Os erros históricos foram agrupados em sincronização do recarregamento do monitor de oportunidades, interpretação de fonte de recrutamento temporariamente fora do padrão e identificação incorreta de PDF sem texto. A auditoria individual, com os **dez IDs de execução e correções**, está em `AUDITORIA-EMAILS-E-TESTES-20261104.md`. A validação geral da proposta de Gestão `41945381579` foi aprovada depois das correções históricas, assim como a bateria específica `41945381484`; a nova proposta exige novas execuções aprovadas. E-mails históricos continuam no Gmail e as respectivas execuções continuam aparecendo como “failed” no GitHub, mesmo que revisões posteriores estejam verdes.
+
+### 26.3. Quadro das ideias e situação comprovada
+
+| Eixo | O que já existe | O que falta executar/confirmar |
+| --- | --- | --- |
+| Identidade visual | Marca aprovada, ícone circular, CSS, PWA e páginas públicas | Inspeção visual atual em computador e celular, cache instalado, proporções IF/prato, cabeçalho fixo uniforme, rodapé com marcas lado a lado, botões verde-claro, tamanhos, alinhamentos e contraste |
+| Apresentação | Texto de abertura e explicação de identidade e curso publicados | Conferência editorial de todos os parágrafos; apresentação fluida e sucinta, sem clichês, sem referência genérica a ferramentas e sem “saberes e sabores” |
+| Técnico e Tecnólogo | Páginas de cursos, apresentação de ofertas e documentos | Revisar matrizes, PPCs, pré-requisitos, equivalências, fichas e percurso real das disciplinas; confirmar documentos atuais com o campus |
+| Equipe, docentes e TAEs | Perfis, Lattes, identificação docente/TAE, NDE e Colegiado | Revisar Wellington, Marco, Daiana, círculos/fotos, categorias, biografias, Lattes, espaçamentos e referência histórica “desde 2011” |
+| Laboratório e práticas | Manual, planta, fichas técnicas e páginas de estudo | Acesso ao manual oficial, atualização do laboratório e equipamentos, associação das fichas ao ciclo e às faltas efetivas de insumos |
+| Biblioteca e acervo | Páginas de busca, capas e miniaturas | Conferir autorias, edições, descrições, coleção, links ativos, status de empréstimo e metadados sem inventar exemplares |
+| Revistas científicas | Índice nacional/internacional existente | Revalidar as revistas brasileiras e institutos federais, regiões do mundo, miniaturas, objetivos, links para edições e tradução opcional da interface estrangeira para português do Brasil |
+| Pesquisa e extensão | Projetos, publicações, IF na Feira, SAGA, Café com Egressos, Caminhos da Gastronomia, eventos e território | Conferir datas, fontes, descrições, vínculos institucionais, fotos, link de publicação e novas atividades aprovadas |
+| Gastronomia em ação/Trajetórias | Instrumentos e percursos públicos | Vincular problemas reais da Baixada Litorânea às disciplinas, políticas públicas, projetos, pesquisa e possibilidades de atuação, com fontes, contatos e devolutivas |
+| Perfis públicos | Personalização local voluntária da navegação | Validar acessibilidade e títulos em cada perfil; futuro cadastro opt-in separado de autenticação acadêmica |
+| Calendário | Eventos, ICS, visualização e integração manual de agendas | Descoberta recorrente de eventos, prazo, inscrições, submissões, modalidade, fonte, confirmação de links, evento multidiário único e agenda institucional confiável |
+| Banco de oportunidades | Motor automatizado consultando duas empresas regionais, inventário datado e alertas de revisão | Mais fontes de estágio, editais e empregos com limites de coleta, confirmação de abertura, remoção de encerrados, filtros regionais, painéis e relatórios agregados |
+| Instagram | Leitura de dados locais | Fonte autorizada e sincronização por API, sem copiar conteúdo privado ou inventar postagens |
+| Central de Gestão | Página administrativa demonstrativa e rotinas locais | Autenticação institucional, papéis, autorização, caixa de entrada persistente, anexos privados, histórico, protocolo e publicação revisada |
+| Ciclos de práticas | Cadastro administrativo, data inicial/final, dias, horas, laboratório, CSV | Registrar ciclos persistentes por curso, docente real, disciplina, calendário, versões e fontes oficiais |
+| Documentos de práticas | Leitura local de Excel/XLSX, CSV, PDF, JPEG/PNG/WebP e OCR com revisão | Testar arquivos reais anonimizados; revisão de colunas; rastreio de abas, páginas, linhas, versões e responsável; resolução de ambiguidades antes da aprovação |
+| Insumos/compras | Pedido docente, envio a fornecedor, resposta e recebimento físico em quatro etapas; conciliação demonstrativa | Importar múltiplas fichas por ciclo e fornecedor, assinalar disponibilidade e ausência expressas, cruzar com fichas técnicas, registrar substituições oferecidas e documento comprobatório |
+| Quadro do(a) docente | Prévia somente local elaborada a partir de dados administrativos, datas, itens solicitados/confirmados/faltantes e pendências | Consulta protegida exclusivamente dos próprios ciclos aprovados, registro de visualização, histórico e orientações para adaptar preparações |
+| Lembretes de sete dias | Regra de cálculo e prévia de e-mail, sem envio | Integrar endereços verificados, remetente autorizado, calendário, aprovação, rotina D-7, deduplicação, falhas e comprovante de envio, sem informação inventada |
+| Livro de Ocorrências | Formulário público e função Supabase não implantada | Protocolo seguro, anexos em bucket privado, controle de acesso, atribuição de setor, andamento, devolutivas e relatório agregado |
+| Participação acadêmica | Formulários de sugestão e contato | Fluxo de triagem e publicação assistida, pedidos de compras/manutenção, propostas, devolutivas e histórico de providências |
+| Observatório da Formação | Página e estrutura inicial de indicadores | Dados verificáveis de ingresso, permanência, êxito, AC, estágio, formação, condições sociais, pesquisa, extensão, trabalho e territorialidade |
+| Observatório de Utilização | `painel.html` demonstrativo | Analytics real, consentimento aplicável, eventos de uso significativos e relatórios por períodos, sem confundir visitas com impacto |
+| Questionários | Instrumentos e temas planejados | Questionários próprios de ingressantes, permanência, currículo, conclusão, estudantes, docentes, parceiros e comunidade, com versão, amostra, metodologia e privacidade |
+| Egressos | Plano de pesquisa longitudinal | Cadastro voluntário, intervalos de conclusão/6 meses/12 meses/3 anos/5 anos, opções múltiplas de atuação, opt-out e indicadores agregados |
+| Integração SUAP/PNP | Estudos e requisitos | Autorização e escopo institucional, nunca coleta indireta ou divulgação indevida |
+| Infraestrutura | Prova de conceito local Drive/Planilhas e SQL Supabase preliminar | Escolha institucional de custódia, acesso seguro real, armazenamento, versão, recuperação, backup, custo e continuidade após troca de coordenação |
+| Governança e continuidade | Caderno Completo, plano mestre, mapa e workflows no GitHub | Painel de pendências com responsável, critério de aceite, revisão periódica, supervisão humana e controle das automações |
+| Acessibilidade e avaliação de experiência | Testes de página e componentes | Revisão de teclado, contraste, leitores de tela, títulos, formulários, PWA instalado e avaliação com estudantes e docentes |
+| Projetos acadêmicos | Objetivos e ideias de pesquisa e extensão registrados | Elaborar projetos com métodos, instrumentos, responsabilidades, aprovação e análise de resultados sem declarar tramitação concluída |
+
+### 26.4. Infraestrutura protegida preparada nesta fase
+
+A migração proposta `supabase/migrations/20261104230000_praticas_privadas.sql` define papéis de Gestão e docente por identidade real de `auth.users`, ciclos, arquivos, insumos, registros de aviso e trilha de alterações. As políticas de segurança por linha (RLS) permitem que o(a) docente consulte **apenas ciclos aprovados de sua identidade** e apenas insumos aprovados desses ciclos. O gestor pode conferir, registrar e aprovar. Documentos administrativos originais ficam em bucket privado com acesso exclusivo da Gestão. Histórico não pode ser apagado por um cliente autenticado, sendo registrado por funções do banco.
+
+Teste planejado em PostgreSQL real descartável, incluindo gestão, docente vinculado, docente sem vínculo, visitante anônimo e proibição de alteração do histórico. Arquivos de suporte: `tests/praticas-db-setup.sql`, `tests/praticas-db-permissoes.sql` e `.github/workflows/testar-infraestrutura-praticas.yml`.
+
+**Ponto de bloqueio:** SQL no GitHub, mesmo testado, não equivale a banco implantado. Antes da produção, conectar serviço Supabase institucional ou alternativa formalmente autorizada, provisionar usuários, testar login e revogação reais, confirmar a custódia dos dados, rotas e credenciais, executar migração, testar uploads privados e recuperação, enviar e-mail apenas após aprovação e integrar o painel docente autenticado. O site GitHub Pages continua público e não deve receber dados pessoais identificáveis ou arquivos internos.
+
+### 26.5. Ordem executiva sem perder nenhuma ideia
+
+**Primeira condição:** resolver falhas de testes e do aplicativo, conferir visual e funcionamento em desktop/mobile/PWA. Só depois incorporar alterações ao `main` e revalidar a publicação.
+
+**Segunda condição:** testar e escolher infraestrutura protegida, atribuir quem autoriza a Gestão e quem administra a continuidade do projeto. Repetir o teste de segurança com usuários reais de homologação e dados fictícios.
+
+**Terceira condição:** receber e interpretar os documentos das disciplinas no espaço da Gestão; resolver lacunas por perguntas curtas; guardar versões e aprovação; alimentar o quadro individual de cada professor por autenticação; preparar e enviar aviso D-7 sem duplicatas; preservar a autonomia do(a) docente para alterar fichas técnicas.
+
+**Quarta condição:** operacionalizar outras automações por ordem de redução do trabalho: conferência de vagas/estágios, calendário, comunicados, ocorrências/manutenção, publicações, dados de pesquisa e observatórios. Não declarar automático o que só faz leitura local nem envio o que gera mera prévia.
+
+**Quinta condição:** revisão editorial integral, acessibilidade, testes com pessoas, link checker externo, documentação do projeto de extensão e pesquisa e avaliação de sua efetividade. A cada fase reexecutar os testes gerais e os específicos das mudanças, preservar capturas da versão desktop e mobile e registrar o resultado no Caderno Completo.
+
+O arquivo complementar `AUDITORIA-EMAILS-E-TESTES-20261104.md` documenta uma a uma as dez falhas de e-mail. O Caderno Completo permanece o **documento-mãe**, fonte primária de decisões e compromissos e referência para todas as novas conversas de construção.
