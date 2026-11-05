@@ -1,0 +1,25 @@
+name: Validar roteiro de homologação isolada
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tests/homologacao-supabase-leitura.cjs'
+      - 'tests/homologacao-supabase-leitura.test.cjs'
+      - 'HOMOLOGACAO-SUPABASE-ISOLADA.md'
+      - '.github/workflows/testar-homologacao-isolada.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validar-sem-credenciais:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Conferir sintaxe sem conectar ao serviço
+        run: node --check tests/homologacao-supabase-leitura.cjs
+      - name: Testar bloqueios sem rede nem segredos
+        run: node --test tests/homologacao-supabase-leitura.test.cjs
