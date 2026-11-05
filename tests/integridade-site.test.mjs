@@ -86,10 +86,11 @@ test("a abertura não recolhe identificadores e oferece saída acessível",()=>{
  assert.match(js,/gastroiff-entry-session-v1/);
  assert.match(js,/button\.dataset\.profileEntry\s*=\s*key/);
  assert.match(js,/aria-modal/);
- assert.match(js,/Pular animação/);
+ assert.doesNotMatch(js,/Pular animação|gi-entry-skip/);
  assert.match(js,/prefers-reduced-motion/);
  assert.match(css,/gi-entry-screen/);
- assert.match(css,/hover:none/);
+ assert.match(css,/gi-entry-composition/);
+ assert.match(css,/mix-blend-mode:multiply/);
  assert.match(css,/prefers-reduced-motion:reduce/);
  assert.doesNotMatch(js,/nome\s*completo\s*[:=]|matr[ií]cula\s*[:=]|siape\s*[:=]/i);
 });
