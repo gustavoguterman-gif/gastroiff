@@ -146,7 +146,7 @@ create policy manager_read_audit on public.gastroiff_practice_audit
 -- Cada gravação relevante recebe evento gerado pelo banco, não pelo navegador.
 create or replace function public.gastroiff_write_practice_audit()
 returns trigger language plpgsql security definer
-set search_path = '' as $
+set search_path = '' as $$
 declare v_cycle uuid;
 begin
  if TG_TABLE_NAME='gastroiff_practice_cycles' then
@@ -160,7 +160,7 @@ begin
    jsonb_build_object('operation',TG_OP,'time',now()));
  return coalesce(NEW,OLD);
 end;
-$;
+$$;
 revoke all on function public.gastroiff_write_practice_audit() from public, anon, authenticated;
 drop trigger if exists audit_practice_cycle on public.gastroiff_practice_cycles;
 create trigger audit_practice_cycle after insert or update on public.gastroiff_practice_cycles
