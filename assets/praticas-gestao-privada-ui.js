@@ -145,6 +145,25 @@
   if(!client||area.hidden)return;
   try{await refreshDocuments();msg("Documentos e insumos consultados.")}catch(e){msg("Falha de consulta: "+e.message)}
  });
+ q("g-choose-document").addEventListener("change",()=>{q("g-review-confirm").checked=false});
+ q("g-open-document").addEventListener("click",async()=>{
+  if(!client||area.hidden)return;
+  const id=q("g-choose-document").value;
+  if(!id){msg("Selecione um documento para abrir.");return}
+  const button=q("g-open-document");
+  button.disabled=true;
+  try{
+   const file=await api.downloadDocument(client,id);
+   const url=URL.createObjectURL(file.blob);
+   const anchor=document.createElement("a");
+   anchor.href=url;anchor.download=file.filename;
+   anchor.style.display="none";
+   document.body.append(anchor);anchor.click();anchor.remove();
+   window.setTimeout(()=>URL.revokeObjectURL(url),30000);
+   msg("Arquivo original disponibilizado somente nesta sessão. Confira o conteúdo antes de marcar a revisão.");
+  }catch(e){msg("Não foi possível abrir o original: "+e.message)}
+  finally{button.disabled=false}
+ });
  q("g-review-document").addEventListener("click",async()=>{
   if(!client||area.hidden)return;
   const id=q("g-choose-document").value;
