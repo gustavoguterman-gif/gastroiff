@@ -510,3 +510,11 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - **Situação:** alteração em ramificação de desenvolvimento; não publicar antes do CI completo e revisão das capturas nos três formatos. Fase futura: ampliar docência com exemplos atuais verificados, rotina de seleção e monitoramento automático dos editais; trilhas individualizadas para outros percursos profissionais; pesquisa de egressos permanece planejada e depende de backend protegido.
 
 - Após inspeção das capturas da primeira execução CI 42041066745 (sucesso), foi identificado no tablet de 768 px que a grade de campos de atuação anterior ainda mostrava três colunas estreitas. Adicionada regra específica para duas colunas até 1000 px e uma até 640 px, com altura natural dos cartões e sem ocultar conteúdo. O teste de navegador agora exige a responsividade e diferenças de altura entre cartões. É necessário novo CI e inspeção das capturas desta correção antes de integrar.
+
+
+## 30. Macrofase B: proteção dos redirecionamentos do monitor institucional (05/11/2026)
+- Auditoria do `scripts/verificar_fontes_iff.py` identificou que a validação do domínio inicial não impedia que a biblioteca HTTP seguisse redirecionamentos para sites externos ou URLs sem HTTPS.
+- A correção no ramo `proteger-redirecionamentos-fontes-iff-20261105` introduziu um verificador de destino para cada redirecionamento: somente HTTPS e host `iff.edu.br` ou subdomínio legítimo. Redirecionamentos externos são interrompidos e classificados como `redirecionamento_externo_bloqueado` no relatório técnico.
+- Foram adicionados testes de endereço externo, domínio visualmente semelhante, rebaixamento para HTTP, classificação da consulta interrompida e aceitação de redirecionamento HTTPS legítimo entre subdomínios do IFF em `tests/test_fontes_iff.py`.
+- Alterações registradas no PR #35 em rascunho. A execução integral de CI e a verificação dos relatórios ainda não foram confirmadas; não mesclar automaticamente. Não houve mudança de conteúdo público, agendamento ou autenticação.
+- Critério de aceite: suíte Python e validação completa aprovadas, ausência de regressão nas fontes oficiais e registro de que nenhuma chamada externa de redirecionamento foi seguida.
