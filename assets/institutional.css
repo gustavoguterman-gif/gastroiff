@@ -1473,6 +1473,7 @@ body.gastroiff-page main .facultycard-head .avatar{
   align-items:center!important;
   justify-content:center!important;
  }
+ body.gastroiff-page .header-refined #mobile-menu.open,
  body.gastroiff-page .header-refined [data-mobile-menu].open{
   display:grid!important;
   visibility:visible!important;
