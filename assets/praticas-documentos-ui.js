@@ -96,6 +96,33 @@
   }catch(error){append(host,"p","Não foi possível comparar as listas: "+error.message,"warning");return null}
  }
  $("p-compare").addEventListener("click",compare);
+ function snapshot(){
+  const result=window.GASTROIFF_QUADRO_DOCENTE.build(input(),state.documents,window.GASTROIFF_CONCILIACAO.compare,rules.validate);
+  const host=$("p-snapshot");host.replaceChildren();
+  append(host,"h3",result.identificacao.disciplina||"Disciplina ainda não identificada");
+  append(host,"p",result.identificacao.docente||"Docente não informado");
+  append(host,"p","Curso: "+(result.identificacao.curso||"A conferir")+" · Início: "+(result.identificacao.inicio||"A conferir")+" · Término: "+(result.identificacao.fim||"A conferir"));
+  append(host,"p","Dias: "+(result.identificacao.dias.join(", ")||"A conferir")+" · Horário: "+(result.identificacao.horarioInicial||"A conferir")+" às "+(result.identificacao.horarioFinal||"A conferir")+" · Local: "+(result.identificacao.local||"A conferir"));
+  if(result.insumos.length){
+   const wrapper=append(host,"div","","tablewrap");
+   const table=append(wrapper,"table","");
+   const thead=append(table,"thead",""),tr=append(thead,"tr","");
+   ["Insumo","Unidade","Solicitado","Confirmado","Não atendido","Recebido","Fornecimento"].forEach(v=>append(tr,"th",v));
+   const body=append(table,"tbody","");
+   result.insumos.forEach(item=>{
+    const line=append(body,"tr","");
+    [item.insumo,item.unidade,item.solicitado,item.confirmado,item.faltante,item.recebido,item.situacao].forEach(value=>append(line,"td",value===null?"Sem informação":String(value)));
+   });
+  }
+  const pending=append(host,"section","","entry");
+  append(pending,"h3",result.pendencias.length?"Questões pendentes":"Dados mínimos conferidos");
+  if(result.pendencias.length)result.pendencias.forEach(q=>append(pending,"p",q));
+  else append(pending,"p","Quadro local preparado. Sua disponibilização depende de autenticação, autorização e infraestrutura protegida.");
+  $("p-snapshot-status").textContent=result.prontoParaRevisao?
+   "Prévia preparada para revisão administrativa. Nenhum dado foi publicado.":"Prévia incompleta. Responda às perguntas antes de autorizar futura publicação.";
+  return result;
+ }
+ $("p-build-snapshot").addEventListener("click",snapshot);
  $("p-draft").addEventListener("click",()=>{
   const q=rules.questions(input(),state.documents);
   if(q.length||!eligibleRows()){$("p-email-preview").value="Prévia bloqueada. Responda às pendências e confirme as três listas de insumos.";return}
