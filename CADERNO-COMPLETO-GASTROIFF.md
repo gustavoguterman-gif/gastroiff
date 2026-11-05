@@ -529,3 +529,10 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - As fontes oficiais de seleção (IFF e Portal do Servidor) foram conferidas em 05/11/2026. A área pública apenas oferece caminhos de consulta, não afirma inscrição aberta nem vincula edital sem validação.
 - A PR #26, sobre robustez da autenticação docente, permanece isolada até homologação autorizada com Supabase real, três contas fictícias, RLS e armazenamento privado. Não habilitar serviços protegidos no GitHub Pages sem a homologação.
 - Critério para prosseguir: testes estáticos, funcionais e regressivos em celular 390 px, tablet 768 px e desktop 1440 px, inclusive PWA e conferência do site publicado; incorporar somente com CI verde. Continuar com histórico e rastreabilidade no documento-mãe.
+
+
+## 32. Integridade binária de arquivos no ensaio Supabase (05/11/2026)
+- O roteiro de homologação isolada foi reforçado para comparar os bytes efetivamente recuperados do documento original com o SHA-256 armazenado em metadados protegidos. Uma divergência bloqueia a homologação; não basta a presença de um hash com formato válido.
+- Verificações de download devem confirmar negativa de acesso para visitante sem sessão e para dois docentes, preservando o acesso autorizado da Gestão. Caminhos manipulados ou com segmentos de travessia são rejeitados antes da requisição.
+- Os testes utilizam somente respostas fictícias sem rede nem credenciais; incluem adulteração, acesso indevido e encerramento das sessões em caso de falha. Executar via workflow `testar-homologacao-isolada.yml` e validação geral. Essa cobertura é preparatória e não prova a integração real com Supabase.
+- Bloqueio permanente: `assets/praticas-config.js` deve manter `enabled: false` até provisionamento e homologação reais, autorização institucional de custódia e recuperação/expiração de sessões, backups e restauração.

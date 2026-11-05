@@ -5,6 +5,7 @@
 "use strict";
 const fs=require("node:fs");
 const assert=require("node:assert/strict");
+const {createHash}=require("node:crypto");
 
 function settings(env=process.env,readFile=p=>fs.readFileSync(p,"utf8")){
  const must=["GASTROIFF_STAGING_CONFIRM","GASTROIFF_STAGING_PROJECT_REF",
@@ -44,6 +45,28 @@ async function request(base,key,method,path,token,body,fetcher=fetch){
  let data;try{data=JSON.parse(raw)}catch{data=raw}
  return {status:res.status,ok:res.ok,data};
 }
+
+function privateObjectPath(storagePath){
+ if(typeof storagePath!=="string")throw Error("Caminho do original inválido");
+ const parts=storagePath.split("/");
+ if(parts.length<2||parts.some(s=>!s||s==="."||s===".."||/[\\?#\u0000-\u001f]/.test(s)))
+  throw Error("Caminho do original inválido");
+ return "/storage/v1/object/authenticated/gastroiff-praticas-privado/"+
+  parts.map(encodeURIComponent).join("/");
+}
+async function verifiedDownload(base,key,path,token,expectedSha,fetcher=fetch){
+ assert.match(expectedSha,/^[0-9a-f]{64}$/,"Assinatura SHA-256 inválida");
+ const res=await fetcher(base+path,{
+  method:"GET",headers:{apikey:key,Authorization:"Bearer "+token}
+ });
+ assert.equal(res.ok,true,"Gestão não recuperou arquivo original do serviço (HTTP "+res.status+")");
+ const buffer=Buffer.from(await res.arrayBuffer());
+ assert.ok(buffer.length>0&&buffer.length<=8388608,"Original fictício vazio ou acima do limite de 8 MB");
+ const actualSha=createHash("sha256").update(buffer).digest("hex");
+ assert.equal(actualSha,expectedSha,"Integridade SHA-256 do original diverge do registro");
+ return buffer.length;
+}
+
 async function run(cfg,fetcher=fetch){
  const http=(method,path,token,body)=>request(cfg.url,cfg.key,method,path,token,body,fetcher);
  async function login(person){
@@ -100,17 +123,17 @@ async function run(cfg,fetcher=fetch){
   assert.ok(docs.length,"Providencie ao menos um documento fictício no bucket privado");
   const doc=docs[0];
   assert.match(doc.sha256,/^[0-9a-f]{64}$/,"Hash inválido no registro");
-  const objectPath="/storage/v1/object/authenticated/gastroiff-praticas-privado/"+
-   doc.storage_path.split("/").map(encodeURIComponent).join("/");
-  const managerFile=await http("GET",objectPath,m.access_token);
-  assert.ok(managerFile.ok,"Gestão não recuperou arquivo original do serviço");
+  const objectPath=privateObjectPath(doc.storage_path);
+  const verifiedBytes=await verifiedDownload(cfg.url,cfg.key,objectPath,m.access_token,doc.sha256,fetcher);
+  const blockedAnon=await http("GET",objectPath,null);
+  assert.ok(!blockedAnon.ok,"Visitante baixou arquivo bruto restrito");
   const blocked=await http("GET",objectPath,a.access_token);
   assert.ok(!blocked.ok,"Docente baixou arquivo bruto restrito");
   const blockedB=await http("GET",objectPath,b.access_token);
   assert.ok(!blockedB.ok,"Outro docente baixou arquivo bruto restrito");
   return {passed:true,managerCycles:managerCycles.length,teacherACycles:ac.length,
-   teacherBCycles:bc.length,documents:docs.length,
-   note:"Teste não prova revogação imediata do access token, apenas leitura com sessão autenticada"};
+   teacherBCycles:bc.length,documents:docs.length,verifiedOriginalBytes:verifiedBytes,
+   note:"Integridade binária SHA-256 conferida; revogação imediata do access token não foi testada"};
  }finally{
   // Encerrar todas as sessões obtidas, inclusive após falhas intermediárias.
   // Não interromper a limpeza quando um logout isolado falhar.
@@ -128,4 +151,4 @@ if(require.main===module){
  (async()=>{const cfg=settings();const result=await run(cfg);console.log("Homologação de leitura:",JSON.stringify(result))})()
  .catch(e=>{console.error("Homologação recusada/falhou:",e.message);process.exitCode=1});
 }
-module.exports={settings,run,request};
+module.exports={settings,run,request,privateObjectPath,verifiedDownload};
