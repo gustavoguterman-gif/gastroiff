@@ -3,6 +3,8 @@
 set role authenticated;
 set request.jwt.claim.sub='00000000-0000-4000-8000-000000000001';
 -- A disciplina Panificação ainda está em rascunho.
+-- Retirar item fictício preexistente na bateria anterior; não tinha fonte documental.
+delete from public.gastroiff_practice_items where cycle_id='10000000-0000-4000-8000-000000000002';
 do $$
 begin
  begin
