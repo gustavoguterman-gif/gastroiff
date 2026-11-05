@@ -471,3 +471,12 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - Conferir primeiramente se houve alteração; baixar, reprocessar e publicar somente quando necessário. Quando possível usar metadados HTTP ou feeds e agrupar a coleta fora do navegador para não prejudicar o carregamento do site.
 - Monitorar taxa real de alterações por fonte durante pelo menos quatro semanas antes de aumentar frequências. Respeitar cotas e erros, com pausas e tentativas controladas; não confundir agendamento planejado com execução garantida.
 - Esta decisão atualiza somente o planejamento, sem disparar rotinas, alterar os agendamentos atualmente publicados nem afetar os dados já exibidos. Mudanças nos workflows exigem auditoria dos existentes e testes próprios.
+
+
+## 26. Macrofase A integrada em ramo de homologação (05/11/2026)
+- Consolidadas as propostas visuais #28 (cartões de oportunidades sem estiramento), #29 (entrada Visitante, Estudante e Docente sem duplicar marca e sem exigir identificação) e #30 (cabeçalho tablet com menu de toque e navegação completa), preservando a ampliação constitucional e o inventário da revisão #27.
+- Integração feita sem alterar `main` nem a publicação; os documentos históricos não foram apagados. O quadro de administração protegida da revisão #26 permanece isolado e **não** está neste conjunto por depender de homologação Supabase real.
+- Componentes e testes preservados: `assets/oportunidades-compactas.css`, `assets/perfis-publicos.css`, `assets/perfis-publicos.js`, `assets/institutional.css`, `index.html`, `oportunidades.html`, `tests/integridade-site.test.mjs`, `tests/oportunidades-monitoradas-navegador.cjs` e `tests/verificar-perfis-navegador.cjs`.
+- A bateria integrada combina assertions de seleção/persistência/altura da entrada nos tamanhos 390/768/1440 px com verificação do menu tablet e do painel aberto, além dos cartões compactos e do monitor de oportunidades.
+- Reconciliado o cache do PWA em `gastroiff-offline-v50`, contendo os novos arquivos de CSS e oportunidades, sem reusar a numeração v48/v49 dos ramos paralelos.
+- **Estado:** alterações no ramo de integração. A aprovação de cada PR isolado não significa aprovação do conjunto; executar CI integral, inspeção de capturas nas três larguras e verificação do PWA. Qualquer falha bloqueia a publicação. Se aprovado, preparar incorporação em etapa única com conferência posterior do site realmente publicado.
