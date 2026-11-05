@@ -42,7 +42,8 @@ def calendar_candidates(html_text, base):
         parsed = urlsplit(u)
         if parsed.scheme not in ("http", "https"):
             continue
-        if not (parsed.hostname or "").endswith("iff.edu.br"):
+        host = (parsed.hostname or "").lower()
+        if host != "iff.edu.br" and not host.endswith(".iff.edu.br"):
             continue
         if "calendario" not in normalized(parsed.path):
             continue
@@ -64,7 +65,8 @@ def validate_sources(data):
         assert s["id"] not in ids
         ids.add(s["id"])
         parsed = urlsplit(s["url"])
-        assert parsed.scheme == "https" and (parsed.hostname == "iff.edu.br" or parsed.hostname.endswith(".iff.edu.br"))
+        host = (parsed.hostname or "").lower()
+        assert parsed.scheme == "https" and (host == "iff.edu.br" or host.endswith(".iff.edu.br"))
         assert s["cadence"] in ("weekly", "monthly")
     return data["sources"]
 
