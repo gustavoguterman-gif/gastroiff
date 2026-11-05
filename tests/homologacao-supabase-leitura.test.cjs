@@ -44,7 +44,7 @@ test("falha no segundo login encerra sessão já aberta",async()=>{
   }
   if(route==="/auth/v1/logout"){
    events.push("logout:"+options.headers.Authorization);
-   return new Response("",{status:204});
+   return new Response(null,{status:204});
   }
   throw Error("Rota inesperada: "+route);
  };
@@ -77,7 +77,7 @@ test("logout de todas as sessões mesmo quando o primeiro encerramento falha",as
   if(route==="/auth/v1/logout"){
    events.push(options.headers.Authorization);
    if(events.length===1)return new Response('{"error":"forced"}',{status:503});
-   return new Response("",{status:204});
+   return new Response(null,{status:204});
   }
   throw Error("Rota inesperada: "+route);
  };
