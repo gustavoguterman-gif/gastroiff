@@ -80,10 +80,6 @@
     const entryChoice = document.createElement("div");
     entryChoice.className = "gi-profile-entrance";
     entryChoice.setAttribute("aria-label", "Escolha uma forma de entrar no GASTROIFF");
-    const brand = document.createElement("img");
-    brand.src = "assets/gastroiff-marca.jpg";
-    brand.alt = "GASTROIFF, Gastronomia do IFF Campus Cabo Frio";
-    brand.className = "gi-profile-entrance-logo";
     const welcome = document.createElement("h2");
     welcome.textContent = "Como você deseja acessar o GASTROIFF?";
     const welcomeText = document.createElement("p");
@@ -110,18 +106,12 @@
       entranceButtons.set(key, button);
       choices.append(button);
     }
-    entryChoice.append(brand, welcome, welcomeText, choices);
+    entryChoice.append(welcome, welcomeText, choices);
     const top = document.createElement("div");
     top.className = "gi-personal-head";
-    const intro = document.createElement("div");
-    const heading = document.createElement("h2");
-    heading.textContent = "Seu caminho no GASTROIFF";
-    const explanation = document.createElement("p");
-    explanation.textContent = "Escolha como você se relaciona com a Gastronomia. Organizaremos os principais acessos sem exigir matrícula, senha ou cadastro.";
-    intro.append(heading, explanation);
     const label = document.createElement("label");
     label.htmlFor = "gi-profile-choice";
-    label.textContent = "Como você acessa o GASTROIFF?";
+    label.textContent = "Outros perfis e formas de acesso";
     const select = document.createElement("select");
     select.id = "gi-profile-choice";
     for (const [key, value] of Object.entries(names)) {
@@ -130,7 +120,7 @@
     const switcher = document.createElement("div");
     switcher.className = "gi-personal-choice";
     switcher.append(label, select);
-    top.append(intro, switcher);
+    top.append(switcher);
     const panel = document.createElement("div");
     panel.className = "gi-personal-panel";
     const title = document.createElement("h3");
@@ -141,7 +131,7 @@
     foot.className = "gi-personal-foot";
     foot.textContent = "Esta escolha é salva somente neste dispositivo. Todos os conteúdos públicos do GASTROIFF continuam disponíveis para você.";
     panel.append(title, desc, links, foot);
-    inner.append(entryChoice, top, panel);
+    inner.append(entryChoice, panel, top);
     section.append(inner);
     const render = key => {
       const p = profiles[key] || profiles.visitante;
