@@ -88,3 +88,80 @@ test("logout de todas as sessões mesmo quando o primeiro encerramento falha",as
   "Bearer token-b"
  ]);
 });
+
+
+const {createHash}=require("node:crypto");
+const {run,privateObjectPath}=require("./homologacao-supabase-leitura.cjs");
+function scenario({corrupt=false,leakAnon=false,leakTeacher=false,pathOverride}={}){
+ const bytes=Buffer.from("Documento de homologação inteiramente fictício","utf8");
+ const actualSha=createHash("sha256").update(bytes).digest("hex");
+ const fakeDoc={
+  storage_path:pathOverride??"10000000-0000-4000-8000-000000000001/original.pdf",
+  sha256:actualSha
+ };
+ const ids={gestao:"00000000-0000-4000-8000-000000000001",a:"00000000-0000-4000-8000-000000000002",b:"00000000-0000-4000-8000-000000000003"};
+ const calls={logout:[],downloads:[]};
+ const respond=(obj,status=200)=>new Response(JSON.stringify(obj),{status,headers:{"Content-Type":"application/json"}});
+ const fetcher=async(url,options)=>{
+  const target=new URL(url),route=target.pathname,auth=options.headers.Authorization||"";
+  const token=auth.startsWith("Bearer ")?auth.slice(7):"";
+  if(route==="/auth/v1/token"){
+   const email=JSON.parse(options.body).email;
+   const user=email==="gestao@example.invalid"?"gestao":email==="a@example.invalid"?"a":"b";
+   return respond({access_token:user,refresh_token:"somente-ficticio",user:{id:ids[user]}});
+  }
+  if(route==="/auth/v1/logout"){calls.logout.push(token);return new Response(null,{status:204});}
+  if(route==="/rest/v1/gastroiff_practice_roles"){
+   const role=token==="gestao"?"gestao":"docente";
+   return respond([{user_id:ids[token],role}]);
+  }
+  if(route==="/rest/v1/gastroiff_practice_cycles"){
+   if(!token)return respond([]);
+   if(token==="gestao")return respond([
+    {id:"ciclo-a",teacher_user_id:ids.a,status:"aprovado"},
+    {id:"ciclo-b",teacher_user_id:ids.b,status:"aprovado"}
+   ]);
+   return respond([{id:"ciclo-"+token,teacher_user_id:ids[token],status:"aprovado"}]);
+  }
+  if(route==="/rest/v1/gastroiff_practice_documents")return respond(token==="gestao"?[fakeDoc]:[]);
+  if(route==="/rest/v1/gastroiff_practice_audit")return respond([]);
+  if(route.startsWith("/storage/v1/object/authenticated/")){
+   calls.downloads.push(token||"anon");
+   if(token==="gestao")return new Response(corrupt?Buffer.from("alterado", "utf8"):bytes,{status:200});
+   if(!token&&leakAnon||token!=="gestao"&&token&&leakTeacher)return new Response(bytes,{status:200});
+   return respond({message:"permission denied"},403);
+  }
+  throw Error("Rota inesperada no teste: "+route);
+ };
+ return {fetcher,calls,bytes};
+}
+test("homologação fictícia confere conteúdo SHA-256 e bloqueia três acessos",async()=>{
+ const s=scenario();
+ const result=await run(settings(env(),()=>cfg),s.fetcher);
+ assert.equal(result.passed,true);
+ assert.equal(result.verifiedOriginalBytes,s.bytes.length);
+ assert.deepEqual(s.calls.downloads,["gestao","anon","a","b"]);
+ assert.deepEqual(s.calls.logout,["gestao","a","b"]);
+});
+test("arquivo adulterado bloqueia homologação e encerra três sessões",async()=>{
+ const s=scenario({corrupt:true});
+ await assert.rejects(run(settings(env(),()=>cfg),s.fetcher),/Integridade SHA-256/);
+ assert.deepEqual(s.calls.logout,["gestao","a","b"]);
+});
+test("visitante com acesso indevido ao original impede aprovação",async()=>{
+ const s=scenario({leakAnon:true});
+ await assert.rejects(run(settings(env(),()=>cfg),s.fetcher),/Visitante baixou arquivo/);
+ assert.deepEqual(s.calls.logout,["gestao","a","b"]);
+});
+test("docente com acesso indevido ao original impede aprovação",async()=>{
+ const s=scenario({leakTeacher:true});
+ await assert.rejects(run(settings(env(),()=>cfg),s.fetcher),/Docente baixou arquivo/);
+ assert.deepEqual(s.calls.logout,["gestao","a","b"]);
+});
+test("recusa caminho manipulado antes de solicitar arquivo",()=>{
+ for(const path of ["../x.pdf","ciclo/../x.pdf","/x.pdf","ciclo//x.pdf","ciclo/a\\x.pdf","ciclo/a?b.pdf"]){
+  assert.throws(()=>privateObjectPath(path),/Caminho do original inválido/);
+ }
+ assert.equal(privateObjectPath("ciclo/teste original.pdf"),
+  "/storage/v1/object/authenticated/gastroiff-praticas-privado/ciclo/teste%20original.pdf");
+});
