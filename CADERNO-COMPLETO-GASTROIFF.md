@@ -415,3 +415,7 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - Teste automatizado ampliado em `tests/oportunidades-monitoradas-navegador.cjs` para conferir colunas responsivas, legibilidade mínima, botões e fonte em 390, 768 e 1440 px, além da verificação de transbordamento existente.
 - Não se afirma aprovação ou publicação antes de examinar o CI. Após aprovação, considerar comparação de capturas e tarefas reais de leitura para avaliar o equilíbrio entre densidade e usabilidade.
 - Preservar integralmente a proposta mais abrangente de orientação profissional, docência e pesquisa de egressos registrada na revisão 27; esta etapa altera somente apresentação de oportunidades.
+
+- **Inspeção visual do CI da revisão 28 (run 42026549364):** as capturas em 390, 768 e 1440 px confirmaram a manutenção de títulos, links, requisitos e fontes, mas evidenciaram um defeito de densidade: no tablet/desktop os cartões menores eram artificialmente esticados até a altura do anúncio mais longo da mesma linha.
+- Ajustado `assets/oportunidades-compactas.css` com alinhamento vertical pelo conteúdo e ampliado `tests/oportunidades-monitoradas-navegador.cjs` para reprovar cartões pequenos indevidamente esticados. Versão do CSS alterada para v2. É necessária nova execução da bateria e nova inspeção visual antes da incorporação.
+- Em capturas de tablet apareceu também trecho de navegação do cabeçalho aparentemente cortado à esquerda; revisar globalmente o cabeçalho responsivo na macrofase A, sem presumir que o ajuste dos cartões solucionou esse problema.
