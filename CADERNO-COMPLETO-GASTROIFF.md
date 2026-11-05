@@ -394,3 +394,9 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - O workflow `testar-homologacao-isolada.yml` testa apenas os bloqueios do roteiro, sem acessar qualquer serviço remoto nem utilizar secrets.
 - O teste completo de autenticação e Storage real está **pendente** de um ambiente de homologação autorizado. Logout via API não assegura expiração imediata de token JWT já emitido; revogação, renovação, upload, restauração e backups serão objetos de ensaios posteriores.
 - Sem aprovação institucional e sem homologação positiva, `assets/praticas-config.js` continua desativado. Preservar auditorias mobile, tablet e desktop em toda alteração futura.
+
+## Controle adicional do ensaio de homologação (05/11/2026)
+- O roteiro agora autentica as três identidades fictícias de forma sequencial, registrando cada sessão obtida antes de prosseguir. Isso evita que uma falha no login posterior deixe a sessão anterior sem tentativa de logout.
+- A cláusula de encerramento tenta fechar todas as sessões abertas mesmo quando uma operação de logout falha. Qualquer falha de encerramento reprova o ensaio, sem exibir tokens.
+- Novos testes simulam rejeição do segundo login e falha de logout, validando que o roteiro continua tentando encerrar as sessões restantes.
+- A homologação com o serviço Supabase real, o comportamento de revogação/expiração dos JWT e as interfaces mobile/desktop continuam sujeitos a testes próprios. A conexão institucional pública permanece desativada.
