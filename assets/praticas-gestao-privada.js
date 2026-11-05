@@ -104,6 +104,17 @@
   fail(result,"Consulta de documentos privados");
   return result.data||[];
  }
+ async function downloadDocument(client,documentId){
+  await ensureManager(client);
+  if(!/^[0-9a-f-]{36}$/i.test(String(documentId||"")))throw Error("Documento inválido");
+  const row=await client.from(TABLES.docs).select("id,filename,storage_path").eq("id",documentId).single();
+  fail(row,"Consulta do documento privado");
+  if(!row.data?.storage_path||!row.data?.filename)throw Error("Documento não encontrado ou acesso negado");
+  const file=await client.storage.from(BUCKET).download(row.data.storage_path);
+  fail(file,"Abertura do arquivo original");
+  if(!file.data)throw Error("Arquivo privado indisponível");
+  return {blob:file.data,filename:String(row.data.filename).slice(0,180)};
+ }
  async function reviewDocument(client,documentId){
   await ensureManager(client);
   if(!documentId)throw Error("Selecione o documento a revisar");
@@ -151,5 +162,5 @@
   return true;
  }
 
- return {TABLES,BUCKET,STAGES,ensureManager,staff,cyclePayload,createCycle,inspectFile,storeDocument,listCycles,listDocuments,reviewDocument,listItems,normalizedRows,saveReviewedItems,approveCycle};
+ return {TABLES,BUCKET,STAGES,ensureManager,staff,cyclePayload,createCycle,inspectFile,storeDocument,listCycles,listDocuments,downloadDocument,reviewDocument,listItems,normalizedRows,saveReviewedItems,approveCycle};
 });
