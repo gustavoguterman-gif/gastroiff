@@ -199,6 +199,7 @@ values ('gastroiff-praticas-privado','gastroiff-praticas-privado',false,8388608,
  'application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','text/csv']::text[])
 on conflict (id) do update set public=false,file_size_limit=8388608,allowed_mime_types=excluded.allowed_mime_types;
 
+alter table storage.objects enable row level security;
 drop policy if exists gastroiff_praticas_manager_storage on storage.objects;
 create policy gastroiff_praticas_manager_storage on storage.objects
  for all to authenticated
