@@ -29,3 +29,62 @@ test("reprova identidade docente repetida",()=>assert.throws(()=>settings({...en
 test("aceita somente configuração isolada e três contas distintas",()=>{
  const got=settings(env(),()=>cfg);assert.equal(got.url,"https://"+ref+".supabase.co");assert.notEqual(got.a.email,got.b.email);
 });
+
+test("falha no segundo login encerra sessão já aberta",async()=>{
+ const {run}=require("./homologacao-supabase-leitura.cjs");
+ const events=[];
+ const mock=async(url,options)=>{
+  const route=new URL(url).pathname;
+  if(route==="/rest/v1/gastroiff_practice_cycles")return new Response("[]",{status:200});
+  if(route==="/auth/v1/token"){
+   const email=JSON.parse(options.body).email;
+   events.push("login:"+email);
+   if(email==="a@example.invalid")return new Response('{"error":"invalid_credentials"}',{status:400});
+   return new Response(JSON.stringify({access_token:"token-gestao",refresh_token:"refresh-falso",user:{id:"gestor-id"}}),{status:200});
+  }
+  if(route==="/auth/v1/logout"){
+   events.push("logout:"+options.headers.Authorization);
+   return new Response("",{status:204});
+  }
+  throw Error("Rota inesperada: "+route);
+ };
+ await assert.rejects(run(settings(env(),()=>cfg),mock),/Login de conta fictícia falhou/);
+ assert.deepEqual(events,[
+  "login:gestao@example.invalid",
+  "login:a@example.invalid",
+  "logout:Bearer token-gestao"
+ ]);
+});
+test("logout de todas as sessões mesmo quando o primeiro encerramento falha",async()=>{
+ const {run}=require("./homologacao-supabase-leitura.cjs");
+ const events=[];
+ const mock=async(url,options)=>{
+  const route=new URL(url).pathname;
+  if(route==="/rest/v1/gastroiff_practice_cycles")return new Response("[]",{status:200});
+  if(route==="/auth/v1/token"){
+   const email=JSON.parse(options.body).email;
+   const token="token-"+email.split("@")[0];
+   return new Response(JSON.stringify({access_token:token,refresh_token:"refresh-falso",user:{id:token}}),{status:200});
+  }
+  if(route==="/rest/v1/gastroiff_practice_roles"){
+   const token=options.headers.Authorization.replace("Bearer ","");
+   const role=token==="token-gestao"?"gestao":"docente";
+   return new Response(JSON.stringify([{user_id:token,role}]),{status:200});
+  }
+  if(route==="/rest/v1/gastroiff_practice_cycles"){
+   return new Response("[]",{status:200});
+  }
+  if(route==="/auth/v1/logout"){
+   events.push(options.headers.Authorization);
+   if(events.length===1)return new Response('{"error":"forced"}',{status:503});
+   return new Response("",{status:204});
+  }
+  throw Error("Rota inesperada: "+route);
+ };
+ await assert.rejects(run(settings(env(),()=>cfg),mock),/Falha ao encerrar 1 sessão/);
+ assert.deepEqual(events,[
+  "Bearer token-gestao",
+  "Bearer token-a",
+  "Bearer token-b"
+ ]);
+});
