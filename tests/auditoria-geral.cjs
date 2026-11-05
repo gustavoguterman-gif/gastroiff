@@ -9,8 +9,8 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
  const browser=await chromium.launch({headless:true});
  const findings=[],ok=[];
  try{
-  for(const [view,width,height] of [["celular",390,844],["desktop",1440,900]]){
-   const context=await browser.newContext({viewport:{width,height},ignoreHTTPSErrors:false});
+  for(const [view,width,height] of [["celular",390,844],["tablet",768,1024],["desktop",1440,900]]){
+   const context=await browser.newContext({viewport:{width,height},ignoreHTTPSErrors:false,serviceWorkers:"block"});
    for(const file of files){
     const page=await context.newPage();
     const errors=[];
@@ -27,15 +27,21 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
       if(r.status()!==200||obj.overflow>3||obj.brokenImages.length||errors.length)
         findings.push({file,view,http:r.status(),...obj,errors:errors.slice(0,5)});
       else ok.push(file+" "+view);
+      if(["index.html","gestao.html","gestao-documentos-praticas.html","planejamento-docente.html","oportunidades.html"].includes(file)){
+        await page.screenshot({path:"reports/"+view+"-"+file.replace(".html",".png"),fullPage:true,animations:"disabled"});
+      }
     }catch(e){findings.push({file,view,error:String(e).slice(0,240)});}
     finally{await page.close()}
    }
    await context.close();
   }
  }finally{await browser.close()}
- fs.writeFileSync("reports/auditoria-geral.json",JSON.stringify({date:new Date().toISOString(),pages:files.length,viewports:2,passes:ok.length,findings},null,2));
+ fs.writeFileSync("reports/auditoria-geral.json",JSON.stringify({date:new Date().toISOString(),pages:files.length,viewports:3,passes:ok.length,findings},null,2));
  console.log("Páginas:",files.length,"testes:",files.length*2,"aprovados:",ok.length,"ocorrências:",findings.length);
  findings.slice(0,40).forEach(x=>console.log("ACHADO:",JSON.stringify(x)));
- // Auditoria de levantamento: resultados registrados antes de bloquear novas entregas.
- if(findings.length) console.log("Ocorrências registradas para correção; revisão visual humana permanece necessária.");
+ // Não permitir aprovação da implantação com falhas detectadas.
+ if(findings.length) {
+   console.error("AUDITORIA REPROVADA: "+findings.length+" problemas de navegação ou layout.");
+   process.exitCode=1;
+ }
 })().catch(e=>{console.error(e);process.exitCode=1});
