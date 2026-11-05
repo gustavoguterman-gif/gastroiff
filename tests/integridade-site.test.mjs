@@ -84,7 +84,7 @@ test("a abertura não recolhe identificadores e oferece saída acessível",()=>{
  const js=fs.readFileSync(path.join(root,"assets/perfis-publicos.js"),"utf8");
  const css=fs.readFileSync(path.join(root,"assets/perfis-publicos.css"),"utf8");
  assert.match(js,/gastroiff-entry-session-v1/);
- assert.match(js,/data-profile-entry/);
+ assert.match(js,/button\.dataset\.profileEntry\s*=\s*key/);
  assert.match(js,/aria-modal/);
  assert.match(js,/Pular animação/);
  assert.match(js,/prefers-reduced-motion/);
