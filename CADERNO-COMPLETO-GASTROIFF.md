@@ -322,3 +322,12 @@ Teste planejado em PostgreSQL real descartável, incluindo gestão, docente vinc
 **Quinta condição:** revisão editorial integral, acessibilidade, testes com pessoas, link checker externo, documentação do projeto de extensão e pesquisa e avaliação de sua efetividade. A cada fase reexecutar os testes gerais e os específicos das mudanças, preservar capturas da versão desktop e mobile e registrar o resultado no Caderno Completo.
 
 O arquivo complementar `AUDITORIA-EMAILS-E-TESTES-20261104.md` documenta uma a uma as dez falhas de e-mail. O Caderno Completo permanece o **documento-mãe**, fonte primária de decisões e compromissos e referência para todas as novas conversas de construção.
+
+
+### 26.6. Conferência da versão realmente publicada
+
+Além do servidor local de testes, a partir desta fase `tests/site-publicado-navegador.cjs` visitará diretamente o endereço público do GASTROIFF em celular (390 px) e computador (1440 px) para conferir páginas essenciais, transbordamento, JavaScript, manifesto, ícones e service worker. O relatório e as capturas serão guardados em `reports/site-publicado/`. O teste será incluído também na validação completa da PR para analisar o site já disponível na internet. Depois da publicação da nova versão, `.github/workflows/conferir-site-publicado.yml` deverá executar por status de publicação GitHub Pages e, como reforço, uma vez por dia. A aprovação do teste remoto anterior à publicação não comprova a versão nova; conservar os dois resultados identificados por commit e data.
+
+### 26.7. Limite operacional da infraestrutura privada
+
+A nova migração foi executada com sucesso em PostgreSQL temporário na execução de homologação `41947490838`. Esse banco é descartado ao terminar o teste e não contém documentos institucionais. O protocolo de ligação ao serviço definitivo está em `IMPLANTACAO-GESTAO-PROTEGIDA.md`. O trabalho poderá continuar em ambiente de teste, mas não disponibilizar os dados individuais em produção antes de autenticação, gestão de usuários, controle real das permissões, integração de armazenamento e acordos institucionais. A plataforma pública segue funcionando, porém com ferramentas da Gestão explicitamente demonstrativas até essa implantação.
