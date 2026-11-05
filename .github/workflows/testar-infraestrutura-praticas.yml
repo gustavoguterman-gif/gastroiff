@@ -6,6 +6,7 @@ on:
       - 'supabase/migrations/20261104230000_praticas_privadas.sql'
       - 'supabase/migrations/20261104231000_staff_visibility.sql'
       - 'supabase/migrations/20261104232000_praticas_aprovacao.sql'
+      - 'supabase/migrations/20261104232500_praticas_itens.sql'
       - 'tests/praticas-db-aprovacao.sql'
       - 'tests/praticas-db-setup.sql'
       - 'tests/praticas-db-permissoes.sql'
@@ -53,5 +54,7 @@ jobs:
         run: psql -v ON_ERROR_STOP=1 -f tests/praticas-db-permissoes.sql
       - name: Instalar funções de revisão e aprovação
         run: psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261104232000_praticas_aprovacao.sql
+      - name: Instalar rotina de insumos estruturados
+        run: psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261104232500_praticas_itens.sql
       - name: Testar revisão, reprovações e homologação com identidade real
         run: psql -v ON_ERROR_STOP=1 -f tests/praticas-db-aprovacao.sql
