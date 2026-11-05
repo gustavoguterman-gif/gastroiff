@@ -107,12 +107,19 @@
  async function downloadDocument(client,documentId){
   await ensureManager(client);
   if(!/^[0-9a-f-]{36}$/i.test(String(documentId||"")))throw Error("Documento inválido");
-  const row=await client.from(TABLES.docs).select("id,filename,storage_path").eq("id",documentId).single();
+  const row=await client.from(TABLES.docs).select("id,filename,storage_path,sha256").eq("id",documentId).single();
   fail(row,"Consulta do documento privado");
   if(!row.data?.storage_path||!row.data?.filename)throw Error("Documento não encontrado ou acesso negado");
   const file=await client.storage.from(BUCKET).download(row.data.storage_path);
   fail(file,"Abertura do arquivo original");
   if(!file.data)throw Error("Arquivo privado indisponível");
+  const expected=String(row.data.sha256||"");
+  if(!/^[0-9a-f]{64}$/.test(expected))throw Error("Registro de integridade do original inválido");
+  if(!globalThis.crypto?.subtle?.digest)throw Error("Validação de integridade indisponível");
+  const raw=await file.data.arrayBuffer();
+  const digest=await globalThis.crypto.subtle.digest("SHA-256",raw);
+  const actual=Array.from(new Uint8Array(digest),byte=>byte.toString(16).padStart(2,"0")).join("");
+  if(actual!==expected)throw Error("Arquivo original diverge do hash cadastrado. Revisão bloqueada");
   return {blob:file.data,filename:String(row.data.filename).slice(0,180)};
  }
  async function reviewDocument(client,documentId){
