@@ -43,6 +43,8 @@ const assert=require("node:assert/strict");
    assert.ok(layout.heading>=16,device+" legibilidade");
    assert.ok(layout.sourceVisible&&layout.actionVisible,device+" fonte e ação preservadas");
    assert.ok(layout.mainCardCount>0&&layout.monitoredCardCount===2,device+" cartões presentes");
+   const cardHeights=await page.locator("[data-opportunities-content] .gi-vacancy:not([hidden])").evaluateAll(nodes=>nodes.slice(0,2).map(n=>n.getBoundingClientRect().height));
+   assert.ok(cardHeights[0]>cardHeights[1]+20,device+" cartões curtos não devem esticar até a altura do anúncio longo: "+cardHeights);
    assert.equal(await page.locator("[data-monitored-opportunities] article").count(),2,"somente origens autorizadas");
    assert.match(await page.locator("[data-monitored-opportunities]").innerText(),/confira se a seleção continua aberta/i);
    const links=await page.locator("[data-monitored-opportunities] article a").evaluateAll(nodes=>nodes.map(a=>a.getAttribute("href")));
