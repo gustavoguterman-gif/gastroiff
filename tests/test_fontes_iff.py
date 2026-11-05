@@ -1,7 +1,8 @@
 import datetime as dt
 import unittest
 from unittest.mock import patch
-from scripts.verificar_fontes_iff import calendar_candidates, normalized, relevant, run, validate_sources
+from scripts.verificar_fontes_iff import (calendar_candidates, normalized, relevant, run, validate_sources,
+    IFFRedirectHandler, ExternalRedirectError, official_https)
 
 class AcademicSourceTests(unittest.TestCase):
     def test_links_do_calendario_somente_iff_e_sem_duplicidade(self):
@@ -21,6 +22,25 @@ class AcademicSourceTests(unittest.TestCase):
         registry = {"version":1,"sources":[{"id":"x","url":"https://exemplo.net/outro","cadence":"weekly"}]}
         with self.assertRaises(AssertionError):
             validate_sources(registry)
+    def test_redirecionamento_externo_e_http_bloqueados(self):
+        handler = IFFRedirectHandler()
+        for address in ("https://exemplo.net/calendario.pdf",
+                        "http://portal1.iff.edu.br/calendario.pdf",
+                        "https://iff.edu.br.exemplo.net/calendario.pdf"):
+            with self.subTest(address=address):
+                self.assertFalse(official_https(address))
+                with self.assertRaises(ExternalRedirectError):
+                    handler.redirect_request(None, None, 302, "Found", {}, address)
+        self.assertTrue(official_https("https://portal1.iff.edu.br/calendario.pdf"))
+
+    def test_consulta_que_redireciona_nao_segue_site_externo(self):
+        from scripts.verificar_fontes_iff import inspect
+        from urllib.error import HTTPError
+        with patch("scripts.verificar_fontes_iff.urllib.request.build_opener") as builder:
+            builder.return_value.open.side_effect = ExternalRedirectError("blocked")
+            result = inspect({"id": "agenda", "url": "https://portal1.iff.edu.br/agenda"})
+        self.assertEqual(result["status"], "redirecionamento_externo_bloqueado")
+
     def test_nao_consulta_mensal_sem_necessidade(self):
         registry={"version":1,"sources":[
             {"id":"a","url":"https://portal1.iff.edu.br/a","cadence":"weekly"},
