@@ -93,27 +93,39 @@
   if(!client)return;
   const value=email.value.trim();
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)){setMessage("Informe um endereço de e-mail válido.");return}
+  // Um novo pedido explícito inicia uma tentativa independente do logout anterior.
+  const current=++requestGeneration;
+  signedOut=false;
+  const activeClient=client;
   setMessage("Solicitando link de entrada...");
-  const result=await client.auth.signInWithOtp({email:value,options:{
-   emailRedirectTo:cfg.redirectUrl,shouldCreateUser:false
-  }});
-  setMessage(result.error?"Não foi possível enviar o link. Confirme seu cadastro com a coordenação.":"Se o endereço estiver autorizado, confira o e-mail para entrar.");
+  try{
+   const result=await activeClient.auth.signInWithOtp({email:value,options:{
+    emailRedirectTo:cfg.redirectUrl,shouldCreateUser:false
+   }});
+   if(current!==requestGeneration||signedOut||client!==activeClient)return;
+   setMessage(result?.error?"Não foi possível enviar o link. Confirme seu cadastro com a coordenação.":"Se o endereço estiver autorizado, confira o e-mail para entrar.");
+  }catch{
+   if(current!==requestGeneration||signedOut||client!==activeClient)return;
+   setMessage("Não foi possível solicitar o link de entrada. Tente novamente mais tarde.");
+  }
  });
  logout.addEventListener("click",async()=>{
   // Invalida consultas pendentes antes de contactar o provedor de autenticação.
-  ++requestGeneration;
+  const current=++requestGeneration;
   signedOut=true;
   reset();
   setMessage("Encerrando sessão...");
   try{
    if(!client)throw Error("Cliente de autenticação indisponível");
    const result=await client.auth.signOut();
+   if(current!==requestGeneration)return;
    if(result?.error)throw result.error;
    setMessage("Sessão encerrada. Entre novamente para consultar seus ciclos.");
   }catch{
+   if(current!==requestGeneration)return;
    setMessage("Não foi possível confirmar o encerramento da sessão. Tente novamente antes de sair do dispositivo.");
   }
-  login.hidden=false;
+  if(current===requestGeneration)login.hidden=false;
  });
  window.GASTROIFF_PAINEL_START=start;
  if(!access.configValid(cfg)){start(cfg,null);return}

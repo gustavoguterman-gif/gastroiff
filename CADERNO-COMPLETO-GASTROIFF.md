@@ -406,3 +406,18 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - O quadro é ocultado antes da resposta remota de logout. Falhas de encerramento ficam explícitas e não são comunicadas como sucesso.
 - O ensaio de navegador força uma resposta atrasada após o usuário encerrar a sessão e verifica que nenhum ciclo reaparece, repetindo a verificação em celular, tablet e desktop.
 - A autenticação real e a revogação de tokens ainda dependem do Supabase isolado autorizado. A configuração pública permanece desativada.
+
+
+## Robustez da solicitação de link docente (05/11/2026, revisão proposta)
+- A interface de autenticação passa a tratar rejeições da chamada de envio de link de acesso, exibindo aviso de falha sem deixar exceções JavaScript sem tratamento.
+- Respostas atrasadas dessa solicitação são ignoradas caso haja logout ou reinicialização do painel durante a espera.
+- A bateria de navegador foi ampliada para provocar uma rejeição de rede nos tamanhos celular, tablet e desktop.
+- Alteração mantida em ramificação e revisão, sem ativar configuração institucional, cadastrar usuários ou transportar dados pessoais.
+- A execução efetiva dos testes desta revisão e a homologação com um Supabase isolado real ainda precisam ser confirmadas antes de incorporar.
+
+- O primeiro CI da revisão 26 falhou na espera da mensagem de erro da solicitação de link. A investigação mostrou que o bloqueio `signedOut` permanecia ativo após a ação explícita de solicitar novo acesso.
+- Ajuste posterior: a nova solicitação incrementa a geração da operação e reabre somente o fluxo de autenticação, sem revelar o quadro privado; conclusões atrasadas do logout não podem substituir mensagens da nova tentativa.
+- O CI inicial teve 108 testes de Node e 13 testes de Python aprovados, bem como os testes de perfis, oportunidades, calendário e planejamento docente. A verificação autenticada interrompeu a sequência e impediu a validação dos passos seguintes.
+- **Resultado confirmado em 05/11/2026:** a execução da validação completa nº 123 (run 42023429473) terminou com sucesso, assim como a bateria específica de Gestão nº 27 (run 42023429753). Todas as etapas de ambas as execuções foram concluídas sem falha; incluem painel docente em 390/768/1440 px, Gestão, aprovação documental, PWA e inspeção mobile/desktop.
+- **Limite da homologação:** aprovação em CI com simulações não comprova autenticação, revogação de sessões, armazenamento e permissões em Supabase real. A revisão 26 continua em rascunho, sem publicação nem habilitação institucional, até o ensaio autorizado com três identidades fictícias e conferência dos resultados.
+- Evidências: https://github.com/gustavoguterman-gif/gastroiff/actions/runs/42023429473 e https://github.com/gustavoguterman-gif/gastroiff/actions/runs/42023429753.
