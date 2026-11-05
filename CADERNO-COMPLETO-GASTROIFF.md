@@ -406,3 +406,11 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - O quadro é ocultado antes da resposta remota de logout. Falhas de encerramento ficam explícitas e não são comunicadas como sucesso.
 - O ensaio de navegador força uma resposta atrasada após o usuário encerrar a sessão e verifica que nenhum ciclo reaparece, repetindo a verificação em celular, tablet e desktop.
 - A autenticação real e a revogação de tokens ainda dependem do Supabase isolado autorizado. A configuração pública permanece desativada.
+
+
+## Robustez da solicitação de link docente (05/11/2026, revisão proposta)
+- A interface de autenticação passa a tratar rejeições da chamada de envio de link de acesso, exibindo aviso de falha sem deixar exceções JavaScript sem tratamento.
+- Respostas atrasadas dessa solicitação são ignoradas caso haja logout ou reinicialização do painel durante a espera.
+- A bateria de navegador foi ampliada para provocar uma rejeição de rede nos tamanhos celular, tablet e desktop.
+- Alteração mantida em ramificação e revisão, sem ativar configuração institucional, cadastrar usuários ou transportar dados pessoais.
+- A execução efetiva dos testes desta revisão e a homologação com um Supabase isolado real ainda precisam ser confirmadas antes de incorporar.
