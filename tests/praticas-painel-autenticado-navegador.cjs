@@ -64,6 +64,14 @@ window.supabase={createClient:()=>window.__fakeClient};
    await p.locator("[data-private-logout]").click();
    assert.equal(await p.locator(".gi-private-cycle").count(),0);
    assert.equal(await p.locator("[data-private-login]").isVisible(),true);
+   // Falha de rede ao pedir link não deve provocar erro JavaScript nem prometer envio.
+   await p.evaluate(()=>{
+    window.__fakeClient.auth.signInWithOtp=async()=>{throw Error("rede indisponível")};
+   });
+   await p.locator("[data-private-email]").fill("docente@example.org");
+   await p.locator("[data-private-form]").evaluate(form=>form.requestSubmit());
+   await p.waitForFunction(()=>document.querySelector("[data-private-status]").textContent.includes("Não foi possível solicitar o link"));
+   assert.deepEqual(activeErrors,[],device+" exceção no envio de link");
    // Uma resposta antiga nunca pode reabrir o quadro após encerramento de sessão.
    await p.evaluate(()=>{
     const previous=window.__fakeClient.from.bind(window.__fakeClient);
