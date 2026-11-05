@@ -101,3 +101,23 @@ test("falha de upload impede criar referência de documento",async()=>{
 test("gestor não consegue enviar arquivo com estágio desconhecido",async()=>{
  await assert.rejects(api.storeDocument(client(),cycleId,"misterioso",excel,fakeCrypto),/Tipo de documento/);
 });
+
+test("somente Gestão autenticada pode baixar o documento original",async()=>{
+ const calls=[];
+ const makeClient=role=>({
+  auth:{getUser:async()=>({data:{user:{id:manager}},error:null})},
+  from:table=>{
+   const query={select(){return query},eq(){return query},async single(){return {data:{id:"20000000-0000-4000-8000-000000000001",filename:"original.pdf",storage_path:"privado/original.pdf"},error:null}},async maybeSingle(){return {data:{role},error:null}}};
+   return query;
+  },
+  storage:{from(bucket){calls.push("bucket:"+bucket);return {async download(path){calls.push("download:"+path);return {data:new Blob(["teste"]),error:null}}}}}
+ });
+ const id="20000000-0000-4000-8000-000000000001";
+ await assert.rejects(api.downloadDocument(makeClient("docente"),id),/não autorizado/);
+ assert.deepEqual(calls,[]);
+ const file=await api.downloadDocument(makeClient("gestao"),id);
+ assert.equal(file.filename,"original.pdf");
+ assert.equal(file.blob.size,5);
+ assert.deepEqual(calls,["bucket:"+api.BUCKET,"download:privado/original.pdf"]);
+ await assert.rejects(api.downloadDocument(makeClient("gestao"),"id-invalido"),/Documento inválido/);
+});
