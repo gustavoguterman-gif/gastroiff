@@ -200,6 +200,6 @@ test("renovação de sessão após logout bloqueia aprovação quando ainda func
 });
 test("resposta inconclusiva do servidor de autenticação não é aprovada",async()=>{
  const s=scenario({refreshError:true});
- await assert.rejects(run(settings(env(),()=>cfg),/sessão fictícia ainda pode ser renovada/);
+ await assert.rejects(run(settings(env(),()=>cfg),s.fetcher),/sessão fictícia ainda pode ser renovada/);
  assert.deepEqual(s.calls.logout,["gestao","a","b"]);
 });
