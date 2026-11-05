@@ -37,6 +37,8 @@ jobs:
         run: python3 -m unittest discover -s tests -p 'test_monitorar_oportunidades.py' -v
       - name: Testar links academicos sem rede
         run: python3 -m unittest discover -s tests -p 'test_links_revistas.py' -v
+      - name: Testar fontes institucionais sem rede
+        run: python3 -m unittest discover -s tests -p 'test_fontes_iff.py' -v
       - name: Testar monitor de oportunidades no navegador
         run: node tests/oportunidades-monitoradas-navegador.cjs
       - name: Teste funcional de perfis e ocorrencias
