@@ -32,7 +32,7 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 >reports/servidor-validacao.log 2>&1 &
       - name: Testes estaticos e unitarios
         run: |
-          node --test tests/integridade-site.test.mjs tests/receber-ocorrencia.test.mjs tests/ocorrencias-formulario.test.mjs tests/ciclos-csv.test.cjs tests/apps-script-simulacao.test.cjs tests/insumos-csv.test.cjs tests/conciliacao-insumos.test.cjs tests/praticas-regras.test.cjs tests/praticas-documentos-leitor.test.cjs tests/praticas-quadro-docente.test.cjs tests/praticas-acesso.test.cjs tests/praticas-gestao-privada.test.cjs tests/praticas-aprovacao-api.test.cjs
+          node --test tests/integridade-site.test.mjs tests/receber-ocorrencia.test.mjs tests/ocorrencias-formulario.test.mjs tests/ciclos-csv.test.cjs tests/apps-script-simulacao.test.cjs tests/insumos-csv.test.cjs tests/conciliacao-insumos.test.cjs tests/praticas-regras.test.cjs tests/praticas-documentos-leitor.test.cjs tests/praticas-quadro-docente.test.cjs tests/praticas-acesso.test.cjs tests/praticas-gestao-privada.test.cjs tests/praticas-aprovacao-rpc.test.cjs tests/praticas-aprovacao-api.test.cjs
       - name: Testar motor de descoberta de vagas sem rede
         run: python3 -m unittest discover -s tests -p 'test_monitorar_oportunidades.py' -v
       - name: Testar monitor de oportunidades no navegador
