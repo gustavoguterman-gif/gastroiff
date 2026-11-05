@@ -46,7 +46,7 @@ test("personalização pública não exige nem armazena identificação pessoal"
  assert.match(js,/localStorage/);
  assert.match(js,/Object\.hasOwn\(profiles/);
  assert.doesNotMatch(js,/(?:fetch\(|XMLHttpRequest|sendBeacon|matr[ií]cula\s*:|siape\s*:)/i);
- assert.match(fs.readFileSync(path.join(root,"index.html"),"utf8"),/assets\/perfis-publicos\.js\?v=1/);
+ assert.match(fs.readFileSync(path.join(root,"index.html"),"utf8"),/assets\/perfis-publicos\.js\?v=\d+/);
 });
 test("o cache do aplicativo inclui os recursos de personalização",()=>{
  const sw=fs.readFileSync(path.join(root,"sw.js"),"utf8");
