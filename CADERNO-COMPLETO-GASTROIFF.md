@@ -553,3 +553,11 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - Duração planejada: 2,45 segundos de destaque da marca, mais cerca de 1,8 segundo para entrada progressiva dos três botões; escolha permanece disponível sem limite de tempo. Ao selecionar, a página entra com transição combinada de aproximadamente 0,72 a 0,95 segundo. Nas preferências de movimento reduzido, exibir os botões imediatamente.
 - A imagem institucional mantém sua identidade original e passa a integrar visualmente a tela de fundo branco, sem retângulo distinto, por fusão de cores. A mesma logo permanece visível antes e depois da transição de entrada.
 - Revalidar ordem, ausência de elementos extras, tempo do primeiro estágio, continuidade visual da marca, teclado, telas 360/390/768/1440 px, PWA offline, site publicado e versão principal. Não afetar a área protegida nem antecipar login.
+
+
+## 35. Homologação protegida: revogação de renovação de sessões (05/11/2026)
+- O roteiro de leitura em Supabase isolado agora consulta como visitante seis tabelas privadas, bloqueando o teste caso dados administrativos sejam recebidos.
+- Após o logout confirmado de Gestão, docente A e docente B, tenta a renovação das três sessões usando os respectivos refresh tokens originais. O ambiente só é homologado se as três renovações forem negadas com HTTP de autenticação (400/401/403). Resposta bem-sucedida ou indeterminada bloqueia aprovação.
+- A distinção técnica é explícita: o logout revoga refresh tokens, mas JWTs de acesso anteriores podem continuar válidos até expirar. Para invalidação imediata de operações sensíveis são necessários controles de sessão complementares, a serem definidos na homologação real.
+- Testes sem rede cobrem rejeição da renovação, sessão antiga indevidamente renovável e autenticação indisponível. Credenciais fictícias não saem do processo local. Não houve conexão a serviço Supabase real nem alteração da configuração pública.
+- PR #26 continua em rascunho até testes reais de autenticação e RLS. Não integrar somente pelos testes simulados.

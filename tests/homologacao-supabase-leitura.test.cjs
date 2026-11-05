@@ -35,7 +35,11 @@ test("falha no segundo login encerra sessão já aberta",async()=>{
  const events=[];
  const mock=async(url,options)=>{
   const route=new URL(url).pathname;
-  if(route==="/rest/v1/gastroiff_practice_cycles")return new Response("[]",{status:200});
+  if(route.startsWith("/rest/v1/gastroiff_practice_")&&!options.headers.Authorization)return new Response("[]",{status:200});
+  if(route==="/auth/v1/token"&&new URL(url).searchParams.get("grant_type")==="refresh_token"){
+   events.push("refresh-revoked");
+   return new Response('{"error":"invalid_refresh_token"}',{status:401});
+  }
   if(route==="/auth/v1/token"){
    const email=JSON.parse(options.body).email;
    events.push("login:"+email);
@@ -52,7 +56,8 @@ test("falha no segundo login encerra sessão já aberta",async()=>{
  assert.deepEqual(events,[
   "login:gestao@example.invalid",
   "login:a@example.invalid",
-  "logout:Bearer token-gestao"
+  "logout:Bearer token-gestao",
+  "refresh-revoked"
  ]);
 });
 test("logout de todas as sessões mesmo quando o primeiro encerramento falha",async()=>{
@@ -60,7 +65,11 @@ test("logout de todas as sessões mesmo quando o primeiro encerramento falha",as
  const events=[];
  const mock=async(url,options)=>{
   const route=new URL(url).pathname;
-  if(route==="/rest/v1/gastroiff_practice_cycles")return new Response("[]",{status:200});
+  if(route.startsWith("/rest/v1/gastroiff_practice_")&&!options.headers.Authorization)return new Response("[]",{status:200});
+  if(route==="/auth/v1/token"&&new URL(url).searchParams.get("grant_type")==="refresh_token"){
+   events.push("refresh-revoked");
+   return new Response('{"error":"invalid_refresh_token"}',{status:401});
+  }
   if(route==="/auth/v1/token"){
    const email=JSON.parse(options.body).email;
    const token="token-"+email.split("@")[0];
@@ -92,7 +101,7 @@ test("logout de todas as sessões mesmo quando o primeiro encerramento falha",as
 
 const {createHash}=require("node:crypto");
 const {run,privateObjectPath}=require("./homologacao-supabase-leitura.cjs");
-function scenario({corrupt=false,leakAnon=false,leakTeacher=false,pathOverride}={}){
+function scenario({corrupt=false,leakAnon=false,leakTeacher=false,leakRefresh=false,refreshError=false,pathOverride}={}){
  const bytes=Buffer.from("Documento de homologação inteiramente fictício","utf8");
  const actualSha=createHash("sha256").update(bytes).digest("hex");
  const fakeDoc={
@@ -100,17 +109,27 @@ function scenario({corrupt=false,leakAnon=false,leakTeacher=false,pathOverride}=
   sha256:actualSha
  };
  const ids={gestao:"00000000-0000-4000-8000-000000000001",a:"00000000-0000-4000-8000-000000000002",b:"00000000-0000-4000-8000-000000000003"};
- const calls={logout:[],downloads:[]};
+ const calls={logout:[],downloads:[],refreshes:[],anons:[]};
  const respond=(obj,status=200)=>new Response(JSON.stringify(obj),{status,headers:{"Content-Type":"application/json"}});
  const fetcher=async(url,options)=>{
   const target=new URL(url),route=target.pathname,auth=options.headers.Authorization||"";
   const token=auth.startsWith("Bearer ")?auth.slice(7):"";
+  if(route==="/auth/v1/token"&&target.searchParams.get("grant_type")==="refresh_token"){
+   calls.refreshes.push(JSON.parse(options.body).refresh_token);
+   if(leakRefresh)return respond({access_token:"sessao-indevidamente-renovada",refresh_token:"renovado"},200);
+   if(refreshError)return respond({message:"indisponivel"},503);
+   return respond({error:"invalid_refresh_token"},401);
+  }
   if(route==="/auth/v1/token"){
    const email=JSON.parse(options.body).email;
    const user=email==="gestao@example.invalid"?"gestao":email==="a@example.invalid"?"a":"b";
-   return respond({access_token:user,refresh_token:"somente-ficticio",user:{id:ids[user]}});
+   return respond({access_token:user,refresh_token:"refresh-"+user,user:{id:ids[user]}});
   }
   if(route==="/auth/v1/logout"){calls.logout.push(token);return new Response(null,{status:204});}
+  if(route.startsWith("/rest/v1/gastroiff_practice_")&&!token){
+   calls.anons.push(route);
+   return respond([]);
+  }
   if(route==="/rest/v1/gastroiff_practice_roles"){
    const role=token==="gestao"?"gestao":"docente";
    return respond([{user_id:ids[token],role}]);
@@ -142,6 +161,12 @@ test("homologação fictícia confere conteúdo SHA-256 e bloqueia três acessos
  assert.equal(result.verifiedOriginalBytes,s.bytes.length);
  assert.deepEqual(s.calls.downloads,["gestao","anon","a","b"]);
  assert.deepEqual(s.calls.logout,["gestao","a","b"]);
+ assert.deepEqual(s.calls.refreshes,["refresh-gestao","refresh-a","refresh-b"]);
+ assert.deepEqual(s.calls.anons,[
+  "/rest/v1/gastroiff_practice_roles","/rest/v1/gastroiff_practice_cycles",
+  "/rest/v1/gastroiff_practice_documents","/rest/v1/gastroiff_practice_items",
+  "/rest/v1/gastroiff_practice_notifications","/rest/v1/gastroiff_practice_audit"
+ ]);
 });
 test("arquivo adulterado bloqueia homologação e encerra três sessões",async()=>{
  const s=scenario({corrupt:true});
@@ -164,4 +189,17 @@ test("recusa caminho manipulado antes de solicitar arquivo",()=>{
  }
  assert.equal(privateObjectPath("ciclo/teste original.pdf"),
   "/storage/v1/object/authenticated/gastroiff-praticas-privado/ciclo/teste%20original.pdf");
+});
+
+
+test("renovação de sessão após logout bloqueia aprovação quando ainda funciona",async()=>{
+ const s=scenario({leakRefresh:true});
+ await assert.rejects(run(settings(env(),()=>cfg),s.fetcher),/sessão fictícia ainda pode ser renovada/);
+ assert.deepEqual(s.calls.logout,["gestao","a","b"]);
+ assert.deepEqual(s.calls.refreshes,["refresh-gestao","refresh-a","refresh-b"]);
+});
+test("resposta inconclusiva do servidor de autenticação não é aprovada",async()=>{
+ const s=scenario({refreshError:true});
+ await assert.rejects(run(settings(env(),()=>cfg),/sessão fictícia ainda pode ser renovada/);
+ assert.deepEqual(s.calls.logout,["gestao","a","b"]);
 });
