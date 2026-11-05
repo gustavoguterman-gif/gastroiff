@@ -18,6 +18,11 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
     try{
       const r=await page.goto(root+file,{waitUntil:"domcontentloaded",timeout:15000});
       await page.waitForTimeout(260);
+      if(file==="index.html"){
+        await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
+        await page.locator('[data-profile-entry="visitante"]').click();
+        await page.locator("[data-entry-screen]").waitFor({state:"hidden"});
+      }
       const obj=await page.evaluate(()=>{
         const localBroken=[...document.images].filter(img=>{
           try{return new URL(img.currentSrc||img.src).origin===location.origin&&img.complete&&img.naturalWidth===0;}catch{return false}

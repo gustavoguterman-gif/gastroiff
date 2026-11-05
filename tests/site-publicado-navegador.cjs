@@ -16,6 +16,16 @@ const pages=["index.html","gestao.html","gestao-documentos-praticas.html","plane
     const response=await page.goto(BASE+file,{waitUntil:"domcontentloaded",timeout:30000});
     assert.equal(response.status(),200,file+" "+view+" status");
     await page.waitForTimeout(600);
+    // Em PRs, o site publicado ainda pode estar na versão anterior. A prova
+    // obrigatória da nova entrada ocorre nos testes locais e após o deploy.
+    const entrancePublished=file==="index.html" && await page.locator('script[src*="perfis-publicos.js?v=4"]').count()===1;
+    if(entrancePublished){
+      await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
+      assert.equal(await page.locator("[data-profile-entry]").count(),3,"três perfis disponíveis no site publicado: "+view);
+      await page.locator('[data-profile-entry="visitante"]').click();
+      await page.locator("[data-entry-screen]").waitFor({state:"hidden"});
+      assert.ok(await page.locator(".gi-personal-panel h2").isVisible(),"conteúdo da escolha de perfil visível: "+view);
+    }
     const status=await page.evaluate(()=>({
      title:document.title,
      overflow:document.documentElement.scrollWidth-innerWidth,
