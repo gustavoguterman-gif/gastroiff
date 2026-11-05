@@ -93,11 +93,19 @@
   if(!client)return;
   const value=email.value.trim();
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)){setMessage("Informe um endereço de e-mail válido.");return}
+  const current=requestGeneration;
+  const activeClient=client;
   setMessage("Solicitando link de entrada...");
-  const result=await client.auth.signInWithOtp({email:value,options:{
-   emailRedirectTo:cfg.redirectUrl,shouldCreateUser:false
-  }});
-  setMessage(result.error?"Não foi possível enviar o link. Confirme seu cadastro com a coordenação.":"Se o endereço estiver autorizado, confira o e-mail para entrar.");
+  try{
+   const result=await activeClient.auth.signInWithOtp({email:value,options:{
+    emailRedirectTo:cfg.redirectUrl,shouldCreateUser:false
+   }});
+   if(current!==requestGeneration||signedOut||client!==activeClient)return;
+   setMessage(result?.error?"Não foi possível enviar o link. Confirme seu cadastro com a coordenação.":"Se o endereço estiver autorizado, confira o e-mail para entrar.");
+  }catch{
+   if(current!==requestGeneration||signedOut||client!==activeClient)return;
+   setMessage("Não foi possível solicitar o link de entrada. Tente novamente mais tarde.");
+  }
  });
  logout.addEventListener("click",async()=>{
   // Invalida consultas pendentes antes de contactar o provedor de autenticação.
