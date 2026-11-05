@@ -35,7 +35,6 @@ class AcademicSourceTests(unittest.TestCase):
 
     def test_consulta_que_redireciona_nao_segue_site_externo(self):
         from scripts.verificar_fontes_iff import inspect
-        from urllib.error import HTTPError
         with patch("scripts.verificar_fontes_iff.urllib.request.build_opener") as builder:
             builder.return_value.open.side_effect = ExternalRedirectError("blocked")
             result = inspect({"id": "agenda", "url": "https://portal1.iff.edu.br/agenda"})
