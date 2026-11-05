@@ -77,6 +77,40 @@
     section.setAttribute("aria-label", "Encontre os recursos mais úteis para você");
     const inner = document.createElement("div");
     inner.className = "container";
+    const entryChoice = document.createElement("div");
+    entryChoice.className = "gi-profile-entrance";
+    entryChoice.setAttribute("aria-label", "Escolha uma forma de entrar no GASTROIFF");
+    const brand = document.createElement("img");
+    brand.src = "assets/gastroiff-marca.jpg";
+    brand.alt = "GASTROIFF, Gastronomia do IFF Campus Cabo Frio";
+    brand.className = "gi-profile-entrance-logo";
+    const welcome = document.createElement("h2");
+    welcome.textContent = "Como você deseja acessar o GASTROIFF?";
+    const welcomeText = document.createElement("p");
+    welcomeText.textContent = "Escolha um perfil para encontrar os conteúdos que mais interessam a você.";
+    const choices = document.createElement("div");
+    choices.className = "gi-profile-entrance-options";
+    const primary = [
+      ["visitante", "Visitante", "Cursos, ingresso e calendário público"],
+      ["estudante", "Estudante", "Formação, pesquisa e oportunidades"],
+      ["docente", "Docente", "Planejamento, materiais e atividades"]
+    ];
+    const entranceButtons = new Map();
+    for (const [key, name, description] of primary) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "gi-profile-entrance-button";
+      button.dataset.profileEntry = key;
+      button.setAttribute("aria-pressed", "false");
+      const heading = document.createElement("strong");
+      heading.textContent = name;
+      const details = document.createElement("span");
+      details.textContent = description;
+      button.append(heading, details);
+      entranceButtons.set(key, button);
+      choices.append(button);
+    }
+    entryChoice.append(brand, welcome, welcomeText, choices);
     const top = document.createElement("div");
     top.className = "gi-personal-head";
     const intro = document.createElement("div");
@@ -107,11 +141,16 @@
     foot.className = "gi-personal-foot";
     foot.textContent = "Esta escolha é salva somente neste dispositivo. Todos os conteúdos públicos do GASTROIFF continuam disponíveis para você.";
     panel.append(title, desc, links, foot);
-    inner.append(top, panel);
+    inner.append(entryChoice, top, panel);
     section.append(inner);
     const render = key => {
       const p = profiles[key] || profiles.visitante;
       select.value = key;
+      for (const [profile, button] of entranceButtons) {
+        const selected = profile === key;
+        button.setAttribute("aria-pressed", String(selected));
+        button.classList.toggle("is-selected", selected);
+      }
       title.textContent = p.title;
       desc.textContent = p.description;
       links.replaceChildren();
@@ -124,6 +163,9 @@
       }
     };
     select.addEventListener("change", () => { save(select.value); render(select.value); });
+    for (const [key, button] of entranceButtons) {
+      button.addEventListener("click", () => { save(key); render(key); });
+    }
     render(read());
     host.prepend(section);
   }
