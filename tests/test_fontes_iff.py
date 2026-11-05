@@ -33,6 +33,15 @@ class AcademicSourceTests(unittest.TestCase):
                     handler.redirect_request(None, None, 302, "Found", {}, address)
         self.assertTrue(official_https("https://portal1.iff.edu.br/calendario.pdf"))
 
+    def test_redirecionamento_https_entre_dominios_iff_permitido(self):
+        from urllib.request import Request
+        handler = IFFRedirectHandler()
+        request = Request("https://portal1.iff.edu.br/antigo")
+        new_request = handler.redirect_request(
+            request, None, 302, "Found", {},
+            "https://portal2.iff.edu.br/atual")
+        self.assertEqual(new_request.full_url, "https://portal2.iff.edu.br/atual")
+
     def test_consulta_que_redireciona_nao_segue_site_externo(self):
         from scripts.verificar_fontes_iff import inspect
         with patch("scripts.verificar_fontes_iff.urllib.request.build_opener") as builder:
