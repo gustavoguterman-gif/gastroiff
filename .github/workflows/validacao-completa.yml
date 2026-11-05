@@ -43,6 +43,8 @@ jobs:
         run: node tests/oportunidades-monitoradas-navegador.cjs
       - name: Teste funcional de perfis e ocorrencias
         run: node tests/verificar-perfis-navegador.cjs
+      - name: Testar trajetorias da docencia em tres formatos
+        run: node tests/trajetorias-docencia-navegador.cjs
       - name: Teste funcional do calendario
         run: node tests/verificar-calendario-navegador.cjs
       - name: Teste funcional do planejamento docente
