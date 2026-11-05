@@ -5,6 +5,8 @@ on:
     paths:
       - 'supabase/migrations/20261104230000_praticas_privadas.sql'
       - 'supabase/migrations/20261104231000_staff_visibility.sql'
+      - 'supabase/migrations/20261104232000_praticas_aprovacao.sql'
+      - 'tests/praticas-db-aprovacao.sql'
       - 'tests/praticas-db-setup.sql'
       - 'tests/praticas-db-permissoes.sql'
       - '.github/workflows/testar-infraestrutura-praticas.yml'
@@ -49,3 +51,7 @@ jobs:
         run: psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261104231000_staff_visibility.sql
       - name: Conferir isolamento, bloqueios e histórico
         run: psql -v ON_ERROR_STOP=1 -f tests/praticas-db-permissoes.sql
+      - name: Instalar funções de revisão e aprovação
+        run: psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261104232000_praticas_aprovacao.sql
+      - name: Testar revisão, reprovações e homologação com identidade real
+        run: psql -v ON_ERROR_STOP=1 -f tests/praticas-db-aprovacao.sql
