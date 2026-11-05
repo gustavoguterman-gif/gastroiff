@@ -374,3 +374,9 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - Mudanças de seleção de documento invalidam a caixa de confirmação anterior.
 - Testar acesso negado ao perfil docente, ausência de sessão e falha de armazenamento; repetir inspeção em celular, tablet e computador.
 - Esta etapa em revisão não constitui ativação de banco, autorização institucional, envio de documentos reais nem liberação automática para docentes. O serviço permanece desativado na configuração pública até homologação institucional.
+
+## Homologação complementar: integridade e sessões (04/11/2026)
+- Download do documento original passa a comparar SHA-256 dos bytes baixados com o hash armazenado na tabela protegida. Divergência impede entrega do arquivo para conferência. Isso detecta alteração de conteúdo e erro de correspondência, mas não substitui análise humana do documento.
+- Bateria de testes inclui docente tentando criar/apagar arquivo no bucket privado, ausência de JWT no acesso ao banco e consulta de arquivo após perda de sessão na simulação do cliente.
+- Os testes PostgreSQL usam identidades fictícias e verificam as políticas de acesso. A operação real de encerramento/revogação de tokens e o armazenamento completo do serviço Supabase exigem ensaio adicional no ambiente de homologação autorizado.
+- Não ativar a configuração pública de autenticação nem utilizar dados institucionais reais antes da autorização e do ensaio de integração com serviço privado.

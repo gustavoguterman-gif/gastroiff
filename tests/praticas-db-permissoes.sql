@@ -107,3 +107,37 @@ end $$;
 
 reset role;
 \echo 'Permissões da Gestão, docentes, visitante e trilha de auditoria verificadas.'
+
+-- Ensaios de perda de sessão e tentativas de escrita no bucket privado.
+set role authenticated;
+set request.jwt.claim.sub='00000000-0000-4000-8000-000000000002';
+do $$
+begin
+ begin
+  insert into storage.objects(bucket_id,name)
+  values('gastroiff-praticas-privado','tentativa-docente.pdf');
+  raise exception 'Docente criou arquivo em armazenamento restrito';
+ exception when insufficient_privilege or check_violation then null;
+ end;
+ begin
+  delete from storage.objects where bucket_id='gastroiff-praticas-privado';
+  if found then raise exception 'Docente apagou arquivo administrativo'; end if;
+ end;
+end $$;
+
+-- Um usuário que perdeu o JWT não pode reaproveitar o papel autenticado.
+reset request.jwt.claim.sub;
+do $$
+begin
+ if (select count(*) from public.gastroiff_practice_cycles)<>0 then
+  raise exception 'Consulta de ciclos permitida sem identidade';
+ end if;
+ if (select count(*) from storage.objects where bucket_id='gastroiff-praticas-privado')<>0 then
+  raise exception 'Consulta do bucket permitida sem identidade';
+ end if;
+ if (select count(*) from public.gastroiff_practice_roles)<>0 then
+  raise exception 'Lista de papéis visível sem identidade';
+ end if;
+end $$;
+reset role;
+\echo 'Tentativas de escrita, perda de sessão e bloqueios do armazenamento validados.'
