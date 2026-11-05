@@ -15,6 +15,14 @@ const root = "http://127.0.0.1:8765/";
       const response=await page.goto(root+"index.html",{waitUntil:"domcontentloaded"});
       assert.equal(response.status(),200,"index: "+name);
       await page.locator("#gi-profile-choice").waitFor();
+      // No tablet, a barra de desktop não pode aparecer parcialmente cortada.
+      if (width === 768) {
+        assert.equal(await page.locator(".headerline>.navbar.gi-unified-desktop").isVisible(),false,"navbar desktop oculto em tablet");
+        assert.equal(await page.locator(".headerline>.menu-toggle").isVisible(),true,"menu de toque visível em tablet");
+        await page.locator(".headerline>.menu-toggle").click();
+        assert.equal(await page.locator("[data-mobile-menu]").isVisible(),true,"menu tablet abre");
+        await page.locator(".headerline>.menu-toggle").click();
+      }
       assert.equal(await page.locator("#gi-profile-choice").inputValue(),"visitante");
       await page.locator("#gi-profile-choice").selectOption("docente");
       assert.match(await page.locator(".gi-personal-panel").innerText(),/Livro de Ocorrências/);
