@@ -45,6 +45,8 @@ jobs:
         run: node tests/planejamento-docente-navegador.cjs
       - name: Verificar autorização do painel docente em celular, tablet e desktop
         run: node tests/praticas-painel-autenticado-navegador.cjs
+      - name: Verificar revisão e bloqueio de aprovação em três telas
+        run: node tests/praticas-aprovacao-navegador.cjs
       - name: Verificar gravação autenticada da Gestão em celular tablet e computador
         run: node tests/praticas-gestao-privada-navegador.cjs
       - name: Testar Gestão das práticas e painel docente somente leitura
