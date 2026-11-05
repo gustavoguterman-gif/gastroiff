@@ -515,6 +515,6 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 ## 30. Macrofase B: proteção dos redirecionamentos do monitor institucional (05/11/2026)
 - Auditoria do `scripts/verificar_fontes_iff.py` identificou que a validação do domínio inicial não impedia que a biblioteca HTTP seguisse redirecionamentos para sites externos ou URLs sem HTTPS.
 - A correção no ramo `proteger-redirecionamentos-fontes-iff-20261105` introduziu um verificador de destino para cada redirecionamento: somente HTTPS e host `iff.edu.br` ou subdomínio legítimo. Redirecionamentos externos são interrompidos e classificados como `redirecionamento_externo_bloqueado` no relatório técnico.
-- Foram adicionados testes de endereço externo, domínio visualmente semelhante, rebaixamento para HTTP e classificação da consulta interrompida em `tests/test_fontes_iff.py`.
+- Foram adicionados testes de endereço externo, domínio visualmente semelhante, rebaixamento para HTTP, classificação da consulta interrompida e aceitação de redirecionamento HTTPS legítimo entre subdomínios do IFF em `tests/test_fontes_iff.py`.
 - Alterações registradas no PR #35 em rascunho. A execução integral de CI e a verificação dos relatórios ainda não foram confirmadas; não mesclar automaticamente. Não houve mudança de conteúdo público, agendamento ou autenticação.
 - Critério de aceite: suíte Python e validação completa aprovadas, ausência de regressão nas fontes oficiais e registro de que nenhuma chamada externa de redirecionamento foi seguida.
