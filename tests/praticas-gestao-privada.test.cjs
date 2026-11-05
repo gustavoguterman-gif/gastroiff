@@ -102,22 +102,38 @@ test("gestor não consegue enviar arquivo com estágio desconhecido",async()=>{
  await assert.rejects(api.storeDocument(client(),cycleId,"misterioso",excel,fakeCrypto),/Tipo de documento/);
 });
 
-test("somente Gestão autenticada pode baixar o documento original",async()=>{
+test("download do original exige perfil gestor, sessão ativa e integridade SHA-256",async()=>{
+ const {webcrypto}=require("node:crypto");
+ const oldCrypto=globalThis.crypto;
+ globalThis.crypto=webcrypto;
  const calls=[];
+ const hash=require("node:crypto").createHash("sha256").update("teste").digest("hex");
+ let altered=false,online=true;
  const makeClient=role=>({
-  auth:{getUser:async()=>({data:{user:{id:manager}},error:null})},
+  auth:{getUser:async()=>({data:{user:online?{id:manager}:null},error:null})},
   from:table=>{
-   const query={select(){return query},eq(){return query},async single(){return {data:{id:"20000000-0000-4000-8000-000000000001",filename:"original.pdf",storage_path:"privado/original.pdf"},error:null}},async maybeSingle(){return {data:{role},error:null}}};
+   const query={select(){return query},eq(){return query},
+    async single(){return {data:{id:"20000000-0000-4000-8000-000000000001",filename:"original.pdf",storage_path:"privado/original.pdf",sha256:hash},error:null}},
+    async maybeSingle(){return {data:{role},error:null}}};
    return query;
   },
-  storage:{from(bucket){calls.push("bucket:"+bucket);return {async download(path){calls.push("download:"+path);return {data:new Blob(["teste"]),error:null}}}}}
+  storage:{from(bucket){calls.push("bucket:"+bucket);return {async download(path){
+   calls.push("download:"+path);return {data:new Blob([altered?"arquivo adulterado":"teste"]),error:null};
+  }}}}
  });
  const id="20000000-0000-4000-8000-000000000001";
- await assert.rejects(api.downloadDocument(makeClient("docente"),id),/não autorizado/);
- assert.deepEqual(calls,[]);
- const file=await api.downloadDocument(makeClient("gestao"),id);
- assert.equal(file.filename,"original.pdf");
- assert.equal(file.blob.size,5);
- assert.deepEqual(calls,["bucket:"+api.BUCKET,"download:privado/original.pdf"]);
- await assert.rejects(api.downloadDocument(makeClient("gestao"),"id-invalido"),/Documento inválido/);
+ try{
+  await assert.rejects(api.downloadDocument(makeClient("docente"),id),/não autorizado/);
+  assert.deepEqual(calls,[]);
+  const file=await api.downloadDocument(makeClient("gestao"),id);
+  assert.equal(file.filename,"original.pdf");
+  assert.equal(file.blob.size,5);
+  altered=true;
+  await assert.rejects(api.downloadDocument(makeClient("gestao"),id),/diverge do hash/);
+  online=false;
+  const count=calls.length;
+  await assert.rejects(api.downloadDocument(makeClient("gestao"),id),/autenticar/);
+  assert.equal(calls.length,count);
+  await assert.rejects(api.downloadDocument(makeClient("gestao"),"id-invalido"),/autenticar/);
+ }finally{globalThis.crypto=oldCrypto}
 });
