@@ -406,3 +406,11 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - O quadro é ocultado antes da resposta remota de logout. Falhas de encerramento ficam explícitas e não são comunicadas como sucesso.
 - O ensaio de navegador força uma resposta atrasada após o usuário encerrar a sessão e verifica que nenhum ciclo reaparece, repetindo a verificação em celular, tablet e desktop.
 - A autenticação real e a revogação de tokens ainda dependem do Supabase isolado autorizado. A configuração pública permanece desativada.
+
+
+## Ensaio de entrada principal em três perfis, macrofase A (05/11/2026)
+- Em ramo isolado, foi ampliada a personalização pública da página inicial existente, acrescentando apresentação da marca GASTROIFF e três acessos em botões: Visitante, Estudante e Docente. A escolha altera destaques públicos sem exigir matrícula/SIAPE e sem conceder autorização de dados privados.
+- A entrada usa três colunas em tela de tablet/computador e uma coluna no celular; preserva os caminhos secundários já existentes para Egresso(a) e Comunidade no seletor complementar, assim como todas as páginas, menus, links e perfil persistido localmente.
+- A experiência de visitante mantém o link para calendário público e ingresso oficial. Os conteúdos antigos abaixo da nova entrada não foram retirados nem reestruturados nesta etapa.
+- Arquivos de código: `assets/perfis-publicos.js`, `assets/perfis-publicos.css` e `index.html`. Testes Playwright ampliados em `tests/verificar-perfis-navegador.cjs` para clique, estado acessível, preservação de links, marca e colunas em celular 390 px, tablet 768 px e desktop 1440 px.
+- **Não se considera aprovada ou implantada** antes das duas verificações: CI completo da ramificação e inspeção visual de legibilidade/rolagem em tela real. A configuração de autenticação protegida continua intacta; a futura página inicial exclusiva, se escolhida, deverá ser avaliada quanto a preservação de rotas, SEO e retorno ao conteúdo.
