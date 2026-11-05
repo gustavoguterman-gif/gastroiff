@@ -66,3 +66,15 @@ test("scripts embutidos das páginas possuem sintaxe válida",()=>{
  }
  assert.deepEqual(failures,[]);
 });
+
+
+test("percurso docente e fontes institucionais estão conectados sem prometer inscrições abertas",()=>{
+ const trajetorias=fs.readFileSync(path.join(root,"trajetorias.html"),"utf8");
+ const oportunidades=fs.readFileSync(path.join(root,"oportunidades.html"),"utf8");
+ assert.match(trajetorias,/href="oportunidades\.html#oportunidades-docencia"/);
+ assert.match(oportunidades,/id="oportunidades-docencia"/);
+ assert.match(oportunidades,/id="docencia-oportunidades-titulo"/);
+ assert.match(oportunidades,/https:\/\/selecoes\.iff\.edu\.br\//);
+ assert.match(oportunidades,/concursos-publicos-e-provimento-de-pessoal\/concursos-de-instituicoes-de-ensino-federais-vinculadas-ao-mec/);
+ assert.match(oportunidades,/Não representam vagas abertas nem inscrições confirmadas/);
+});
