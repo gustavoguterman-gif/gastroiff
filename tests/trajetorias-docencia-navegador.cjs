@@ -31,7 +31,7 @@ const assert=require("node:assert/strict");
    assert.match(await details.innerText(),/Lei nº 12.772/);
    assert.equal(await page.locator('#percurso-docencia a[href="oportunidades.html#oportunidades-docencia"]').count(),1);
    const opportunityLink=page.locator('#percurso-docencia a[href="oportunidades.html#oportunidades-docencia"]');
-   const opportunityDetails=page.locator('.gi-teaching-details').filter({has:opportunityLink});
+   const opportunityDetails=page.locator('#percurso-docencia details.gi-teaching-details').nth(1);
    await opportunityDetails.locator('summary').click();
    assert.ok(await opportunityLink.isVisible(),"Link de concursos visível após expandir detalhes: "+name);
    await opportunityLink.click();
