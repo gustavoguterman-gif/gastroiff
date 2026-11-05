@@ -37,7 +37,7 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
   }
  }finally{await browser.close()}
  fs.writeFileSync("reports/auditoria-geral.json",JSON.stringify({date:new Date().toISOString(),pages:files.length,viewports:3,passes:ok.length,findings},null,2));
- console.log("Páginas:",files.length,"testes:",files.length*2,"aprovados:",ok.length,"ocorrências:",findings.length);
+ console.log("Páginas:",files.length,"testes:",files.length*3,"aprovados:",ok.length,"ocorrências:",findings.length);
  findings.slice(0,40).forEach(x=>console.log("ACHADO:",JSON.stringify(x)));
  // Não permitir aprovação da implantação com falhas detectadas.
  if(findings.length) {
