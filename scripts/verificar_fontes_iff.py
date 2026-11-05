@@ -18,6 +18,23 @@ MAX_RESPONSE = 350_000
 TIMEOUT = 10
 AGENT = "GASTROIFF-Fontes/1.0 (+https://gustavoguterman-gif.github.io/gastroiff/)"
 
+class ExternalRedirectError(Exception):
+    """A fonte oficial tentou redirecionar a consulta para fora do IFF."""
+
+
+def official_https(url):
+    parts = urlsplit(url)
+    host = (parts.hostname or "").lower()
+    return parts.scheme == "https" and (host == "iff.edu.br" or host.endswith(".iff.edu.br"))
+
+
+class IFFRedirectHandler(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        if not official_https(newurl):
+            raise ExternalRedirectError("redirecionamento externo ou sem HTTPS")
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
 class AnchorParser(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -66,7 +83,7 @@ def validate_sources(data):
         ids.add(s["id"])
         parsed = urlsplit(s["url"])
         host = (parsed.hostname or "").lower()
-        assert parsed.scheme == "https" and (host == "iff.edu.br" or host.endswith(".iff.edu.br"))
+        assert official_https(s["url"])
         assert s["cadence"] in ("weekly", "monthly")
     return data["sources"]
 
@@ -75,7 +92,8 @@ def inspect(source):
     method = "GET" if source.get("discovery") else "HEAD"
     req = urllib.request.Request(url, headers={"User-Agent": AGENT}, method=method)
     try:
-        with urllib.request.urlopen(req, timeout=TIMEOUT) as response:
+        opener = urllib.request.build_opener(IFFRedirectHandler())
+        with opener.open(req, timeout=TIMEOUT) as response:
             body = response.read(MAX_RESPONSE + 1) if method == "GET" else b""
             if len(body) > MAX_RESPONSE:
                 return {"id": source["id"], "status": "revisao", "motivo": "html maior que limite"}
@@ -88,6 +106,8 @@ def inspect(source):
                 out["sha256_pagina"] = hashlib.sha256(body).hexdigest()
                 out["links_calendario_encontrados"] = calendar_candidates(text, response.geturl())
             return out
+    except ExternalRedirectError:
+        return {"id": source["id"], "status": "redirecionamento_externo_bloqueado"}
     except urllib.error.HTTPError as exc:
         code = exc.code
         state = "bloqueado_ou_limitado" if code in (401, 403, 429) else (
