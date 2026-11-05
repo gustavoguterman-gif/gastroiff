@@ -61,8 +61,13 @@ async function run(cfg,fetcher=fetch){
  }
  const anon=await http("GET","/rest/v1/gastroiff_practice_cycles?select=id",null);
  assert.ok(!anon.ok||(Array.isArray(anon.data)&&anon.data.length===0),"Anônimo recebeu ciclos privados");
- const [m,a,b]=await Promise.all([login(cfg.manager),login(cfg.a),login(cfg.b)]);
+ const sessions=[];
+ let m,a,b;
  try{
+  // Autenticação sequencial: até um login parcialmente concluído será encerrado.
+  m=await login(cfg.manager);sessions.push(m);
+  a=await login(cfg.a);sessions.push(a);
+  b=await login(cfg.b);sessions.push(b);
   const managerRoles=await rows("gastroiff_practice_roles",m.access_token,"user_id,role");
   assert.ok(managerRoles.some(r=>r.user_id===m.user.id&&r.role==="gestao"),"Gestão não provisionada");
   const ar=await rows("gastroiff_practice_roles",a.access_token,"user_id,role");
@@ -107,10 +112,16 @@ async function run(cfg,fetcher=fetch){
    teacherBCycles:bc.length,documents:docs.length,
    note:"Teste não prova revogação imediata do access token, apenas leitura com sessão autenticada"};
  }finally{
-  const all=[m,a,b];for(const user of all){
-   const res=await http("POST","/auth/v1/logout",user.access_token);
-   assert.ok(res.ok,"Encerramento da sessão falhou (HTTP "+res.status+")");
+  // Encerrar todas as sessões obtidas, inclusive após falhas intermediárias.
+  // Não interromper a limpeza quando um logout isolado falhar.
+  const failures=[];
+  for(const user of sessions){
+   try{
+    const res=await http("POST","/auth/v1/logout",user.access_token);
+    if(!res.ok)failures.push("HTTP "+res.status);
+   }catch(e){failures.push("falha de conexão")}
   }
+  if(failures.length)throw Error("Falha ao encerrar "+failures.length+" sessão(ões) fictícias");
  }
 }
 if(require.main===module){
