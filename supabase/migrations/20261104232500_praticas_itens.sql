@@ -4,8 +4,15 @@ begin;
 create or replace function public.gastroiff_save_practice_items(
  p_cycle uuid,p_response_document uuid,p_items jsonb)
 returns integer language plpgsql security definer set search_path='' as $$
-declare entry jsonb; n integer:=0; v_text text; v_unit text;
-declare v_requested text; v_forwarded text; v_confirmed text; v_received text;
+declare
+ entry jsonb;
+ n integer := 0;
+ v_text text;
+ v_unit text;
+ v_requested text;
+ v_forwarded text;
+ v_confirmed text;
+ v_received text;
 begin
  if not public.gastroiff_is_practice_manager() then raise exception 'Acesso negado à Gestão'; end if;
  perform 1 from public.gastroiff_practice_cycles c where c.id=p_cycle
