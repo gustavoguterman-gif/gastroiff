@@ -14,7 +14,7 @@ const root = "http://127.0.0.1:8765/";
       page.on("pageerror",e=>errors.push(e.message));
       const response=await page.goto(root+"index.html",{waitUntil:"domcontentloaded"});
       assert.equal(response.status(),200,"index: "+name);
-      await page.locator("#gi-profile-choice").waitFor();
+      await page.locator("#gi-profile-choice").waitFor({state:"attached"});
       const entry=page.locator("[data-entry-screen]");
       await entry.locator('[data-profile-entry="estudante"]').waitFor();
       await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
