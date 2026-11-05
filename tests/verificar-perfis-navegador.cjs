@@ -15,6 +15,13 @@ const root = "http://127.0.0.1:8765/";
       const response=await page.goto(root+"index.html",{waitUntil:"domcontentloaded"});
       assert.equal(response.status(),200,"index: "+name);
       await page.locator("#gi-profile-choice").waitFor();
+      if(width===768){
+        assert.equal(await page.locator(".headerline>.navbar.gi-unified-desktop").isVisible(),false,"sem menu desktop cortado no tablet");
+        assert.equal(await page.locator(".headerline>.menu-toggle").isVisible(),true,"botão do menu tablet visível");
+        await page.locator(".headerline>.menu-toggle").click();
+        assert.equal(await page.locator("[data-mobile-menu]").isVisible(),true,"menu tablet abre");
+        await page.locator(".headerline>.menu-toggle").click();
+      }
       assert.equal(await page.locator("#gi-profile-choice").inputValue(),"visitante");
       assert.equal(await page.locator("[data-profile-entry]").count(),3,"três entradas principais: "+name);
       assert.equal(await page.locator('[data-profile-entry="visitante"]').getAttribute("aria-pressed"),"true");
