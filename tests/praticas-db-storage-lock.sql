@@ -33,7 +33,7 @@ values('gastroiff-praticas-privado','10000000-0000-4000-8000-000000000002/pedido
 insert into public.gastroiff_practice_documents
 (cycle_id,kind,filename,storage_path,sha256,content_type,uploaded_by)
 values('10000000-0000-4000-8000-000000000002',
-'pedido_docente','pedido.pdf','10000000-0000-4000-8000-000000000002/pedido.pdf',
+'recebimento_fisico','pedido.pdf','10000000-0000-4000-8000-000000000002/pedido.pdf',
 repeat('a',64),'application/pdf','00000000-0000-4000-8000-000000000001');
 do $$
 begin
