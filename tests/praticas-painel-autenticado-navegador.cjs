@@ -79,7 +79,7 @@ window.supabase={createClient:()=>window.__fakeClient};
     window.GASTROIFF_PAINEL_START(window.GASTROIFF_PRATICAS_CONFIG,()=>window.__fakeClient);
    });
    await p.waitForFunction(()=>typeof window.__finishOldCycleRequest==="function");
-   await p.locator("[data-private-logout]").click();
+   await p.evaluate(()=>document.querySelector("[data-private-logout]").click());
    await p.evaluate(()=>{
     window.__finishOldCycleRequest({data:[{
      id:"late-cycle",teacher_user_id:"teacher-1",status:"aprovado",
