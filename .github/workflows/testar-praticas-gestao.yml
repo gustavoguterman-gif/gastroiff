@@ -10,7 +10,12 @@ on:
       - 'assets/gestao-praticas-ciclos.js'
       - 'assets/praticas-regras.js'
       - 'assets/praticas-quadro-docente.js'
-      - 'tests/praticas-quadro-docente.test.cjs'
+      - 'assets/praticas-acesso.js'
+      - 'assets/praticas-painel-autenticado.js'
+      - 'assets/praticas-config.js'
+      - 'tests/praticas-acesso.test.cjs'
+      - 'tests/praticas-painel-autenticado-navegador.cjs'
+      - 'tests/praticas-quadro-docente.test.cjs tests/praticas-acesso.test.cjs'
       - 'assets/praticas-documentos-leitor.js'
       - 'assets/praticas-documentos-ui.js'
       - 'tests/praticas-regras.test.cjs'
@@ -44,5 +49,7 @@ jobs:
         run: python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/gastroiff-praticas.log 2>&1 &
       - name: Testar cadastro administrativo dos ciclos
         run: node tests/planejamento-docente-navegador.cjs
+      - name: Testar painel docente com acesso bloqueado e sessão simulada
+        run: node tests/praticas-painel-autenticado-navegador.cjs
       - name: Testar painel docente e conferência administrativa
         run: node tests/praticas-gestao-navegador.cjs
