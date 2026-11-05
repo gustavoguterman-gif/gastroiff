@@ -12,6 +12,8 @@
  const logout=root.querySelector("[data-private-logout]");
  const body=root.querySelector("[data-private-results]");
  let client=null;
+ let requestGeneration=0;
+ let signedOut=false;
  const setMessage=s=>{message.textContent=s};
  function reset(){
   body.replaceChildren();body.hidden=true;login.hidden=true;logout.hidden=true;
@@ -55,14 +57,22 @@
   }
  }
  async function refresh(){
+  const current=++requestGeneration;
+  signedOut=false;
   reset();setMessage("Conferindo sessão e permissões...");
-  try{render(await access.getTeacherDashboard(client))}
-  catch(e){
+  try{
+   const dashboard=await access.getTeacherDashboard(client);
+   if(current!==requestGeneration||signedOut)return;
+   render(dashboard);
+  }catch(e){
+   if(current!==requestGeneration||signedOut)return;
    reset();setMessage(e.message==="Acesso não autenticado"?"Entre com seu e-mail autorizado para consultar os ciclos.":"Consulta indisponível: "+e.message);
    login.hidden=false;
   }
  }
  function start(config,supabaseFactory){
+  ++requestGeneration;
+  signedOut=false;
   reset();
   if(!access.configValid(config)){
    setMessage("Acesso institucional ainda não ativado. O quadro individual permanece indisponível até a implantação e homologação da base privada.");
@@ -90,8 +100,20 @@
   setMessage(result.error?"Não foi possível enviar o link. Confirme seu cadastro com a coordenação.":"Se o endereço estiver autorizado, confira o e-mail para entrar.");
  });
  logout.addEventListener("click",async()=>{
-  if(client)await client.auth.signOut();
-  reset();setMessage("Sessão encerrada. Entre novamente para consultar seus ciclos.");login.hidden=false;
+  // Invalida consultas pendentes antes de contactar o provedor de autenticação.
+  ++requestGeneration;
+  signedOut=true;
+  reset();
+  setMessage("Encerrando sessão...");
+  try{
+   if(!client)throw Error("Cliente de autenticação indisponível");
+   const result=await client.auth.signOut();
+   if(result?.error)throw result.error;
+   setMessage("Sessão encerrada. Entre novamente para consultar seus ciclos.");
+  }catch{
+   setMessage("Não foi possível confirmar o encerramento da sessão. Tente novamente antes de sair do dispositivo.");
+  }
+  login.hidden=false;
  });
  window.GASTROIFF_PAINEL_START=start;
  if(!access.configValid(cfg)){start(cfg,null);return}
