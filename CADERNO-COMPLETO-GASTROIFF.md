@@ -386,3 +386,11 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - Nova migração separa permissões de leitura, criação e exclusão. O arquivo já cadastrado em `gastroiff_practice_documents` não pode ser removido nem substituído por um cliente autenticado. Somente uploads órfãos, ainda não vinculados à documentação, podem ser apagados pela Gestão para desfazer um envio incompleto.
 - Testes específicos cobrem integridade de documento cadastrado, documento não revisado, ausência de política UPDATE, remoção de órfão e bloqueio de docentes. As verificações passam pelo PostgreSQL temporário do CI e devem ser repetidas em Supabase real de homologação antes da implantação.
 - A migração não é executada em produção; a configuração pública permanece desligada e não devem ser usados arquivos institucionais reais nesta etapa.
+
+## Homologação isolada do serviço Supabase (05/11/2026)
+- Preparado teste manual de integração somente leitura em `tests/homologacao-supabase-leitura.cjs` com roteiro `HOMOLOGACAO-SUPABASE-ISOLADA.md`. Nenhuma credencial foi criada, armazenada no repositório ou solicitada ao usuário no chat.
+- A execução exige confirmação explícita de ambiente descartável, igualdade exata entre referência e URL do projeto de homologação e verificação de que a configuração pública permanece desligada.
+- Com três identidades inteiramente fictícias previamente provisionadas, o teste verificará políticas RLS de ciclos, papéis, documentos, trilha de auditoria, consulta administrativa e download privado, além de login e logout pela API.
+- O workflow `testar-homologacao-isolada.yml` testa apenas os bloqueios do roteiro, sem acessar qualquer serviço remoto nem utilizar secrets.
+- O teste completo de autenticação e Storage real está **pendente** de um ambiente de homologação autorizado. Logout via API não assegura expiração imediata de token JWT já emitido; revogação, renovação, upload, restauração e backups serão objetos de ensaios posteriores.
+- Sem aprovação institucional e sem homologação positiva, `assets/praticas-config.js` continua desativado. Preservar auditorias mobile, tablet e desktop em toda alteração futura.
