@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'supabase/migrations/20261104230000_praticas_privadas.sql'
+      - 'supabase/migrations/20261104231000_staff_visibility.sql'
       - 'tests/praticas-db-setup.sql'
       - 'tests/praticas-db-permissoes.sql'
       - '.github/workflows/testar-infraestrutura-praticas.yml'
@@ -44,5 +45,7 @@ jobs:
         run: psql -v ON_ERROR_STOP=1 -f tests/praticas-db-setup.sql
       - name: Executar migração verdadeira sobre PostgreSQL
         run: psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261104230000_praticas_privadas.sql
+      - name: Aplicar política de consulta de docentes pela Gestão
+        run: psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261104231000_staff_visibility.sql
       - name: Conferir isolamento, bloqueios e histórico
         run: psql -v ON_ERROR_STOP=1 -f tests/praticas-db-permissoes.sql
