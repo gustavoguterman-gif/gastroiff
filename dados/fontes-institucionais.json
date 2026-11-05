@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "description": "Fontes oficiais públicas para conferência, sem atualização automática de conteúdo institucional.",
+  "sources": [
+    {
+      "id": "iff-cabo-frio-orientacoes",
+      "category": "calendario_portal",
+      "name": "Orientações acadêmicas IFF Cabo Frio",
+      "url": "https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii",
+      "cadence": "weekly",
+      "discovery": true
+    },
+    {
+      "id": "iff-cabo-frio-calendario-2026-atualizado",
+      "category": "calendario_vigente",
+      "name": "Calendário 2026 atualizado em abril",
+      "url": "https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante-ii/arquivo-pdf/editado_calendario_academico_2026b.pdf/view",
+      "cadence": "weekly",
+      "discovery": false
+    },
+    {
+      "id": "iff-cabo-frio-ppc-tecnologo-2022",
+      "category": "ppc",
+      "name": "PPC Tecnólogo Gastronomia 2022",
+      "url": "https://portal1.iff.edu.br/nossos-campi/cabo-frio/arquivo/projeto-pedagogico-22.pdf/view",
+      "cadence": "monthly",
+      "discovery": false
+    },
+    {
+      "id": "iff-cabo-frio-ppc-tecnico-2023",
+      "category": "ppc",
+      "name": "PPC Técnico Gastronomia 2023",
+      "url": "https://portal1.iff.edu.br/nossos-campi/cabo-frio/painel-do-estudante/imagens-painel-do-estudante/resolucao-consup-ifflu-n-119-de-16-de-junho-de-2023-4.pdf",
+      "cadence": "monthly",
+      "discovery": false
+    }
+  ]
+}
