@@ -453,3 +453,13 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - IFFluminense, guia de apoio ao acompanhamento de egressos, eduCAPES: https://educapes.capes.gov.br/handle/capes/642576
 - Inep, avaliação da Educação Profissional e Tecnológica: https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/avaliacao-da-educacao-profissional-e-tecnologica
 - Inep, seminário sobre indicadores de egressos: https://www.gov.br/inep/pt-br/seminario-egressos-educacao-superior/seminario/
+
+
+## 24. Auditoria integral, vínculo de cada pedido e macrofases de execução (05/11/2026)
+- Documento complementar de referência: `AUDITORIA-INTEGRAL-REQUISITOS-E-AUTOMACOES-20261105.md`. Este arquivo contém matriz de 33 requisitos duráveis, discrepâncias entre as antigas listas de fases, seis macrofases integradas com aceites técnicos, regras de automação por nicho, pipeline de revisões/retificações, recuperação de revistas acadêmicas, cenários de testes e quadro de evidências.
+- A matriz é índice e planejamento de execução; não substitui nem apaga as descrições detalhadas deste Caderno, do Plano Mestre, do Mapa de Construção e dos outros documentos, que permanecem como fonte histórica para implementação e revisão.
+- Toda decisão deve estar conectada ao código ou à tarefa futura e ao teste específico em celular, tablet e computador; atos de documentação não equivalem a funcionalidade implantada.
+- Nova regra de ouro: toda informação externa tecnicamente verificável tem fonte, agendamento de coleta, última confirmação, prazo de validade, identificação de retificação e procedimento de recuperação. Monitorar a saúde das fontes, inclusive revistas acadêmicas que estavam inacessíveis, sem exibir link comprovadamente quebrado nem declarar ausência definitiva por falha transitória.
+- Macrofases A a F reúnem mudanças maiores, cada uma com critérios internos de qualidade e relatório final. Esse agrupamento reduz a necessidade de pedidos manuais de continuidade sem dispensar testes ou decisões institucionais.
+- Conferência dos estados nesta rodada: PR #26 e #27 seguem isolados em rascunho; #28 também permanece em rascunho, com os dois workflows (42026549364 e 42026549347) aprovados e inspeção visual comparativa ainda pendente. Homologação privada real de #26 permanece não comprovada.
+- A completude absoluta das conversas históricas deve ser comprovada por confrontação com transcrições integrais, quando disponíveis. A auditoria atual examinou o histórico documentado e referências recuperáveis; registra expressamente esse limite para não inventar cobertura.
