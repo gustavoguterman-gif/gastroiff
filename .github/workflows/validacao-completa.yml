@@ -49,6 +49,8 @@ jobs:
         run: node tests/pwa-mobile-desktop.cjs
       - name: Inspecao de todas as paginas em celular e desktop
         run: node tests/auditoria-geral.cjs
+      - name: Verificar site atualmente publicado em celular e computador
+        run: node tests/site-publicado-navegador.cjs
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
