@@ -1468,7 +1468,14 @@ body.gastroiff-page main .facultycard-head .avatar{
  }
  body.gastroiff-page .header-refined .headerline>.menu-toggle{
   display:flex!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
   align-items:center!important;
   justify-content:center!important;
+ }
+ body.gastroiff-page .header-refined [data-mobile-menu].open{
+  display:grid!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
  }
 }
