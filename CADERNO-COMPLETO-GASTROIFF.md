@@ -414,3 +414,8 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - A bateria de navegador foi ampliada para provocar uma rejeição de rede nos tamanhos celular, tablet e desktop.
 - Alteração mantida em ramificação e revisão, sem ativar configuração institucional, cadastrar usuários ou transportar dados pessoais.
 - A execução efetiva dos testes desta revisão e a homologação com um Supabase isolado real ainda precisam ser confirmadas antes de incorporar.
+
+- O primeiro CI da revisão 26 falhou na espera da mensagem de erro da solicitação de link. A investigação mostrou que o bloqueio `signedOut` permanecia ativo após a ação explícita de solicitar novo acesso.
+- Ajuste posterior: a nova solicitação incrementa a geração da operação e reabre somente o fluxo de autenticação, sem revelar o quadro privado; conclusões atrasadas do logout não podem substituir mensagens da nova tentativa.
+- O CI inicial teve 108 testes de Node e 13 testes de Python aprovados, bem como os testes de perfis, oportunidades, calendário e planejamento docente. A verificação autenticada interrompeu a sequência e impediu a validação dos passos seguintes.
+- A correção da falha identificada ainda aguarda nova execução de CI; não registrar aprovação por inspeção de código.
