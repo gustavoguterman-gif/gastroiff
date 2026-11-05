@@ -102,19 +102,32 @@ Saída: livro de evidências, testes periódicos, plano de recuperação e manut
 Cada fonte terá: ID, categoria, órgão/editor, nome, URL canônica, URLs complementares, formato (API, RSS/Atom, OAI-PMH, HTML permitido, PDF, ICS), termos de uso/licença conhecidos, periodicidade planejada, prioridade, credenciais somente em serviço privado quando necessárias, último sucesso, última tentativa, estado de saúde, hash/ETag/Last-Modified quando disponível, política de expiração e contatos/rota de revisão.
 Para cada item extraído: ID estável, fonte, URL original, título, categoria, município/curso, publicação, início/fim/prazo, modalidade, evidência textual, data de coleta, data de verificação, URL de retificação/supersessão, hash de conteúdo, estado editorial e versão anterior.
 
-### Frequências iniciais propostas (ajustáveis por custo, criticidade e autorização)
-| Nicho | Descoberta | Revalidar itens existentes | Política |
+### Frequências iniciais propostas, revisadas para menor consumo (05/11/2026)
+A programação deve usar rotinas agrupadas e espaçadas, com dois níveis: (a) verificação leve de alteração por metadados HTTP, API ou feed quando possível; (b) extração/reclassificação apenas de material efetivamente novo ou modificado. Não publicar novamente um item só porque sua URL respondeu. Frequências são hipóteses iniciais a calibrar por logs de mudança, falhas, limites da fonte e relevância.
+
+| Nicho | Verificação padrão | Exceção justificada | Política |
 | --- | --- | --- | --- |
-| Ingresso IFF e editais de matrícula | A cada 2 horas durante inscrições/chamadas; diário fora dessa janela | A cada 2 horas quando ativo | Detectar retificações e atualização de prazo, avisar sem replicar evento |
-| Editais, concursos, seleções docentes e bolsas | A cada 6 horas quando próximos de abertura/prazo; diário no restante | Diário, e a cada 2 horas nas 48h finais se fonte permitir | Priorizar órgão emissor; requisitos específicos sempre vinculados ao edital |
-| Calendário institucional IFF e retificações | Diário; a cada 6 horas em períodos críticos | Diário enquanto vigente | Verificar nova versão oficial; nunca sobrepor planejamento docente sem autorização |
-| Vagas e estágios regionais | A cada 6 horas, de acordo com fonte | Diário; imediatamente quando a fonte informar encerramento | Distinguir anúncio localizado de seleção confirmada |
-| Eventos, congressos, extensão e participação pública | Diário | Diário quando próximos; semanal em eventos distantes | Guardar inscrição, submissão, modalidade, fonte e data multidiária única |
-| Revistas acadêmicas em catálogo | Semanal verificação de URL/edição; mensal busca de novos títulos | Semanal; diário na recuperação de falha temporária | Não inserir revista inadequada nem esconder por falha transitória única |
-| Lattes, artigos e perfis públicos | Semanal para links, mensal para novidades editoriais | Semanal/mensal | Apenas dados verificáveis e pertinentes |
-| Links gerais, botões e documentos públicos | Semanal; verificação em publicação | Semanal e após alteração | Redirecionamentos, 403, 404, 429, timeout tratados diferentemente |
-| Redes sociais autorizadas | Conforme API disponível | Conforme cota/limites | Não prometer raspagem universal |
-| Dados privados, ciclo, insumos, recebimento físico | Ao registrar edição autorizada e rotinas de alerta | Conforme responsáveis e prazos | Não inventar dados institucionais, recebimento ou disponibilidade |
+| Ingresso IFF e editais de matrícula | Diária em dias úteis durante período ativo; semanal fora dele | Checagem adicional diária em fins de semana com prova, resultado, chamada ou matrícula previamente anunciada | Detectar retificações e alteração de prazos; linkar edital oficial e manter histórico |
+| Editais, concursos, seleções docentes e bolsas | Diária em dias úteis quando inscrições estão abertas; semanal para fontes gerais fora de seleção ativa | Uma segunda verificação no dia de publicação de resultado/chamada, apenas quando fonte avisar ou houver data oficial | Requisitos e prazo sempre vinculados a cada edital |
+| Calendário institucional IFF | Semanal | Diária durante semana de início do semestre ou após anúncio de retificação | Verificar versão e origem oficial; revisar só o que mudou |
+| Vagas e estágios regionais | Diária em dias úteis | Segunda verificação apenas se uma fonte tiver alta rotatividade comprovada | Separar anúncio encontrado de vaga confirmada; verificar encerramento |
+| Eventos e projetos públicos, congressos, extensão e política alimentar | Semanal | Diária na semana de encerramento de inscrição ou submissão | Guardar inscrição, submissão, modalidade, fonte e datas do evento |
+| Revistas acadêmicas já catalogadas | Mensal para homepage/edição/link | Semanal apenas para URL que apresentou falha; espaçar tentativas após repetidas falhas | Não remover por falha única; restaurar após confirmações |
+| Descoberta de revistas novas | Trimestral | Mensal para fontes editoriais com muitas novidades comprovadas | Confirmar escopo, entidade editora e acesso às edições antes de incluir |
+| Artigos e publicações científicas | Mensal | Semanal quando houver chamada em andamento com prazo | Preferir feeds/metadados disponíveis e evitar páginas repetidas |
+| Lattes, perfis, projetos e conteúdo editorial público | Mensal para links; revisão editorial por responsável | Após comunicado de alteração de equipe, vínculo ou documento | Não supor atualização automática de cadastro pessoal |
+| Links gerais, botões e documentos públicos | Mensal e a cada publicação nova | Semanal para URLs críticas de inscrição e candidatura | Diferenciar 404, 403, 429, timeout e mudança de endereço |
+| Redes sociais com integração autorizada | Conforme frequência e cota da API | Nenhuma coleta irregular de conteúdo privado | Respeitar limites do serviço |
+| Dados internos: ciclos, insumos, recebimento e documentos | Imediatamente após edição autorizada; alertas por agenda própria | Revisão humana no prazo pertinente | Nunca inferir recebimento nem planejamento |
+
+### Controles de carga e confiabilidade
+- Preferir um agendamento diário em dias úteis e um agendamento semanal/mensal que distribuam fontes em pequenos lotes. Evitar um workflow por URL e evitar atualizar o site quando não houver alteração.
+- Utilizar `ETag`, `Last-Modified`, `If-None-Match` ou API/feed equivalente quando a fonte oferecer; respeitar `Retry-After`, respostas 429, timeouts e limites de cada serviço. Não presumir que toda fonte permite essas técnicas.
+- Limitar tempo por fonte, quantidade de requisições por execução, concorrência e tentativas; aplicar recuo progressivo em erro e registrar o último sucesso. Testar suspensão e recuperação de agendamentos.
+- Diferenciar saúde da automação e disponibilidade do site: o visitante acessa dados previamente publicados, e a coleta é realizada fora do navegador sempre que viável. A coleta não deve atrasar o carregamento da página.
+- Registrar distribuição real de mudanças por fonte por pelo menos quatro semanas antes de aumentar frequência. Ajustar para cima somente se houver perda concreta de oportunidade ou prazo; reduzir automaticamente o ritmo de fontes estáveis com limites seguros.
+- Não usar automação de duas horas como padrão. Excepcionalidade dependerá de motivo registrado, autorização da fonte, custo e valor mensurável ao usuário.
+- Referências técnicas: https://docs.github.com/en/actions/how-tos/troubleshoot-workflows ; https://docs.github.com/en/rest/using-the-rest-api/best-practices-for-using-the-rest-api .
 
 ### Máquina de estados da fonte e publicação
 DESCOBERTA -> EXTRAÍDA -> VALIDADA (estrutura, identidade da fonte, datas e links) -> PUBLICÁVEL -> PUBLICADA -> REVALIDAÇÃO. Resultados possíveis: ATUALIZADA, RETIFICADA (com histórico), ENCERRADA, SUBSTITUÍDA, INDISPONÍVEL_TEMPORÁRIA, EXIGE_REVISÃO, RETIRADA. Separar estado da FONTE do estado do ITEM.
