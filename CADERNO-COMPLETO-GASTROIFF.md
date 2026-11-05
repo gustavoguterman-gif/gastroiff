@@ -414,3 +414,6 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - A experiência de visitante mantém o link para calendário público e ingresso oficial. Os conteúdos antigos abaixo da nova entrada não foram retirados nem reestruturados nesta etapa.
 - Arquivos de código: `assets/perfis-publicos.js`, `assets/perfis-publicos.css` e `index.html`. Testes Playwright ampliados em `tests/verificar-perfis-navegador.cjs` para clique, estado acessível, preservação de links, marca e colunas em celular 390 px, tablet 768 px e desktop 1440 px.
 - **Não se considera aprovada ou implantada** antes das duas verificações: CI completo da ramificação e inspeção visual de legibilidade/rolagem em tela real. A configuração de autenticação protegida continua intacta; a futura página inicial exclusiva, se escolhida, deverá ser avaliada quanto a preservação de rotas, SEO e retorno ao conteúdo.
+
+- Primeira execução do CI da revisão 29 (run 42028627574) falhou em teste estático com expectativa fixa `assets/perfis-publicos.js?v=1`; o HTML usa corretamente uma versão posterior para invalidar cache. Ajustado `tests/integridade-site.test.mjs` para aceitar parâmetro de versão numérica e atualizado cache PWA de v47 para v48.
+- Novo CI disparado na revisão; até seu resultado, a situação da revisão permanece pendente e nenhuma integração é autorizada.
