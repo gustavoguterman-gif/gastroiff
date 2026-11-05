@@ -93,7 +93,9 @@
   if(!client)return;
   const value=email.value.trim();
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)){setMessage("Informe um endereço de e-mail válido.");return}
-  const current=requestGeneration;
+  // Um novo pedido explícito inicia uma tentativa independente do logout anterior.
+  const current=++requestGeneration;
+  signedOut=false;
   const activeClient=client;
   setMessage("Solicitando link de entrada...");
   try{
@@ -109,19 +111,21 @@
  });
  logout.addEventListener("click",async()=>{
   // Invalida consultas pendentes antes de contactar o provedor de autenticação.
-  ++requestGeneration;
+  const current=++requestGeneration;
   signedOut=true;
   reset();
   setMessage("Encerrando sessão...");
   try{
    if(!client)throw Error("Cliente de autenticação indisponível");
    const result=await client.auth.signOut();
+   if(current!==requestGeneration)return;
    if(result?.error)throw result.error;
    setMessage("Sessão encerrada. Entre novamente para consultar seus ciclos.");
   }catch{
+   if(current!==requestGeneration)return;
    setMessage("Não foi possível confirmar o encerramento da sessão. Tente novamente antes de sair do dispositivo.");
   }
-  login.hidden=false;
+  if(current===requestGeneration)login.hidden=false;
  });
  window.GASTROIFF_PAINEL_START=start;
  if(!access.configValid(cfg)){start(cfg,null);return}
