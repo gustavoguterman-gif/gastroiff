@@ -38,6 +38,9 @@ const {mkdirSync,writeFileSync}=require("node:fs");
     return entries;
    });
    assert.ok(cached.length,"a página inicial deve estar no cache do aplicativo");
+   await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
+   await page.locator('[data-profile-entry="visitante"]').click();
+   await page.locator("[data-entry-screen]").waitFor({state:"hidden"});
    if(label==="aplicativo-mobile"){
     const toggle=page.locator("[data-menu-toggle]").first();
     if(await toggle.isVisible()){

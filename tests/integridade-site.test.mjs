@@ -78,3 +78,18 @@ test("percurso docente e fontes institucionais estão conectados sem prometer in
  assert.match(oportunidades,/concursos-publicos-e-provimento-de-pessoal\/concursos-de-instituicoes-de-ensino-federais-vinculadas-ao-mec/);
  assert.match(oportunidades,/Não representam vagas abertas nem inscrições confirmadas/);
 });
+
+
+test("a abertura não recolhe identificadores e oferece saída acessível",()=>{
+ const js=fs.readFileSync(path.join(root,"assets/perfis-publicos.js"),"utf8");
+ const css=fs.readFileSync(path.join(root,"assets/perfis-publicos.css"),"utf8");
+ assert.match(js,/gastroiff-entry-session-v1/);
+ assert.match(js,/data-profile-entry/);
+ assert.match(js,/aria-modal/);
+ assert.match(js,/Pular animação/);
+ assert.match(js,/prefers-reduced-motion/);
+ assert.match(css,/gi-entry-screen/);
+ assert.match(css,/hover:none/);
+ assert.match(css,/prefers-reduced-motion:reduce/);
+ assert.doesNotMatch(js,/nome\s*completo\s*[:=]|matr[ií]cula\s*[:=]|siape\s*[:=]/i);
+});
