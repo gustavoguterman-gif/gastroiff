@@ -1459,3 +1459,16 @@ body.gastroiff-page main .facultycard-head .avatar{
  body.gastroiff-page>header.header-refined,
  body.gastroiff-page .footer.footer-unified{display:none!important}
 }
+
+/* Correção transversal: impedir navegação desktop parcialmente visível no tablet.
+   Entre 701px e 980px o cabeçalho adota o menu de toque completo. */
+@media (min-width:701px) and (max-width:980px){
+ body.gastroiff-page .header-refined .headerline>.navbar.gi-unified-desktop{
+  display:none!important;
+ }
+ body.gastroiff-page .header-refined .headerline>.menu-toggle{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+ }
+}
