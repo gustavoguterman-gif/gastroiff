@@ -32,6 +32,16 @@
 <div class="fields"><div><label for="g-secure-kind">Natureza do documento</label><select id="g-secure-kind"><option value="cronograma">Cronograma e horários</option><option value="pedidoDocente">Pedido docente</option><option value="pedidoFornecedor">Encaminhamento ao fornecedor</option><option value="respostaFornecedor">Resposta do fornecedor</option><option value="recebimentoFisico">Conferência física</option></select></div><div><label for="g-secure-file">Arquivo privado, até 8 MB</label><input id="g-secure-file" type="file" accept=".xlsx,.xls,.csv,.pdf,.jpg,.jpeg,.png,.webp"></div></div>
 <label><input id="g-confirm-file" type="checkbox" style="width:auto"> Conferi a origem do arquivo e autorizo seu armazenamento institucional como documento ainda não aprovado.</label>
 <div class="actions"><button id="g-upload-document" type="button">Enviar ao armazenamento privado</button><button id="g-signout" type="button">Encerrar sessão</button></div>
+<h3>Conferência de documentos armazenados</h3>
+<p class="muted">Selecione o ciclo e confira cada arquivo e sua versão. A revisão só deve ser confirmada após examinar o conteúdo original fora desta listagem. O arquivo bruto permanece privado.</p>
+<div class="fields"><div><label for="g-choose-document">Documento do ciclo</label><select id="g-choose-document"><option value="">Selecione um documento</option></select></div><div><label for="g-review-source">Resposta do fornecedor conferida</label><select id="g-review-source"><option value="">Selecione a resposta revisada</option></select></div></div>
+<label><input id="g-review-confirm" type="checkbox" style="width:auto"> Examinei o arquivo original e conferi manualmente sua origem e conteúdo.</label>
+<div class="actions"><button id="g-refresh-documents" type="button">Atualizar documentos e quantidades</button><button id="g-review-document" type="button">Confirmar revisão do documento</button></div>
+<div id="g-document-overview" class="results" aria-live="polite"></div>
+<h3>Insumos para o painel docente</h3><p class="muted">Use “Gerar quadro para conferência” na seção 4 depois de ler os arquivos. Os itens reconhecidos aparecerão aqui para gravação. Os itens confirmados pelo fornecedor ainda não são recebimento físico.</p>
+<p id="g-review-snapshot" class="muted" role="status">Nenhuma prévia de insumos conferida nesta sessão.</p>
+<div class="actions"><button id="g-save-items" type="button" disabled>Gravar insumos da prévia no rascunho privado</button><button id="g-approve-cycle" type="button">Aprovar ciclo e liberar quadro docente</button></div>
+<p class="muted">O banco só permite a aprovação com cronograma, pedido docente, encaminhamento e resposta do fornecedor revisados, além de quantidades estruturadas e confirmadas para todos os itens.</p>
 </div>
 </section>
 <div class="actions"><a class="btn" href="gestao-praticas.html">Cadastrar ciclos pela planilha</a><a class="btn" href="gestao-insumos.html">Conferência detalhada de Excel</a></div></main>
