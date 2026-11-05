@@ -545,3 +545,11 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - A preferência por perfil permanece exclusivamente em armazenamento local. A tela de abertura aparece apenas na primeira visita de cada sessão, evitando interrupção ao voltar da navegação. O seletor de perfil já presente na página permite troca a qualquer momento. Nenhum nome, matrícula ou SIAPE é solicitado nesta etapa.
 - Numa fase posterior, autenticação de estudante e docente exigirá identidade verificada, permissões por conta e serviço protegido; nome completo mais matrícula/identificador funcional não são senha nem bastam para autenticar. A implantação depende de política institucional e homologação real.
 - Exigir validação em 390 px, 768 px e 1440 px, PWA offline e no site publicado, com verificação de foco, transições, sessão sem identificação e ausência de rolagem horizontal. Nenhuma alteração no backend protegido ou na política de acesso decorre desta interface.
+
+
+## 34. Refinamento da entrada e da marca (05/11/2026)
+- Revisão solicitada após avaliação visual: a animação anterior era rápida, o botão para pular era desnecessário e a marca desaparecia quando apareciam os perfis. A nova experiência mantém uma única logo continuamente na composição, que se move suavemente para cima enquanto surgem as opções.
+- Tela inicial contém **exclusivamente a logo e três botões**, sem título, legenda, explicação, numeração, setas ou comando para pular. Ordem obrigatória: **Visitante, Estudante, Docente**. Nenhum dado pessoal é solicitado nesta fase de testes.
+- Duração planejada: 2,45 segundos de destaque da marca, mais cerca de 1,8 segundo para entrada progressiva dos três botões; escolha permanece disponível sem limite de tempo. Ao selecionar, a página entra com transição combinada de aproximadamente 0,72 a 0,95 segundo. Nas preferências de movimento reduzido, exibir os botões imediatamente.
+- A imagem institucional mantém sua identidade original e passa a integrar visualmente a tela de fundo branco, sem retângulo distinto, por fusão de cores. A mesma logo permanece visível antes e depois da transição de entrada.
+- Revalidar ordem, ausência de elementos extras, tempo do primeiro estágio, continuidade visual da marca, teclado, telas 360/390/768/1440 px, PWA offline, site publicado e versão principal. Não afetar a área protegida nem antecipar login.

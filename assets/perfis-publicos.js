@@ -127,11 +127,12 @@
     screen.setAttribute("role", "dialog");
     screen.setAttribute("aria-modal", "true");
     screen.setAttribute("aria-label", "Escolha de perfil do GASTROIFF");
+    screen.tabIndex = -1;
     screen.hidden = true;
-    const skip = document.createElement("button");
-    skip.type = "button";
-    skip.className = "gi-entry-skip";
-    skip.textContent = "Pular animação";
+
+    // Uma única marca permanece visível e se desloca até o alto da lista.
+    const composition = document.createElement("div");
+    composition.className = "gi-entry-composition";
     const brand = document.createElement("div");
     brand.className = "gi-entry-brand";
     brand.setAttribute("aria-hidden", "true");
@@ -143,58 +144,32 @@
 
     const choice = document.createElement("div");
     choice.className = "gi-profile-entrance";
-    choice.setAttribute("aria-labelledby", "gi-entry-heading");
     choice.inert = true;
     choice.setAttribute("aria-hidden", "true");
-    const eyebrow = document.createElement("p");
-    eyebrow.className = "gi-entry-eyebrow";
-    eyebrow.textContent = "IFF campus Cabo Frio";
-    const heading = document.createElement("h2");
-    heading.id = "gi-entry-heading";
-    heading.textContent = "Como deseja navegar?";
-    const subtitle = document.createElement("p");
-    subtitle.className = "gi-entry-subtitle";
-    subtitle.textContent = "Escolha um perfil para conhecer a plataforma.";
     const choices = document.createElement("div");
     choices.className = "gi-profile-entrance-options";
+    choices.setAttribute("aria-label", "Perfis de navegação");
     const primary = [
+      ["visitante", "Visitante", "Cursos, projetos, pesquisa e calendário"],
       ["estudante", "Estudante", "Formação, atividades e oportunidades"],
-      ["docente", "Docente", "Planejamento e materiais acadêmicos"],
-      ["visitante", "Visitante", "Cursos, pesquisa e projetos do campus"]
+      ["docente", "Docente", "Planejamento, materiais e atividades acadêmicas"]
     ];
     const entranceButtons = new Map();
-    for (const [i, [key, name, description]] of primary.entries()) {
+    for (const [key, name, description] of primary) {
       const button = document.createElement("button");
       button.type = "button";
       button.className = "gi-profile-entrance-button";
       button.dataset.profileEntry = key;
+      button.disabled = true;
       button.setAttribute("aria-pressed", "false");
       button.setAttribute("aria-label", name + ". " + description);
-      const number = document.createElement("span");
-      number.className = "gi-entry-number";
-      number.setAttribute("aria-hidden", "true");
-      number.textContent = String(i + 1).padStart(2, "0");
-      const nameHolder = document.createElement("span");
-      nameHolder.className = "gi-entry-name";
-      const strong = document.createElement("strong");
-      strong.textContent = name;
-      const details = document.createElement("span");
-      details.className = "gi-entry-tooltip";
-      details.textContent = description;
-      nameHolder.append(strong, details);
-      const arrow = document.createElement("span");
-      arrow.className = "gi-entry-arrow";
-      arrow.setAttribute("aria-hidden", "true");
-      arrow.textContent = "↗";
-      button.append(number, nameHolder, arrow);
+      button.textContent = name;
       entranceButtons.set(key, button);
       choices.append(button);
     }
-    const note = document.createElement("p");
-    note.className = "gi-entry-note";
-    note.textContent = "Acesso livre nesta fase de testes. Nenhuma identificação é solicitada.";
-    choice.append(eyebrow, heading, subtitle, choices, note);
-    screen.append(skip, brand, choice);
+    choice.append(choices);
+    composition.append(brand, choice);
+    screen.append(composition);
     document.body.prepend(screen);
 
     const render = key => {
@@ -220,84 +195,97 @@
       }
     };
 
+    const INTRO_MS = 2450;
+    const ENTRANCE_MS = 1800;
+    const EXIT_MS = 720;
     let stepTimer = null;
-    let focusTimer = null;
+    let enableTimer = null;
     let dismissed = false;
-    let previousFocus = null;
-    const content = [document.querySelector("header"), document.querySelector(".site-location-bar"), host, document.querySelector("footer")].filter(Boolean);
+    const content = [
+      document.querySelector("header"),
+      document.querySelector(".site-location-bar"),
+      host,
+      document.querySelector("footer")
+    ].filter(Boolean);
     const previousInert = new Map();
+
     function showChoices() {
       if (screen.hidden || screen.dataset.stage === "choices" || dismissed) return;
       if (stepTimer !== null) clearTimeout(stepTimer);
       screen.dataset.stage = "choices";
       screen.classList.remove("is-intro");
       screen.classList.add("is-choices");
-      skip.hidden = true;
       choice.inert = false;
       choice.removeAttribute("aria-hidden");
-      focusTimer = setTimeout(() => entranceButtons.get("estudante").focus({preventScroll: true}), reduceMotion() ? 0 : 380);
+      enableTimer = setTimeout(() => {
+        for (const button of entranceButtons.values()) button.disabled = false;
+      }, reduceMotion() ? 0 : ENTRANCE_MS);
     }
     function releaseScreen() {
       screen.hidden = true;
       screen.classList.remove("is-intro", "is-choices", "is-leaving");
-      document.body.classList.remove("gi-entry-lock");
       for (const node of content) node.inert = previousInert.get(node) || false;
       document.documentElement.classList.remove("gi-entry-boot");
       window.scrollTo({top: 0, behavior: "instant"});
       title.focus({preventScroll: true});
-      document.body.classList.add("gi-entry-revealed");
-      setTimeout(() => document.body.classList.remove("gi-entry-revealed"), 650);
+      window.setTimeout(() => document.body.classList.remove("gi-entry-revealed"), 1000);
     }
     function selectProfile(key) {
       if (dismissed || !Object.hasOwn(profiles, key)) return;
       dismissed = true;
       if (stepTimer !== null) clearTimeout(stepTimer);
-      if (focusTimer !== null) clearTimeout(focusTimer);
+      if (enableTimer !== null) clearTimeout(enableTimer);
       save(key);
       markSession();
       render(key);
       screen.dataset.stage = "leaving";
       screen.classList.add("is-leaving");
-      setTimeout(releaseScreen, reduceMotion() ? 0 : 400);
+      document.body.classList.remove("gi-entry-lock");
+      document.body.classList.add("gi-entry-revealed");
+      setTimeout(releaseScreen, reduceMotion() ? 0 : EXIT_MS);
     }
-    skip.addEventListener("click", showChoices);
     for (const [key, button] of entranceButtons) {
       button.addEventListener("click", () => selectProfile(key));
     }
     screen.addEventListener("keydown", event => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        if (screen.dataset.stage === "intro") showChoices();
-        else selectProfile("visitante");
-      }
-      if (event.key !== "Tab") return;
-      const focusables = [skip, ...entranceButtons.values()].filter(el => !el.hidden && !el.closest("[aria-hidden='true']"));
+      if (event.key !== "Tab" || screen.dataset.stage !== "choices") return;
+      const focusables = [...entranceButtons.values()].filter(button => !button.disabled);
       if (!focusables.length) return;
       const first = focusables[0], last = focusables[focusables.length - 1];
-      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault(); last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault(); first.focus();
+      }
     });
     select.addEventListener("change", () => { save(select.value); render(select.value); });
 
     render(read());
-    document.documentElement.classList.remove("gi-entry-boot");
-    if (sessionSeen()) return;
-    previousFocus = document.activeElement;
-    for (const node of content) { previousInert.set(node, node.inert); node.inert = true; }
+    if (sessionSeen()) {
+      document.documentElement.classList.remove("gi-entry-boot");
+      return;
+    }
+    for (const node of content) {
+      previousInert.set(node, node.inert);
+      node.inert = true;
+    }
     document.body.classList.add("gi-entry-lock");
     screen.hidden = false;
+    screen.focus({preventScroll: true});
+    document.documentElement.classList.remove("gi-entry-boot");
     if (reduceMotion()) {
       showChoices();
     } else {
       screen.dataset.stage = "intro";
-      screen.classList.add("is-intro");
-      skip.focus({preventScroll: true});
-      stepTimer = setTimeout(showChoices, 1260);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (!dismissed && screen.dataset.stage === "intro") screen.classList.add("is-intro");
+      }));
+      stepTimer = setTimeout(showChoices, INTRO_MS);
     }
     window.addEventListener("pagehide", () => {
       if (stepTimer !== null) clearTimeout(stepTimer);
-      if (focusTimer !== null) clearTimeout(focusTimer);
-    }, {once:true});
+      if (enableTimer !== null) clearTimeout(enableTimer);
+    }, {once: true});
   }
   function init() {
     const main = document.querySelector("main");
