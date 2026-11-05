@@ -23,10 +23,10 @@ function settings(env=process.env,readFile=p=>fs.readFileSync(p,"utf8")){
  if(/(service_role|sb_secret_)/i.test(env.GASTROIFF_STAGING_ANON_KEY))
   throw Error("Chave secreta de serviço proibida neste teste");
  const local=readFile("assets/praticas-config.js");
- if(!/enabled:\\s*false\\b/.test(local)||!/supabaseUrl:\\s*""/.test(local))
+ if(!/enabled:\s*false\b/.test(local)||!/supabaseUrl:\s*""/.test(local))
   throw Error("Configuração pública não está desativada. Ensaio cancelado");
  for(const k of ["GASTROIFF_MANAGER_EMAIL","GASTROIFF_TEACHER_A_EMAIL","GASTROIFF_TEACHER_B_EMAIL"]){
-  if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(env[k]))throw Error("Conta de teste inválida: "+k);
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(env[k]))throw Error("Conta de teste inválida: "+k);
  }
  const emails=[env.GASTROIFF_MANAGER_EMAIL,env.GASTROIFF_TEACHER_A_EMAIL,env.GASTROIFF_TEACHER_B_EMAIL];
  if(new Set(emails).size!==3)throw Error("As três contas de teste precisam ser distintas");
