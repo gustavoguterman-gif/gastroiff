@@ -400,3 +400,9 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - A cláusula de encerramento tenta fechar todas as sessões abertas mesmo quando uma operação de logout falha. Qualquer falha de encerramento reprova o ensaio, sem exibir tokens.
 - Novos testes simulam rejeição do segundo login e falha de logout, validando que o roteiro continua tentando encerrar as sessões restantes.
 - A homologação com o serviço Supabase real, o comportamento de revogação/expiração dos JWT e as interfaces mobile/desktop continuam sujeitos a testes próprios. A conexão institucional pública permanece desativada.
+
+## Evitar reapresentação do quadro docente após logout (05/11/2026)
+- A consulta autenticada passa a usar um identificador de geração, invalidado no início do logout e em cada nova inicialização. Respostas antigas de consulta não podem repovoar o quadro quando uma sessão é encerrada.
+- O quadro é ocultado antes da resposta remota de logout. Falhas de encerramento ficam explícitas e não são comunicadas como sucesso.
+- O ensaio de navegador força uma resposta atrasada após o usuário encerrar a sessão e verifica que nenhum ciclo reaparece, repetindo a verificação em celular, tablet e desktop.
+- A autenticação real e a revogação de tokens ainda dependem do Supabase isolado autorizado. A configuração pública permanece desativada.
