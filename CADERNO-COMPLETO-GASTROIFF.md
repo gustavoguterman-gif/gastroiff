@@ -406,3 +406,11 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - O quadro é ocultado antes da resposta remota de logout. Falhas de encerramento ficam explícitas e não são comunicadas como sucesso.
 - O ensaio de navegador força uma resposta atrasada após o usuário encerrar a sessão e verifica que nenhum ciclo reaparece, repetindo a verificação em celular, tablet e desktop.
 - A autenticação real e a revogação de tokens ainda dependem do Supabase isolado autorizado. A configuração pública permanece desativada.
+
+ 
+## Correção transversal de cabeçalho do tablet (05/11/2026, proposta isolada)
+- Na inspeção de imagens de 768px da página inicial e de oportunidades, a navegação de desktop aparecia parcialmente cortada à esquerda do logotipo. Foi identificada uma combinação contraditória de CSS no intervalo 701–980 px: grade de cabeçalho de tablet com menu de desktop ainda exibido.
+- A proposta isola `assets/institutional.css` com regra `@media(min-width:701px) and (max-width:980px)` para ocultar somente o menu de desktop e exibir o botão de menu de toque, preservando marca e ações do cabeçalho.
+- Teste Playwright para 768px incorporado em `tests/verificar-perfis-navegador.cjs`, conferindo ausência de menu desktop, botão de toque e abertura/fechamento do menu, além dos testes em 390px e 1440px já previstos pelo workflow.
+- Cache do aplicativo atualizado para v48 nesta ramificação, que parte de `main` e não deve ser combinada cegamente com cache v49 de outra proposta. A resolução final dos conflitos de versões será feita ao integrar.
+- A correção é proposta, sem resultado de CI afirmado antes da execução, e ficará em rascunho até verificação de regressão e capturas em três tamanhos.
