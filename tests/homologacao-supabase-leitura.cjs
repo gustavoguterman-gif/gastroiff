@@ -82,8 +82,13 @@ async function run(cfg,fetcher=fetch){
   assert.ok(Array.isArray(r.data),"Resposta não é coleção");
   return r.data;
  }
- const anon=await http("GET","/rest/v1/gastroiff_practice_cycles?select=id",null);
- assert.ok(!anon.ok||(Array.isArray(anon.data)&&anon.data.length===0),"Anônimo recebeu ciclos privados");
+ for(const table of ["gastroiff_practice_roles","gastroiff_practice_cycles",
+  "gastroiff_practice_documents","gastroiff_practice_items",
+  "gastroiff_practice_notifications","gastroiff_practice_audit"]){
+  const anon=await http("GET","/rest/v1/"+table+"?select=id",null);
+  assert.ok(!anon.ok||(Array.isArray(anon.data)&&anon.data.length===0),
+   "Anônimo recebeu dados privados: "+table);
+ }
  const sessions=[];
  let m,a,b;
  try{
@@ -133,7 +138,7 @@ async function run(cfg,fetcher=fetch){
   assert.ok(!blockedB.ok,"Outro docente baixou arquivo bruto restrito");
   return {passed:true,managerCycles:managerCycles.length,teacherACycles:ac.length,
    teacherBCycles:bc.length,documents:docs.length,verifiedOriginalBytes:verifiedBytes,
-   note:"Integridade binária SHA-256 conferida; revogação imediata do access token não foi testada"};
+   note:"Integridade SHA-256 e bloqueio dos originais confirmados; refresh tokens revogados após logout; access tokens não são revogados imediatamente"};
  }finally{
   // Encerrar todas as sessões obtidas, inclusive após falhas intermediárias.
   // Não interromper a limpeza quando um logout isolado falhar.
@@ -141,10 +146,23 @@ async function run(cfg,fetcher=fetch){
   for(const user of sessions){
    try{
     const res=await http("POST","/auth/v1/logout",user.access_token);
-    if(!res.ok)failures.push("HTTP "+res.status);
-   }catch(e){failures.push("falha de conexão")}
+    if(!res.ok)failures.push("logout HTTP "+res.status);
+   }catch(e){failures.push("logout sem conexão")}
   }
   if(failures.length)throw Error("Falha ao encerrar "+failures.length+" sessão(ões) fictícias");
+  // Os access tokens (JWT) podem permanecer válidos até expirar.
+  // O critério verificável do logout é a impossibilidade de renovar a sessão
+  // com os REFRESH TOKENS anteriormente emitidos, sem usar conta real.
+  for(const user of sessions){
+   try{
+    const renewed=await http("POST","/auth/v1/token?grant_type=refresh_token",null,{
+     refresh_token:user.refresh_token
+    });
+    if(renewed.ok||![400,401,403].includes(renewed.status))
+     failures.push("renovação antiga não foi comprovadamente bloqueada");
+   }catch(e){failures.push("renovação antiga sem resposta verificável")}
+  }
+  if(failures.length)throw Error("A sessão fictícia ainda pode ser renovada ou sua revogação não foi confirmada");
  }
 }
 if(require.main===module){
