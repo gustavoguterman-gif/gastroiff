@@ -120,6 +120,7 @@
   else append(pending,"p","Quadro local preparado. Sua disponibilização depende de autenticação, autorização e infraestrutura protegida.");
   $("p-snapshot-status").textContent=result.prontoParaRevisao?
    "Prévia preparada para revisão administrativa. Nenhum dado foi publicado.":"Prévia incompleta. Responda às perguntas antes de autorizar futura publicação.";
+  window.dispatchEvent(new CustomEvent("gastroiff:preview-reviewed",{detail:result}));
   return result;
  }
  $("p-build-snapshot").addEventListener("click",snapshot);
