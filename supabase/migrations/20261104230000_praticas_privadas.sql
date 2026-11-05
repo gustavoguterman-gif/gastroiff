@@ -125,8 +125,7 @@ declare t text;
 begin
  foreach t in array array[
    'gastroiff_practice_cycles','gastroiff_practice_documents',
-   'gastroiff_practice_items','gastroiff_practice_notifications',
-   'gastroiff_practice_audit']
+   'gastroiff_practice_items','gastroiff_practice_notifications']
  loop
    execute format('alter table public.%I enable row level security', t);
    execute format('revoke all on public.%I from anon, authenticated', t);
@@ -135,6 +134,46 @@ begin
    execute format('create policy manager_all on public.%I for all to authenticated using ((select public.gastroiff_is_practice_manager())) with check ((select public.gastroiff_is_practice_manager()))',t);
  end loop;
 end $$;
+
+-- Histórico apendável: consultas da Gestão, sem ALTERAR ou APAGAR eventos.
+alter table public.gastroiff_practice_audit enable row level security;
+revoke all on public.gastroiff_practice_audit from anon, authenticated;
+grant select on public.gastroiff_practice_audit to authenticated;
+drop policy if exists manager_read_audit on public.gastroiff_practice_audit;
+create policy manager_read_audit on public.gastroiff_practice_audit
+ for select to authenticated using ((select public.gastroiff_is_practice_manager()));
+
+-- Cada gravação relevante recebe evento gerado pelo banco, não pelo navegador.
+create or replace function public.gastroiff_write_practice_audit()
+returns trigger language plpgsql security definer
+set search_path = '' as $
+declare v_cycle uuid;
+begin
+ if TG_TABLE_NAME='gastroiff_practice_cycles' then
+   v_cycle:=case when TG_OP='DELETE' then OLD.id else NEW.id end;
+ else
+   v_cycle:=case when TG_OP='DELETE' then OLD.cycle_id else NEW.cycle_id end;
+ end if;
+ insert into public.gastroiff_practice_audit(cycle_id,actor_id,resource,action,detail)
+ values(v_cycle,auth.uid(),TG_TABLE_NAME,
+   case when TG_OP='INSERT' then 'create' when TG_OP='DELETE' then 'delete' else 'update' end,
+   jsonb_build_object('operation',TG_OP,'time',now()));
+ return coalesce(NEW,OLD);
+end;
+$;
+revoke all on function public.gastroiff_write_practice_audit() from public, anon, authenticated;
+drop trigger if exists audit_practice_cycle on public.gastroiff_practice_cycles;
+create trigger audit_practice_cycle after insert or update on public.gastroiff_practice_cycles
+ for each row execute function public.gastroiff_write_practice_audit();
+drop trigger if exists audit_practice_documents on public.gastroiff_practice_documents;
+create trigger audit_practice_documents after insert or update or delete on public.gastroiff_practice_documents
+ for each row execute function public.gastroiff_write_practice_audit();
+drop trigger if exists audit_practice_items on public.gastroiff_practice_items;
+create trigger audit_practice_items after insert or update or delete on public.gastroiff_practice_items
+ for each row execute function public.gastroiff_write_practice_audit();
+drop trigger if exists audit_practice_notifications on public.gastroiff_practice_notifications;
+create trigger audit_practice_notifications after insert or update or delete on public.gastroiff_practice_notifications
+ for each row execute function public.gastroiff_write_practice_audit();
 
 drop policy if exists teacher_read_approved_cycle on public.gastroiff_practice_cycles;
 create policy teacher_read_approved_cycle on public.gastroiff_practice_cycles
