@@ -1,0 +1,34 @@
+name: Conferir site publicado em desktop e aplicativo
+on:
+  deployment_status:
+  schedule:
+    - cron: '12 12 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: verificar-site-publicado
+  cancel-in-progress: true
+jobs:
+  site-publicado:
+    if: ${{ github.event_name != 'deployment_status' || (github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'github-pages') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar navegador
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps --only-shell chromium
+      - name: Verificar site real publicado e PWA
+        run: node tests/site-publicado-navegador.cjs
+      - name: Guardar telas e relatório da publicação
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-publicado-desktop-mobile
+          path: reports/site-publicado/
+          if-no-files-found: ignore
