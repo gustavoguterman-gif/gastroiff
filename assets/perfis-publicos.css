@@ -35,3 +35,27 @@
 @media(max-width:760px){.gi-profile-entrance-options{gap:8px}.gi-profile-entrance-button{padding:12px 9px;min-height:100px}}
 @media(max-width:600px){.gi-profile-entrance-options{grid-template-columns:1fr;width:100%;max-width:430px;gap:8px}.gi-profile-entrance-button{min-height:64px;align-items:flex-start;text-align:left;padding:11px 16px;gap:3px}.gi-profile-entrance-button strong{font-size:1rem}.gi-profile-entrance-logo{max-height:85px}.gi-profile-entrance{padding:4px 0 16px}.gi-personal-head{padding-top:12px}}
 @media(prefers-reduced-motion:reduce){.gi-profile-entrance-button{transition:none}}
+
+/* Ajuste após inspeção real das capturas 390, 768 e 1440 px:
+   preservar marca no cabeçalho e eliminar instruções redundantes. */
+.gi-profile-entrance{gap:6px;padding:7px 0 12px}
+.gi-profile-entrance>p{margin-bottom:6px}
+.gi-personal-head{display:flex;justify-content:flex-end;align-items:center;border-top:0;margin-top:11px;padding:0}
+.gi-personal-choice{display:flex;align-items:center;gap:11px;min-width:0}
+.gi-personal-choice label{font-size:.8rem;line-height:1.4;white-space:normal}
+.gi-personal-choice select{width:min(235px,100%);padding:8px 10px}
+.gi-personal-panel{margin-top:3px;padding:15px 18px}
+.gi-personal-section{padding:17px 0 19px}
+@media(max-width:600px){
+ .gi-profile-entrance{padding:0 0 10px}
+ .gi-profile-entrance>p{font-size:.88rem;line-height:1.4}
+ .gi-profile-entrance h2{font-size:1.26rem;line-height:1.23}
+ .gi-profile-entrance-options{gap:7px}
+ .gi-profile-entrance-button{min-height:58px;padding:10px 13px}
+ .gi-personal-choice{width:100%;justify-content:space-between;gap:8px}
+ .gi-personal-choice label{font-size:.76rem}
+ .gi-personal-choice select{max-width:170px;flex:1}
+ .gi-personal-panel{padding:13px 14px}
+ .gi-personal-panel>p{margin-bottom:8px}
+ .gi-personal-section{padding:12px 0 16px}
+}
