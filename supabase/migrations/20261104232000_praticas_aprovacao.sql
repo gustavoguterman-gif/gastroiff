@@ -26,7 +26,7 @@ begin
 end;
 $$;
 drop trigger if exists gastroiff_guard_cycle on public.gastroiff_practice_cycles;
-create trigger gastroiff_guard_cycle before insert or update on public.gastroiff_practice_cycles
+create trigger gastroiff_guard_cycle before insert or update or delete on public.gastroiff_practice_cycles
 for each row execute function public.gastroiff_guard_practice_cycle();
 
 create or replace function public.gastroiff_guard_practice_documents()
@@ -42,8 +42,6 @@ begin
  end if;
  if TG_OP='INSERT' and exists(select 1 from public.gastroiff_practice_cycles c where c.id=NEW.cycle_id and c.status='aprovado') then
     raise exception 'Ciclo aprovado não aceita novos documentos'; end if;
- if TG_OP='INSERT' and exists(select 1 from public.gastroiff_practice_cycles c where c.id=NEW.cycle_id and c.status='aprovado') then
-  raise exception 'Ciclo aprovado não aceita novos insumos'; end if;
  if TG_OP='UPDATE' and current_user='authenticated' and
     (OLD.reviewed or NEW.reviewed is distinct from OLD.reviewed or
      NEW.reviewed_by is distinct from OLD.reviewed_by or
@@ -68,6 +66,8 @@ begin
  if TG_OP='INSERT' and NEW.approved then
    raise exception 'Insumos novos aguardam aprovação do ciclo';
  end if;
+ if TG_OP='INSERT' and exists(select 1 from public.gastroiff_practice_cycles c where c.id=NEW.cycle_id and c.status='aprovado') then
+  raise exception 'Ciclo aprovado não aceita novos insumos'; end if;
  if TG_OP='UPDATE' and current_user='authenticated' and
     (NEW.approved is distinct from OLD.approved or OLD.approved) then
    raise exception 'Alteração de insumos aprovados exige revisão administrativa';
