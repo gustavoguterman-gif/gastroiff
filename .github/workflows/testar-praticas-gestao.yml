@@ -15,7 +15,7 @@ on:
       - 'assets/praticas-config.js'
       - 'assets/praticas-gestao-privada.js'
       - 'assets/praticas-gestao-privada-ui.js'
-      - 'tests/praticas-gestao-privada.test.cjs'
+      - 'tests/praticas-gestao-privada.test.cjs tests/praticas-aprovacao-rpc.test.cjs'
       - 'tests/praticas-gestao-privada-navegador.cjs'
       - 'tests/praticas-acesso.test.cjs tests/praticas-gestao-privada.test.cjs'
       - 'tests/praticas-painel-autenticado-navegador.cjs'
@@ -55,6 +55,8 @@ jobs:
         run: node tests/planejamento-docente-navegador.cjs
       - name: Testar painel docente com acesso bloqueado e sessão simulada
         run: node tests/praticas-painel-autenticado-navegador.cjs
+      - name: Conferir revisão e aprovação em celular tablet e desktop
+        run: node tests/praticas-aprovacao-navegador.cjs
       - name: Testar gravação e envio privado com sessão simulada
         run: node tests/praticas-gestao-privada-navegador.cjs
       - name: Testar painel docente e conferência administrativa

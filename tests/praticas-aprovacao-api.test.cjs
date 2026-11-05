@@ -1,0 +1,1 @@
+const test=require('node:test'); const assert=require('node:assert/strict'); const api=require('../assets/praticas-gestao-privada.js'); test('quantidade pendente',()=>{assert.equal(api.normalizedRows([{insumo:'Farinha',unidade:'kg',solicitado:10,encaminhado:10,confirmado:null}])[0].confirmed,null)});
