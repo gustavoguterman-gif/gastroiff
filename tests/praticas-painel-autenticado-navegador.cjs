@@ -64,6 +64,32 @@ window.supabase={createClient:()=>window.__fakeClient};
    await p.locator("[data-private-logout]").click();
    assert.equal(await p.locator(".gi-private-cycle").count(),0);
    assert.equal(await p.locator("[data-private-login]").isVisible(),true);
+   // Uma resposta antiga nunca pode reabrir o quadro após encerramento de sessão.
+   await p.evaluate(()=>{
+    const previous=window.__fakeClient.from.bind(window.__fakeClient);
+    window.__fakeClient.from=table=>{
+     if(table!=="gastroiff_practice_cycles")return previous(table);
+     const query={
+      select(){return query},eq(){return query},order(){return query},
+      then(ok,fail){return new Promise(resolve=>{window.__finishOldCycleRequest=resolve})
+       .then(ok,fail)}
+     };
+     return query;
+    };
+    window.GASTROIFF_PAINEL_START(window.GASTROIFF_PRATICAS_CONFIG,()=>window.__fakeClient);
+   });
+   await p.waitForFunction(()=>typeof window.__finishOldCycleRequest==="function");
+   await p.evaluate(()=>document.querySelector("[data-private-logout]").click());
+   await p.evaluate(()=>{
+    window.__finishOldCycleRequest({data:[{
+     id:"late-cycle",teacher_user_id:"teacher-1",status:"aprovado",
+     subject:"Ciclo atrasado",course:"Tecnólogo",starts_on:"2026-11-01",
+     ends_on:"2026-11-30",weekdays:[1],begins_at:"08:00",ends_at:"12:00",location:"Laboratório"
+    }],error:null});
+   });
+   await p.waitForTimeout(50);
+   assert.equal(await p.locator(".gi-private-cycle").count(),0,device+" resposta atrasada após logout");
+   assert.equal(await p.locator("[data-private-results]").isVisible(),false,device+" quadro protegido oculto");
    assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth-innerWidth)<=3,true,device+" largura autenticada");
    assert.deepEqual(activeErrors,[],device+" erros em acesso");
    console.log("Painel docente seguro aprovado:",device);
