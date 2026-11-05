@@ -4,10 +4,10 @@ insert into auth.users(id) values
  ('00000000-0000-4000-8000-000000000001'), -- gestão
  ('00000000-0000-4000-8000-000000000002'), -- docente do ciclo
  ('00000000-0000-4000-8000-000000000003'); -- outro docente
-insert into public.gastroiff_practice_roles(user_id,role) values
- ('00000000-0000-4000-8000-000000000001','gestao'),
- ('00000000-0000-4000-8000-000000000002','docente'),
- ('00000000-0000-4000-8000-000000000003','docente');
+insert into public.gastroiff_practice_roles(user_id,role,display_name) values
+ ('00000000-0000-4000-8000-000000000001','gestao','Coordenação de Gestão'),
+ ('00000000-0000-4000-8000-000000000002','docente','Docente A'),
+ ('00000000-0000-4000-8000-000000000003','docente','Docente B');
 
 set role authenticated;
 set request.jwt.claim.sub='00000000-0000-4000-8000-000000000001';
@@ -32,6 +32,9 @@ insert into storage.objects(bucket_id,name) values
  ('gastroiff-praticas-privado','10000000-0000-4000-8000-000000000001/a.xlsx');
 do $$
 begin
+ if (select count(*) from public.gastroiff_practice_roles)<>3 then
+   raise exception 'gestor não consegue localizar identidades docentes cadastradas';
+ end if;
  if (select count(*) from public.gastroiff_practice_cycles)<>2 then
    raise exception 'gestor não visualiza ciclos vinculados';
  end if;
@@ -53,6 +56,9 @@ end $$;
 set request.jwt.claim.sub='00000000-0000-4000-8000-000000000002';
 do $$
 begin
+ if (select count(*) from public.gastroiff_practice_roles)<>1 then
+   raise exception 'docente consegue listar outras identidades';
+ end if;
  if (select count(*) from public.gastroiff_practice_cycles)<>1 then
    raise exception 'docente teve acesso a ciclo de outro ou não recebeu próprio ciclo aprovado';
  end if;
@@ -68,6 +74,11 @@ begin
  if (select count(*) from public.gastroiff_practice_audit)<>0 then
    raise exception 'histórico administrativo exposto a docente';
  end if;
+ begin
+  update public.gastroiff_practice_roles set role='gestao';
+  raise exception 'docente conseguiu promover seu próprio perfil';
+ exception when insufficient_privilege then null;
+ end;
  update public.gastroiff_practice_items set confirmed=100;
  if found then raise exception 'docente alterou quantidade'; end if;
 end $$;
