@@ -10,6 +10,8 @@ on:
       - 'tests/praticas-db-aprovacao.sql'
       - 'tests/praticas-db-setup.sql'
       - 'tests/praticas-db-permissoes.sql'
+      - 'supabase/migrations/20261104233000_praticas_storage_lock.sql'
+      - 'tests/praticas-db-storage-lock.sql'
       - '.github/workflows/testar-infraestrutura-praticas.yml'
   workflow_dispatch:
 permissions:
@@ -52,6 +54,10 @@ jobs:
         run: psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261104231000_staff_visibility.sql
       - name: Conferir isolamento, bloqueios e histórico
         run: psql -v ON_ERROR_STOP=1 -f tests/praticas-db-permissoes.sql
+      - name: Restringir exclusão de originais registrados
+        run: psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261104233000_praticas_storage_lock.sql
+      - name: Verificar preservação do original e limpeza de uploads órfãos
+        run: psql -v ON_ERROR_STOP=1 -f tests/praticas-db-storage-lock.sql
       - name: Instalar funções de revisão e aprovação
         run: psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261104232000_praticas_aprovacao.sql
       - name: Instalar rotina de insumos estruturados

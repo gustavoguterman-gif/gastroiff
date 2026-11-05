@@ -380,3 +380,9 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - Bateria de testes inclui docente tentando criar/apagar arquivo no bucket privado, ausência de JWT no acesso ao banco e consulta de arquivo após perda de sessão na simulação do cliente.
 - Os testes PostgreSQL usam identidades fictícias e verificam as políticas de acesso. A operação real de encerramento/revogação de tokens e o armazenamento completo do serviço Supabase exigem ensaio adicional no ambiente de homologação autorizado.
 - Não ativar a configuração pública de autenticação nem utilizar dados institucionais reais antes da autorização e do ensaio de integração com serviço privado.
+
+## Proteção adicional do armazenamento privado (05/11/2026)
+- A política anterior de armazenamento permitia à Gestão apagar arquivos registrados diretamente no bucket, mesmo quando os metadados de um ciclo aprovado estavam protegidos. Esta lacuna foi identificada em revisão de código.
+- Nova migração separa permissões de leitura, criação e exclusão. O arquivo já cadastrado em `gastroiff_practice_documents` não pode ser removido nem substituído por um cliente autenticado. Somente uploads órfãos, ainda não vinculados à documentação, podem ser apagados pela Gestão para desfazer um envio incompleto.
+- Testes específicos cobrem integridade de documento cadastrado, documento não revisado, ausência de política UPDATE, remoção de órfão e bloqueio de docentes. As verificações passam pelo PostgreSQL temporário do CI e devem ser repetidas em Supabase real de homologação antes da implantação.
+- A migração não é executada em produção; a configuração pública permanece desligada e não devem ser usados arquivos institucionais reais nesta etapa.
