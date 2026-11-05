@@ -29,7 +29,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   excel:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
@@ -38,7 +38,7 @@ jobs:
           node-version: '22'
       - name: Instalar leitor Excel oficial e navegador
         run: |
-          npm install --no-save playwright https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
+          npm install --no-save --no-package-lock playwright@1.56.1 https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
           npx playwright install --with-deps chromium
       - name: Testes XLS e XLSX binarios
         run: node --test tests/excel-insumos.test.cjs
