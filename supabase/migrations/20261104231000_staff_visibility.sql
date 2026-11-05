@@ -12,5 +12,10 @@ alter table public.gastroiff_practice_roles
 drop policy if exists manager_read_staff_roles on public.gastroiff_practice_roles;
 create policy manager_read_staff_roles on public.gastroiff_practice_roles
  for select to authenticated using ((select public.gastroiff_is_practice_manager()));
+-- Cada versão documental é única dentro de um ciclo e etapa.
+alter table public.gastroiff_practice_documents
+ drop constraint if exists unique_cycle_document_revision;
+alter table public.gastroiff_practice_documents
+ add constraint unique_cycle_document_revision unique(cycle_id,kind,revision);
 -- Nenhum UPDATE ou INSERT de papéis é concedido a clientes autenticados.
 commit;
