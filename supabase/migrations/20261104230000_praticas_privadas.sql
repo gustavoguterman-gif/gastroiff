@@ -163,7 +163,7 @@ end;
 $$;
 revoke all on function public.gastroiff_write_practice_audit() from public, anon, authenticated;
 drop trigger if exists audit_practice_cycle on public.gastroiff_practice_cycles;
-create trigger audit_practice_cycle after insert or update on public.gastroiff_practice_cycles
+create trigger audit_practice_cycle after insert or update or delete on public.gastroiff_practice_cycles
  for each row execute function public.gastroiff_write_practice_audit();
 drop trigger if exists audit_practice_documents on public.gastroiff_practice_documents;
 create trigger audit_practice_documents after insert or update or delete on public.gastroiff_practice_documents
