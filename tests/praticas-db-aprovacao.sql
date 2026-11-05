@@ -102,8 +102,27 @@ begin
  end;
 end $$;
 
-update public.gastroiff_practice_items set confirmed=6 where
- cycle_id='10000000-0000-4000-8000-000000000002';
+-- A importação validada substitui linhas do rascunho em uma só transação.
+select public.gastroiff_save_practice_items(
+ '10000000-0000-4000-8000-000000000002',
+ '20000000-0000-4000-8000-000000000004',
+ '[{"description":"Farinha integral","unit":"kg","requested":10,"forwarded":10,"confirmed":6,"received":null}]'::jsonb
+);
+-- Uma tentativa de alterar a importação com número inválido mantém os dados.
+do $$
+begin
+ begin
+  perform public.gastroiff_save_practice_items(
+   '10000000-0000-4000-8000-000000000002',
+   '20000000-0000-4000-8000-000000000004',
+   '[{"description":"Farinha integral","unit":"kg","requested":10,"forwarded":10,"confirmed":6},{"description":"Ovos","unit":"un","requested":20,"forwarded":-1}]'::jsonb);
+  raise exception 'Importação inválida alterou dados';
+ exception when raise_exception then
+  if sqlerrm='Importação inválida alterou dados' then raise; end if;
+ end;
+ if (select count(*) from public.gastroiff_practice_items where cycle_id='10000000-0000-4000-8000-000000000002')<>1
+ then raise exception 'Rollback de importação destruiu dados válidos'; end if;
+end $$;
 select public.gastroiff_approve_cycle('10000000-0000-4000-8000-000000000002');
 do $$
 begin
