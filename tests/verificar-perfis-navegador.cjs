@@ -20,7 +20,9 @@ const root = "http://127.0.0.1:8765/";
         assert.equal(await page.locator(".headerline>.navbar.gi-unified-desktop").isVisible(),false,"navbar desktop oculto em tablet");
         assert.equal(await page.locator(".headerline>.menu-toggle").isVisible(),true,"menu de toque visível em tablet");
         await page.locator(".headerline>.menu-toggle").click();
-        assert.equal(await page.locator("[data-mobile-menu]").isVisible(),true,"menu tablet abre");
+        const tabletMenu=await page.locator("[data-mobile-menu]").evaluate(el=>({className:el.className,visible:getComputedStyle(el).visibility,display:getComputedStyle(el).display,pointer:getComputedStyle(el).pointerEvents,width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height,expanded:document.querySelector("[data-menu-toggle]")?.getAttribute("aria-expanded")}));
+        console.log("Diagnóstico do menu no tablet:",JSON.stringify(tabletMenu));
+        assert.equal(await page.locator("[data-mobile-menu]").isVisible(),true,"menu tablet abre: "+JSON.stringify(tabletMenu));
         await page.locator(".headerline>.menu-toggle").click();
       }
       assert.equal(await page.locator("#gi-profile-choice").inputValue(),"visitante");
