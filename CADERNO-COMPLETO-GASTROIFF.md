@@ -463,3 +463,11 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - Macrofases A a F reúnem mudanças maiores, cada uma com critérios internos de qualidade e relatório final. Esse agrupamento reduz a necessidade de pedidos manuais de continuidade sem dispensar testes ou decisões institucionais.
 - Conferência dos estados nesta rodada: PR #26 e #27 seguem isolados em rascunho; #28 também permanece em rascunho, com os dois workflows (42026549364 e 42026549347) aprovados e inspeção visual comparativa ainda pendente. Homologação privada real de #26 permanece não comprovada.
 - A completude absoluta das conversas históricas deve ser comprovada por confrontação com transcrições integrais, quando disponíveis. A auditoria atual examinou o histórico documentado e referências recuperáveis; registra expressamente esse limite para não inventar cobertura.
+
+
+## 25. Calibragem responsável das automações (05/11/2026)
+- Após revisão do custo/benefício, fica substituída a proposta preliminar de consultas a cada 2 ou 6 horas como rotina geral. O planejamento vigente encontra-se em `AUDITORIA-INTEGRAL-REQUISITOS-E-AUTOMACOES-20261105.md`, no quadro “Frequências iniciais propostas, revisadas para menor consumo”.
+- Preferir verificação diária em dias úteis para editais e vagas vigentes, semanal para calendários e eventos, mensal para revistas já catalogadas e links gerais, trimestral para descoberta de revistas. Exceções só quando houver prazo relevante, comportamento comprovado da fonte e custo justificado.
+- Conferir primeiramente se houve alteração; baixar, reprocessar e publicar somente quando necessário. Quando possível usar metadados HTTP ou feeds e agrupar a coleta fora do navegador para não prejudicar o carregamento do site.
+- Monitorar taxa real de alterações por fonte durante pelo menos quatro semanas antes de aumentar frequências. Respeitar cotas e erros, com pausas e tentativas controladas; não confundir agendamento planejado com execução garantida.
+- Esta decisão atualiza somente o planejamento, sem disparar rotinas, alterar os agendamentos atualmente publicados nem afetar os dados já exibidos. Mudanças nos workflows exigem auditoria dos existentes e testes próprios.
