@@ -1,0 +1,31 @@
+name: Verificar fontes academicas oficiais do IFF
+on:
+  schedule:
+    - cron: '17 11 * * 6'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: verificar-fontes-institucionais
+  cancel-in-progress: false
+jobs:
+  conferir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Testar validacao de fontes sem rede
+        run: python3 -m unittest discover -s tests -p 'test_fontes_iff.py' -v
+      - name: Conferir somente fontes do IFF publicas
+        run: python3 scripts/verificar_fontes_iff.py
+      - name: Guardar relatorio para acompanhamento
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fontes-institucionais-iff
+          path: reports/fontes-institucionais.json
+          if-no-files-found: warn
+          retention-days: 90
