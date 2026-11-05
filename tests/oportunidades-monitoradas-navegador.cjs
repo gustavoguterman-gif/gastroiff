@@ -25,6 +25,26 @@ const assert=require("node:assert/strict");
    await page.waitForFunction(()=>document.querySelector("[data-monitor-summary]")?.textContent.includes("04/11/2026"));
    await page.waitForFunction(()=>!document.querySelector("[data-refresh-opportunities]").disabled && document.querySelector("[data-opportunities-status]")?.textContent.includes("Consulta concluída"));
    assert.equal(requests,1,"a primeira consulta precisa terminar antes do novo clique");
+   // Conferir densidade sem perda de informações ou ações nos três formatos.
+   const layout=await page.evaluate(()=>{
+     const cards=[...document.querySelectorAll("[data-opportunities-content] .gi-vacancy:not([hidden])")];
+     const monitored=[...document.querySelectorAll("[data-monitored-opportunities] article")];
+     const grid=document.querySelector("[data-monitored-opportunities] .gi-vacancies");
+     const first=cards[0];
+     return {columns:getComputedStyle(grid).gridTemplateColumns.split(" ").length,
+       padding:parseFloat(getComputedStyle(first).paddingTop),
+       heading:parseFloat(getComputedStyle(first.querySelector("h3")).fontSize),
+       sourceVisible:!!first.querySelector(".gi-vacancy-source"),
+       actionVisible:!!first.querySelector(".gi-vacancy-apply"),
+       mainCardCount:cards.length,monitoredCardCount:monitored.length};
+   });
+   assert.equal(layout.columns,width>1050?3:width>640?2:1,device+" colunas responsivas");
+   assert.ok(layout.padding<=17,device+" preenchimento compacto");
+   assert.ok(layout.heading>=16,device+" legibilidade");
+   assert.ok(layout.sourceVisible&&layout.actionVisible,device+" fonte e ação preservadas");
+   assert.ok(layout.mainCardCount>0&&layout.monitoredCardCount===2,device+" cartões presentes");
+   const cardHeights=await page.locator("[data-opportunities-content] .gi-vacancy:not([hidden])").evaluateAll(nodes=>nodes.slice(0,2).map(n=>n.getBoundingClientRect().height));
+   assert.ok(cardHeights[0]>cardHeights[1]+20,device+" cartões curtos não devem esticar até a altura do anúncio longo: "+cardHeights);
    assert.equal(await page.locator("[data-monitored-opportunities] article").count(),2,"somente origens autorizadas");
    assert.match(await page.locator("[data-monitored-opportunities]").innerText(),/confira se a seleção continua aberta/i);
    const links=await page.locator("[data-monitored-opportunities] article a").evaluateAll(nodes=>nodes.map(a=>a.getAttribute("href")));
