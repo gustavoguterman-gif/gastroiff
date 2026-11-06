@@ -58,7 +58,7 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
         if(!obj.visual.profileSelector||obj.visual.profileSelector.width>148
           ||obj.visual.profileSelector.height>38
           ||obj.visual.profileSelector.r>width+1
-          ||obj.visual.profileSelector.options.join(",")!=="visitante,estudante,docente")
+          ||obj.visual.profileSelector.options.join(",")!=="visitante,estudante,docente,egresso")
           findings.push({file,view,error:"Seletor de perfil fora do padrão",metrics:obj.visual.profileSelector});
       }
       if(["index.html","cursos.html","docentes.html","pesquisa.html","revistas.html",
