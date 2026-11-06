@@ -1,4 +1,4 @@
-const CACHE='gastroiff-offline-v62';
+const CACHE='gastroiff-offline-v63';
 const SHELL=[
  './','./index.html','./oportunidades.html','./contato.html','./cursos.html','./laboratorios.html','./biblioteca.html',
  './docentes.html','./planejamento-docente.html','./gestao-documentos-praticas.html','./participacao.html','./trajetorias.html','./gastronomia-em-acao.html','./ocorrencias.html','./painel.html','./gestao.html','./pesquisa.html','./projetos.html','./manual-laboratorio.html','./perfil.html','./eventos.html','./acervo.html','./documentos.html','./livro.html',
@@ -11,7 +11,7 @@ self.addEventListener('install',event=>{
 });
 self.addEventListener('activate',event=>{
  event.waitUntil(Promise.all([
-  caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))),
+  caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('gastroiff-offline-') && key!==CACHE).map(key=>caches.delete(key)))),
   self.clients.claim()
  ]));
 });
