@@ -141,8 +141,15 @@
   if(!Array.isArray(rows)||rows.length<1||rows.length>250)throw Error("Quantidade de insumos inválida");
   return rows.map((r,index)=>{
    const n=v=>{
-    if(v===null||v===undefined||v==="")return null;
-    const x=Number(v);if(!Number.isFinite(x)||x<0||x>99999999.9999)throw Error("Quantidade inválida na linha "+(index+1));
+    if(v===null||v===undefined)return null;
+    if(typeof v==="string"){
+     v=v.trim();
+     if(!v)return null;
+     if(!/^(?:\\d+(?:\\.\\d+)?|\\.\\d+)$/.test(v))
+      throw Error("Quantidade inválida na linha "+(index+1));
+    }else if(typeof v!=="number")throw Error("Quantidade inválida na linha "+(index+1));
+    const x=Number(v);
+    if(!Number.isFinite(x)||x<0||x>99999999.9999)throw Error("Quantidade inválida na linha "+(index+1));
     return x;
    };
    const description=String(r.description??r.insumo??"").trim(),unit=String(r.unit??r.unidade??"").trim();
