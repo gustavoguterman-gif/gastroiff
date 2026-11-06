@@ -105,10 +105,12 @@ test("falha de rede ao consultar histórico remove upload privado incompleto",as
  assert.deepEqual(c.calls.removed,[c.calls.uploads[0].path]);
  assert.equal(c.calls.inserts.length,0);
 });
-test("falha de rede ao registrar documento remove upload privado incompleto",async()=>{
+test("resposta inconclusiva do registro preserva arquivo para conferência",async()=>{
  const c=client({rejectInsert:true});
- await assert.rejects(api.storeDocument(c,cycleId,"pedidoDocente",excel,fakeCrypto),/rede indisponível/);
- assert.deepEqual(c.calls.removed,[c.calls.uploads[0].path]);
+ await assert.rejects(api.storeDocument(c,cycleId,"pedidoDocente",excel,fakeCrypto),
+  /Verifique o histórico antes de repetir/);
+ assert.equal(c.calls.uploads.length,1);
+ assert.deepEqual(c.calls.removed,[]);
 });
 test("falha ao remover upload incompleto não é ocultada",async()=>{
  const c=client({rejectHistory:true,failCleanup:true});
