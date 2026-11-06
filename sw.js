@@ -31,7 +31,7 @@ self.addEventListener('fetch',event=>{
    if(saved)return saved;
    // Permitir recursos estáticos versionados mesmo no primeiro uso offline.
    // Restrito a CSS/JS públicos: nunca ignorar parâmetros de outras URLs.
-   if(/\\/assets\\/[^/]+\\.(?:css|js)$/.test(url.pathname)){
+   if(/\/assets\/[^/]+\.(?:css|js)$/.test(url.pathname)){
     const shell=await cache.match(req,{ignoreSearch:true});
     if(shell)return shell;
    }
