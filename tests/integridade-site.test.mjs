@@ -80,10 +80,13 @@ test("percurso docente e fontes institucionais estão conectados sem prometer in
 });
 
 
-test("a abertura não recolhe identificadores e oferece saída acessível",()=>{
+test("a abertura é exibida em cada acesso sem recolher identificadores",()=>{
  const js=fs.readFileSync(path.join(root,"assets/perfis-publicos.js"),"utf8");
  const css=fs.readFileSync(path.join(root,"assets/perfis-publicos.css"),"utf8");
- assert.match(js,/gastroiff-entry-session-v1/);
+ assert.doesNotMatch(js,/sessionSeen\(|markSession\(|gastroiff-entry-session-v1/);
+ const homepage=fs.readFileSync(path.join(root,"index.html"),"utf8");
+ assert.doesNotMatch(homepage,/sessionStorage\.getItem\("gastroiff-entry-session-v1"\)/);
+ assert.match(homepage,/perfis-publicos\.js\?v=6/);
  assert.match(js,/button\.dataset\.profileEntry\s*=\s*key/);
  assert.match(js,/aria-modal/);
  assert.doesNotMatch(js,/Pular animação|gi-entry-skip/);

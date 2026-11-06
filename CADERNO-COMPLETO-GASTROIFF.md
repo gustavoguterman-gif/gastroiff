@@ -574,3 +574,11 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - Solicitada e implementada a redução proporcional do grupo Contato, Localização e App no celular, tablet e computador, preservando acionamento e acessibilidade. Definidas dimensões únicas dos três controles por breakpoint e testes automatizados de alinhamento, sobreposição e interação.
 - A sequência oficial do projeto mantém **9 fases, de 0 a 8**, conforme MAPA-CONSTRUCAO-GASTROIFF.md. Todas as próximas comunicações de conclusão devem informar fase referente, total e link https://gustavoguterman-gif.github.io/gastroiff/.
 - Esta é uma correção visual transversal da Fase 1, que continua parcialmente construída no mapa. A Fase 2 de infraestrutura protegida continua pendente de homologação real, não deve ser anunciada como concluída.
+
+
+## 38. Reexibir a entrada em desktop, tablet e aplicativo (05/11/2026)
+- Diagnóstico: o controle `sessionStorage` escondia a abertura após a primeira escolha no mesmo navegador, enquanto os testes anteriores abriam novas sessões isoladas. Isso fazia a versão desktop aparentar ausência da animação.
+- Decisão: sempre exibir a abertura ao carregar a página inicial, mesmo ao atualizar a mesma aba ou retornar de outra página. O perfil anteriormente escolhido continua guardado somente para o conteúdo posterior, nunca para suprimir a tela de escolha. Mantidos o ritmo de 2,45 s para a marca, a entrada progressiva dos três botões e a ordem Visitante, Estudante e Docente.
+- Atualizados teste de recarga, retorno de outra página, PWA offline e verificação do site publicado. Nenhum cadastro ou dado institucional é coletado. Preferências de movimento reduzido permanecem respeitadas.
+- Os alertas de GitHub Actions devem ser classificados por commit e estado atualizado: falhas em commits antigos de propostas corrigidas não representam falhas presentes na branch principal. A configuração de envio de e-mails do GitHub pertence à conta do proprietário, não ao código do projeto.
+- Progresso geral: revisão visual vinculada à Fase 1 de um total de 9 fases (0 a 8), sem completar a Fase 2 protegida.
