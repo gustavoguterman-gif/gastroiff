@@ -150,6 +150,12 @@
       ["docente", "Docente", "Planejamento, materiais e atividades acadêmicas"],
       ["egresso", "Egresso", "Pesquisas de egressos, oportunidades e calendário"]
     ];
+    const entranceIcons = {
+      visitante: '<circle cx="12" cy="8" r="3"/><path d="M6 20v-2a6 6 0 0 1 12 0v2M3 10a2 2 0 1 0 0-4M2 19v-2a4 4 0 0 1 3-3.87M21 10a2 2 0 1 1 0-4M22 19v-2a4 4 0 0 0-3-3.87"/>',
+      estudante: '<path d="m2 9 10-5 10 5-10 5L2 9ZM6 11v6c4 3 8 3 12 0v-6M22 9v7"/>',
+      docente: '<rect x="8" y="3" width="13" height="13" rx="2"/><path d="M11 7h7M11 10h5M3.5 13a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM2 21v-3a4 4 0 0 1 8 0v3M9 17l4-4"/>',
+      egresso: '<path d="M6 4h11a4 4 0 0 1 0 8H6a4 4 0 0 0 0 8h12M6 4a4 4 0 0 0 0 8m0 0a4 4 0 0 1 0 8M15 15l2 2 2-2M17 17v5"/>'
+    };
     const entranceButtons = new Map();
     for (const [key, name, description] of primary) {
       const button = document.createElement("button");
@@ -159,7 +165,18 @@
       button.disabled = true;
       button.setAttribute("aria-pressed", "false");
       button.setAttribute("aria-label", name + ". " + description);
-      button.textContent = name;
+      const icon = document.createElement("span");
+      icon.className = "gi-entry-card-icon";
+      icon.setAttribute("aria-hidden", "true");
+      icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + entranceIcons[key] + '</svg>';
+      const caption = document.createElement("span");
+      caption.className = "gi-entry-card-label";
+      caption.textContent = name;
+      const arrow = document.createElement("span");
+      arrow.className = "gi-entry-card-arrow";
+      arrow.setAttribute("aria-hidden", "true");
+      arrow.textContent = "›";
+      button.append(icon, caption, arrow);
       entranceButtons.set(key, button);
       choices.append(button);
     }
