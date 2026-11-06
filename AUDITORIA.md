@@ -117,3 +117,11 @@ Este documento distingue alterações feitas no código de verificações que ai
 - Corrigida a detecção para identificar a presença do módulo versionado sem fixar versões antigas. Atualizada a regra de estilo para `site.css?v=20261106-motion2` e a lista esperada do seletor para visitante, estudante, docente e egresso.
 - A rotina completa já existe em `.github/workflows/validacao-completa.yml` com acionamento em `push` e `pull_request` na `main`; não criar rotina geral duplicada.
 - A mudança está registrada no código, mas **a aprovação da execução após a correção ainda não foi confirmada**. Também permanece pendente homologação visual manual e do serviço de autenticação real.
+
+## Falhas reais de CI identificadas e correção dos perfis (06/11/2026)
+
+- Foram localizadas notificações efetivas de falha dos workflows do GitHub em 06/11 e analisados os logs oficiais, não apenas os assuntos dos e-mails.
+- Na execução da conferência do site publicado `42311455411`, o teste de navegador falhou em `tests/site-publicado-navegador.cjs`: encontrou **4** perfis de entrada, mas ainda exigia **3**. A interface pública `assets/perfis-publicos.js` contém corretamente Visitante, Estudante, Docente e Egresso. Trata-se de teste obsoleto, não de comprovação de falha da própria interface.
+- A execução da validação completa `42290550470` sofreu o mesmo erro. Antes disso, os logs confirmam a aprovação do fluxo de Gestão em celular, tablet e desktop, PWA em mobile e desktop, e auditoria de 29 páginas x 3 tamanhos, com **87 de 87** verificações aprovadas e **0** ocorrências bloqueantes. O relatório anotou 15 avisos de largura de seletores, classificados como não bloqueantes, sujeitos a inspeção estética posterior.
+- Corrigidos três pontos de expectativa em `tests/site-publicado-navegador.cjs`: contagem de botões, sequência dos perfis e textos após recarga para quatro perfis. **Não afirmar que a execução posterior está aprovada antes de obter os logs.**
+- Permanecem necessárias validação da publicação mais recente nos três formatos, inspeção das capturas, e homologação da Gestão com infraestrutura protegida real.
