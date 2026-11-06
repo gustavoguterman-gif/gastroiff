@@ -4,7 +4,7 @@ const rules=require("../assets/praticas-regras.js");
 const manager="00000000-0000-4000-8000-000000000001";
 const teacher="00000000-0000-4000-8000-000000000002";
 const cycleId="10000000-0000-4000-8000-000000000001";
-function client({role="gestao",session=manager,failDocument=false,failUpload=false}={}){
+function client({role="gestao",session=manager,failDocument=false,failUpload=false,rejectHistory=false,rejectInsert=false,failCleanup=false}={}){
  const calls={tables:[],inserts:[],uploads:[],removed:[]};
  return {
   calls,
@@ -13,7 +13,7 @@ function client({role="gestao",session=manager,failDocument=false,failUpload=fal
    assert.equal(bucket,api.BUCKET);
    return {
     async upload(path,file,opts){calls.uploads.push({path,file,opts});return {data:failUpload?null:{path},error:failUpload?{message:"storage fail"}:null}},
-    async remove(paths){calls.removed.push(...paths);return {data:paths,error:null}}
+    async remove(paths){calls.removed.push(...paths);return {data:failCleanup?null:paths,error:failCleanup?{message:"cleanup fail"}:null}}
    };
   }},
   from(table){
@@ -22,12 +22,12 @@ function client({role="gestao",session=manager,failDocument=false,failUpload=fal
     select(){return query},eq(){return query},order(){return query},limit(){return query},
     insert(payload){calls.inserts.push({table,payload});query.didInsert=true;return query},
     maybeSingle:async()=>({data:{role},error:null}),
-    single:async()=>table===api.TABLES.cycles?{data:{id:cycleId,status:"rascunho",version:1},error:null}:
-      {data:failDocument?null:{id:"document-id"},error:failDocument?{message:"insert fail"}:null},
+    single:async()=>{if(rejectInsert&&query.didInsert)throw Error("rede indisponível");return table===api.TABLES.cycles?{data:{id:cycleId,status:"rascunho",version:1},error:null}:
+      {data:failDocument?null:{id:"document-id"},error:failDocument?{message:"insert fail"}:null}},
     then(resolve,reject){
       const rows=table===api.TABLES.roles?[{user_id:teacher,role:"docente",display_name:"Docente Exemplo"}]:
        table===api.TABLES.docs?[{revision:2}]:table===api.TABLES.cycles?[]:[];
-      return Promise.resolve({data:rows,error:null}).then(resolve,reject);
+      return (rejectHistory&&table===api.TABLES.docs?Promise.reject(Error("consulta interrompida")):Promise.resolve({data:rows,error:null})).then(resolve,reject);
     }
    };return query;
   }
@@ -97,6 +97,23 @@ test("falha de upload impede criar referência de documento",async()=>{
  const c=client({failUpload:true});
  await assert.rejects(api.storeDocument(c,cycleId,"pedidoDocente",excel,fakeCrypto),/Armazenamento privado/);
  assert.equal(c.calls.inserts.length,0);
+});
+test("falha de rede ao consultar histórico remove upload privado incompleto",async()=>{
+ const c=client({rejectHistory:true});
+ await assert.rejects(api.storeDocument(c,cycleId,"pedidoDocente",excel,fakeCrypto),/consulta interrompida/);
+ assert.equal(c.calls.uploads.length,1);
+ assert.deepEqual(c.calls.removed,[c.calls.uploads[0].path]);
+ assert.equal(c.calls.inserts.length,0);
+});
+test("falha de rede ao registrar documento remove upload privado incompleto",async()=>{
+ const c=client({rejectInsert:true});
+ await assert.rejects(api.storeDocument(c,cycleId,"pedidoDocente",excel,fakeCrypto),/rede indisponível/);
+ assert.deepEqual(c.calls.removed,[c.calls.uploads[0].path]);
+});
+test("falha ao remover upload incompleto não é ocultada",async()=>{
+ const c=client({rejectHistory:true,failCleanup:true});
+ await assert.rejects(api.storeDocument(c,cycleId,"pedidoDocente",excel,fakeCrypto),/limpeza do arquivo privado não confirmada/);
+ assert.equal(c.calls.removed.length,1);
 });
 test("gestor não consegue enviar arquivo com estágio desconhecido",async()=>{
  await assert.rejects(api.storeDocument(client(),cycleId,"misterioso",excel,fakeCrypto),/Tipo de documento/);
