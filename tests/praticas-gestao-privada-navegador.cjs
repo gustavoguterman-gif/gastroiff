@@ -68,6 +68,25 @@ window.supabase={createClient:()=>window.__client};
    await page.locator("#g-confirm-file").check();
    await page.locator("#g-upload-document").click();
    await page.waitForFunction(()=>document.querySelector("[data-manager-status]")?.textContent.includes("Documento privado registrado"),null,{timeout:10000});
+   // Conferência visual objetiva: botões e campos críticos não podem ficar fora da tela
+   // nem cortar o texto, nos três tamanhos de navegador.
+   const layout=await page.evaluate(()=>{
+    const selectors=["#g-auth-teacher","#g-secure-cycle","#g-secure-file","#g-save-cycle","#g-upload-document","#g-signout"];
+    return selectors.map(selector=>{
+     const el=document.querySelector(selector);
+     if(!el)return {selector,missing:true};
+     const box=el.getBoundingClientRect();
+     const css=getComputedStyle(el);
+     return {selector,width:box.width,height:box.height,left:box.left,right:box.right,
+      visible:css.display!=="none"&&css.visibility!=="hidden"&&box.width>0&&box.height>0,
+      clipped:el.tagName==="BUTTON"&&el.scrollWidth>el.clientWidth+4};
+    });
+   });
+   for(const control of layout){
+    assert.ok(!control.missing&&control.visible,device+" controle ausente ou invisível: "+control.selector);
+    assert.ok(control.left>=-2&&control.right<=width+2,device+" controle cortado horizontalmente: "+control.selector);
+    assert.ok(!control.clipped,device+" texto do botão cortado: "+control.selector);
+   }
    await page.screenshot({path:"reports/gestao-privada/"+device+"-gestao-ficticia.png",fullPage:true,animations:"disabled"});
    const sent=await page.evaluate(()=>window.__calls);
    assert.equal(sent.uploads.length,1);
