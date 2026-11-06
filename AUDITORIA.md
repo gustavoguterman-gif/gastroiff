@@ -125,3 +125,9 @@ Este documento distingue alterações feitas no código de verificações que ai
 - A execução da validação completa `42290550470` sofreu o mesmo erro. Antes disso, os logs confirmam a aprovação do fluxo de Gestão em celular, tablet e desktop, PWA em mobile e desktop, e auditoria de 29 páginas x 3 tamanhos, com **87 de 87** verificações aprovadas e **0** ocorrências bloqueantes. O relatório anotou 15 avisos de largura de seletores, classificados como não bloqueantes, sujeitos a inspeção estética posterior.
 - Corrigidos três pontos de expectativa em `tests/site-publicado-navegador.cjs`: contagem de botões, sequência dos perfis e textos após recarga para quatro perfis. **Não afirmar que a execução posterior está aprovada antes de obter os logs.**
 - Permanecem necessárias validação da publicação mais recente nos três formatos, inspeção das capturas, e homologação da Gestão com infraestrutura protegida real.
+
+## Segunda falha da conferência publicada: texto decorativo nos perfis (06/11/2026)
+
+- A execução `42311933932` do teste do site publicado chegou ao passo de recarga da página inicial e falhou na comparação literal dos rótulos: os botões atuais exibem `Visitante›`, `Estudante›`, `Docente›`, `Egresso›`, enquanto a auditoria esperava o texto sem a seta decorativa.
+- Conferido o módulo `assets/perfis-publicos.js`: o nome acessível fica em `.gi-entry-card-label`; a seta tem `aria-hidden=true`. Corrigida a auditoria para comparar somente os textos desse elemento, mantendo a ordem e os quatro perfis obrigatórios.
+- **A execução posterior ainda não foi conferida**. A correção não declara aprovação visual. O CI anterior, `42290550470`, registrou 87 de 87 verificações locais aprovadas em celular, tablet e desktop, além de 15 avisos de largura de seletores classificados como não bloqueantes, a serem avaliados em capturas.
