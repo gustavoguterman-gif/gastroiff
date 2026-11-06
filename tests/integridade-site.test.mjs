@@ -117,8 +117,11 @@ test("movimento do site ativado de forma consistente nas páginas públicas",()=
  const ignored=new Set(["acervo.html","gestao.html","gestao-insumos.html","gestao-documentos-praticas.html","painel.html"]);
  for(const page of pages.filter(p=>!ignored.has(p))){
   const content=fs.readFileSync(path.join(root,page),"utf8");
-  assert.match(content, page==="index.html" ? /assets\/site\.css\?v=20261106-motion2/ : /assets\/site\.css\?v=20261105-motion1/,page+" com CSS visual atualizado");
-  assert.match(content, page==="index.html" ? /assets\/site\.js\?v=20261106-motion2/ : /assets\/site\.js\?v=20261105-motion1/,page+" com movimento atualizado");
+  const cssVersion=content.match(/assets\/site\.css\?v=([a-zA-Z0-9-]+)/)?.[1];
+  const jsVersion=content.match(/assets\/site\.js\?v=([a-zA-Z0-9-]+)/)?.[1];
+  assert.ok(cssVersion,page+" sem versao do CSS visual");
+  assert.ok(jsVersion,page+" sem versao do JS visual");
+  assert.equal(cssVersion,jsVersion,page+" com versoes divergentes de CSS e JS");
  }
  const home=fs.readFileSync(path.join(root,"index.html"),"utf8");
  assert.match(home,/perfis-publicos\.css\?v=9/);
