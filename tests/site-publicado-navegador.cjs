@@ -44,7 +44,7 @@ const pages=["index.html","contato.html","revistas.html","gestao.html","gestao-d
         await page.reload({waitUntil:"domcontentloaded"});
         await page.locator('[data-entry-screen][data-stage="intro"]').waitFor({timeout:3000});
         await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
-        assert.deepEqual(await page.locator("[data-profile-entry]").allTextContents(),["Visitante","Estudante","Docente","Egresso"],"nova visita mostra a animação em "+view);
+        assert.deepEqual(await page.locator("[data-profile-entry] .gi-entry-card-label").allTextContents(),["Visitante","Estudante","Docente","Egresso"],"nova visita mostra a animação em "+view);
         await page.locator('[data-profile-entry="visitante"]').click();
         await page.locator("[data-entry-screen]").waitFor({state:"hidden"});
       }
