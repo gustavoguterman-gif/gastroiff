@@ -142,7 +142,8 @@ test("arquivos declarados para uso offline existem no repositorio",()=>{
 
 test("PWA atende CSS e JS versionados com pré-cache offline",()=>{
  const sw=fs.readFileSync(path.join(root,"sw.js"),"utf8");
- assert.match(sw,/gastroiff-offline-v62/);
+ assert.match(sw,/gastroiff-offline-v63/);
+ assert.match(sw,/keys\.filter\(key=>key\.startsWith\('gastroiff-offline-'\) && key!==CACHE\)/);
  assert.match(sw,/ignoreSearch:true/);
  assert.match(sw,/\(\?:css\|js\)/);
 });
