@@ -148,3 +148,26 @@ test("pesquisas com egressos permanecem protegidas por padrão",()=>{
  for(const id of ["pesquisa-tecnico","pesquisa-graduacao","resultados"])assert.match(page,new RegExp('id="'+id+'"'));
  assert.match(page,/Nenhum indicador de egressos publicado/);
 });
+
+
+test("contatos do campus e vagas com WhatsApp oferecem tambem ligacao direta",()=>{
+ const contato=fs.readFileSync(path.join(root,"contato.html"),"utf8");
+ assert.match(contato,/href="tel:\\+552226459500"/);
+ assert.match(contato,/href="https:\\/\\/wa\\.me\\/552226459500"/);
+ assert.match(contato,/Ligar agora/);
+ assert.match(contato,/Abrir WhatsApp/);
+ assert.match(contato,/grid-template-columns:repeat\\(2,minmax\\(0,1fr\\)\\)/);
+ const vagas=fs.readFileSync(path.join(root,"oportunidades.html"),"utf8");
+ const cards=vagas.match(/<article class="gi-panel gi-vacancy"[\\s\\S]*?<\\/article>/g)||[];
+ const comWhatsapp=cards.filter(card=>card.includes("https://wa.me/"));
+ assert.equal(comWhatsapp.length,4);
+ for(const card of comWhatsapp){
+  const numero=card.match(/https:\\/\\/wa\\.me\\/(\\d+)/)?.[1];
+  assert.ok(numero,"WhatsApp sem numero");
+  assert.ok(card.includes('href="tel:+'+numero+'"'),"Faltou ligar para "+numero);
+  assert.match(card,/Abrir WhatsApp/);
+  assert.match(card,/Ligar agora/);
+ }
+ assert.match(vagas,/\\.gi-vacancy-contact \\.gi-whatsapp-action/);
+ assert.match(vagas,/@media\\(max-width:530px\\)/);
+});
