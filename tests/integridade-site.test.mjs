@@ -87,7 +87,7 @@ test("a abertura é exibida em cada acesso sem recolher identificadores",()=>{
  assert.doesNotMatch(js,/sessionSeen\(|markSession\(|gastroiff-entry-session-v1/);
  const homepage=fs.readFileSync(path.join(root,"index.html"),"utf8");
  assert.doesNotMatch(homepage,/sessionStorage\.getItem\("gastroiff-entry-session-v1"\)/);
- assert.match(homepage,/perfis-publicos\.js\?v=8/);
+ assert.match(homepage,/perfis-publicos\.js\?v=9/);
  assert.match(js,/button\.dataset\.profileEntry\s*=\s*key/);
  assert.match(js,/aria-modal/);
  assert.doesNotMatch(js,/Pular animação|gi-entry-skip/);
@@ -121,14 +121,30 @@ test("movimento do site ativado de forma consistente nas páginas públicas",()=
   assert.match(content, page==="index.html" ? /assets\/site\.js\?v=20261106-motion2/ : /assets\/site\.js\?v=20261105-motion1/,page+" com movimento atualizado");
  }
  const home=fs.readFileSync(path.join(root,"index.html"),"utf8");
- assert.match(home,/perfis-publicos\.css\?v=7/);
- assert.match(home,/perfis-publicos\.js\?v=8/);
+ assert.match(home,/perfis-publicos\.css\?v=9/);
+ assert.match(home,/perfis-publicos\.js\?v=9/);
 });
 
 
 test("PWA atende CSS e JS versionados com pré-cache offline",()=>{
  const sw=fs.readFileSync(path.join(root,"sw.js"),"utf8");
- assert.match(sw,/gastroiff-offline-v60/);
+ assert.match(sw,/gastroiff-offline-v61/);
  assert.match(sw,/ignoreSearch:true/);
  assert.match(sw,/\(\?:css\|js\)/);
+});
+
+test("pesquisas com egressos permanecem protegidas por padrão",()=>{
+ const sql=fs.readFileSync(path.join(root,"supabase/migrations/202611060001_egressos_pesquisas.sql"),"utf8");
+ for(const table of ["gi_alumni_surveys","gi_alumni_invitations","gi_alumni_responses","gi_alumni_public_results"]){
+  assert.match(sql,new RegExp("alter table public\\."+table+" enable row level security","i"));
+  assert.match(sql,new RegExp("revoke all on public\\."+table+" from public,anon,authenticated","i"));
+ }
+ assert.match(sql,/grant select on public\.gi_alumni_public_results to anon,authenticated/);
+ assert.match(sql,/state = 'published' and published_at is not null and responses_count >= 5/);
+ assert.doesNotMatch(sql,/grant (?:insert|update|delete|all) on public\.gi_alumni_(?:invitations|responses)/i);
+ assert.match(sql,/foreign key \(invitation_id,survey_id\)/);
+ assert.match(sql,/foreign key \(survey_id,course\)/);
+ const page=fs.readFileSync(path.join(root,"observatorio.html"),"utf8");
+ for(const id of ["pesquisa-tecnico","pesquisa-graduacao","resultados"])assert.match(page,new RegExp('id="'+id+'"'));
+ assert.match(page,/Nenhum indicador de egressos publicado/);
 });
