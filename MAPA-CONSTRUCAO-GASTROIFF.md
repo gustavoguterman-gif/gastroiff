@@ -204,3 +204,10 @@ O desenho metodológico está em `docs/PESQUISA-EGRESSOS-PLANO.md`, com instrume
 Segurança conservadora: nenhuma leitura/escrita individual é autorizada para `anon` ou `authenticated`; somente agregados marcados como publicados são elegíveis à leitura pública. O mínimo inicial de cinco participantes por grupo não garante anonimato por si só. A publicação precisa de análise humana dos cruzamentos e diferenças entre resultados.
 
 Critério para próxima fase: primeiro passar testes estáticos e de integração sem dados reais; depois testar no Supabase isolado; só então construir a interação do formulário e o mecanismo de atualização automática, mantendo navegação e resultados públicos separados por função. Todas as mudanças de interface seguem a regra de três formatos (celular, tablet e desktop) e preferências de movimento reduzido.
+
+
+## Preparação dos indicadores agregados dos egressos (06/11/2026)
+
+O cálculo interno de resultados de pesquisas foi preparado em `supabase/functions/egressos-indicadores/aggregate.mjs` e coberto por `tests/egressos-indicadores.test.mjs`. O sistema produz somente rascunhos para análise, separados por curso, período e versão do instrumento, sem publicação ou consulta às respostas no portal público. A supressão complementar impede exibir porcentagens binárias se qualquer uma das duas opções tiver menos de cinco respostas. Ainda é obrigatória a revisão contra reidentificação por cruzamento entre relatórios.
+
+O fluxo futuro é: respostas protegidas, agregação no serviço privado, revisão metodológica, aprovação institucional e publicação de dados agregados validados. O painel público de resultados permanece sem dados até a homologação. Os testes novos de recebimento e agregação passaram a integrar o fluxo de CI. Qualquer alteração de interface deve continuar testada em celular, tablet e computador, com transições suaves e movimento reduzido respeitado.
