@@ -1,5 +1,16 @@
 name: Conferir integridade estática do portal
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - '*.html'
+      - 'assets/**'
+      - 'sw.js'
+      - 'manifest.webmanifest'
+      - 'tests/integridade-site.test.mjs'
+      - '.github/workflows/integridade-site.yml'
+      - 'supabase/migrations/**'
   pull_request:
     paths:
       - '*.html'
