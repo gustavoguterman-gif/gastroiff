@@ -561,3 +561,10 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - A distinção técnica é explícita: o logout revoga refresh tokens, mas JWTs de acesso anteriores podem continuar válidos até expirar. Para invalidação imediata de operações sensíveis são necessários controles de sessão complementares, a serem definidos na homologação real.
 - Testes sem rede cobrem rejeição da renovação, sessão antiga indevidamente renovável e autenticação indisponível. Credenciais fictícias não saem do processo local. Não houve conexão a serviço Supabase real nem alteração da configuração pública.
 - PR #26 continua em rascunho até testes reais de autenticação e RLS. Não integrar somente pelos testes simulados.
+
+
+## 36. Conferência de insumos aprovados e avisos administrativos por identidade (05/11/2026)
+- O roteiro Supabase somente leitura passa a conferir insumos por cada identidade docente fictícia: cada item visto deve estar aprovado e vinculado a um ciclo aprovado do próprio docente, sem coincidência indevida de IDs entre docentes.
+- A Gestão deve visualizar pelo menos um insumo ainda não aprovado, criado exclusivamente para o ensaio. Nenhum docente pode consultar notificações administrativas, documentos privados ou a auditoria.
+- Os testes sem rede reprovarão exposições artificiais de itens de colegas, itens pendentes e notificações. No PostgreSQL temporário, uma notificação fictícia assegura verificação positiva da Gestão e negativa dos dois docentes.
+- A integração pública continua desativada, sem dados ou contas verdadeiras. A ativação exige homologação real e autorização institucional.
