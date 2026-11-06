@@ -38,6 +38,14 @@ const {mkdirSync,writeFileSync}=require("node:fs");
     return entries;
    });
    assert.ok(cached.length,"a página inicial deve estar no cache do aplicativo");
+   // Simular instalação PWA seguida de primeira abertura offline: só existe
+   // a cópia sem parâmetros que foi pré-carregada pelo service worker.
+   await page.evaluate(async()=>{
+    const cache=await caches.open("gastroiff-offline-v56");
+    for(const req of await cache.keys()){
+     if(/\/assets\/(?:site|perfis-publicos)\.(?:css|js)\?/.test(req.url))await cache.delete(req);
+    }
+   });
    await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
    await page.locator('[data-profile-entry="visitante"]').click();
    await page.locator("[data-entry-screen]").waitFor({state:"hidden"});

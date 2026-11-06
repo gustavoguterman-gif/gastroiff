@@ -45,6 +45,7 @@ test("personalização pública não exige nem armazena identificação pessoal"
  const js=fs.readFileSync(path.join(root,"assets/perfis-publicos.js"),"utf8");
  assert.match(js,/localStorage/);
  assert.match(js,/Object\.hasOwn\(profiles/);
+ assert.match(js,/Object\.hasOwn\(names/);
  assert.doesNotMatch(js,/(?:fetch\(|XMLHttpRequest|sendBeacon|matr[ií]cula\s*:|siape\s*:)/i);
  assert.match(fs.readFileSync(path.join(root,"index.html"),"utf8"),/assets\/perfis-publicos\.js\?v=\d+/);
 });
@@ -86,7 +87,7 @@ test("a abertura é exibida em cada acesso sem recolher identificadores",()=>{
  assert.doesNotMatch(js,/sessionSeen\(|markSession\(|gastroiff-entry-session-v1/);
  const homepage=fs.readFileSync(path.join(root,"index.html"),"utf8");
  assert.doesNotMatch(homepage,/sessionStorage\.getItem\("gastroiff-entry-session-v1"\)/);
- assert.match(homepage,/perfis-publicos\.js\?v=6/);
+ assert.match(homepage,/perfis-publicos\.js\?v=7/);
  assert.match(js,/button\.dataset\.profileEntry\s*=\s*key/);
  assert.match(js,/aria-modal/);
  assert.doesNotMatch(js,/Pular animação|gi-entry-skip/);
@@ -96,4 +97,38 @@ test("a abertura é exibida em cada acesso sem recolher identificadores",()=>{
  assert.match(css,/mix-blend-mode:multiply/);
  assert.match(css,/prefers-reduced-motion:reduce/);
  assert.doesNotMatch(js,/nome\s*completo\s*[:=]|matr[ií]cula\s*[:=]|siape\s*[:=]/i);
+});
+
+
+test("transições públicas respeitam movimento reduzido",()=>{
+ const css=fs.readFileSync(path.join(root,"assets/site.css"),"utf8");
+ const js=fs.readFileSync(path.join(root,"assets/site.js"),"utf8");
+ const perfis=fs.readFileSync(path.join(root,"assets/perfis-publicos.css"),"utf8");
+ assert.match(css,/@view-transition\s*\{navigation:auto\}/);
+ assert.match(css,/prefers-reduced-motion:reduce/);
+ assert.match(js,/IntersectionObserver/);
+ assert.match(js,/gi-motion-visible/);
+ assert.match(perfis,/gi-personal-choice select/);
+ assert.match(perfis,/--gi-control-bg/);
+});
+
+
+test("movimento do site ativado de forma consistente nas páginas públicas",()=>{
+ const ignored=new Set(["acervo.html","gestao.html","gestao-insumos.html","gestao-documentos-praticas.html","painel.html"]);
+ for(const page of pages.filter(p=>!ignored.has(p))){
+  const content=fs.readFileSync(path.join(root,page),"utf8");
+  assert.match(content,/assets\/site\.css\?v=20261105-motion1/,page+" com CSS visual atualizado");
+  assert.match(content,/assets\/site\.js\?v=20261105-motion1/,page+" com movimento atualizado");
+ }
+ const home=fs.readFileSync(path.join(root,"index.html"),"utf8");
+ assert.match(home,/perfis-publicos\.css\?v=6/);
+ assert.match(home,/perfis-publicos\.js\?v=7/);
+});
+
+
+test("PWA atende CSS e JS versionados com pré-cache offline",()=>{
+ const sw=fs.readFileSync(path.join(root,"sw.js"),"utf8");
+ assert.match(sw,/gastroiff-offline-v56/);
+ assert.match(sw,/ignoreSearch:true/);
+ assert.match(sw,/\(\?:css\|js\)/);
 });

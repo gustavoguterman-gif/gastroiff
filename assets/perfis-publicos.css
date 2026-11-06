@@ -186,3 +186,64 @@ body.gi-entry-revealed > footer {animation:gi-content-arrive .95s ease both}
   transition:none!important;animation:none!important;transform:none!important;
  }
 }
+
+
+/* Seletor compacto de perfil, no mesmo padrão dos botões institucionais.
+   Abertura continua com apenas Visitante, Estudante e Docente. */
+body.gastroiff-page .gi-personal-section .gi-personal-head {
+ display:flex;justify-content:flex-end;align-items:center;
+ margin:14px 0 0;padding:0;max-width:100%;
+}
+body.gastroiff-page .gi-personal-section .gi-personal-choice {
+ display:inline-flex;align-items:center;justify-content:flex-end;
+ flex:0 1 auto;gap:9px;width:auto;min-width:0;max-width:100%;
+}
+body.gastroiff-page .gi-personal-section .gi-personal-choice label {
+ display:inline-block;font-size:12px;font-weight:600;
+ line-height:1.3;white-space:nowrap;color:#315d42;margin:0;
+}
+body.gastroiff-page .gi-personal-section .gi-personal-choice select {
+ box-sizing:border-box!important;appearance:none!important;
+ display:block!important;width:143px!important;
+ min-width:0!important;max-width:min(143px,52vw)!important;
+ height:35px!important;min-height:35px!important;
+ padding:7px 29px 7px 12px!important;
+ margin:0!important;border:1px solid var(--gi-control-line,#bbd2c1)!important;
+ border-radius:7px!important;
+ background-color:var(--gi-control-bg,#edf5ee)!important;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6' fill='none' stroke='%23214c35' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;
+ background-position:right 9px center!important;
+ background-repeat:no-repeat!important;
+ background-size:14px 14px!important;
+ box-shadow:0 1px 0 #c9d9cc!important;
+ color:var(--gi-control-ink,#214c35)!important;
+ font:600 12px/1.3 Arial,Helvetica,sans-serif!important;
+ text-align:left!important;text-overflow:ellipsis!important;
+ white-space:nowrap!important;cursor:pointer!important;
+ transition:background-color .18s ease,border-color .18s ease,box-shadow .18s ease!important;
+}
+body.gastroiff-page .gi-personal-section .gi-personal-choice select:is(:hover,:focus-visible){
+ background-color:var(--gi-control-hover,#dcebdd)!important;
+ border-color:#8eaf96!important;
+ box-shadow:0 1px 0 #aac3af!important;
+}
+body.gastroiff-page .gi-personal-section .gi-personal-choice select:focus-visible{
+ outline:2px solid #277246!important;outline-offset:3px!important;
+}
+@media(max-width:700px) {
+ body.gastroiff-page .gi-personal-section .gi-personal-head{margin-top:12px}
+ body.gastroiff-page .gi-personal-section .gi-personal-choice{gap:8px}
+ body.gastroiff-page .gi-personal-section .gi-personal-choice select{
+  width:132px!important;max-width:min(132px,50vw)!important;
+  height:35px!important;min-height:35px!important;
+ }
+}
+@media(max-width:380px){
+ body.gastroiff-page .gi-personal-section .gi-personal-choice{gap:6px}
+ body.gastroiff-page .gi-personal-section .gi-personal-choice select{
+  width:124px!important;max-width:min(124px,49vw)!important
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ body.gastroiff-page .gi-personal-section .gi-personal-choice select{transition:none!important}
+}

@@ -304,3 +304,35 @@ a{transition:color .2s}a:not(.button):not(.editorial-action):hover{color:#267c4a
 .lab-plan-scroll img{display:block;width:100%;min-width:0;height:auto;margin:auto}
 @media(max-width:850px){.lab-story-grid{grid-template-columns:1fr}.lab-plan-frame img{height:360px}.lab-process-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lab-process-grid article:nth-child(2){border:0}}
 @media(max-width:520px){.lab-opening{padding:32px 0}.lab-opening .lab-lead{font-size:14px}.lab-plan-frame img{height:300px}.lab-process-grid{grid-template-columns:1fr}.lab-process-grid article{border-right:0;border-bottom:1px solid #cdd8ce;padding:10px 0}.lab-plan-toolbar{font-size:11px;padding:9px}.lab-plan-toolbar button{padding:6px 9px}}
+
+
+/* Movimento discreto para as páginas públicas, com suporte progressivo.
+   A animação de abertura permanece exclusiva da página inicial. */
+@view-transition {navigation:auto}
+@keyframes gi-page-fade-out{to{opacity:0}}
+@keyframes gi-page-fade-in{from{opacity:0}to{opacity:1}}
+::view-transition-old(root){animation:180ms ease-in both gi-page-fade-out}
+::view-transition-new(root){animation:360ms ease-out both gi-page-fade-in}
+body.gastroiff-page main .gi-motion-ready {
+ opacity:0;
+ transform:translate3d(0,13px,0);
+}
+body.gastroiff-page main .gi-motion-ready.gi-motion-visible{
+ opacity:1;transform:translate3d(0,0,0);
+ transition:opacity 680ms cubic-bezier(.22,1,.36,1),
+            transform 680ms cubic-bezier(.22,1,.36,1);
+}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+ body.gastroiff-page main :is(.feature,.smallcard,.gi-resource-card,.research-topic-card,.course-card,.facultycard):hover{
+  box-shadow:0 10px 28px #1b3e2614;
+  transition:box-shadow .26s ease,border-color .26s ease;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ @view-transition{navigation:none}
+ ::view-transition-old(root),::view-transition-new(root){animation:none!important}
+ body.gastroiff-page main .gi-motion-ready,
+ body.gastroiff-page main .gi-motion-ready.gi-motion-visible{
+  opacity:1!important;transform:none!important;transition:none!important
+ }
+}

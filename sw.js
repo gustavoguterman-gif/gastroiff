@@ -1,4 +1,4 @@
-const CACHE='gastroiff-offline-v54';
+const CACHE='gastroiff-offline-v56';
 const SHELL=[
  './','./index.html','./oportunidades.html','./contato.html','./cursos.html','./laboratorios.html','./biblioteca.html',
  './docentes.html','./planejamento-docente.html','./gestao-documentos-praticas.html','./participacao.html','./trajetorias.html','./gastronomia-em-acao.html','./ocorrencias.html','./painel.html','./gestao.html','./pesquisa.html','./projetos.html','./manual-laboratorio.html','./perfil.html','./eventos.html','./acervo.html','./documentos.html','./livro.html',
@@ -29,6 +29,12 @@ self.addEventListener('fetch',event=>{
   }catch(error){
    const saved=await cache.match(req);
    if(saved)return saved;
+   // Permitir recursos estáticos versionados mesmo no primeiro uso offline.
+   // Restrito a CSS/JS públicos: nunca ignorar parâmetros de outras URLs.
+   if(/\/assets\/[^/]+\.(?:css|js)$/.test(url.pathname)){
+    const shell=await cache.match(req,{ignoreSearch:true});
+    if(shell)return shell;
+   }
    if(req.mode==='navigate')return await cache.match(req,{ignoreSearch:true}) || Response.error();
    throw error;
   }
