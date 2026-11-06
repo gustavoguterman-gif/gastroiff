@@ -40,8 +40,9 @@ const root = "http://127.0.0.1:8765/";
 
       assert.equal(await page.locator(".gi-profile-entrance-logo").count(),1,"marca da abertura: "+name);
       assert.equal(await page.locator(".gi-profile-entrance-logo").evaluate(img=>img.complete&&img.naturalWidth>0),true,"logo carregada: "+name);
-      const layout=await page.locator(".gi-profile-entrance-options").evaluate(node=>({display:getComputedStyle(node).display,direction:getComputedStyle(node).flexDirection}));
-      assert.deepEqual(layout,{display:"flex",direction:"column"},"lista vertical de três perfis: "+name);
+      const layout=await page.locator(".gi-profile-entrance-options").evaluate(node=>({display:getComputedStyle(node).display,columns:getComputedStyle(node).gridTemplateColumns.split(" ").filter(Boolean).length}));
+      assert.deepEqual(layout.display,"grid","mosaico de perfis: "+name);
+      assert.equal(layout.columns,2,"mosaico deve ter duas colunas em todos os formatos: "+name);
       const introOverflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
       assert.ok(introOverflow<=2,"sem rolagem horizontal na entrada: "+name+" = "+introOverflow);
       await page.screenshot({path:"reports/entrada-"+name+".png",fullPage:false});
