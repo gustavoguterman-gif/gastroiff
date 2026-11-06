@@ -2,7 +2,7 @@
 
 Este roteiro é para um projeto Supabase **separado e descartável**, com contas fictícias criadas previamente por uma pessoa autorizada. Não há implantação conectada ao site público. O script `tests/homologacao-supabase-leitura.cjs` utiliza somente GET, login e logout. Não instala migrações, não cria ou exclui usuários, nem envia arquivos. Ele falha se a configuração pública estiver ativada.
 
-Condições iniciais: um projeto exclusivo de homologação autorizado, migrações privadas aplicadas e verificadas por quem administra o ambiente, três contas fictícias com roles `gestao`, `docente` e `docente` atribuídas por operador autorizado, ao menos um ciclo aprovado para cada docente e um arquivo completamente fictício em `gastroiff-praticas-privado` vinculado a registro documental. Não usar nomes, matrículas, SIAPE, arquivos ou senhas institucionais verdadeiros.
+Condições iniciais: um projeto exclusivo de homologação autorizado, migrações privadas aplicadas e verificadas por quem administra o ambiente, três contas fictícias com roles `gestao`, `docente` e `docente` atribuídas por operador autorizado, ao menos um ciclo aprovado para cada docente e um arquivo completamente fictício em `gastroiff-praticas-privado` vinculado a registro documental. Preparar também um insumo aprovado vinculado ao ciclo de cada docente e um insumo não aprovado que só a Gestão pode consultar. O roteiro falhará se essas condições não estiverem preparadas. Não usar nomes, matrículas, SIAPE, arquivos ou senhas institucionais verdadeiros.
 
 Variáveis de ambiente obrigatórias, definidas apenas na sessão privada do executor e nunca no GitHub ou no navegador:
 
@@ -38,3 +38,10 @@ O logout é validado pela revogação dos três refresh tokens em contas fictíc
 Exigir respostas HTTP 400, 401 ou 403 da tentativa de renovação após a saída. Respostas HTTP 200, 429, 500 ou falhas de conexão tornam o resultado não homologado, pois não comprovam revogação. A checagem somente deve ser feita em projeto descartável autorizado. Para requisitos de revogação imediata de acesso a dados sensíveis, é necessário estudar validação adicional de sessões ativas e política de expiração adequada, com execução real em ambiente isolado.
 
 Fontes técnicas: https://supabase.com/docs/guides/auth/signout e https://supabase.com/docs/guides/auth/sessions e https://supabase.github.io/auth/
+
+
+## Conferência de insumos e notificações por identidade (05/11/2026)
+
+O ensaio lê diretamente os insumos por identidade no serviço protegido. Cada um dos dois docentes deve receber apenas itens aprovados de ciclos próprios. A Gestão deve conseguir consultar também pelo menos um insumo fictício ainda não aprovado. O ensaio reprova a homologação se algum insumo de outra disciplina aparecer para um docente ou se um item pendente for exibido. Notificações de fornecedores e avisos administrativos continuam restritos à Gestão; a consulta dos dois docentes deve retornar vazia.
+
+Os testes automatizados utilizam somente dados fictícios e simulam vazamentos entre docentes, exposição de insumos sem aprovação e acesso indevido a notificações. O PostgreSQL temporário também insere uma notificação para conferir a leitura pela Gestão e a negativa aos dois docentes. Nenhum desses ensaios substitui a verificação real com Auth, RLS e Storage em serviço descartável autorizado.

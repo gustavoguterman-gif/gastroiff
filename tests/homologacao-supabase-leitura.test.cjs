@@ -101,7 +101,7 @@ test("logout de todas as sessões mesmo quando o primeiro encerramento falha",as
 
 const {createHash}=require("node:crypto");
 const {run,privateObjectPath}=require("./homologacao-supabase-leitura.cjs");
-function scenario({corrupt=false,leakAnon=false,leakTeacher=false,leakRefresh=false,refreshError=false,pathOverride}={}){
+function scenario({corrupt=false,leakAnon=false,leakTeacher=false,leakRefresh=false,refreshError=false,leakOtherItems=false,leakPendingItems=false,leakNotifications=false,pathOverride}={}){
  const bytes=Buffer.from("Documento de homologação inteiramente fictício","utf8");
  const actualSha=createHash("sha256").update(bytes).digest("hex");
  const fakeDoc={
@@ -142,6 +142,17 @@ function scenario({corrupt=false,leakAnon=false,leakTeacher=false,leakRefresh=fa
    ]);
    return respond([{id:"ciclo-"+token,teacher_user_id:ids[token],status:"aprovado"}]);
   }
+  if(route==="/rest/v1/gastroiff_practice_items"){
+   const aItem={id:"item-a",cycle_id:"ciclo-a",approved:true};
+   const bItem={id:"item-b",cycle_id:"ciclo-b",approved:true};
+   const pending={id:"item-pendente",cycle_id:"ciclo-a",approved:false};
+   if(token==="gestao")return respond([aItem,bItem,pending]);
+   if(token==="a")return respond([aItem,...(leakOtherItems?[bItem]:[]),...(leakPendingItems?[pending]:[])]);
+   if(token==="b")return respond([bItem]);
+   return respond([]);
+  }
+  if(route==="/rest/v1/gastroiff_practice_notifications")
+   return respond(token==="gestao"||leakNotifications?[{id:"aviso-privado"}]:[]);
   if(route==="/rest/v1/gastroiff_practice_documents")return respond(token==="gestao"?[fakeDoc]:[]);
   if(route==="/rest/v1/gastroiff_practice_audit")return respond([]);
   if(route.startsWith("/storage/v1/object/authenticated/")){
@@ -159,6 +170,7 @@ test("homologação fictícia confere conteúdo SHA-256 e bloqueia três acessos
  const result=await run(settings(env(),()=>cfg),s.fetcher);
  assert.equal(result.passed,true);
  assert.equal(result.verifiedOriginalBytes,s.bytes.length);
+ assert.equal(result.approvedItems,2);
  assert.deepEqual(s.calls.downloads,["gestao","anon","a","b"]);
  assert.deepEqual(s.calls.logout,["gestao","a","b"]);
  assert.deepEqual(s.calls.refreshes,["refresh-gestao","refresh-a","refresh-b"]);
@@ -202,4 +214,21 @@ test("resposta inconclusiva do servidor de autenticação não é aprovada",asyn
  const s=scenario({refreshError:true});
  await assert.rejects(run(settings(env(),()=>cfg),s.fetcher),/sessão fictícia ainda pode ser renovada/);
  assert.deepEqual(s.calls.logout,["gestao","a","b"]);
+});
+
+
+test("reprova exposição de insumos de outra disciplina",async()=>{
+ const mock=scenario({leakOtherItems:true});
+ await assert.rejects(run(settings(env(),()=>cfg),mock.fetcher),/Insumos de outra disciplina/);
+ assert.deepEqual(mock.calls.logout,["gestao","a","b"]);
+});
+test("reprova exposição de insumos ainda não aprovados",async()=>{
+ const mock=scenario({leakPendingItems:true});
+ await assert.rejects(run(settings(env(),()=>cfg),mock.fetcher),/Insumos não aprovados/);
+ assert.deepEqual(mock.calls.logout,["gestao","a","b"]);
+});
+test("reprova leitura de notificações administrativas por docente",async()=>{
+ const mock=scenario({leakNotifications:true});
+ await assert.rejects(run(settings(env(),()=>cfg),mock.fetcher),/Notificações administrativas/);
+ assert.deepEqual(mock.calls.logout,["gestao","a","b"]);
 });

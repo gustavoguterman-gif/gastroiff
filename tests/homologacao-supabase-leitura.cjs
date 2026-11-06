@@ -118,11 +118,34 @@ async function run(cfg,fetcher=fetch){
   const ownA=new Set(ac.map(c=>c.id)),ownB=new Set(bc.map(c=>c.id));
   assert.ok([...ownA].every(id=>!ownB.has(id)),"Docentes enxergam o mesmo ciclo de teste");
   assert.ok(managerCycles.length>=ac.length+bc.length,"Gestão não enxerga ciclos esperados");
+  // Itens por identidade em RLS real: não expor ciclos alheios nem pendências.
+  const [managerItems,itemsA,itemsB]=await Promise.all([
+   rows("gastroiff_practice_items",m.access_token,"id,cycle_id,approved"),
+   rows("gastroiff_practice_items",a.access_token,"id,cycle_id,approved"),
+   rows("gastroiff_practice_items",b.access_token,"id,cycle_id,approved")
+  ]);
+  assert.ok(itemsA.length&&itemsB.length,
+   "Cadastre ao menos um insumo fictício aprovado por docente na homologação");
+  assert.ok(managerItems.some(item=>item.approved===false),
+   "Cadastre também um insumo fictício não aprovado para testar a RLS");
+  for(const [items,own] of [[itemsA,ownA],[itemsB,ownB]]){
+   assert.ok(items.every(item=>own.has(item.cycle_id)),
+    "Insumos de outra disciplina foram expostos a docente");
+   assert.ok(items.every(item=>item.approved===true),
+    "Insumos não aprovados foram expostos a docente");
+  }
+  assert.ok(managerItems.length>=itemsA.length+itemsB.length,
+   "Gestão não conseguiu ler todos os insumos visíveis aos docentes");
+  const itemIdsB=new Set(itemsB.map(item=>item.id));
+  assert.ok(itemsA.every(item=>!itemIdsB.has(item.id)),
+   "O mesmo insumo foi entregue a dois docentes sem vínculo comum");
   for(const t of [a,b]){
    assert.equal((await rows("gastroiff_practice_documents",t.access_token,"id")).length,0,
     "Documento administrativo exposto ao docente");
    assert.equal((await rows("gastroiff_practice_audit",t.access_token,"id")).length,0,
     "Histórico administrativo exposto ao docente");
+   assert.equal((await rows("gastroiff_practice_notifications",t.access_token,"id")).length,0,
+    "Notificações administrativas expostas ao docente");
   }
   const docs=await rows("gastroiff_practice_documents",m.access_token,"storage_path,sha256");
   assert.ok(docs.length,"Providencie ao menos um documento fictício no bucket privado");
@@ -137,7 +160,8 @@ async function run(cfg,fetcher=fetch){
   const blockedB=await http("GET",objectPath,b.access_token);
   assert.ok(!blockedB.ok,"Outro docente baixou arquivo bruto restrito");
   return {passed:true,managerCycles:managerCycles.length,teacherACycles:ac.length,
-   teacherBCycles:bc.length,documents:docs.length,verifiedOriginalBytes:verifiedBytes,
+   teacherBCycles:bc.length,approvedItems:itemsA.length+itemsB.length,
+   documents:docs.length,verifiedOriginalBytes:verifiedBytes,
    note:"Integridade SHA-256 e bloqueio dos originais confirmados; refresh tokens revogados após logout; access tokens não são revogados imediatamente"};
  }finally{
   // Encerrar todas as sessões obtidas, inclusive após falhas intermediárias.

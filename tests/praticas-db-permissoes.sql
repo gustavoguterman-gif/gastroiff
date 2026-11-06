@@ -22,6 +22,8 @@ insert into public.gastroiff_practice_items(cycle_id,description,unit,requested,
 values
  ('10000000-0000-4000-8000-000000000001','Farinha','kg',10,6,true),
  ('10000000-0000-4000-8000-000000000002','Ovos','un',20,20,true);
+insert into public.gastroiff_practice_notifications(cycle_id,scheduled_on,status)
+values ('10000000-0000-4000-8000-000000000001','2026-11-03','pendente');
 insert into public.gastroiff_practice_documents
  (cycle_id,kind,filename,storage_path,sha256,content_type,uploaded_by)
 values
@@ -37,6 +39,9 @@ begin
  end if;
  if (select count(*) from public.gastroiff_practice_cycles)<>2 then
    raise exception 'gestor não visualiza ciclos vinculados';
+ end if;
+ if (select count(*) from public.gastroiff_practice_notifications)<>1 then
+   raise exception 'Gestão não visualiza notificações administrativas';
  end if;
  if (select count(*) from public.gastroiff_practice_audit)<4 then
    raise exception 'histórico de alterações não foi registrado automaticamente';
@@ -74,6 +79,9 @@ begin
  if (select count(*) from public.gastroiff_practice_audit)<>0 then
    raise exception 'histórico administrativo exposto a docente';
  end if;
+ if (select count(*) from public.gastroiff_practice_notifications)<>0 then
+   raise exception 'notificação administrativa exposta a docente';
+ end if;
  begin
   update public.gastroiff_practice_roles set role='gestao';
   raise exception 'docente conseguiu promover seu próprio perfil';
@@ -92,6 +100,9 @@ begin
  end if;
  if (select count(*) from public.gastroiff_practice_items)<>0 then
    raise exception 'docente visualiza insumos de outra disciplina';
+ end if;
+ if (select count(*) from public.gastroiff_practice_notifications)<>0 then
+   raise exception 'outro docente visualiza notificação administrativa';
  end if;
 end $$;
 
