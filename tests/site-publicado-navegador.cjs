@@ -18,8 +18,8 @@ const pages=["index.html","gestao.html","gestao-documentos-praticas.html","plane
     await page.waitForTimeout(600);
     // Em PRs, o site publicado ainda pode estar na versão anterior. A prova
     // obrigatória da nova entrada ocorre nos testes locais e após o deploy.
-    const isNewEntrance=file==="index.html" && await page.locator('script[src*="perfis-publicos.js?v=5"], script[src*="perfis-publicos.js?v=6"]').count()===1;
-    const entrancePublished=file==="index.html" && await page.locator('script[src*="perfis-publicos.js?v=4"], script[src*="perfis-publicos.js?v=5"], script[src*="perfis-publicos.js?v=6"]').count()===1;
+    const isNewEntrance=file==="index.html" && await page.locator('script[src*="perfis-publicos.js?v=5"], script[src*="perfis-publicos.js?v=6"], script[src*="perfis-publicos.js?v=7"]').count()===1;
+    const entrancePublished=file==="index.html" && await page.locator('script[src*="perfis-publicos.js?v=4"], script[src*="perfis-publicos.js?v=5"], script[src*="perfis-publicos.js?v=6"], script[src*="perfis-publicos.js?v=7"]').count()===1;
     if(entrancePublished){
       await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
       assert.equal(await page.locator("[data-profile-entry]").count(),3,"três perfis disponíveis no site publicado: "+view);
@@ -40,7 +40,7 @@ const pages=["index.html","gestao.html","gestao-documentos-praticas.html","plane
        assert.equal(await page.locator("#gi-profile-choice").evaluate(el=>getComputedStyle(el).borderTopLeftRadius),"7px",
          "seletor padronizado com botões do site: "+view);
       }
-      if(await page.locator('script[src*="perfis-publicos.js?v=6"]').count()){
+      if(await page.locator('script[src*="perfis-publicos.js?v=6"], script[src*="perfis-publicos.js?v=7"]').count()){
         await page.reload({waitUntil:"domcontentloaded"});
         await page.locator('[data-entry-screen][data-stage="intro"]').waitFor({timeout:3000});
         await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});

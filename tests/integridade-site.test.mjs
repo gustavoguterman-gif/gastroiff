@@ -87,7 +87,7 @@ test("a abertura é exibida em cada acesso sem recolher identificadores",()=>{
  assert.doesNotMatch(js,/sessionSeen\(|markSession\(|gastroiff-entry-session-v1/);
  const homepage=fs.readFileSync(path.join(root,"index.html"),"utf8");
  assert.doesNotMatch(homepage,/sessionStorage\.getItem\("gastroiff-entry-session-v1"\)/);
- assert.match(homepage,/perfis-publicos\.js\?v=6/);
+ assert.match(homepage,/perfis-publicos\.js\?v=7/);
  assert.match(js,/button\.dataset\.profileEntry\s*=\s*key/);
  assert.match(js,/aria-modal/);
  assert.doesNotMatch(js,/Pular animação|gi-entry-skip/);
