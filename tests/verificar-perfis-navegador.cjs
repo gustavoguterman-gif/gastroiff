@@ -45,8 +45,16 @@ const root = "http://127.0.0.1:8765/";
       const introOverflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
       assert.ok(introOverflow<=2,"sem rolagem horizontal na entrada: "+name+" = "+introOverflow);
       await page.screenshot({path:"reports/entrada-"+name+".png",fullPage:false});
+      // A revelação suave do conteúdo só começa depois de encerrar a entrada.
+      // Verificação feita nos quatro tamanhos, inclusive desktop.
+      assert.equal(await page.locator("main .gi-motion-ready").count(),0,
+        "conteúdo não pode animar atrás da tela inicial: "+name);
       await page.locator('[data-profile-entry="docente"]').click();
       await entry.waitFor({state:"hidden",timeout:5000});
+      await page.waitForFunction(()=>document.querySelector("main .section-head")?.classList.contains("gi-motion-ready") ||
+        document.querySelector("main .section-head")?.classList.contains("gi-motion-visible"),null,{timeout:3000});
+      assert.ok(await page.locator("main .gi-motion-ready").count()>0,
+        "seções precisam iniciar revelação após a entrada: "+name);
       assert.equal(await page.locator("#gi-profile-choice").inputValue(),"docente","perfil docente: "+name);
       assert.equal(await page.locator(".gi-personal-panel h2").innerText(),"Sou docente");
       assert.ok(await page.locator('.gi-personal-links a[href="planejamento-docente.html"]').count());
