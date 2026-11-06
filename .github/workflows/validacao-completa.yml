@@ -61,11 +61,11 @@ jobs:
         run: node tests/praticas-gestao-navegador.cjs
       - name: Validar PWA, ícones, offline e navegação mobile/desktop
         run: node tests/pwa-mobile-desktop.cjs
-      - name: Inspecao de todas as paginas em celular e desktop
+      - name: Inspecao de todas as paginas em celular tablet e desktop
         run: node tests/auditoria-geral.cjs
       # Em pull requests, o site público ainda contém a versão anterior.
       # A conferência remota permanece obrigatória depois de integrar em main.
-      - name: Verificar site atualmente publicado em celular e computador
+      - name: Verificar site publicado em celular tablet e computador
         if: github.event_name != 'pull_request'
         run: node tests/site-publicado-navegador.cjs
       - uses: denoland/setup-deno@v2
