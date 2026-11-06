@@ -33,3 +33,10 @@ A visualização automática depende de um serviço que gere agregados a partir 
 
 ## Estado real de implementação
 Preparado: esquema SQL fechado por padrão, desenho dos instrumentos, plano de indicadores e caminhos de navegação. Não implementado: integração do banco, formulário autenticado, envio de respostas, coleta em tempo real, consentimento, publicação automatizada e relatórios alimentados por dados reais.
+
+
+## Preparação do recebimento, sem ativação
+
+A função receber-egresso e a migração de submissão foram preparadas no código para validar os campos fechados por curso, verificar um convite individual e registrar seu uso na mesma transação da resposta. Não foram executadas em servidor. O recebimento depende de uma configuração de ativação que permanece ausente.
+
+Antes da ativação é necessário aprovar os instrumentos, revisar os termos de participação, executar testes de permissões com identidades fictícias, avaliar o controle de volume de tentativas e confirmar o tratamento de dados. Os testes de navegação e aparência continuam obrigatórios para celular, tablet e computador. Os resultados públicos permanecerão separados das respostas individuais.
