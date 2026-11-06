@@ -238,3 +238,10 @@ A regra de ouro é uma condição para concluir cada entrega operacional: depois
 
 A auditoria local `tests/auditoria-geral.cjs` já percorre os três tamanhos. Em 06/11/2026, `tests/site-publicado-navegador.cjs` foi ampliado para incluir tablet 768 x 1024, além de celular 390 x 844 e desktop 1440 x 900, com capturas separadas para cinco páginas e relatório de resultados. A execução posterior à alteração e a inspeção das capturas **ainda não foram confirmadas**; não afirmar aprovação nem conclusão da entrega 2 com base apenas no commit.
 
+
+## Entrega 4: integridade das quantidades de insumos (06/11/2026)
+
+- Corrigido `assets/praticas-gestao-privada.js` para tratar campos de quantidade contendo apenas espaços como ausentes, em vez de convertê-los silenciosamente para zero. A função também rejeita booleanos e strings não numéricas (por exemplo, notação hexadecimal ou exponencial); zero explícito continua aceito.
+- Criado teste de regressão em `tests/praticas-gestao-privada.test.cjs` cobrindo quantidade solicitada, encaminhada, confirmada e recebida, além de entrada decimal válida.
+- Alterações foram gravadas no repositório, mas **a execução do CI e dos testes visuais após a alteração ainda não foi conferida**. A Gestão permanece desativada no site público; não afirmar que o ciclo de compras funciona em backend real.
+- O trabalho integra a **entrega operacional 4 de 7**, não altera a contagem de entregas aceitas: 1 entregue, 6 abertas. O aceite exige testes funcionais e verificação celular, tablet e desktop.
