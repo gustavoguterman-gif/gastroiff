@@ -1,6 +1,8 @@
 # GASTROIFF | Mapa de construção, compromissos e entregas
 Versão 1, 04/11/2026. Documento de continuidade do projeto.
 
+Nota de consolidação de 06/11/2026: a sequência de 9 fases (0 a 8) abaixo permanece como registro histórico, mas não é a contagem vigente para acompanhamento. A decomposição mais completa, com 11 fases (0 a 10), está na seção 12 de `CADERNO-COMPLETO-GASTROIFF.md` e deve orientar os próximos informes. Nenhuma das 11 fases está formalmente aceita como integralmente concluída; há entregas parciais e testes pontuais aprovados. A numeração histórica não deve ser confundida com fase concluída.
+
 ## O que este arquivo significa
 Este é o inventário de requisitos e entregas, a ser atualizado a cada fase. A existência de uma página no GitHub não significa que o serviço esteja integralmente funcionando. Os itens são classificados como:
 - **Implementado no código:** arquivo ou comportamento consta do repositório, mas pode precisar de teste no navegador publicado.
