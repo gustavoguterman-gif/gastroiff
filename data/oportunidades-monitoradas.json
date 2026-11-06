@@ -1,8 +1,8 @@
 {
   "versao": 1,
-  "ultima_consulta": "2026-11-05",
+  "ultima_consulta": "2026-11-06",
   "fonte": "https://bancodetalentos.grupojose.com.br/",
-  "total_encontrado": 5,
+  "total_encontrado": 4,
   "ids_vistos": [
     "grupo-bz:F2Ucbz319700c7K9Qdx",
     "grupo-bz:HJTGf3a19700cJJpv4H",
@@ -12,6 +12,8 @@
     "grupo-bz:tuwUS0219700kTXTPR4",
     "grupo-jose:ajudante-de-cozinha-cabo-frio-2026-08-20",
     "grupo-jose:ajudante-de-padeiro-cabo-frio-2026-10-20",
+    "grupo-jose:barman-cabo-frio-2026-08-26",
+    "grupo-jose:chef-de-gastronomia-cabo-frio-2026-07-27",
     "grupo-jose:confeiteiro-a-cabo-frio-2026-09-29",
     "grupo-jose:cozinheiro-a-cabo-frio-2026-09-01",
     "grupo-jose:gerente-de-restaurante-cabo-frio-2026-07-27",
@@ -23,25 +25,13 @@
   ],
   "candidatas": [
     {
-      "id": "grupo-jose:ajudante-de-padeiro-cabo-frio-2026-10-20",
-      "cargo": "Ajudante de padeiro",
-      "empresa": "Grupo José",
-      "cidade": "Cabo Frio",
-      "modalidade": "Oportunidade profissional",
-      "publicada_em": "2026-10-20",
-      "consulta_em": "2026-11-05",
-      "fonte": "Banco de Talentos do Grupo José",
-      "url": "https://bancodetalentos.grupojose.com.br/",
-      "situacao": "encontrada_na_fonte_nao_verificada_individualmente"
-    },
-    {
       "id": "grupo-bz:HJTGf3a19700cJJpv4H",
       "cargo": "GARÇOM DE RESTAURANTE",
       "empresa": "Grupo BZ",
       "cidade": "Armação dos Búzios - RJ",
       "modalidade": "Oportunidade profissional",
       "publicada_em": null,
-      "consulta_em": "2026-11-05",
+      "consulta_em": "2026-11-06",
       "fonte": "Portal de recrutamento do Grupo BZ",
       "url": "https://grupobzbuzios.rhgestor.com.br/vagas/detalhes/HJTGf3a19700cJJpv4H",
       "situacao": "encontrada_na_fonte_nao_verificada_individualmente"
@@ -53,7 +43,7 @@
       "cidade": "Armação dos Búzios - RJ",
       "modalidade": "Oportunidade profissional",
       "publicada_em": null,
-      "consulta_em": "2026-11-05",
+      "consulta_em": "2026-11-06",
       "fonte": "Portal de recrutamento do Grupo BZ",
       "url": "https://grupobzbuzios.rhgestor.com.br/vagas/detalhes/F2Ucbz319700c7K9Qdx",
       "situacao": "encontrada_na_fonte_nao_verificada_individualmente"
@@ -65,7 +55,7 @@
       "cidade": "Armação dos Búzios - RJ",
       "modalidade": "Oportunidade profissional",
       "publicada_em": null,
-      "consulta_em": "2026-11-05",
+      "consulta_em": "2026-11-06",
       "fonte": "Portal de recrutamento do Grupo BZ",
       "url": "https://grupobzbuzios.rhgestor.com.br/vagas/detalhes/rRSBiuy19700pJbmbxy",
       "situacao": "encontrada_na_fonte_nao_verificada_individualmente"
@@ -77,7 +67,7 @@
       "cidade": "Armação dos Búzios - RJ",
       "modalidade": "Oportunidade profissional",
       "publicada_em": null,
-      "consulta_em": "2026-11-05",
+      "consulta_em": "2026-11-06",
       "fonte": "Portal de recrutamento do Grupo BZ",
       "url": "https://grupobzbuzios.rhgestor.com.br/vagas/detalhes/morJjZl19700LgyBzTy",
       "situacao": "encontrada_na_fonte_nao_verificada_individualmente"
