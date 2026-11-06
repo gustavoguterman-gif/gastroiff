@@ -31,6 +31,22 @@ def check():
     assert "tel:+552226459500" in cp.links, "Link de ligação ausente"
     assert "https://wa.me/552226459500" in cp.links, "Link WhatsApp ausente"
     assert "linha exclusiva" not in contact.lower(), "Texto indevido reapareceu"
+    # Confere atributos que permitem identificar as ações por teclado e leitor de tela.
+    assert re.search(
+        r'href="tel:\+552226459500"[^>]*aria-label="[^"]+"', contact
+    ), "A ligação precisa de descrição acessível"
+    assert re.search(
+        r'href="https://wa\.me/552226459500"[^>]*target="_blank"'
+        r'[^>]*rel="noopener noreferrer"[^>]*aria-label="[^"]+"', contact
+    ), "WhatsApp deve ter descrição e proteção para nova aba"
+    assert re.search(
+        r'class="gi-nav-trigger"[^>]*aria-expanded="false"'
+        r'[^>]*aria-controls="gi-nav-list"', contact
+    ), "Menu Recursos sem atributos de controle"
+    assert re.search(
+        r'aria-controls="mobile-menu"[^>]*aria-expanded="false"'
+        r'[^>]*aria-label="Abrir menu"', contact
+    ), "Menu móvel sem atributos de controle"
     for name in ("gi-nav-dropdown", "gi-nav-list", "gi-mobile-resources", "mobile-menu"):
         assert name in cp.classes, f"Componente ausente em contato: {name}"
         assert name in hp.classes, f"Componente ausente na página inicial: {name}"
