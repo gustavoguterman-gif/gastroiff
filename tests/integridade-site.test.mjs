@@ -87,7 +87,7 @@ test("a abertura é exibida em cada acesso sem recolher identificadores",()=>{
  assert.doesNotMatch(js,/sessionSeen\(|markSession\(|gastroiff-entry-session-v1/);
  const homepage=fs.readFileSync(path.join(root,"index.html"),"utf8");
  assert.doesNotMatch(homepage,/sessionStorage\.getItem\("gastroiff-entry-session-v1"\)/);
- assert.match(homepage,/perfis-publicos\.js\?v=7/);
+ assert.match(homepage,/perfis-publicos\.js\?v=8/);
  assert.match(js,/button\.dataset\.profileEntry\s*=\s*key/);
  assert.match(js,/aria-modal/);
  assert.doesNotMatch(js,/Pular animação|gi-entry-skip/);
@@ -121,14 +121,14 @@ test("movimento do site ativado de forma consistente nas páginas públicas",()=
   assert.match(content, page==="index.html" ? /assets\/site\.js\?v=20261106-motion2/ : /assets\/site\.js\?v=20261105-motion1/,page+" com movimento atualizado");
  }
  const home=fs.readFileSync(path.join(root,"index.html"),"utf8");
- assert.match(home,/perfis-publicos\.css\?v=6/);
- assert.match(home,/perfis-publicos\.js\?v=7/);
+ assert.match(home,/perfis-publicos\.css\?v=7/);
+ assert.match(home,/perfis-publicos\.js\?v=8/);
 });
 
 
 test("PWA atende CSS e JS versionados com pré-cache offline",()=>{
  const sw=fs.readFileSync(path.join(root,"sw.js"),"utf8");
- assert.match(sw,/gastroiff-offline-v58/);
+ assert.match(sw,/gastroiff-offline-v59/);
  assert.match(sw,/ignoreSearch:true/);
  assert.match(sw,/\(\?:css\|js\)/);
 });

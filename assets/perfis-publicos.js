@@ -40,10 +40,12 @@
       title: "Concluí minha formação",
       description: "Explore oportunidades profissionais, pesquisa, formação continuada e a comunidade do curso.",
       links: [
-        ["Vagas e seleções", "oportunidades.html"],
-        ["Trajetórias na Gastronomia", "trajetorias.html"],
-        ["Pesquisa", "pesquisa.html"],
-        ["Gastronomia em ação", "gastronomia-em-acao.html"]
+        ["Pesquisa com egressos do Técnico", "observatorio.html#pesquisa-tecnico"],
+        ["Pesquisa com egressos da graduação", "observatorio.html#pesquisa-graduacao"],
+        ["Resultados das pesquisas", "observatorio.html#resultados"],
+        ["Balcão de empregos", "oportunidades.html"],
+        ["Calendário", "eventos.html"],
+        ["Notícias e pesquisas", "pesquisa.html"]
       ]
     },
     comunidade: {
@@ -57,7 +59,7 @@
       ]
     }
   };
-  const names = {visitante:"Visitante", estudante:"Estudante", docente:"Docente"};
+  const names = {visitante:"Visitante", estudante:"Estudante", docente:"Docente", egresso:"Egresso"};
   function read() {
     try {
       const p = localStorage.getItem(KEY);
@@ -145,7 +147,8 @@
     const primary = [
       ["visitante", "Visitante", "Cursos, projetos, pesquisa e calendário"],
       ["estudante", "Estudante", "Formação, atividades e oportunidades"],
-      ["docente", "Docente", "Planejamento, materiais e atividades acadêmicas"]
+      ["docente", "Docente", "Planejamento, materiais e atividades acadêmicas"],
+      ["egresso", "Egresso", "Pesquisas de egressos, oportunidades e calendário"]
     ];
     const entranceButtons = new Map();
     for (const [key, name, description] of primary) {

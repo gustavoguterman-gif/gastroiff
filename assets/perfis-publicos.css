@@ -247,3 +247,23 @@ body.gastroiff-page .gi-personal-section .gi-personal-choice select:focus-visibl
 @media(prefers-reduced-motion:reduce){
  body.gastroiff-page .gi-personal-section .gi-personal-choice select{transition:none!important}
 }
+
+/* Quarto perfil: mantém a mesma linguagem visual e cabe em telas menores. */
+.gi-entry-screen .gi-profile-entrance-options{gap:clamp(7px,1.5vh,12px)}
+.gi-entry-screen .gi-profile-entrance-button{min-height:clamp(54px,8vh,72px);padding:10px 15px;font-size:clamp(1rem,2.3vw,1.25rem)}
+.gi-entry-screen.is-choices .gi-profile-entrance-button:nth-child(4){transition-delay:1.24s}
+@media(max-width:620px){
+ .gi-entry-screen .gi-entry-composition{gap:clamp(16px,3vh,28px)}
+ .gi-entry-screen .gi-entry-brand{width:min(100%,290px)}
+ .gi-entry-screen .gi-profile-entrance-options{gap:9px}
+ .gi-entry-screen .gi-profile-entrance-button{min-height:58px;padding:10px 12px;font-size:1.08rem}
+}
+@media(max-height:680px){
+ .gi-entry-screen .gi-entry-composition{gap:14px}
+ .gi-entry-screen .gi-entry-brand{width:min(100%,240px)}
+ .gi-entry-screen .gi-profile-entrance-options{gap:7px}
+ .gi-entry-screen .gi-profile-entrance-button{min-height:49px;padding:7px 10px}
+}
+@media(prefers-reduced-motion:reduce){
+ .gi-entry-screen .gi-profile-entrance-button:nth-child(4){transition-delay:0s!important}
+}

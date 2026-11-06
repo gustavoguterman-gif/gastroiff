@@ -23,9 +23,9 @@ const root = "http://127.0.0.1:8765/";
         assert.equal(await entry.getAttribute("data-stage"),"intro","a logo não deve desaparecer depressa");
       }
       await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
-      assert.equal(await page.locator("[data-profile-entry]").count(),3,"três perfis sem cadastro: "+name);
-      assert.deepEqual(await page.locator("[data-profile-entry]").evaluateAll(buttons=>buttons.map(b=>b.dataset.profileEntry)),["visitante","estudante","docente"],"ordem dos perfis: "+name);
-      assert.deepEqual(await page.locator("[data-profile-entry]").allTextContents(),["Visitante","Estudante","Docente"],"botões sem informações adicionais");
+      assert.equal(await page.locator("[data-profile-entry]").count(),4,"quatro perfis sem cadastro: "+name);
+      assert.deepEqual(await page.locator("[data-profile-entry]").evaluateAll(buttons=>buttons.map(b=>b.dataset.profileEntry)),["visitante","estudante","docente","egresso"],"ordem dos perfis: "+name);
+      assert.deepEqual(await page.locator("[data-profile-entry]").allTextContents(),["Visitante","Estudante","Docente","Egresso"],"botões sem informações adicionais");
       assert.equal(await page.locator(".gi-entry-screen p, .gi-entry-screen h2, .gi-entry-screen .gi-entry-skip").count(),0,"sem texto ou botão extra");
       assert.equal(await page.locator(".gi-entry-brand").evaluate(el=>getComputedStyle(el).opacity),"1","marca permanece integrada às opções");
       assert.equal(await page.locator(".gi-entry-brand").evaluate(el=>getComputedStyle(el).position),"static","marca e botões ocupam a mesma composição");
@@ -34,8 +34,8 @@ const root = "http://127.0.0.1:8765/";
       assert.equal(await page.locator("#gi-profile-choice").inputValue(),"visitante");
       assert.deepEqual(
         await page.locator("#gi-profile-choice option").evaluateAll(opts=>opts.map(o=>o.value)),
-        ["visitante","estudante","docente"],
-        "mesmos três perfis em todos os formatos: "+name
+        ["visitante","estudante","docente","egresso"],
+        "mesmos quatro perfis em todos os formatos: "+name
       );
 
       assert.equal(await page.locator(".gi-profile-entrance-logo").count(),1,"marca da abertura: "+name);
@@ -55,6 +55,24 @@ const root = "http://127.0.0.1:8765/";
         document.querySelector("main .section-head")?.classList.contains("gi-motion-visible"),null,{timeout:3000});
       assert.ok(await page.locator("main .gi-motion-ready").count()>0,
         "seções precisam iniciar revelação após a entrada: "+name);
+      // Confere os estilos de transição sem depender de classes temporárias.
+      const transition=await page.locator("main .section-head").first().evaluate(el=>{
+        const originalReady=el.classList.contains("gi-motion-ready");
+        const originalVisible=el.classList.contains("gi-motion-visible");
+        el.classList.add("gi-motion-ready","gi-motion-visible");
+        const css=getComputedStyle(el);
+        const result={duration:css.transitionDuration};
+        if(!originalReady)el.classList.remove("gi-motion-ready");
+        if(!originalVisible)el.classList.remove("gi-motion-visible");
+        return result;
+      });
+      assert.match(transition.duration,/0\.68s|680ms/,
+        "transição suave não configurada: "+name+" "+JSON.stringify(transition));
+      await page.waitForTimeout(850);
+      const settled=await page.locator("main .gi-personal-panel").evaluate(el=>
+        Number(getComputedStyle(el).opacity)
+      );
+      assert.ok(settled>=0.99,"conteúdo continua invisível após transição: "+name);
       assert.equal(await page.locator("#gi-profile-choice").inputValue(),"docente","perfil docente: "+name);
       assert.equal(await page.locator(".gi-personal-panel h2").innerText(),"Sou docente");
       assert.ok(await page.locator('.gi-personal-links a[href="planejamento-docente.html"]').count());
@@ -66,6 +84,9 @@ const root = "http://127.0.0.1:8765/";
         await page.locator(".headerline>.menu-toggle").click();
       }
       // "Mudar perfil" deve ter a escala do botão padrão e nunca ocupar a linha toda.
+      // Afasta o ponteiro e conclui a transição de hover antes de comparar as cores.
+      await page.mouse.move(0,0);
+      await page.waitForTimeout(320);
       const switcherMetrics=await page.locator(".gi-personal-choice").evaluate(group=>{
         const select=group.querySelector("select"),label=group.querySelector("label");
         const b=select.getBoundingClientRect(),l=label.getBoundingClientRect();
@@ -100,6 +121,11 @@ const root = "http://127.0.0.1:8765/";
       assert.equal(await page.locator(".gi-personal-panel h2").innerText(),"Estou estudando Gastronomia");
       await page.locator("#gi-profile-choice").selectOption("docente");
       assert.equal(await page.locator(".gi-personal-panel h2").innerText(),"Sou docente");
+      await page.locator("#gi-profile-choice").selectOption("egresso");
+      assert.equal(await page.locator(".gi-personal-panel h2").innerText(),"Concluí minha formação");
+      assert.ok(await page.locator('.gi-personal-links a[href="observatorio.html#pesquisa-tecnico"]').count(),"pesquisa Técnico: "+name);
+      assert.ok(await page.locator('.gi-personal-links a[href="observatorio.html#pesquisa-graduacao"]').count(),"pesquisa graduação: "+name);
+      assert.ok(await page.locator('.gi-personal-links a[href="observatorio.html#resultados"]').count(),"resultados para todos: "+name);
       await page.locator("#gi-profile-choice").selectOption("visitante");
       assert.ok(await page.locator('.gi-personal-links a[href="eventos.html"]').count(),"calendário público visitante: "+name);
       assert.equal(await page.locator('[data-profile-entry="visitante"]').getAttribute("aria-pressed"),"true");
@@ -195,6 +221,19 @@ const root = "http://127.0.0.1:8765/";
       await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
       await page.locator('[data-profile-entry="visitante"]').click();
       await page.locator("[data-entry-screen]").waitFor({state:"hidden",timeout:5000});
+      // Verifica também Observatório e Gestão nas mesmas larguras.
+      const review=await context.newPage();
+      const observed=await review.goto(root+"observatorio.html",{waitUntil:"domcontentloaded"});
+      assert.equal(observed.status(),200,"Observatório: "+name);
+      for(const id of ["pesquisas-egressos","pesquisa-tecnico","pesquisa-graduacao","resultados"])
+        assert.equal(await review.locator("#"+id).count(),1,"seção ausente "+id+": "+name);
+      assert.match(await review.locator("#resultados").innerText(),/Nenhum indicador de egressos publicado/);
+      assert.ok((await review.evaluate(()=>document.documentElement.scrollWidth-innerWidth))<=3,"Observatório excedeu largura: "+name);
+      const managed=await review.goto(root+"gestao.html",{waitUntil:"domcontentloaded"});
+      assert.equal(managed.status(),200,"Gestão: "+name);
+      assert.equal(await review.locator("#central-pesquisa").count(),1);
+      assert.ok((await review.evaluate(()=>document.documentElement.scrollWidth-innerWidth))<=3,"Gestão excedeu largura: "+name);
+      await review.close();
       results.push({viewport:name,profilePersistence:true,reopenOnReload:true,reopenOnReturn:true,teacherOptions,overflow,ocOverflow,errors});
       await context.close();
     }
