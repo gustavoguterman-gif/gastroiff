@@ -22,9 +22,9 @@ const pages=["index.html","contato.html","revistas.html","gestao.html","gestao-d
     const entrancePublished=isNewEntrance;
     if(entrancePublished){
       await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
-      assert.equal(await page.locator("[data-profile-entry]").count(),3,"três perfis disponíveis no site publicado: "+view);
+      assert.equal(await page.locator("[data-profile-entry]").count(),4,"quatro perfis disponíveis no site publicado: "+view);
       if(isNewEntrance){
-        assert.deepEqual(await page.locator("[data-profile-entry]").evaluateAll(nodes=>nodes.map(n=>n.dataset.profileEntry)),["visitante","estudante","docente"],"ordem da nova abertura publicada: "+view);
+        assert.deepEqual(await page.locator("[data-profile-entry]").evaluateAll(nodes=>nodes.map(n=>n.dataset.profileEntry)),["visitante","estudante","docente","egresso"],"ordem da nova abertura publicada: "+view);
         assert.equal(await page.locator(".gi-entry-screen h2, .gi-entry-screen p, .gi-entry-screen .gi-entry-skip").count(),0,"somente marca e três botões: "+view);
         assert.equal(await page.locator(".gi-entry-brand").evaluate(el=>getComputedStyle(el).opacity),"1","logo permanece ao lado da escolha: "+view);
       }
@@ -44,7 +44,7 @@ const pages=["index.html","contato.html","revistas.html","gestao.html","gestao-d
         await page.reload({waitUntil:"domcontentloaded"});
         await page.locator('[data-entry-screen][data-stage="intro"]').waitFor({timeout:3000});
         await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
-        assert.deepEqual(await page.locator("[data-profile-entry]").allTextContents(),["Visitante","Estudante","Docente"],"nova visita mostra a animação em "+view);
+        assert.deepEqual(await page.locator("[data-profile-entry]").allTextContents(),["Visitante","Estudante","Docente","Egresso"],"nova visita mostra a animação em "+view);
         await page.locator('[data-profile-entry="visitante"]').click();
         await page.locator("[data-entry-screen]").waitFor({state:"hidden"});
       }
