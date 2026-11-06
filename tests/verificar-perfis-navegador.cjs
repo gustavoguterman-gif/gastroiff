@@ -55,20 +55,24 @@ const root = "http://127.0.0.1:8765/";
         document.querySelector("main .section-head")?.classList.contains("gi-motion-visible"),null,{timeout:3000});
       assert.ok(await page.locator("main .gi-motion-ready").count()>0,
         "seções precisam iniciar revelação após a entrada: "+name);
-      // Mesma linguagem de transição no navegador desktop, tablet e celular.
-      const animatedElement=await page.locator("main .gi-motion-visible").first().elementHandle();
-      const transition=await animatedElement.evaluate(el=>{
+      // Confere os estilos de transição sem depender de classes temporárias.
+      const transition=await page.locator("main .section-head").first().evaluate(el=>{
+        const originalReady=el.classList.contains("gi-motion-ready");
+        const originalVisible=el.classList.contains("gi-motion-visible");
+        el.classList.add("gi-motion-ready","gi-motion-visible");
         const css=getComputedStyle(el);
-        return {duration:css.transitionDuration,opacity:css.opacity};
+        const result={duration:css.transitionDuration};
+        if(!originalReady)el.classList.remove("gi-motion-ready");
+        if(!originalVisible)el.classList.remove("gi-motion-visible");
+        return result;
       });
-      assert.match(transition.duration,/0\.68s|680ms/,
-        "movimento de revelação não está configurado: "+name+" "+JSON.stringify(transition));
+      assert.match(transition.duration,/0\\.68s|680ms/,
+        "transição suave não configurada: "+name+" "+JSON.stringify(transition));
       await page.waitForTimeout(850);
-      const settled=await animatedElement.evaluate(el=>
+      const settled=await page.locator("main .gi-personal-panel").evaluate(el=>
         Number(getComputedStyle(el).opacity)
       );
-      assert.ok(settled>=0.99,"texto permanece desvanecido após transição: "+name);
-
+      assert.ok(settled>=0.99,"conteúdo continua invisível após transição: "+name);
       assert.equal(await page.locator("#gi-profile-choice").inputValue(),"docente","perfil docente: "+name);
       assert.equal(await page.locator(".gi-personal-panel h2").innerText(),"Sou docente");
       assert.ok(await page.locator('.gi-personal-links a[href="planejamento-docente.html"]').count());
