@@ -101,3 +101,12 @@ Este documento distingue alterações feitas no código de verificações que ai
 - Conferência diretamente no código de `cursos.html`, `revistas.html`, `oportunidades.html`, `observatorio.html`, `docentes.html` e `eventos.html`: CSS e JavaScript compartilham a versão `20261106-motion2` nesses seis arquivos.
 - Os testes estáticos de contato têm rotina própria em `.github/workflows/verificar-contato.yml` para push relevante, pull request e execução manual.
 - **Não homologado:** execução da suíte de integridade após esta correção; testes visuais no navegador publicado em celular, tablet e computador; fluxo real de navegação, PWA e acessibilidade interativa. A fase 0 de 11 continua aberta.
+
+
+## Evidência de execução dos testes na revisão docente nº 26 (06/11/2026)
+
+- GitHub Actions `42023429473`, em 05/11/2026: job `verificacao` concluído com `success`. Logs conferidos: teste de perfis em celular, tablet e desktop; auditoria de navegador com 29 páginas, 87 critérios aprovados e zero ocorrências no conjunto executado; testes de planejamento, gestão das práticas e PWA.
+- GitHub Actions `42023429753`, em 05/11/2026: job `testar` concluído com `success`, abrangendo testes do planejamento e das práticas em navegador.
+- Evidências: https://github.com/gustavoguterman-gif/gastroiff/actions/runs/42023429473 e https://github.com/gustavoguterman-gif/gastroiff/actions/runs/42023429753.
+- **Limitação essencial:** execuções são da PR 26 em rascunho, não comprovam o estado visual da publicação atual nem autenticação, armazenamento ou políticas RLS em serviço Supabase real. Não incorporar a PR 26 sem homologação autorizada com identidades fictícias.
+- **Fase 0 de 11 continua aberta.** Reavaliar a versão mais recente da branch principal antes de aceitar os testes como homologação do site publicado.
