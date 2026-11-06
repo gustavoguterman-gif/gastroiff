@@ -267,3 +267,77 @@ body.gastroiff-page .gi-personal-section .gi-personal-choice select:focus-visibl
 @media(prefers-reduced-motion:reduce){
  .gi-entry-screen .gi-profile-entrance-button:nth-child(4){transition-delay:0s!important}
 }
+
+/* Mosaico de acesso: quatro perfis em todas as larguras, mantendo a animação de entrada. */
+.gi-entry-screen{
+  background:radial-gradient(ellipse 55% 35% at 100% 0%,#eff6e8 0%,transparent 76%),
+             radial-gradient(ellipse 65% 20% at 0% 100%,#f0f6e9 0%,transparent 80%),#fffdfb;
+}
+.gi-entry-screen .gi-entry-composition{width:min(100%,660px);gap:clamp(20px,3.6vh,38px)}
+.gi-entry-screen .gi-entry-brand{width:min(100%,clamp(255px,44vw,440px))}
+.gi-entry-screen .gi-profile-entrance::before{
+  content:"Como deseja acessar?";display:block;margin:0 0 clamp(16px,3vh,26px);
+  color:#2d1b14;font-weight:700;letter-spacing:-.025em;
+  font-size:clamp(1.2rem,3vw,1.7rem);line-height:1.25;text-align:center;
+}
+.gi-entry-screen .gi-profile-entrance-options{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(10px,2vw,18px);width:100%;
+}
+.gi-entry-screen .gi-profile-entrance-button{
+  position:relative;display:flex;flex-direction:column;justify-content:center;
+  align-items:center;gap:11px;min-height:clamp(152px,23vh,205px);
+  border:1px solid #c5d9b7;border-radius:22px;padding:18px 10px;
+  background:linear-gradient(148deg,#fffefa 0%,#fffefa 76%,#f1f7e9 100%);
+  color:#205333;box-shadow:0 8px 22px rgba(31,62,35,.07);
+  font-size:inherit;text-align:center;cursor:pointer;
+  transition:opacity .78s cubic-bezier(.22,1,.36,1),
+             transform .86s cubic-bezier(.22,1,.36,1),
+             background-color .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.gi-entry-screen .gi-profile-entrance-button .gi-entry-card-icon{
+  width:clamp(48px,8vw,67px);height:clamp(48px,8vw,67px);border-radius:50%;
+  display:grid;place-items:center;background:#eef6e7;color:#276333;
+}
+.gi-entry-screen .gi-entry-card-icon svg{display:block;width:63%;height:63%}
+.gi-entry-screen .gi-profile-entrance-button .gi-entry-card-label{
+  color:#1e4e31;font-size:clamp(1rem,2.4vw,1.3rem);font-weight:650;line-height:1.2;
+}
+.gi-entry-screen .gi-profile-entrance-button .gi-entry-card-arrow{
+  display:grid;place-items:center;width:28px;height:28px;border-radius:50%;
+  background:#e8f4dc;border:1px solid #d5e8c6;color:#235b33;
+  font-size:27px;font-weight:400;line-height:1;
+}
+.gi-entry-screen .gi-profile-entrance-button.is-selected{
+  background:linear-gradient(148deg,#fffefa 0%,#fffefa 76%,#f1f7e9 100%);
+  border-color:#c5d9b7;
+}
+.gi-entry-screen .gi-profile-entrance-button:not(:disabled):hover{
+  border-color:#6fa77b;box-shadow:0 12px 28px rgba(31,62,35,.13);
+  background:#f5faef;transform:translateY(-3px);
+}
+.gi-entry-screen .gi-profile-entrance-button:not(:disabled):active{transform:scale(.985)}
+.gi-entry-screen .gi-profile-entrance-button:focus-visible{outline:3px solid #276e45;outline-offset:4px}
+@media(max-width:620px){
+  .gi-entry-screen{padding:18px 15px}
+  .gi-entry-screen .gi-entry-composition{width:min(100%,440px);gap:clamp(17px,3vh,27px)}
+  .gi-entry-screen .gi-entry-brand{width:min(100%,335px)}
+  .gi-entry-screen .gi-profile-entrance-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+  .gi-entry-screen .gi-profile-entrance-button{min-height:clamp(142px,22vh,175px);padding:14px 7px;gap:9px;border-radius:19px}
+}
+@media(max-width:360px){
+  .gi-entry-screen .gi-profile-entrance-button{min-height:130px;gap:6px;padding:10px 5px}
+  .gi-entry-screen .gi-profile-entrance-button .gi-entry-card-icon{width:45px;height:45px}
+  .gi-entry-screen .gi-profile-entrance::before{margin-bottom:13px}
+}
+@media(max-height:620px){
+  .gi-entry-screen .gi-entry-composition{gap:12px}
+  .gi-entry-screen .gi-entry-brand{width:min(100%,250px)}
+  .gi-entry-screen .gi-profile-entrance::before{margin-bottom:12px;font-size:1.15rem}
+  .gi-entry-screen .gi-profile-entrance-button{min-height:103px;gap:4px;padding:7px}
+  .gi-entry-screen .gi-profile-entrance-button .gi-entry-card-icon{width:36px;height:36px}
+  .gi-entry-screen .gi-profile-entrance-button .gi-entry-card-arrow{width:19px;height:19px;font-size:19px}
+}
+@media(prefers-reduced-motion:reduce){
+  .gi-entry-screen .gi-profile-entrance-button{transition:none!important}
+}
