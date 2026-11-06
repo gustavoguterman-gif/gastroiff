@@ -72,14 +72,10 @@
     try { localStorage.setItem(KEY, p); } catch { /* preferência opcional */ }
   }
 
-  const SESSION_KEY = "gastroiff-entry-session-v1";
+  // A abertura deve aparecer em todas as visitas à página inicial,
+  // incluindo recargas e retornos no mesmo navegador (desktop, tablet e PWA).
+  // Somente a preferência de conteúdo é armazenada localmente.
   const reduceMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function sessionSeen() {
-    try { return sessionStorage.getItem(SESSION_KEY) === "1"; } catch { return false; }
-  }
-  function markSession() {
-    try { sessionStorage.setItem(SESSION_KEY, "1"); } catch { /* navegação continua mesmo sem armazenamento */ }
-  }
   function entry(host) {
     const section = document.createElement("section");
     section.className = "gi-personal-section";
@@ -236,7 +232,6 @@
       if (stepTimer !== null) clearTimeout(stepTimer);
       if (enableTimer !== null) clearTimeout(enableTimer);
       save(key);
-      markSession();
       render(key);
       screen.dataset.stage = "leaving";
       screen.classList.add("is-leaving");
@@ -261,10 +256,8 @@
     select.addEventListener("change", () => { save(select.value); render(select.value); });
 
     render(read());
-    if (sessionSeen()) {
-      document.documentElement.classList.remove("gi-entry-boot");
-      return;
-    }
+    // Não ignorar a abertura por visitas anteriores: isso ocultava a tela
+    // de escolha no desktop após a primeira sessão.
     for (const node of content) {
       previousInert.set(node, node.inert);
       node.inert = true;

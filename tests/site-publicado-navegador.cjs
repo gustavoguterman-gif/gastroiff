@@ -18,8 +18,8 @@ const pages=["index.html","gestao.html","gestao-documentos-praticas.html","plane
     await page.waitForTimeout(600);
     // Em PRs, o site publicado ainda pode estar na versão anterior. A prova
     // obrigatória da nova entrada ocorre nos testes locais e após o deploy.
-    const isNewEntrance=file==="index.html" && await page.locator('script[src*="perfis-publicos.js?v=5"]').count()===1;
-    const entrancePublished=file==="index.html" && await page.locator('script[src*="perfis-publicos.js?v=4"], script[src*="perfis-publicos.js?v=5"]').count()===1;
+    const isNewEntrance=file==="index.html" && await page.locator('script[src*="perfis-publicos.js?v=5"], script[src*="perfis-publicos.js?v=6"]').count()===1;
+    const entrancePublished=file==="index.html" && await page.locator('script[src*="perfis-publicos.js?v=4"], script[src*="perfis-publicos.js?v=5"], script[src*="perfis-publicos.js?v=6"]').count()===1;
     if(entrancePublished){
       await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
       assert.equal(await page.locator("[data-profile-entry]").count(),3,"três perfis disponíveis no site publicado: "+view);
@@ -31,6 +31,14 @@ const pages=["index.html","gestao.html","gestao-documentos-praticas.html","plane
       await page.locator('[data-profile-entry="visitante"]').click();
       await page.locator("[data-entry-screen]").waitFor({state:"hidden"});
       assert.ok(await page.locator(".gi-personal-panel h2").isVisible(),"conteúdo da escolha de perfil visível: "+view);
+      if(await page.locator('script[src*="perfis-publicos.js?v=6"]').count()){
+        await page.reload({waitUntil:"domcontentloaded"});
+        await page.locator('[data-entry-screen][data-stage="intro"]').waitFor({timeout:3000});
+        await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
+        assert.deepEqual(await page.locator("[data-profile-entry]").allTextContents(),["Visitante","Estudante","Docente"],"nova visita mostra a animação em "+view);
+        await page.locator('[data-profile-entry="visitante"]').click();
+        await page.locator("[data-entry-screen]").waitFor({state:"hidden"});
+      }
     }
     // Algumas áreas administrativas usam um cabeçalho próprio sem ações rápidas.
     // Conferir o trio apenas nas páginas que de fato o oferecem.

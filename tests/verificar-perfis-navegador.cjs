@@ -102,10 +102,14 @@ const root = "http://127.0.0.1:8765/";
       await page.locator("#gi-profile-choice").selectOption("docente");
       assert.match(await page.locator(".gi-personal-panel").innerText(),/Livro de Ocorrências/);
       await page.reload({waitUntil:"domcontentloaded"});
-      await page.locator("#gi-profile-choice").waitFor();
-      assert.equal(await page.locator("[data-entry-screen]").isHidden(),true,"sem repetição intrusiva na mesma sessão: "+name);
-      assert.equal(await page.locator("#gi-profile-choice").inputValue(),"docente","preferência preservada: "+name);
-      await page.locator("#gi-profile-choice").selectOption("estudante");
+      await page.locator("#gi-profile-choice").waitFor({state:"attached"});
+      await page.locator('[data-entry-screen][data-stage="intro"]').waitFor({timeout:3000});
+      assert.equal(await page.locator("[data-entry-screen]").isVisible(),true,"a abertura reaparece no mesmo navegador: "+name);
+      assert.equal(await page.locator("#gi-profile-choice").inputValue(),"docente","preferência do conteúdo preservada sem pular escolha: "+name);
+      await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
+      await page.locator('[data-profile-entry="estudante"]').click();
+      await page.locator("[data-entry-screen]").waitFor({state:"hidden",timeout:5000});
+      assert.equal(await page.locator("#gi-profile-choice").inputValue(),"estudante","nova escolha aplicada após reabrir: "+name);
       assert.match(await page.locator(".gi-personal-panel").innerText(),/Gastronomia em ação/);
       const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
       assert.ok(overflow<=2,"rolagem horizontal na página inicial: "+name+" = "+overflow);
@@ -113,7 +117,6 @@ const root = "http://127.0.0.1:8765/";
       await page.screenshot({path:"reports/perfis-"+name+".png",fullPage:false});
       // Movimento reduzido deve exibir escolhas imediatamente, sem animação obrigatória.
       await page.emulateMedia({reducedMotion:"reduce"});
-      await page.evaluate(()=>sessionStorage.removeItem("gastroiff-entry-session-v1"));
       await page.reload({waitUntil:"domcontentloaded"});
       await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:4000});
       await page.locator('[data-profile-entry="visitante"]').click();
@@ -134,7 +137,16 @@ const root = "http://127.0.0.1:8765/";
       assert.ok(ocOverflow<=2,"rolagem horizontal nas ocorrências: "+name+" = "+ocOverflow);
       assert.deepEqual(errors,[],"erros JS: "+name);
       await page.screenshot({path:"reports/ocorrencias-"+name+".png",fullPage:false});
-      results.push({viewport:name,profilePersistence:true,teacherOptions,overflow,ocOverflow,errors});
+      // Retornar de uma página interna também deve apresentar a entrada
+      // no mesmo navegador, tanto no computador quanto no aplicativo.
+      await page.emulateMedia({reducedMotion:"no-preference"});
+      const homeAgain=await page.goto(root+"index.html",{waitUntil:"domcontentloaded"});
+      assert.equal(homeAgain.status(),200);
+      await page.locator('[data-entry-screen][data-stage="intro"]').waitFor({timeout:3000});
+      await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
+      await page.locator('[data-profile-entry="visitante"]').click();
+      await page.locator("[data-entry-screen]").waitFor({state:"hidden",timeout:5000});
+      results.push({viewport:name,profilePersistence:true,reopenOnReload:true,reopenOnReturn:true,teacherOptions,overflow,ocOverflow,errors});
       await context.close();
     }
     fs.writeFileSync("reports/teste-perfis.json",JSON.stringify(results,null,2));
