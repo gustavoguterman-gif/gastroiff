@@ -1,0 +1,63 @@
+const {chromium}=require("playwright");
+const assert=require("node:assert/strict");
+const fs=require("node:fs");
+const base="http://127.0.0.1:8765/";
+(async()=>{
+ fs.mkdirSync("reports",{recursive:true});
+ const browser=await chromium.launch({headless:true});
+ const checked=[];
+ try{
+  for(const [name,width,height] of [["celular-compacto",360,780],["celular",390,844],["tablet",768,1024],["desktop",1440,900]]){
+   const context=await browser.newContext({viewport:{width,height},reducedMotion:name==="celular-compacto"?"reduce":"no-preference"});
+   const page=await context.newPage();
+   const errors=[];
+   page.on("pageerror",err=>errors.push(err.message));
+   const res=await page.goto(base+"gastronomia-em-acao.html?tema=escolas",{waitUntil:"domcontentloaded"});
+   assert.equal(res.status(),200,"página de percursos: "+name);
+   const items=page.locator("#ga-items .ga-item");
+   assert.ok(await items.count()>=4,"temas disponíveis: "+name);
+   const selected=page.locator("#ga-items .ga-item").filter({hasText:"Cozinhas solidárias"});
+   assert.equal(await selected.count(),1,"tema de cozinha solidária: "+name);
+   await selected.focus();
+   await page.keyboard.press("Enter");
+   assert.equal(await selected.getAttribute("aria-current"),"true","seleção acessível: "+name);
+   assert.equal(await selected.evaluate(el=>document.activeElement===el),true,"foco preservado após selecionar tema: "+name);
+   assert.match(await page.locator("#ga-detail h2").innerText(),/Cozinhas solidárias/);
+   assert.match(page.url(),/tema=cozinhas/);
+   const filter=page.locator('[data-filter="producao"]');
+   await filter.click();
+   assert.equal(await filter.getAttribute("aria-pressed"),"true","filtro selecionado: "+name);
+   assert.ok(await items.count()>0,"filtro deve apresentar temas: "+name);
+   const topic=page.locator("#ga-items .ga-item").filter({hasText:"Desenvolvimento de produtos"});
+   assert.equal(await topic.count(),1,"tema de produção presente: "+name);
+   await topic.click();
+   const title=await page.locator("#ga-detail h2").innerText();
+   assert.match(title,/Desenvolvimento de produtos/);
+   const detailIntro=await page.locator("#ga-detail > p").first().innerText();
+   const action=page.locator('#ga-detail a.ga-link').filter({hasText:"Propor esta experiência"});
+   const url=new URL(await action.getAttribute("href"),page.url());
+   assert.equal(url.pathname.endsWith("/participacao.html"),true);
+   assert.equal(url.searchParams.get("tema"),title,"título do percurso transferido: "+name);
+   assert.equal(url.searchParams.get("contexto"),detailIntro,"contexto do percurso transferido: "+name);
+   const nav=await page.goto(url.href,{waitUntil:"domcontentloaded"});
+   assert.equal(nav.status(),200,"página da proposta: "+name);
+   assert.equal(await page.locator("#kind").inputValue(),"Pesquisa ou extensão");
+   const suggested=await page.locator("#title").inputValue();
+   assert.ok(suggested.startsWith("Proposta de atividade: "+title.slice(0,28)),"assunto pré-preenchido: "+name);
+   assert.ok(suggested.length<=140,"limite do assunto: "+name);
+   const details=await page.locator("#details").inputValue();
+   assert.ok(details.includes(detailIntro),"contexto preservado no texto: "+name);
+   assert.ok(details.includes("Minha proposta:"),"orientação de preenchimento presente: "+name);
+   await page.locator("#course").selectOption("Tecnólogo em Gastronomia");
+   await page.locator("#who").selectOption({label:"Estudante"});
+   assert.equal(await page.locator("#gi-participacao").evaluate(form=>form.checkValidity()),true,"proposta pronta para revisão, sem envio: "+name);
+   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+   assert.ok(overflow<=3,"formulário excedeu largura: "+name+" = "+overflow);
+   assert.deepEqual(errors,[],"erros JavaScript: "+name);
+   await page.screenshot({path:"reports/percurso-proposta-"+name+".png",fullPage:false,animations:"disabled"});
+   checked.push({name,width,topic:title,overflow});
+   await context.close();
+  }
+  console.log("Percursos e propostas aprovados:",JSON.stringify(checked));
+ }finally{await browser.close()}
+})().catch(err=>{console.error(err);process.exitCode=1});

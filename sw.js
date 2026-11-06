@@ -1,4 +1,4 @@
-const CACHE='gastroiff-offline-v56';
+const CACHE='gastroiff-offline-v57';
 const SHELL=[
  './','./index.html','./oportunidades.html','./contato.html','./cursos.html','./laboratorios.html','./biblioteca.html',
  './docentes.html','./planejamento-docente.html','./gestao-documentos-praticas.html','./participacao.html','./trajetorias.html','./gastronomia-em-acao.html','./ocorrencias.html','./painel.html','./gestao.html','./pesquisa.html','./projetos.html','./manual-laboratorio.html','./perfil.html','./eventos.html','./acervo.html','./documentos.html','./livro.html',
