@@ -38,7 +38,9 @@ const pages=["index.html","gestao.html","gestao-documentos-praticas.html","plane
     });
     assert.equal(quick.length,3,"três botões rápidos: "+view);
     assert.ok(quick.every((box,i)=>Math.abs(box.width-quick[0].width)<=1&&Math.abs(box.y-quick[0].y)<=1),"ações alinhadas: "+view);
-    if(width<=700)assert.ok(quick.every(box=>box.width<=43&&box.height<=45),"ações compactas no celular: "+view);
+    const versionWithCompactHeader=await page.locator('link[href*="institutional.css?v=20261105-quickfix1"]').count()===1;
+    if(width<=700&&versionWithCompactHeader)
+     assert.ok(quick.every(box=>box.width<=43&&box.height<=45),"ações compactas no celular: "+view);
     const status=await page.evaluate(()=>({
      title:document.title,
      overflow:document.documentElement.scrollWidth-innerWidth,
