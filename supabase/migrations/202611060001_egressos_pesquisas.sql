@@ -24,14 +24,16 @@ create table if not exists public.gi_alumni_invitations (
  expires_at timestamptz not null,
  used_at timestamptz,
  revoked_at timestamptz,
- created_at timestamptz not null default now()
+ created_at timestamptz not null default now(),
+ unique (id, survey_id)
 );
 
 -- Conteúdo individual: nunca disponibilizado via URL pública ou chave anon.
 create table if not exists public.gi_alumni_responses (
  id uuid primary key default gen_random_uuid(),
  survey_id uuid not null references public.gi_alumni_surveys(id) on delete restrict,
- invitation_id uuid not null unique references public.gi_alumni_invitations(id) on delete restrict,
+ invitation_id uuid not null unique,
+ foreign key (invitation_id,survey_id) references public.gi_alumni_invitations(id,survey_id) on delete restrict,
  instrument_version integer not null check (instrument_version >= 1),
  answers jsonb not null check (jsonb_typeof(answers) = 'object'),
  submitted_at timestamptz not null default now()
@@ -41,8 +43,9 @@ create table if not exists public.gi_alumni_responses (
 -- Sem texto livre, contatos ou identificador de respondente.
 create table if not exists public.gi_alumni_public_results (
  id uuid primary key default gen_random_uuid(),
- survey_id uuid not null references public.gi_alumni_surveys(id) on delete cascade,
+ survey_id uuid not null,
  course text not null check (course in ('technical','technologist')),
+ foreign key (survey_id,course) references public.gi_alumni_surveys(id,course) on delete cascade,
  period_label text not null,
  metric_key text not null check (metric_key ~ '^[a-z][a-z0-9_]{1,79}$'),
  metric_label text not null,
