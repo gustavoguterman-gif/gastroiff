@@ -88,3 +88,43 @@ if(gallery){const slides=[...gallery.querySelectorAll('.gallery-slide')],positio
  const footer=document.querySelector('.footer .footerrow');
  if(footer&&!footer.querySelector('.gastroiff-footer-iff')){const link=document.createElement('a');link.className='gastroiff-footer-iff';link.href='https://portal1.iff.edu.br/nossos-campi/cabo-frio';link.target='_blank';link.rel='noopener noreferrer';link.setAttribute('aria-label','Instituto Federal Fluminense campus Cabo Frio');link.innerHTML='<img src="assets/iff-marca-oficial.jpg" alt="Instituto Federal Fluminense, campus Cabo Frio">';footer.append(link)}
 })();
+
+// Entradas suaves de conteúdo; nunca dependem do JS para existir no DOM.
+// Um único aparecimento, sem parallax, sem deslocar o layout e sem animar formulários.
+(()=>{
+ const media=window.matchMedia('(prefers-reduced-motion: reduce)');
+ if(media.matches||!('IntersectionObserver' in window))return;
+ const root=document.querySelector('main');
+ if(!root)return;
+ const selectors=[
+  '.pagehero','.section-head','.featuregrid > .feature',
+  '.smallcard','.course-card','.facultycard','.research-result',
+  '.gi-resource-card','.research-topic-card',
+  '.gi-governance-section','.gi-personal-panel'
+ ].join(',');
+ const nodes=[...root.querySelectorAll(selectors)].filter(el=>
+  !el.closest('[hidden],dialog,[aria-hidden="true"],.gi-entry-screen')
+ );
+ const reveal=el=>{
+  el.classList.add('gi-motion-visible');
+  // Retira os estilos provisórios para não interferir com estados hover.
+  el.addEventListener('transitionend',ev=>{
+   if(ev.target===el&&ev.propertyName==='opacity')el.classList.remove('gi-motion-ready','gi-motion-visible');
+  },{once:true});
+ };
+ const observer=new IntersectionObserver(entries=>{
+  for(const entry of entries)if(entry.isIntersecting){
+   observer.unobserve(entry.target);
+   reveal(entry.target);
+  }
+ },{threshold:0.08,rootMargin:'0px 0px -24px 0px'});
+ for(const el of nodes){
+  el.classList.add('gi-motion-ready');
+  observer.observe(el);
+ }
+ const stop=()=>{
+  observer.disconnect();
+  for(const el of nodes)el.classList.remove('gi-motion-ready','gi-motion-visible');
+ };
+ media.addEventListener?.('change',e=>{if(e.matches)stop()},{once:true});
+})();

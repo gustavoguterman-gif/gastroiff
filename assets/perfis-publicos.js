@@ -57,14 +57,11 @@
       ]
     }
   };
-  const names = {
-    visitante: "Quero conhecer os cursos", estudante: "Estudante",
-    docente: "Docente", egresso: "Egresso(a)", comunidade: "Comunidade"
-  };
+  const names = {visitante:"Visitante", estudante:"Estudante", docente:"Docente"};
   function read() {
     try {
       const p = localStorage.getItem(KEY);
-      return Object.hasOwn(profiles, p) ? p : "visitante";
+      return Object.hasOwn(names, p) ? p : "visitante";
     } catch { return "visitante"; }
   }
   function save(p) {

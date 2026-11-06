@@ -45,6 +45,7 @@ test("personalização pública não exige nem armazena identificação pessoal"
  const js=fs.readFileSync(path.join(root,"assets/perfis-publicos.js"),"utf8");
  assert.match(js,/localStorage/);
  assert.match(js,/Object\.hasOwn\(profiles/);
+ assert.match(js,/Object\.hasOwn\(names/);
  assert.doesNotMatch(js,/(?:fetch\(|XMLHttpRequest|sendBeacon|matr[ií]cula\s*:|siape\s*:)/i);
  assert.match(fs.readFileSync(path.join(root,"index.html"),"utf8"),/assets\/perfis-publicos\.js\?v=\d+/);
 });
@@ -96,4 +97,17 @@ test("a abertura é exibida em cada acesso sem recolher identificadores",()=>{
  assert.match(css,/mix-blend-mode:multiply/);
  assert.match(css,/prefers-reduced-motion:reduce/);
  assert.doesNotMatch(js,/nome\s*completo\s*[:=]|matr[ií]cula\s*[:=]|siape\s*[:=]/i);
+});
+
+
+test("transições públicas respeitam movimento reduzido",()=>{
+ const css=fs.readFileSync(path.join(root,"assets/site.css"),"utf8");
+ const js=fs.readFileSync(path.join(root,"assets/site.js"),"utf8");
+ const perfis=fs.readFileSync(path.join(root,"assets/perfis-publicos.css"),"utf8");
+ assert.match(css,/@view-transition\s*\{navigation:auto\}/);
+ assert.match(css,/prefers-reduced-motion:reduce/);
+ assert.match(js,/IntersectionObserver/);
+ assert.match(js,/gi-motion-visible/);
+ assert.match(perfis,/gi-personal-choice select/);
+ assert.match(perfis,/--gi-control-bg/);
 });

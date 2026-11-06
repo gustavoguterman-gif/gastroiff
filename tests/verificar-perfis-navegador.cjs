@@ -32,6 +32,12 @@ const root = "http://127.0.0.1:8765/";
 
       assert.equal(await page.locator("[data-entry-screen] input").count(),0,"sem coleta de identificação: "+name);
       assert.equal(await page.locator("#gi-profile-choice").inputValue(),"visitante");
+      assert.deepEqual(
+        await page.locator("#gi-profile-choice option").evaluateAll(opts=>opts.map(o=>o.value)),
+        ["visitante","estudante","docente"],
+        "mesmos três perfis em todos os formatos: "+name
+      );
+
       assert.equal(await page.locator(".gi-profile-entrance-logo").count(),1,"marca da abertura: "+name);
       assert.equal(await page.locator(".gi-profile-entrance-logo").evaluate(img=>img.complete&&img.naturalWidth>0),true,"logo carregada: "+name);
       const layout=await page.locator(".gi-profile-entrance-options").evaluate(node=>({display:getComputedStyle(node).display,direction:getComputedStyle(node).flexDirection}));
@@ -51,6 +57,41 @@ const root = "http://127.0.0.1:8765/";
         assert.equal(await page.locator("[data-mobile-menu]").isVisible(),true,"menu tablet abre");
         await page.locator(".headerline>.menu-toggle").click();
       }
+      // "Mudar perfil" deve ter a escala do botão padrão e nunca ocupar a linha toda.
+      const switcherMetrics=await page.locator(".gi-personal-choice").evaluate(group=>{
+        const select=group.querySelector("select"),label=group.querySelector("label");
+        const b=select.getBoundingClientRect(),l=label.getBoundingClientRect();
+        const css=getComputedStyle(select);
+        const button=document.querySelector(".gi-personal-links a");
+        const bs=button?getComputedStyle(button):null;
+        return {width:b.width,height:b.height,right:b.right,top:b.top,
+          labelRight:l.right,labelTop:l.top,
+          radius:parseFloat(css.borderTopLeftRadius),
+          background:css.backgroundColor,buttonBackground:bs?.backgroundColor,
+          groupWidth:group.getBoundingClientRect().width,
+          clipped:select.scrollWidth>select.clientWidth+2
+        };
+      });
+      assert.ok(switcherMetrics.width<=146&&switcherMetrics.height<=38,
+        "seletor fora do padrão compacto: "+name+" "+JSON.stringify(switcherMetrics));
+      assert.ok(switcherMetrics.groupWidth<=265,
+        "grupo Mudar perfil largo demais: "+name);
+      assert.ok(switcherMetrics.right<=width+1,
+        "seletor fora da tela: "+name);
+      assert.ok(switcherMetrics.labelRight<=switcherMetrics.right,
+        "texto Mudar perfil desalinhado: "+name);
+      assert.ok(Math.abs(switcherMetrics.labelTop-switcherMetrics.top)<16,
+        "rótulo desalinhado verticalmente: "+name);
+      assert.ok(switcherMetrics.radius>=6&&switcherMetrics.radius<=10,
+        "raio do seletor fora do padrão: "+name);
+      assert.equal(switcherMetrics.background,switcherMetrics.buttonBackground,
+        "seletor não usa o mesmo fundo dos botões: "+name);
+      assert.equal(switcherMetrics.clipped,false,
+        "texto do perfil cortado: "+name);
+      await page.locator("#gi-profile-choice").selectOption("estudante");
+      assert.equal(await page.locator(".gi-personal-panel h2").innerText(),"Estou estudando Gastronomia");
+      await page.locator("#gi-profile-choice").selectOption("docente");
+      assert.equal(await page.locator(".gi-personal-panel h2").innerText(),"Sou docente");
       await page.locator("#gi-profile-choice").selectOption("visitante");
       assert.ok(await page.locator('.gi-personal-links a[href="eventos.html"]').count(),"calendário público visitante: "+name);
       assert.equal(await page.locator('[data-profile-entry="visitante"]').getAttribute("aria-pressed"),"true");
