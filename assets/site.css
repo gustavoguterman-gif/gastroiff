@@ -311,16 +311,16 @@ a{transition:color .2s}a:not(.button):not(.editorial-action):hover{color:#267c4a
 @view-transition {navigation:auto}
 @keyframes gi-page-fade-out{to{opacity:0}}
 @keyframes gi-page-fade-in{from{opacity:0}to{opacity:1}}
-::view-transition-old(root){animation:180ms ease-in both gi-page-fade-out}
-::view-transition-new(root){animation:360ms ease-out both gi-page-fade-in}
+::view-transition-old(root){animation:220ms ease-in both gi-page-fade-out}
+::view-transition-new(root){animation:420ms ease-out both gi-page-fade-in}
 body.gastroiff-page main .gi-motion-ready {
  opacity:0;
- transform:translate3d(0,13px,0);
+ transform:translate3d(0,17px,0);
 }
 body.gastroiff-page main .gi-motion-ready.gi-motion-visible{
  opacity:1;transform:translate3d(0,0,0);
- transition:opacity 680ms cubic-bezier(.22,1,.36,1),
-            transform 680ms cubic-bezier(.22,1,.36,1);
+ transition:opacity 760ms cubic-bezier(.22,1,.36,1),
+            transform 760ms cubic-bezier(.22,1,.36,1);
 }
 @media(hover:hover) and (prefers-reduced-motion:no-preference){
  body.gastroiff-page main :is(.feature,.smallcard,.gi-resource-card,.research-topic-card,.course-card,.facultycard):hover{
