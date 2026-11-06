@@ -132,3 +132,19 @@ test("PWA atende CSS e JS versionados com pré-cache offline",()=>{
  assert.match(sw,/ignoreSearch:true/);
  assert.match(sw,/\(\?:css\|js\)/);
 });
+
+test("pesquisas com egressos permanecem protegidas por padrão",()=>{
+ const sql=fs.readFileSync(path.join(root,"supabase/migrations/202611060001_egressos_pesquisas.sql"),"utf8");
+ for(const table of ["gi_alumni_surveys","gi_alumni_invitations","gi_alumni_responses","gi_alumni_public_results"]){
+  assert.match(sql,new RegExp("alter table public\\."+table+" enable row level security","i"));
+  assert.match(sql,new RegExp("revoke all on public\\."+table+" from public,anon,authenticated","i"));
+ }
+ assert.match(sql,/grant select on public\\.gi_alumni_public_results to anon,authenticated/);
+ assert.match(sql,/state = 'published' and published_at is not null and responses_count >= 5/);
+ assert.doesNotMatch(sql,/grant (?:insert|update|delete|all) on public\\.gi_alumni_(?:invitations|responses)/i);
+ assert.match(sql,/foreign key \\(invitation_id,survey_id\\)/);
+ assert.match(sql,/foreign key \\(survey_id,course\\)/);
+ const page=fs.readFileSync(path.join(root,"observatorio.html"),"utf8");
+ for(const id of ["pesquisa-tecnico","pesquisa-graduacao","resultados"])assert.match(page,new RegExp('id="'+id+'"'));
+ assert.match(page,/Nenhum indicador de egressos publicado/);
+});
