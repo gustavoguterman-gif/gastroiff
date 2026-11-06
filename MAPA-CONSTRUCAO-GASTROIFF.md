@@ -168,3 +168,12 @@ Correção transversal de interface desta rodada: cabeçalho nas larguras de 360
 ## Correção da abertura nos três formatos (05/11/2026)
 
 Comportamento revisado: a página inicial exibe a logo e a escolha de Visitante, Estudante e Docente sempre que é carregada, inclusive ao atualizar a aba ou retornar ao início. O antigo bloqueio por armazenamento da sessão produzia uma experiência diferente no desktop, que já havia visitado a página. A escolha do perfil permanece guardada apenas para contextualizar o conteúdo, sem pular a próxima abertura e sem autenticar ninguém. A duração anterior, a ordem dos três botões e as opções de movimento reduzido foram preservadas. Testar 360, 390, 768 e 1440 px, retorno a partir de outra página, recarga em sessão já usada, PWA offline e publicação real. Esta correção é transversal à Fase 1 de 9, ainda parcialmente concluída.
+
+
+## Revisão de proporções e linguagem de movimento (05/11/2026)
+
+A Fase 1 de 9 inclui uma revisão visual transversal que abrange todos os perfis da entrada (Visitante, Estudante e Docente) e as versões de celular, tablet e computador. O controle Mudar perfil deve ser um seletor compacto alinhado à direita, com três opções, altura próxima de 35 px e a paleta, bordas, sombra e foco dos botões padronizados. A escolha do conteúdo continua livre e local, sem cadastro. O antigo seletor excessivamente largo deve ficar fora de uso.
+
+A linguagem de movimento no site público é composta de transições de 180–360 ms entre páginas, quando o navegador suporta View Transitions, e de revelações discretas de aproximadamente 680 ms para títulos e cartões ao entrar na área visível. Nada deve se mover continuamente, bloquear o conteúdo, modificar o layout, atrapalhar menus/formulários ou esconder textos quando o JavaScript estiver indisponível. O dispositivo que solicitar movimento reduzido deve receber os elementos diretamente, sem transições. Páginas administrativas com visual autônomo ficam fora desta alteração transversal, para não comprometer formulários e operações internas.
+
+A auditoria automatizada deve verificar todas as páginas nas três larguras, relatar textos cortados e campos excessivamente largos, reprovar o seletor de perfil fora do padrão e gerar capturas representativas. Aprovar os testes específicos de perfis, a integridade do código, a auditoria geral, o PWA e a conferência do endereço publicado após integração. A conferência humana da qualidade estética permanece necessária.

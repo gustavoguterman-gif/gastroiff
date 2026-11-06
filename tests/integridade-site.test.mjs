@@ -111,3 +111,16 @@ test("transições públicas respeitam movimento reduzido",()=>{
  assert.match(perfis,/gi-personal-choice select/);
  assert.match(perfis,/--gi-control-bg/);
 });
+
+
+test("movimento do site ativado de forma consistente nas páginas públicas",()=>{
+ const ignored=new Set(["acervo.html","gestao.html","gestao-insumos.html","gestao-documentos-praticas.html","painel.html"]);
+ for(const page of pages.filter(p=>!ignored.has(p))){
+  const content=fs.readFileSync(path.join(root,page),"utf8");
+  assert.match(content,/assets\/site\.css\?v=20261105-motion1/,page+" com CSS visual atualizado");
+  assert.match(content,/assets\/site\.js\?v=20261105-motion1/,page+" com movimento atualizado");
+ }
+ const home=fs.readFileSync(path.join(root,"index.html"),"utf8");
+ assert.match(home,/perfis-publicos\.css\?v=6/);
+ assert.match(home,/perfis-publicos\.js\?v=7/);
+});

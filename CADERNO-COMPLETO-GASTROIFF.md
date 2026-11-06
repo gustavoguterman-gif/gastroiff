@@ -582,3 +582,11 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - Atualizados teste de recarga, retorno de outra página, PWA offline e verificação do site publicado. Nenhum cadastro ou dado institucional é coletado. Preferências de movimento reduzido permanecem respeitadas.
 - Os alertas de GitHub Actions devem ser classificados por commit e estado atualizado: falhas em commits antigos de propostas corrigidas não representam falhas presentes na branch principal. A configuração de envio de e-mails do GitHub pertence à conta do proprietário, não ao código do projeto.
 - Progresso geral: revisão visual vinculada à Fase 1 de um total de 9 fases (0 a 8), sem completar a Fase 2 protegida.
+
+
+## 39. Consistência visual e animações suaves nas páginas públicas (05/11/2026)
+- Uniformizado o seletor Mudar perfil com o padrão de botões institucionais: controle compacto de 35 px de altura, fundo verde claro, borda e relevo iguais, três opções (Visitante, Estudante, Docente), inclusive após recarga ou alteração do perfil.
+- Adicionadas transições de passagem entre páginas quando compatíveis (180 ms de saída e 360 ms de entrada) e surgimento único de títulos e cartões ao entrar no campo de visão (680 ms). Conteúdos continuam visíveis sem JavaScript e efeitos são desativados em preferência por movimento reduzido.
+- Atualizado carregamento de recursos em 24 páginas públicas; áreas administrativas autônomas não recebem movimento global para evitar interferência nos controles e na segurança.
+- Auditoria visual ampliada para os 29 arquivos HTML nas três vistas de 390, 768 e 1440 px, com relatórios de textos cortados e seletores largos e capturas adicionais. Testes específicos de perfis cobrem 360, 390, 768 e 1440 px. A inspeção automatizada não substitui a avaliação estética humana.
+- Atualização transversal pertencente à Fase 1 de 9, ainda parcialmente concluída. Exigir verificação pós-publicação.
