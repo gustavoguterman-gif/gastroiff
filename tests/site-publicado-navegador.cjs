@@ -8,7 +8,7 @@ const pages=["index.html","gestao.html","gestao-documentos-praticas.html","plane
  const browser=await chromium.launch({headless:true});
  try{
   const checks=[];
-  for(const [view,width,height] of [["aplicativo-mobile",390,844],["navegador-desktop",1440,900]]){
+  for(const [view,width,height] of [["aplicativo-mobile",390,844],["tablet",768,1024],["navegador-desktop",1440,900]]){
    const ctx=await browser.newContext({viewport:{width,height},serviceWorkers:"allow"});
    for(const file of pages){
     const page=await ctx.newPage(),errors=[];
@@ -92,6 +92,6 @@ const pages=["index.html","gestao.html","gestao-documentos-praticas.html","plane
   await page.waitForFunction(()=>!!navigator.serviceWorker?.controller,null,{timeout:30000});
   await context.close();
   fs.writeFileSync("reports/site-publicado/resultado.json",JSON.stringify({base:BASE,checks},null,2));
-  console.log("Portal publicado aprovado:",checks.length,"verificações de páginas em mobile e desktop; manifesto e SW ativos");
+  console.log("Portal publicado aprovado:",checks.length,"verificações de páginas em celular, tablet e desktop; manifesto e SW ativos");
  }finally{await browser.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});
