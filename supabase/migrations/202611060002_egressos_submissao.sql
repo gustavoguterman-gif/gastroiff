@@ -3,6 +3,7 @@
 -- Executada exclusivamente pelo papel service_role, nunca pelo navegador.
 create or replace function public.gi_submit_alumni_answer(
  p_survey_id uuid,
+ p_course text,
  p_token_hash text,
  p_instrument_version integer,
  p_answers jsonb
@@ -26,6 +27,7 @@ begin
  if not exists (
    select 1 from public.gi_alumni_surveys s
    where s.id = p_survey_id
+     and s.course = p_course
      and s.state = 'open'
      and s.instrument_version = p_instrument_version
      and (s.opened_at is null or s.opened_at <= pg_catalog.now())
@@ -54,7 +56,7 @@ begin
  return true;
 end;
 $$;
-revoke all on function public.gi_submit_alumni_answer(uuid,text,integer,jsonb)
+revoke all on function public.gi_submit_alumni_answer(uuid,text,text,integer,jsonb)
  from public, anon, authenticated;
-grant execute on function public.gi_submit_alumni_answer(uuid,text,integer,jsonb)
+grant execute on function public.gi_submit_alumni_answer(uuid,text,text,integer,jsonb)
  to service_role;
