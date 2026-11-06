@@ -145,7 +145,7 @@
     if(typeof v==="string"){
      v=v.trim();
      if(!v)return null;
-     if(!/^(?:\\d+(?:\\.\\d+)?|\\.\\d+)$/.test(v))
+     if(!/^(?:\d+(?:\.\d+)?|\.\d+)$/.test(v))
       throw Error("Quantidade inválida na linha "+(index+1));
     }else if(typeof v!=="number")throw Error("Quantidade inválida na linha "+(index+1));
     const x=Number(v);
