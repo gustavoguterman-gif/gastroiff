@@ -72,22 +72,29 @@
   const path=cycleId+"/"+cryptoApi.randomUUID()+"."+metadata.extension;
   const upload=await client.storage.from(BUCKET).upload(path,file,{contentType:metadata.contentType,upsert:false});
   fail(upload,"Armazenamento privado");
-  const list=await client.from(TABLES.docs).select("revision").eq("cycle_id",cycleId)
-   .eq("kind",STAGES[stage]).order("revision",{ascending:false}).limit(1);
-  if(list.error){
-   await client.storage.from(BUCKET).remove([path]);throw Error("Falha ao consultar histórico de documentos");
+  // Uma falha de rede após o upload não deve deixar um original sem registro.
+  try{
+   const list=await client.from(TABLES.docs).select("revision").eq("cycle_id",cycleId)
+    .eq("kind",STAGES[stage]).order("revision",{ascending:false}).limit(1);
+   fail(list,"Consulta do histórico de documentos");
+   const revision=Number(list.data?.[0]?.revision||0)+1;
+   const document={
+    cycle_id:cycleId,kind:STAGES[stage],filename:String(file.name||"Arquivo").slice(0,180),
+    storage_path:path,sha256:sha,content_type:metadata.contentType,revision,reviewed:false,uploaded_by:uid
+   };
+   const result=await client.from(TABLES.docs).insert(document).select("id,cycle_id,kind,revision,reviewed").single();
+   if(result.error||!result.data?.id)
+    throw Error("Falha ao registrar documento: "+(result.error?.message||"retorno inválido"));
+   return {id:result.data.id,revision,reviewed:false,sha256:sha};
+  }catch(error){
+   try{
+    const cleanup=await client.storage.from(BUCKET).remove([path]);
+    fail(cleanup,"Remoção do envio incompleto");
+   }catch(cleanupError){
+    throw Error("Falha após upload; limpeza do arquivo privado não confirmada. Verifique o armazenamento antes de repetir. "+cleanupError.message);
+   }
+   throw error;
   }
-  const revision=Number(list.data?.[0]?.revision||0)+1;
-  const document={
-   cycle_id:cycleId,kind:STAGES[stage],filename:String(file.name||"Arquivo").slice(0,180),
-   storage_path:path,sha256:sha,content_type:metadata.contentType,revision,reviewed:false,uploaded_by:uid
-  };
-  const result=await client.from(TABLES.docs).insert(document).select("id,cycle_id,kind,revision,reviewed").single();
-  if(result.error||!result.data?.id){
-   await client.storage.from(BUCKET).remove([path]);
-   throw Error("Falha ao registrar documento: "+(result.error?.message||"retorno inválido"));
-  }
-  return {id:result.data.id,revision,reviewed:false,sha256:sha};
  }
  async function listCycles(client){
   await ensureManager(client);
