@@ -148,6 +148,15 @@ test("PWA atende CSS e JS versionados com pré-cache offline",()=>{
  assert.match(sw,/\(\?:css\|js\)/);
 });
 
+test("administracao protegida permanece desativada ate homologacao institucional",()=>{
+ const config=fs.readFileSync(path.join(root,"assets/praticas-config.js"),"utf8");
+ assert.match(config,/enabled:\s*false\b/,"O acesso privado foi ativado antes da homologacao");
+ assert.match(config,/supabaseUrl:\s*""/,"URL privada nao deve ser configurada antes da homologacao");
+ assert.match(config,/supabasePublishableKey:\s*""/,"Chave publica so apos autorizacao e verificacao real de RLS");
+ assert.doesNotMatch(config,/sb_secret_[a-zA-Z0-9_-]+|service_role\s*[:=]/i,
+   "Credenciais privilegiadas nao podem estar na configuracao publica");
+});
+
 test("pesquisas com egressos permanecem protegidas por padrão",()=>{
  const sql=fs.readFileSync(path.join(root,"supabase/migrations/202611060001_egressos_pesquisas.sql"),"utf8");
  for(const table of ["gi_alumni_surveys","gi_alumni_invitations","gi_alumni_responses","gi_alumni_public_results"]){
