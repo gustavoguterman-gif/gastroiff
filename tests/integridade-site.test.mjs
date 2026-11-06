@@ -117,7 +117,7 @@ test("movimento do site ativado de forma consistente nas páginas públicas",()=
  const ignored=new Set(["acervo.html","gestao.html","gestao-insumos.html","gestao-documentos-praticas.html","painel.html"]);
  for(const page of pages.filter(p=>!ignored.has(p))){
   const content=fs.readFileSync(path.join(root,page),"utf8");
-  assert.match(content,/assets\/site\.css\?v=20261105-motion1/,page+" com CSS visual atualizado");
+  assert.match(content, page==="index.html" ? /assets\/site\.css\?v=20261106-motion2/ : /assets\/site\.css\?v=20261105-motion1/,page+" com CSS visual atualizado");
   assert.match(content, page==="index.html" ? /assets\/site\.js\?v=20261106-motion2/ : /assets\/site\.js\?v=20261105-motion1/,page+" com movimento atualizado");
  }
  const home=fs.readFileSync(path.join(root,"index.html"),"utf8");
@@ -128,7 +128,7 @@ test("movimento do site ativado de forma consistente nas páginas públicas",()=
 
 test("PWA atende CSS e JS versionados com pré-cache offline",()=>{
  const sw=fs.readFileSync(path.join(root,"sw.js"),"utf8");
- assert.match(sw,/gastroiff-offline-v59/);
+ assert.match(sw,/gastroiff-offline-v60/);
  assert.match(sw,/ignoreSearch:true/);
  assert.match(sw,/\(\?:css\|js\)/);
 });
