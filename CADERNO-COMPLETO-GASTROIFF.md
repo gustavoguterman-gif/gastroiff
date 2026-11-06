@@ -590,3 +590,10 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - Atualizado carregamento de recursos em 24 páginas públicas; áreas administrativas autônomas não recebem movimento global para evitar interferência nos controles e na segurança.
 - Auditoria visual ampliada para os 29 arquivos HTML nas três vistas de 390, 768 e 1440 px, com relatórios de textos cortados e seletores largos e capturas adicionais. Testes específicos de perfis cobrem 360, 390, 768 e 1440 px. A inspeção automatizada não substitui a avaliação estética humana.
 - Atualização transversal pertencente à Fase 1 de 9, ainda parcialmente concluída. Exigir verificação pós-publicação.
+
+
+## 40. Teste de aceitação do percurso público, Fase 1 (05/11/2026)
+- O percurso Gastronomia em ação → proposta em Participação Acadêmica passa por teste de navegador em quatro larguras (360, 390, 768 e 1440 px), com confirmação de tema, contexto, campos e links sem envio real de e-mail.
+- Seleção por teclado/mouse preserva o botão no DOM e mantém o foco, com `aria-current` atualizado. Substituição da descrição recebe fade breve de 360 ms; rolagem para painel no celular respeita movimento reduzido.
+- Entrada de texto por URL respeita `maxlength=140` do título; nenhuma identificação acadêmica ou credencial é solicitada. Dados continuam apenas no navegador até que o usuário abra o e-mail.
+- O ensaio torna verificável o critério de navegação da Fase 1 sem declarar sua conclusão integral e sem afirmar existência de banco, envio interno ou protocolo. As futuras fases 2 e 3 exigem homologação real da infraestrutura protegida.

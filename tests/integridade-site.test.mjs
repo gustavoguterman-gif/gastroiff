@@ -128,7 +128,7 @@ test("movimento do site ativado de forma consistente nas páginas públicas",()=
 
 test("PWA atende CSS e JS versionados com pré-cache offline",()=>{
  const sw=fs.readFileSync(path.join(root,"sw.js"),"utf8");
- assert.match(sw,/gastroiff-offline-v56/);
+ assert.match(sw,/gastroiff-offline-v57/);
  assert.match(sw,/ignoreSearch:true/);
  assert.match(sw,/\(\?:css\|js\)/);
 });
