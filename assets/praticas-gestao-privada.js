@@ -73,6 +73,7 @@
   const upload=await client.storage.from(BUCKET).upload(path,file,{contentType:metadata.contentType,upsert:false});
   fail(upload,"Armazenamento privado");
   // Uma falha de rede após o upload não deve deixar um original sem registro.
+  let registroIncerto=false;
   try{
    const list=await client.from(TABLES.docs).select("revision").eq("cycle_id",cycleId)
     .eq("kind",STAGES[stage]).order("revision",{ascending:false}).limit(1);
@@ -82,11 +83,18 @@
     cycle_id:cycleId,kind:STAGES[stage],filename:String(file.name||"Arquivo").slice(0,180),
     storage_path:path,sha256:sha,content_type:metadata.contentType,revision,reviewed:false,uploaded_by:uid
    };
-   const result=await client.from(TABLES.docs).insert(document).select("id,cycle_id,kind,revision,reviewed").single();
+   let result;
+   try{
+    result=await client.from(TABLES.docs).insert(document).select("id,cycle_id,kind,revision,reviewed").single();
+   }catch{
+    registroIncerto=true;
+    throw Error("O servidor não confirmou o registro. Verifique o histórico antes de repetir o envio.");
+   }
    if(result.error||!result.data?.id)
     throw Error("Falha ao registrar documento: "+(result.error?.message||"retorno inválido"));
    return {id:result.data.id,revision,reviewed:false,sha256:sha};
   }catch(error){
+   if(registroIncerto)throw error;
    try{
     const cleanup=await client.storage.from(BUCKET).remove([path]);
     fail(cleanup,"Remoção do envio incompleto");
