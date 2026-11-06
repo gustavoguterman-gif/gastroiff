@@ -66,6 +66,9 @@ const root = "http://127.0.0.1:8765/";
         await page.locator(".headerline>.menu-toggle").click();
       }
       // "Mudar perfil" deve ter a escala do botão padrão e nunca ocupar a linha toda.
+      // Afasta o ponteiro e conclui a transição de hover antes de comparar as cores.
+      await page.mouse.move(0,0);
+      await page.waitForTimeout(320);
       const switcherMetrics=await page.locator(".gi-personal-choice").evaluate(group=>{
         const select=group.querySelector("select"),label=group.querySelector("label");
         const b=select.getBoundingClientRect(),l=label.getBoundingClientRect();
