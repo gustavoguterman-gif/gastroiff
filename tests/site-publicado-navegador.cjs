@@ -25,7 +25,7 @@ const pages=["index.html","contato.html","revistas.html","gestao.html","gestao-d
       assert.equal(await page.locator("[data-profile-entry]").count(),4,"quatro perfis disponíveis no site publicado: "+view);
       if(isNewEntrance){
         assert.deepEqual(await page.locator("[data-profile-entry]").evaluateAll(nodes=>nodes.map(n=>n.dataset.profileEntry)),["visitante","estudante","docente","egresso"],"ordem da nova abertura publicada: "+view);
-        assert.equal(await page.locator(".gi-entry-screen h2, .gi-entry-screen p, .gi-entry-screen .gi-entry-skip").count(),0,"somente marca e três botões: "+view);
+        assert.equal(await page.locator(".gi-entry-screen h2, .gi-entry-screen p, .gi-entry-screen .gi-entry-skip").count(),0,"somente marca e quatro botões: "+view);
         assert.equal(await page.locator(".gi-entry-brand").evaluate(el=>getComputedStyle(el).opacity),"1","logo permanece ao lado da escolha: "+view);
       }
       await page.locator('[data-profile-entry="visitante"]').click();
