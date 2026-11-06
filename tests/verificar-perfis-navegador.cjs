@@ -23,9 +23,9 @@ const root = "http://127.0.0.1:8765/";
         assert.equal(await entry.getAttribute("data-stage"),"intro","a logo não deve desaparecer depressa");
       }
       await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
-      assert.equal(await page.locator("[data-profile-entry]").count(),3,"três perfis sem cadastro: "+name);
-      assert.deepEqual(await page.locator("[data-profile-entry]").evaluateAll(buttons=>buttons.map(b=>b.dataset.profileEntry)),["visitante","estudante","docente"],"ordem dos perfis: "+name);
-      assert.deepEqual(await page.locator("[data-profile-entry]").allTextContents(),["Visitante","Estudante","Docente"],"botões sem informações adicionais");
+      assert.equal(await page.locator("[data-profile-entry]").count(),4,"quatro perfis sem cadastro: "+name);
+      assert.deepEqual(await page.locator("[data-profile-entry]").evaluateAll(buttons=>buttons.map(b=>b.dataset.profileEntry)),["visitante","estudante","docente","egresso"],"ordem dos perfis: "+name);
+      assert.deepEqual(await page.locator("[data-profile-entry]").allTextContents(),["Visitante","Estudante","Docente","Egresso"],"botões sem informações adicionais");
       assert.equal(await page.locator(".gi-entry-screen p, .gi-entry-screen h2, .gi-entry-screen .gi-entry-skip").count(),0,"sem texto ou botão extra");
       assert.equal(await page.locator(".gi-entry-brand").evaluate(el=>getComputedStyle(el).opacity),"1","marca permanece integrada às opções");
       assert.equal(await page.locator(".gi-entry-brand").evaluate(el=>getComputedStyle(el).position),"static","marca e botões ocupam a mesma composição");
@@ -34,8 +34,8 @@ const root = "http://127.0.0.1:8765/";
       assert.equal(await page.locator("#gi-profile-choice").inputValue(),"visitante");
       assert.deepEqual(
         await page.locator("#gi-profile-choice option").evaluateAll(opts=>opts.map(o=>o.value)),
-        ["visitante","estudante","docente"],
-        "mesmos três perfis em todos os formatos: "+name
+        ["visitante","estudante","docente","egresso"],
+        "mesmos quatro perfis em todos os formatos: "+name
       );
 
       assert.equal(await page.locator(".gi-profile-entrance-logo").count(),1,"marca da abertura: "+name);
@@ -100,6 +100,11 @@ const root = "http://127.0.0.1:8765/";
       assert.equal(await page.locator(".gi-personal-panel h2").innerText(),"Estou estudando Gastronomia");
       await page.locator("#gi-profile-choice").selectOption("docente");
       assert.equal(await page.locator(".gi-personal-panel h2").innerText(),"Sou docente");
+      await page.locator("#gi-profile-choice").selectOption("egresso");
+      assert.equal(await page.locator(".gi-personal-panel h2").innerText(),"Concluí minha formação");
+      assert.ok(await page.locator('.gi-personal-links a[href="observatorio.html#pesquisa-tecnico"]').count(),"pesquisa Técnico: "+name);
+      assert.ok(await page.locator('.gi-personal-links a[href="observatorio.html#pesquisa-graduacao"]').count(),"pesquisa graduação: "+name);
+      assert.ok(await page.locator('.gi-personal-links a[href="observatorio.html#resultados"]').count(),"resultados para todos: "+name);
       await page.locator("#gi-profile-choice").selectOption("visitante");
       assert.ok(await page.locator('.gi-personal-links a[href="eventos.html"]').count(),"calendário público visitante: "+name);
       assert.equal(await page.locator('[data-profile-entry="visitante"]').getAttribute("aria-pressed"),"true");
