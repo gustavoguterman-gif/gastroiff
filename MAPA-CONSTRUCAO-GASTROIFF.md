@@ -231,3 +231,10 @@ Critério para próxima fase: primeiro passar testes estáticos e de integraçã
 O cálculo interno de resultados de pesquisas foi preparado em `supabase/functions/egressos-indicadores/aggregate.mjs` e coberto por `tests/egressos-indicadores.test.mjs`. O sistema produz somente rascunhos para análise, separados por curso, período e versão do instrumento, sem publicação ou consulta às respostas no portal público. A supressão complementar impede exibir porcentagens binárias se qualquer uma das duas opções tiver menos de cinco respostas. Ainda é obrigatória a revisão contra reidentificação por cruzamento entre relatórios.
 
 O fluxo futuro é: respostas protegidas, agregação no serviço privado, revisão metodológica, aprovação institucional e publicação de dados agregados validados. O painel público de resultados permanece sem dados até a homologação. Os testes novos de recebimento e agregação passaram a integrar o fluxo de CI. Qualquer alteração de interface deve continuar testada em celular, tablet e computador, com transições suaves e movimento reduzido respeitado.
+
+## Regra de aceite por formato (06/11/2026)
+
+A regra de ouro é uma condição para concluir cada entrega operacional: depois de implementar uma funcionalidade, executar a suíte estática e os testes de interação, conferir celular (390 px), tablet (768 px) e desktop (1440 px) no navegador e verificar a versão publicada. Inspecionar capturas e conferir legibilidade, alinhamento, rolagem horizontal, estados de interação, foco e eventuais falhas de JavaScript. Se algum teste reprovar, corrigir e repetir a bateria afetada antes de declarar a entrega aceita. Testes automatizados aprovados não substituem a avaliação visual das capturas.
+
+A auditoria local `tests/auditoria-geral.cjs` já percorre os três tamanhos. Em 06/11/2026, `tests/site-publicado-navegador.cjs` foi ampliado para incluir tablet 768 x 1024, além de celular 390 x 844 e desktop 1440 x 900, com capturas separadas para cinco páginas e relatório de resultados. A execução posterior à alteração e a inspeção das capturas **ainda não foram confirmadas**; não afirmar aprovação nem conclusão da entrega 2 com base apenas no commit.
+
