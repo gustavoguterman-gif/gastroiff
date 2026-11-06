@@ -102,6 +102,21 @@ test("gestor não consegue enviar arquivo com estágio desconhecido",async()=>{
  await assert.rejects(api.storeDocument(client(),cycleId,"misterioso",excel,fakeCrypto),/Tipo de documento/);
 });
 
+test("insumos distinguem campo vazio de zero e recusam valores não numéricos",()=>{
+ const row={description:"Farinha",unit:"kg",requested:"10",forwarded:"  ",confirmed:" ",received:null};
+ assert.throws(()=>api.normalizedRows([row]),/Insuficiência de dados/);
+ const pending=api.normalizedRows([{...row,forwarded:"0"}])[0];
+ assert.equal(pending.forwarded,0);
+ assert.equal(pending.confirmed,null);
+ assert.equal(pending.received,null);
+ assert.equal(pending.requested,10);
+ for(const invalid of [true,false,"1e3","0x10","NaN","1,5","-1"," "]) {
+  assert.throws(()=>api.normalizedRows([{...row,requested:invalid,forwarded:0}]),
+   /Quantidade inválida|Insuficiência de dados/);
+ }
+ assert.equal(api.normalizedRows([{...row,requested:" 2.5 ",forwarded:"1"}])[0].requested,2.5);
+});
+
 test("download do original exige perfil gestor, sessão ativa e integridade SHA-256",async()=>{
  const {webcrypto}=require("node:crypto");
  const oldCrypto=globalThis.crypto;
