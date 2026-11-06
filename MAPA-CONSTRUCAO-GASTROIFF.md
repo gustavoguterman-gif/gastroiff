@@ -1,7 +1,7 @@
 # GASTROIFF | Mapa de construção, compromissos e entregas
 Versão 1, 04/11/2026. Documento de continuidade do projeto.
 
-Nota de consolidação de 06/11/2026: a sequência de 9 fases (0 a 8) abaixo permanece como registro histórico, mas não é a contagem vigente para acompanhamento. A decomposição mais completa, com 11 fases (0 a 10), está na seção 12 de `CADERNO-COMPLETO-GASTROIFF.md` e deve orientar os próximos informes. Nenhuma das 11 fases está formalmente aceita como integralmente concluída; há entregas parciais e testes pontuais aprovados. A numeração histórica não deve ser confundida com fase concluída.
+Nota de consolidação de 06/11/2026: a sequência histórica de 9 fases (0 a 8) e as 11 frentes do `CADERNO-COMPLETO-GASTROIFF.md` permanecem como inventários de escopo. Para planejamento e informes de progresso, prevalece o quadro de **7 entregas operacionais** abaixo. Os documentos históricos não devem ser interpretados como uma contagem de avanços concluídos.
 
 ## Quadro de progresso operacional (06/11/2026)
 
