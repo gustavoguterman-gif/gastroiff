@@ -1,5 +1,13 @@
 name: Verificar contato e navegacao
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'contato.html'
+      - 'index.html'
+      - 'scripts/verificar_contato.py'
+      - '.github/workflows/verificar-contato.yml'
   pull_request:
     paths:
       - 'contato.html'
