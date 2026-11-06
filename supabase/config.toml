@@ -1,3 +1,8 @@
 # Arquivos de preparação. Não ativar sem configuração de um projeto seguro.
 [functions.receber-ocorrencia]
 verify_jwt = false
+
+# Recebimento por convite privado e desafio antiabuso.
+# O endpoint permanece inativo sem a variável explícita GASTROIFF_EGRESSO_SUBMISSIONS_ENABLED=true.
+[functions.receber-egresso]
+verify_jwt = false
