@@ -2,7 +2,7 @@ const {chromium}=require("playwright");
 const assert=require("node:assert/strict");
 const fs=require("node:fs");
 const BASE=(process.env.GASTROIFF_SITE_URL||"https://gustavoguterman-gif.github.io/gastroiff/").replace(/\/?$/,"/");
-const pages=["index.html","gestao.html","gestao-documentos-praticas.html","planejamento-docente.html","oportunidades.html"];
+const pages=["index.html","contato.html","revistas.html","gestao.html","gestao-documentos-praticas.html","planejamento-docente.html","oportunidades.html"];
 (async()=>{
  fs.mkdirSync("reports/site-publicado",{recursive:true});
  const browser=await chromium.launch({headless:true});
@@ -63,6 +63,21 @@ const pages=["index.html","gestao.html","gestao-documentos-praticas.html","plane
      const versionWithCompactHeader=await page.locator('link[href*="institutional.css?v=20261105-quickfix1"]').count()===1;
      if(width<=700&&versionWithCompactHeader)
       assert.ok(quick.every(box=>box.width<=43&&box.height<=45),"ações compactas no celular: "+view+" "+file);
+    }
+    if(file==="contato.html"){
+      const phone=page.locator('a[href="tel:+552226459500"]');
+      const whatsapp=page.locator('a[href="https://wa.me/552226459500"]');
+      assert.equal(await phone.count(),1,"Link de ligação indisponível: "+view);
+      assert.equal(await whatsapp.count(),1,"Link de WhatsApp indisponível: "+view);
+      assert.ok(await phone.isVisible() && await whatsapp.isVisible(),"Ações de contato invisíveis: "+view);
+      const boxes=await Promise.all([phone.boundingBox(),whatsapp.boundingBox()]);
+      assert.ok(boxes.every(b=>b && b.width>0 && b.height>=40),"Ações de contato pequenas ou ocultas: "+view);
+    }
+    if(file==="revistas.html"){
+      assert.ok(await page.getByText("Revista de Ciência de Alimentos e Gastronomia (RCAGT)",{exact:true}).count()>=1,
+        "Revista brasileira IFPR não encontrada: "+view);
+      assert.ok(await page.locator('a[href="https://revistas.ifpr.edu.br/index.php/rcagt/index"]').count()>=1,
+        "Endereço original da revista IFPR ausente: "+view);
     }
     const status=await page.evaluate(()=>({
      title:document.title,
