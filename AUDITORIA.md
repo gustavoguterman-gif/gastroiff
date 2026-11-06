@@ -110,3 +110,10 @@ Este documento distingue alterações feitas no código de verificações que ai
 - Evidências: https://github.com/gustavoguterman-gif/gastroiff/actions/runs/42023429473 e https://github.com/gustavoguterman-gif/gastroiff/actions/runs/42023429753.
 - **Limitação essencial:** execuções são da PR 26 em rascunho, não comprovam o estado visual da publicação atual nem autenticação, armazenamento ou políticas RLS em serviço Supabase real. Não incorporar a PR 26 sem homologação autorizada com identidades fictícias.
 - **Fase 0 de 11 continua aberta.** Reavaliar a versão mais recente da branch principal antes de aceitar os testes como homologação do site publicado.
+
+## Verificação do teste remoto de perfis (06/11/2026)
+
+- Identificada lacuna na auditoria `tests/site-publicado-navegador.cjs`: a verificação da tela inicial reconhecia somente versões 4 a 7 de `perfis-publicos.js`, enquanto a página pública declara a versão 9. O teste podia terminar sem verificar a abertura, os botões de perfil e a repetição da animação nessa versão.
+- Corrigida a detecção para identificar a presença do módulo versionado sem fixar versões antigas. Atualizada a regra de estilo para `site.css?v=20261106-motion2` e a lista esperada do seletor para visitante, estudante, docente e egresso.
+- A rotina completa já existe em `.github/workflows/validacao-completa.yml` com acionamento em `push` e `pull_request` na `main`; não criar rotina geral duplicada.
+- A mudança está registrada no código, mas **a aprovação da execução após a correção ainda não foi confirmada**. Também permanece pendente homologação visual manual e do serviço de autenticação real.
