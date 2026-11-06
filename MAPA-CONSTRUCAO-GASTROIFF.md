@@ -260,3 +260,10 @@ A auditoria local `tests/auditoria-geral.cjs` já percorre os três tamanhos. Em
 - **5 de 5 cenários de envio passaram**, cobrindo sucesso, falha na leitura de histórico, falha explícita do registro, resposta inconclusiva da rede e falha de remoção. Na resposta inconclusiva, o arquivo não é apagado automaticamente para evitar perda de documento possivelmente vinculado.
 - **Limite da evidência:** testes diretos com simulações, não execução do arquivo completo de testes Node no runner, não Supabase real e não avaliação visual. Ainda são obrigatórias a suíte do GitHub Actions e a inspeção de capturas em celular, tablet e desktop antes de aceitar a entrega.
 - Resultado de planejamento mantido: **1 de 7 entregas disponível; 6 abertas**. A entrega 4 ganhou evidência funcional, mas segue não homologada.
+
+## Entrega 4: conferência objetiva de layout da Gestão (06/11/2026)
+
+- A bateria de navegador `tests/praticas-gestao-privada-navegador.cjs` verifica agora seis controles essenciais na Gestão privada simulada: escolha de docente, escolha de ciclo, seleção de arquivo, salvar ciclo, enviar documento e encerrar sessão.
+- Em celular 390 px, tablet 768 px e computador 1440 px, o teste reprova controles ausentes, invisíveis, que ultrapassem os limites horizontais da tela e botões cujo texto esteja cortado. As nove capturas anteriores permanecem no roteiro.
+- Elementos conferidos no HTML atual e teste atualizado gravado no GitHub. Não afirmar inspeção visual aprovada: a execução da bateria com Chromium e a revisão de suas imagens ainda não foram obtidas nesta sessão. Ambiente local sem acesso DNS ao GitHub para clonar o repositório.
+- A entrega 4 permanece aberta; sequência de aceite: rodar a validação completa, verificar relatório de três formatos, inspecionar imagens e corrigir qualquer falha antes de homologar.
