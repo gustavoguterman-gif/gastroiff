@@ -32,6 +32,21 @@ const pages=["index.html","gestao.html","gestao-documentos-praticas.html","plane
       await page.locator("[data-entry-screen]").waitFor({state:"hidden"});
       assert.ok(await page.locator(".gi-personal-panel h2").isVisible(),"conteúdo da escolha de perfil visível: "+view);
     }
+    // Algumas áreas administrativas usam um cabeçalho próprio sem ações rápidas.
+    // Conferir o trio apenas nas páginas que de fato o oferecem.
+    const quickAvailable=await page.locator(".header-refined .headerline>.quick-access").count();
+    if(file==="index.html")assert.equal(quickAvailable,1,"cabeçalho público sem ações rápidas: "+view);
+    if(quickAvailable){
+     const quick=await page.locator(".header-refined .headerline>.quick-access").evaluate(el=>{
+      const nodes=[...el.children];
+      return nodes.map(node=>(node.matches("details")?node.querySelector("summary"):node).getBoundingClientRect().toJSON());
+     });
+     assert.equal(quick.length,3,"três botões rápidos: "+view+" "+file);
+     assert.ok(quick.every(box=>Math.abs(box.width-quick[0].width)<=1&&Math.abs(box.y-quick[0].y)<=1),"ações alinhadas: "+view+" "+file);
+     const versionWithCompactHeader=await page.locator('link[href*="institutional.css?v=20261105-quickfix1"]').count()===1;
+     if(width<=700&&versionWithCompactHeader)
+      assert.ok(quick.every(box=>box.width<=43&&box.height<=45),"ações compactas no celular: "+view+" "+file);
+    }
     const status=await page.evaluate(()=>({
      title:document.title,
      overflow:document.documentElement.scrollWidth-innerWidth,

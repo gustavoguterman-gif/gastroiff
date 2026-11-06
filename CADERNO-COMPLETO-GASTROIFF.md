@@ -568,3 +568,9 @@ A nova migração foi executada com sucesso em PostgreSQL temporário na execuç
 - A Gestão deve visualizar pelo menos um insumo ainda não aprovado, criado exclusivamente para o ensaio. Nenhum docente pode consultar notificações administrativas, documentos privados ou a auditoria.
 - Os testes sem rede reprovarão exposições artificiais de itens de colegas, itens pendentes e notificações. No PostgreSQL temporário, uma notificação fictícia assegura verificação positiva da Gestão e negativa dos dois docentes.
 - A integração pública continua desativada, sem dados ou contas verdadeiras. A ativação exige homologação real e autorização institucional.
+
+
+## 37. Cabeçalho compacto e prestação de contas por fases (05/11/2026)
+- Solicitada e implementada a redução proporcional do grupo Contato, Localização e App no celular, tablet e computador, preservando acionamento e acessibilidade. Definidas dimensões únicas dos três controles por breakpoint e testes automatizados de alinhamento, sobreposição e interação.
+- A sequência oficial do projeto mantém **9 fases, de 0 a 8**, conforme MAPA-CONSTRUCAO-GASTROIFF.md. Todas as próximas comunicações de conclusão devem informar fase referente, total e link https://gustavoguterman-gif.github.io/gastroiff/.
+- Esta é uma correção visual transversal da Fase 1, que continua parcialmente construída no mapa. A Fase 2 de infraestrutura protegida continua pendente de homologação real, não deve ser anunciada como concluída.

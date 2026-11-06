@@ -156,3 +156,10 @@ Ao encerrar cada fase, registrar: data, arquivos alterados, links, o que foi tes
 - Criados testes em `tests/ciclos-csv.test.cjs` e `tests/apps-script-simulacao.test.cjs`, adicionados à execução automatizada; verificação funcional do fluxo CSV estendida em `tests/planejamento-docente-navegador.cjs`.
 - Os testes encontraram e corrigiram um erro no reconhecimento da extensão `.csv`. Após a correção, a execução GitHub Actions `41850224517` concluiu **9 testes unitários aprovados, 0 falhas**, e testes de navegador aprovados em celular, tablet e computador, incluindo recusa de dados fictícios, inclusão de CSV válido, persistência, prevenção de duplicatas, exportação e exclusão.
 - Antes de usar dados institucionais, ainda faltam: definir a responsabilidade por alimentar a situação das compras e sua data/fonte, realizar teste de leitura e atualização de Insumos, validar permissões, implantar um Apps Script autorizado, impedir mensagens repetidas e testar e-mails somente com destinatário de prova.
+
+
+## Convenção de entrega por fase e revisão do cabeçalho (05/11/2026)
+
+A sequência integral do projeto contém **9 fases numeradas de 0 a 8**. Ao concluir cada entrega, a comunicação deverá informar o número da fase de referência e o total de 9, o estado de conclusão da fase integral (parcial ou concluída) e o endereço público https://gustavoguterman-gif.github.io/gastroiff/ para conferência. Uma correção visual pontual não implica concluir toda uma fase de implantação. A infraestrutura protegida da Fase 2 permanece pendente de homologação real, embora os testes preparatórios estejam avançados.
+
+Correção transversal de interface desta rodada: cabeçalho nas larguras de 360, 390, 768 e 1440 px com três ações do lado direito menores, de largura e altura iguais, alinhadas e sem sobreposição da marca. No celular, a legenda visível de Localização fica abreviada para "Local", enquanto o nome acessível completo permanece no elemento. Mantém as funções de contato, mapas e instalação do aplicativo, sem modificar conteúdos públicos nem autenticação. Requer CI e conferência do site publicado.
