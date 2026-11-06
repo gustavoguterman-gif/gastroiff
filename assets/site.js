@@ -118,13 +118,28 @@ if(gallery){const slides=[...gallery.querySelectorAll('.gallery-slide')],positio
    reveal(entry.target);
   }
  },{threshold:0.08,rootMargin:'0px 0px -24px 0px'});
- for(const el of nodes){
-  el.classList.add('gi-motion-ready');
-  observer.observe(el);
- }
+ let active=false;
+ const start=()=>{
+  if(active||media.matches)return;
+  active=true;
+  for(const el of nodes){
+   el.classList.add('gi-motion-ready');
+   observer.observe(el);
+  }
+ };
  const stop=()=>{
   observer.disconnect();
   for(const el of nodes)el.classList.remove('gi-motion-ready','gi-motion-visible');
  };
+ // A apresentação inicial deve terminar antes de animar o conteúdo da página.
+ // Defer scripts initialize the profile screen after this file, including on desktop.
+ window.addEventListener('load',()=>{
+  const screen=document.querySelector('[data-entry-screen]');
+  if(!screen||screen.hidden){start();return;}
+  const gate=new MutationObserver(()=>{
+   if(screen.hidden){gate.disconnect();start();}
+  });
+  gate.observe(screen,{attributes:true,attributeFilter:['hidden']});
+ },{once:true});
  media.addEventListener?.('change',e=>{if(e.matches)stop()},{once:true});
 })();
