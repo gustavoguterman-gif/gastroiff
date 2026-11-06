@@ -245,3 +245,10 @@ A auditoria local `tests/auditoria-geral.cjs` já percorre os três tamanhos. Em
 - Criado teste de regressão em `tests/praticas-gestao-privada.test.cjs` cobrindo quantidade solicitada, encaminhada, confirmada e recebida, além de entrada decimal válida.
 - Alterações foram gravadas no repositório, mas **a execução do CI e dos testes visuais após a alteração ainda não foi conferida**. A Gestão permanece desativada no site público; não afirmar que o ciclo de compras funciona em backend real.
 - O trabalho integra a **entrega operacional 4 de 7**, não altera a contagem de entregas aceitas: 1 entregue, 6 abertas. O aceite exige testes funcionais e verificação celular, tablet e desktop.
+
+## Entrega 4: consistência de upload privado sob falhas de rede (06/11/2026)
+
+- Corrigido o fluxo de `storeDocument` no módulo `assets/praticas-gestao-privada.js`. Se a consulta de histórico falhar antes de tentar gravar o documento, o sistema tenta remover o arquivo já enviado. Se a gravação responder com erro explícito, aplica o mesmo tratamento. Se o servidor não confirmar a gravação por uma exceção de rede, o sistema **não apaga automaticamente** o original: a operação pode ter sido concluída remotamente e exige reconciliação do histórico antes de novo envio.
+- Falha da remoção não é ocultada: o operador recebe aviso de que o estado do arquivo privado precisa ser verificado, sem mensagem falsa de conclusão.
+- Acrescentados três cenários unitários em `tests/praticas-gestao-privada.test.cjs`: interrupção na leitura do histórico, resposta inconclusiva na gravação e falha da limpeza. A suíte local deste arquivo passou a conter 16 testes declarados.
+- O código e os testes foram conferidos no repositório após atualização, **mas a execução efetiva da suíte Node e a inspeção visual em 390, 768 e 1440 px ainda não foram comprovadas nesta sessão**. A entrega 4 não está homologada. A configuração protegida continua desativada e sem credenciais.
