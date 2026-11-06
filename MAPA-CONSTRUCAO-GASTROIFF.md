@@ -252,3 +252,11 @@ A auditoria local `tests/auditoria-geral.cjs` já percorre os três tamanhos. Em
 - Falha da remoção não é ocultada: o operador recebe aviso de que o estado do arquivo privado precisa ser verificado, sem mensagem falsa de conclusão.
 - Acrescentados três cenários unitários em `tests/praticas-gestao-privada.test.cjs`: interrupção na leitura do histórico, resposta inconclusiva na gravação e falha da limpeza. A suíte local deste arquivo passou a conter 16 testes declarados.
 - O código e os testes foram conferidos no repositório após atualização, **mas a execução efetiva da suíte Node e a inspeção visual em 390, 768 e 1440 px ainda não foram comprovadas nesta sessão**. A entrega 4 não está homologada. A configuração protegida continua desativada e sem credenciais.
+
+## Execução direta de verificações da Gestão (06/11/2026)
+
+- O módulo real `assets/praticas-gestao-privada.js` foi carregado e suas funções foram executadas diretamente em ambiente JavaScript isolado, com clientes Supabase fictícios; não foi apenas inspecionado o texto dos testes.
+- **13 de 13 verificações numéricas passaram**, cobrindo zero explícito, ausências obrigatórias e opcionais, valores booleanos e formatos numéricos inválidos, e decimal válido.
+- **5 de 5 cenários de envio passaram**, cobrindo sucesso, falha na leitura de histórico, falha explícita do registro, resposta inconclusiva da rede e falha de remoção. Na resposta inconclusiva, o arquivo não é apagado automaticamente para evitar perda de documento possivelmente vinculado.
+- **Limite da evidência:** testes diretos com simulações, não execução do arquivo completo de testes Node no runner, não Supabase real e não avaliação visual. Ainda são obrigatórias a suíte do GitHub Actions e a inspeção de capturas em celular, tablet e desktop antes de aceitar a entrega.
+- Resultado de planejamento mantido: **1 de 7 entregas disponível; 6 abertas**. A entrega 4 ganhou evidência funcional, mas segue não homologada.
