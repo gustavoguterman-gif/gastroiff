@@ -55,6 +55,50 @@ const root = "http://127.0.0.1:8765/";
       assert.ok(await page.locator('.gi-personal-links a[href="eventos.html"]').count(),"calendário público visitante: "+name);
       assert.equal(await page.locator('[data-profile-entry="visitante"]').getAttribute("aria-pressed"),"true");
       assert.equal(await page.locator("header .gastrobrand img").evaluate(img=>img.complete&&img.naturalWidth>0),true,"marca do cabeçalho carregada: "+name);
+
+      // Grupo do cabeçalho: três ações iguais, alinhadas e sem sobreposição.
+      const headerActions=await page.locator(".header-refined .headerline>.quick-access").evaluate(el=>{
+       const actions=[...el.children];
+       return {
+        count:actions.length,
+        outer:el.getBoundingClientRect().toJSON(),
+        boxes:actions.map(node=>{
+         const control=node.matches("details")?node.querySelector("summary"):node;
+         return control.getBoundingClientRect().toJSON();
+        }),
+        logo:document.querySelector(".header-refined .headerline>.gastrobrand").getBoundingClientRect().toJSON(),
+        menu:document.querySelector(".header-refined .headerline>.menu-toggle").getBoundingClientRect().toJSON()
+       };
+      });
+      assert.equal(headerActions.count,3,"três ações no cabeçalho: "+name);
+      const areas=headerActions.boxes;
+      for(const box of areas){
+       assert.ok(box.width>=35&&box.height>=42,"botão pequeno demais para toque: "+name);
+       assert.ok(box.x>=-1&&box.right<=width+1,"botão fora da tela: "+name);
+      }
+      for(let i=1;i<areas.length;i++){
+       assert.ok(Math.abs(areas[i].width-areas[0].width)<=1,"larguras inconsistentes: "+name);
+       assert.ok(Math.abs(areas[i].height-areas[0].height)<=1,"alturas inconsistentes: "+name);
+       assert.ok(Math.abs(areas[i].y-areas[0].y)<=1,"desalinhamento vertical: "+name);
+       assert.ok(areas[i-1].right<=areas[i].x+1,"botões sobrepostos: "+name);
+      }
+      if(width<=700){
+       assert.ok(areas[0].width<=43&&areas[0].height<=45,"grupo deve ser compacto no celular: "+name);
+       assert.ok(headerActions.logo.right<=areas[0].x+3,"logo sobreposta às ações: "+name);
+       assert.ok(headerActions.menu.right<=headerActions.logo.x+3,"menu sobreposto à marca: "+name);
+       assert.equal(await page.locator(".gi-quick-label-short").isVisible(),true,"Local abreviada: "+name);
+      }
+      if(width===768){
+       assert.ok(areas[0].width<=55,"botões proporcionais no tablet");
+      }
+      if(width===1440){
+       assert.ok(areas[0].width<=64,"botões proporcionais no desktop");
+      }
+      await page.locator(".quick-item").first().locator("summary").click();
+      assert.equal(await page.locator(".quick-item").first().getAttribute("open"),"","Contato abre: "+name);
+      await page.locator(".quick-item").first().locator(".quick-close").click();
+      assert.equal(await page.locator(".quick-item").first().getAttribute("open"),null,"Contato fecha: "+name);
+
       await page.locator("#gi-profile-choice").selectOption("docente");
       assert.match(await page.locator(".gi-personal-panel").innerText(),/Livro de Ocorrências/);
       await page.reload({waitUntil:"domcontentloaded"});

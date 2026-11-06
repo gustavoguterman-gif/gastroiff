@@ -73,6 +73,10 @@ if(gallery){const slides=[...gallery.querySelectorAll('.gallery-slide')],positio
  const location='<div class="quick-panel"><div class="quick-panel-head"><strong>Localização</strong>'+close+'</div><p>IFF campus Cabo Frio, Estrada Cabo Frio-Búzios, s/nº, Baía Formosa, Cabo Frio, RJ.</p><div class="quick-links"><a target="_blank" rel="noopener noreferrer" href="'+maps+'">Abrir no Google Maps ↗</a><a target="_blank" rel="noopener noreferrer" href="'+route+'">Traçar rota ↗</a><a target="_blank" rel="noopener noreferrer" href="https://www.salineira.com.br/linhas-e-horarios">Linhas e horários da Salineira ↗</a><a target="_blank" rel="noopener noreferrer" href="https://play.google.com/store/apps/details?id=br.salineira">Aplicativo Salineira para Android ↗</a><a target="_blank" rel="noopener noreferrer" href="https://apps.apple.com/br/app/salineira/id1481524615">Aplicativo Salineira para iPhone ↗</a></div></div>';
  const make=(name,icon,panel)=>{const d=document.createElement('details');d.className='quick-item';d.innerHTML='<summary aria-label="Abrir '+name+'">'+icon+'<span class="quick-label">'+name+'</span></summary>'+panel;return d};
  const a=make('Contato',iconMail,contact),b=make('Localização',iconPin,location);
+ // Abreviar apenas a legenda visual em telas pequenas sem alterar o nome
+ // acessível ou o conteúdo do painel de localização.
+ const locationLabel=b.querySelector('.quick-label');
+ if(locationLabel)locationLabel.innerHTML='<span class="gi-quick-label-full">Localização</span><span class="gi-quick-label-short">Local</span>';
  const app=document.createElement('button');app.type='button';app.className='quick-install-app';app.setAttribute('data-install-app','');app.setAttribute('aria-label','Instalar aplicativo GASTROIFF');app.innerHTML='<svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></svg><span class="quick-label"><span class="quick-label-desktop">Instalar app</span><span class="quick-label-mobile">App</span></span>';
  bar.append(a,b,app);
  original.remove();document.querySelectorAll('.trialbar').forEach(el=>el.remove());header.append(bar);
