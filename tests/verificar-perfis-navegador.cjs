@@ -56,14 +56,15 @@ const root = "http://127.0.0.1:8765/";
       assert.ok(await page.locator("main .gi-motion-ready").count()>0,
         "seções precisam iniciar revelação após a entrada: "+name);
       // Mesma linguagem de transição no navegador desktop, tablet e celular.
-      const transition=await page.locator("main .gi-motion-visible").first().evaluate(el=>{
+      const animatedElement=await page.locator("main .gi-motion-visible").first().elementHandle();
+      const transition=await animatedElement.evaluate(el=>{
         const css=getComputedStyle(el);
         return {duration:css.transitionDuration,opacity:css.opacity};
       });
       assert.match(transition.duration,/0\.68s|680ms/,
         "movimento de revelação não está configurado: "+name+" "+JSON.stringify(transition));
       await page.waitForTimeout(850);
-      const settled=await page.locator("main .gi-motion-visible").first().evaluate(el=>
+      const settled=await animatedElement.evaluate(el=>
         Number(getComputedStyle(el).opacity)
       );
       assert.ok(settled>=0.99,"texto permanece desvanecido após transição: "+name);
