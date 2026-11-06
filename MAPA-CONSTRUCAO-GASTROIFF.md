@@ -194,3 +194,14 @@ Aceite automatizado: executar a sequência de seleção, filtro, proposta e conf
 - Indicadores desejados: acessos por seção, conteúdos consultados, downloads, origem por perfil declarado, taxas de resposta por curso e período, trajetória formativa, permanência, conclusão, inserção profissional, continuidade da formação, avaliação do curso, oportunidades validadas e impacto das ações. Taxas exigem denominadores oficiais e metodologia explícita. Respostas por perfil selecionado não comprovam vínculo institucional.
 - Ciclo: preparar instrumentos e governança -> backend/RLS, segurança e consentimento -> coleta com dados fictícios -> agregação e limites de divulgação -> testes de visualização e atualização -> publicação. Qualquer integração com Google Drive precisa avaliar permissões e custódia de dados.
 - Regra visual: mesma linguagem de botões e movimento suave, quatro larguras de referência (360, 390, 768, 1440 px), movimento reduzido respeitado, sem rolagem horizontal nem botões cortados. Validar por CI e revisar telas reais antes de publicar.
+
+
+## Fase de preparação protegida dos questionários de egressos (06/11/2026)
+
+Implementado no repositório, mas NÃO executado no banco: migração `supabase/migrations/202611060001_egressos_pesquisas.sql` com dois tipos de curso, questionários versionados, convites por hash, respostas individuais fechadas por padrão e agregados públicos revisados. Nenhum botão de envio de respostas foi habilitado.
+
+O desenho metodológico está em `docs/PESQUISA-EGRESSOS-PLANO.md`, com instrumentos distintos para Técnico e Tecnólogo, indicadores, regras de elegibilidade, limites de divulgação e critérios de homologação. A coleta e os resultados em tempo real permanecem **a construir**: requerem backend protegido, revisão institucional, textos informativos, mecanismos de consentimento, autenticação ou convites individualizados e validação das regras de acesso com identidades fictícias.
+
+Segurança conservadora: nenhuma leitura/escrita individual é autorizada para `anon` ou `authenticated`; somente agregados marcados como publicados são elegíveis à leitura pública. O mínimo inicial de cinco participantes por grupo não garante anonimato por si só. A publicação precisa de análise humana dos cruzamentos e diferenças entre resultados.
+
+Critério para próxima fase: primeiro passar testes estáticos e de integração sem dados reais; depois testar no Supabase isolado; só então construir a interação do formulário e o mecanismo de atualização automática, mantendo navegação e resultados públicos separados por função. Todas as mudanças de interface seguem a regra de três formatos (celular, tablet e desktop) e preferências de movimento reduzido.
