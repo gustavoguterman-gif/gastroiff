@@ -55,6 +55,19 @@ const root = "http://127.0.0.1:8765/";
         document.querySelector("main .section-head")?.classList.contains("gi-motion-visible"),null,{timeout:3000});
       assert.ok(await page.locator("main .gi-motion-ready").count()>0,
         "seções precisam iniciar revelação após a entrada: "+name);
+      // Mesma linguagem de transição no navegador desktop, tablet e celular.
+      const transition=await page.locator("main .section-head").first().evaluate(el=>{
+        const css=getComputedStyle(el);
+        return {duration:css.transitionDuration,opacity:css.opacity};
+      });
+      assert.match(transition.duration,/0\.68s|680ms/,
+        "movimento de revelação não está configurado: "+name+" "+JSON.stringify(transition));
+      await page.waitForTimeout(850);
+      const settled=await page.locator("main .section-head").first().evaluate(el=>
+        Number(getComputedStyle(el).opacity)
+      );
+      assert.ok(settled>=0.99,"texto permanece desvanecido após transição: "+name);
+
       assert.equal(await page.locator("#gi-profile-choice").inputValue(),"docente","perfil docente: "+name);
       assert.equal(await page.locator(".gi-personal-panel h2").innerText(),"Sou docente");
       assert.ok(await page.locator('.gi-personal-links a[href="planejamento-docente.html"]').count());
