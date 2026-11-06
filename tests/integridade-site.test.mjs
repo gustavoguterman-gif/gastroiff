@@ -129,6 +129,17 @@ test("movimento do site ativado de forma consistente nas páginas públicas",()=
 });
 
 
+test("arquivos declarados para uso offline existem no repositorio",()=>{
+ const sw=fs.readFileSync(path.join(root,"sw.js"),"utf8");
+ const shell=sw.match(/const SHELL=\[([\s\S]*?)\];/);
+ assert.ok(shell,"Lista de arquivos offline nao encontrada");
+ const resources=[...shell[1].matchAll(/['"]\.\/([^'"]+)['"]/g)].map(match=>match[1]);
+ assert.ok(resources.length>0,"Lista offline vazia");
+ const invalid=resources.filter(file=>!fs.existsSync(path.join(root,file)));
+ assert.deepEqual(invalid,[],"Recursos anunciados como offline mas ausentes");
+ assert.equal(new Set(resources).size,resources.length,"Recursos offline duplicados");
+});
+
 test("PWA atende CSS e JS versionados com pré-cache offline",()=>{
  const sw=fs.readFileSync(path.join(root,"sw.js"),"utf8");
  assert.match(sw,/gastroiff-offline-v62/);
