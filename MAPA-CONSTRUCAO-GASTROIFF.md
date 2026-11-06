@@ -3,6 +3,24 @@ Versão 1, 04/11/2026. Documento de continuidade do projeto.
 
 Nota de consolidação de 06/11/2026: a sequência de 9 fases (0 a 8) abaixo permanece como registro histórico, mas não é a contagem vigente para acompanhamento. A decomposição mais completa, com 11 fases (0 a 10), está na seção 12 de `CADERNO-COMPLETO-GASTROIFF.md` e deve orientar os próximos informes. Nenhuma das 11 fases está formalmente aceita como integralmente concluída; há entregas parciais e testes pontuais aprovados. A numeração histórica não deve ser confundida com fase concluída.
 
+## Quadro de progresso operacional (06/11/2026)
+
+**Medida de planejamento:** 7 entregas verificáveis, das quais **1 já existe em versão utilizável** e **6 ainda exigem trabalho**. É uma contagem de entregas, não uma estimativa de porcentagem de código escrito, prazo ou homologação institucional. As 11 frentes do caderno detalhado continuam como checklist de escopo, mas deixam de ser usadas para comunicar progresso numérico. Não repetir "0 de 11" como indicador de desenvolvimento.
+
+| Entrega operacional | Estado verificável | O que falta para considerar concluída |
+| --- | --- | --- |
+| 1. Portal público básico | **Entregue em versão inicial**: páginas de cursos, pesquisa, revistas, biblioteca, comunidade, laboratórios, eventos, oportunidades e navegação existentes no repositório. | Ajustes e validação final ficam na entrega 2, sem apagar esta entrega já utilizável. |
+| 2. Experiência pública consistente | **Em andamento**: perfis, abertura visual, PWA, componentes de interface, links e auditorias automatizadas implementados e refinados. | Confirmar o CI da versão principal mais recente, inspecionar capturas de celular/tablet/computador e corrigir problemas efetivos no site publicado. |
+| 3. Infraestrutura protegida | **Preparada no código, não implantada**: banco, políticas e funções de recebimento com ensaios simulados. | Provisionamento autorizado, autenticação real, RLS, armazenamento, recuperação, backup e homologação isolada. |
+| 4. Gestão docente e ocorrências reais | **Protótipos funcionais limitados**: planejamento e importações locais, painéis e formulários. | Vincular dados ao serviço protegido, aprovar/publicar documentos, registrar histórico, encaminhar ocorrências e validar o ciclo completo de insumos. |
+| 5. Atualizações recorrentes | **Parcial**: catálogo, agenda, monitoramentos e verificadores preparados. | Demonstrar descoberta, deduplicação, conferência de validade e publicação controlada de oportunidades, editais e eventos com registros reais. |
+| 6. Egressos, pesquisas e observatório | **Parcial**: páginas, instrumentos planejados, estruturas de dados e resultados vazios sem valores inventados. | Consentimento, respostas protegidas, coleta e agregação reais, indicadores e relatórios com metodologia. |
+| 7. Homologação institucional integral | **Pendente**. | Testes fim a fim com perfis autorizados, segurança, acessibilidade, PWA, manutenção, documentação e formalização acadêmica cabível. |
+
+**Regra de comunicação:** informar "1 de 7 entregas operacionais já disponível; 6 ainda abertas", com o estado concreto de cada uma. Uma correção técnica não reduz sozinha a quantidade de entregas abertas. Somente alterar a contagem mediante atendimento dos critérios de aceite descritos aqui. Não inferir percentual sem uma decomposição verificável de tarefas e testes.
+
+**Prioridade imediata:** encerrar os problemas demonstráveis da entrega 2 e, sem permanecer indefinidamente nela por aperfeiçoamentos cosméticos, avançar em paralelo para a entrega 3, que desbloqueia a operação real das entregas 4 e 6.
+
 ## O que este arquivo significa
 Este é o inventário de requisitos e entregas, a ser atualizado a cada fase. A existência de uma página no GitHub não significa que o serviço esteja integralmente funcionando. Os itens são classificados como:
 - **Implementado no código:** arquivo ou comportamento consta do repositório, mas pode precisar de teste no navegador publicado.
