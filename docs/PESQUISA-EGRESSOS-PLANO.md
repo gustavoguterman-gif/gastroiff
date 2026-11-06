@@ -40,3 +40,12 @@ Preparado: esquema SQL fechado por padrão, desenho dos instrumentos, plano de i
 A função receber-egresso e a migração de submissão foram preparadas no código para validar os campos fechados por curso, verificar um convite individual e registrar seu uso na mesma transação da resposta. Não foram executadas em servidor. O recebimento depende de uma configuração de ativação que permanece ausente.
 
 Antes da ativação é necessário aprovar os instrumentos, revisar os termos de participação, executar testes de permissões com identidades fictícias, avaliar o controle de volume de tentativas e confirmar o tratamento de dados. Os testes de navegação e aparência continuam obrigatórios para celular, tablet e computador. Os resultados públicos permanecerão separados das respostas individuais.
+
+
+## Preparação de indicadores consolidados para revisão
+
+O módulo `supabase/functions/egressos-indicadores/aggregate.mjs` produz uma prévia interna dos indicadores binários sobre trabalho, atuação na Gastronomia e continuidade dos estudos. A prévia nunca é publicada automaticamente e não consulta dados no navegador público.
+
+Cada cálculo considera somente respostas da pesquisa e versão do instrumento indicadas, desconsidera respostas ausentes ou sem declaração e exige pelo menos cinco respostas para cada alternativa que poderia ser inferida a partir do resultado. Por exemplo, com nove respostas "sim" e uma "não", nenhum percentual é oferecido à publicação. Os valores são expressos em porcentagens com denominador explícito, curso, período e data da conferência. Não há cruzamentos por idade, turma, cidade, coorte ou categorias combinadas.
+
+A revisão institucional continua obrigatória. Mesmo as duas alternativas com cinco ou mais respostas não asseguram anonimato em todos os contextos, especialmente quando existem relatórios de períodos sobrepostos. O módulo retorna exclusivamente rascunhos, sem contatos, convites, respostas originais ou textos livres. A aprovação e a publicação automatizada dos indicadores, bem como o cálculo da taxa de participação com denominador oficial de egressos, continuam pendentes.
