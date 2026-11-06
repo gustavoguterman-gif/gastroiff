@@ -35,7 +35,7 @@ def check():
         assert name in cp.classes, f"Componente ausente em contato: {name}"
         assert name in hp.classes, f"Componente ausente na página inicial: {name}"
     for name in ("site.css", "refinements.css", "institutional.css", "site.js"):
-        pattern = rf'assets/{re.escape(name)}\\?v=([^"\\s]+)'
+        pattern = rf'assets/{re.escape(name)}\?v=([^"\s]+)'
         a, b = re.search(pattern, contact), re.search(pattern, home)
         assert a and b and a.group(1) == b.group(1), f"Versões divergentes: {name}"
     assert "@media(max-width:400px)" in contact, "Regra para telas estreitas ausente"
