@@ -66,7 +66,7 @@ const root = "http://127.0.0.1:8765/";
         if(!originalVisible)el.classList.remove("gi-motion-visible");
         return result;
       });
-      assert.match(transition.duration,/0\\.68s|680ms/,
+      assert.match(transition.duration,/0\.68s|680ms/,
         "transição suave não configurada: "+name+" "+JSON.stringify(transition));
       await page.waitForTimeout(850);
       const settled=await page.locator("main .gi-personal-panel").evaluate(el=>
