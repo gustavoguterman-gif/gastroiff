@@ -203,6 +203,19 @@ const root = "http://127.0.0.1:8765/";
       await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
       await page.locator('[data-profile-entry="visitante"]').click();
       await page.locator("[data-entry-screen]").waitFor({state:"hidden",timeout:5000});
+      // Verifica também Observatório e Gestão nas mesmas larguras.
+      const review=await context.newPage();
+      const observed=await review.goto(root+"observatorio.html",{waitUntil:"domcontentloaded"});
+      assert.equal(observed.status(),200,"Observatório: "+name);
+      for(const id of ["pesquisas-egressos","pesquisa-tecnico","pesquisa-graduacao","resultados"])
+        assert.equal(await review.locator("#"+id).count(),1,"seção ausente "+id+": "+name);
+      assert.match(await review.locator("#resultados").innerText(),/Nenhum indicador de egressos publicado/);
+      assert.ok((await review.evaluate(()=>document.documentElement.scrollWidth-innerWidth))<=3,"Observatório excedeu largura: "+name);
+      const managed=await review.goto(root+"gestao.html",{waitUntil:"domcontentloaded"});
+      assert.equal(managed.status(),200,"Gestão: "+name);
+      assert.equal(await review.locator("#central-pesquisa").count(),1);
+      assert.ok((await review.evaluate(()=>document.documentElement.scrollWidth-innerWidth))<=3,"Gestão excedeu largura: "+name);
+      await review.close();
       results.push({viewport:name,profilePersistence:true,reopenOnReload:true,reopenOnReturn:true,teacherOptions,overflow,ocOverflow,errors});
       await context.close();
     }
