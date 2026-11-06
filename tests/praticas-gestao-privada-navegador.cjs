@@ -1,4 +1,4 @@
-const {chromium}=require("playwright"),assert=require("node:assert/strict");
+const {chromium}=require("playwright"),assert=require("node:assert/strict"),fs=require("node:fs");
 const active=`window.GASTROIFF_PRATICAS_CONFIG={enabled:true,supabaseUrl:"https://homologacao.supabase.co/",supabasePublishableKey:"chave-publica-de-homologacao-12345678",redirectUrl:location.href};`;
 const mock=`
 window.__calls={uploads:[],documents:[],cycles:[]};
@@ -29,6 +29,7 @@ window.__client={
 window.supabase={createClient:()=>window.__client};
 `;
 (async()=>{
+ fs.mkdirSync("reports/gestao-privada",{recursive:true});
  const browser=await chromium.launch({headless:true});
  try{
   for(const [device,width,height] of [["celular",390,844],["tablet",768,1024],["desktop",1440,900]]){
@@ -41,6 +42,7 @@ window.supabase={createClient:()=>window.__client};
    assert.equal(await p.locator("[data-manager-form]").isVisible(),false);
    assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth-innerWidth)<=3,device+" default");
    assert.deepEqual(errors,[],device+" JS");
+   await p.screenshot({path:"reports/gestao-privada/"+device+"-desativado.png",fullPage:true,animations:"disabled"});
    await ctx.close();
 
    const auth=await browser.newContext({viewport:{width,height},serviceWorkers:"block"});
@@ -66,6 +68,7 @@ window.supabase={createClient:()=>window.__client};
    await page.locator("#g-confirm-file").check();
    await page.locator("#g-upload-document").click();
    await page.waitForFunction(()=>document.querySelector("[data-manager-status]")?.textContent.includes("Documento privado registrado"),null,{timeout:10000});
+   await page.screenshot({path:"reports/gestao-privada/"+device+"-gestao-ficticia.png",fullPage:true,animations:"disabled"});
    const sent=await page.evaluate(()=>window.__calls);
    assert.equal(sent.uploads.length,1);
    assert.equal(sent.documents.filter(x=>x.table==="gastroiff_practice_cycles").length,1);
@@ -76,6 +79,7 @@ window.supabase={createClient:()=>window.__client};
    assert.equal(await page.locator("[data-manager-content]").isVisible(),false);
    assert.equal(await page.locator("[data-manager-form]").isVisible(),true);
    assert.deepEqual(activeErrors,[],device+" JS logged");
+   await page.screenshot({path:"reports/gestao-privada/"+device+"-apos-logout.png",fullPage:true,animations:"disabled"});
    console.log("Gestão privada aprovada:",device);
    await auth.close();
   }
