@@ -94,3 +94,10 @@ Este documento distingue alterações feitas no código de verificações que ai
 - Criados testes em `tests/ciclos-csv.test.cjs` e `tests/apps-script-simulacao.test.cjs`, adicionados à execução automatizada; verificação funcional do fluxo CSV estendida em `tests/planejamento-docente-navegador.cjs`.
 - Os testes encontraram e corrigiram um erro no reconhecimento da extensão `.csv`. Após a correção, a execução GitHub Actions `41850224517` concluiu **9 testes unitários aprovados, 0 falhas**, e testes de navegador aprovados em celular, tablet e computador, incluindo recusa de dados fictícios, inclusão de CSV válido, persistência, prevenção de duplicatas, exportação e exclusão.
 - Antes de usar dados institucionais, ainda faltam: definir a responsabilidade por alimentar a situação das compras e sua data/fonte, realizar teste de leitura e atualização de Insumos, validar permissões, implantar um Apps Script autorizado, impedir mensagens repetidas e testar e-mails somente com destinatário de prova.
+
+## Revisão técnica de 06/11/2026, fase 0 de 11
+
+- Corrigida em `tests/integridade-site.test.mjs` a exigência obsoleta de versões fixas do CSS e JavaScript de animações. O teste agora compara as versões efetivamente declaradas por página e acusa divergência entre elas.
+- Conferência diretamente no código de `cursos.html`, `revistas.html`, `oportunidades.html`, `observatorio.html`, `docentes.html` e `eventos.html`: CSS e JavaScript compartilham a versão `20261106-motion2` nesses seis arquivos.
+- Os testes estáticos de contato têm rotina própria em `.github/workflows/verificar-contato.yml` para push relevante, pull request e execução manual.
+- **Não homologado:** execução da suíte de integridade após esta correção; testes visuais no navegador publicado em celular, tablet e computador; fluxo real de navegação, PWA e acessibilidade interativa. A fase 0 de 11 continua aberta.
