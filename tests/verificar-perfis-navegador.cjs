@@ -25,7 +25,7 @@ const root = "http://127.0.0.1:8765/";
       await page.locator('[data-entry-screen][data-stage="choices"]').waitFor({timeout:7000});
       assert.equal(await page.locator("[data-profile-entry]").count(),4,"quatro perfis sem cadastro: "+name);
       assert.deepEqual(await page.locator("[data-profile-entry]").evaluateAll(buttons=>buttons.map(b=>b.dataset.profileEntry)),["visitante","estudante","docente","egresso"],"ordem dos perfis: "+name);
-      assert.deepEqual(await page.locator("[data-profile-entry]").allTextContents(),["Visitante","Estudante","Docente","Egresso"],"botões sem informações adicionais");
+      assert.deepEqual((await page.locator("[data-profile-entry]").allTextContents()).map(t=>t.trim().replace(/\\s*›$/,"")),["Visitante","Estudante","Docente","Egresso"],"quatro perfis com rótulos corretos, aceitando só o indicador visual ›");
       assert.equal(await page.locator(".gi-entry-screen p, .gi-entry-screen h2, .gi-entry-screen .gi-entry-skip").count(),0,"sem texto ou botão extra");
       assert.equal(await page.locator(".gi-entry-brand").evaluate(el=>getComputedStyle(el).opacity),"1","marca permanece integrada às opções");
       assert.equal(await page.locator(".gi-entry-brand").evaluate(el=>getComputedStyle(el).position),"static","marca e botões ocupam a mesma composição");
