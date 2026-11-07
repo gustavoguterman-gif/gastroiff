@@ -77,6 +77,11 @@ Deno.serve(async req => {
     if (req.method === "OPTIONS") return json(200, { ok: true });
     if (req.method !== "POST") return json(405, { error: "Método não permitido." });
 
+    // Bloqueio de implantação: credenciais presentes não autorizam coleta real.
+    // Exige habilitação explícita depois dos testes e da autorização institucional.
+    if (Deno.env.get("GASTROIFF_OCCURRENCES_ENABLED") !== "true")
+      return json(503, { error: "O recebimento de ocorrências ainda não está disponível." });
+
     const base = Deno.env.get("SUPABASE_URL");
     const secret = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
     const challengeSecret = Deno.env.get("TURNSTILE_SECRET");
