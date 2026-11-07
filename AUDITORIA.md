@@ -163,3 +163,9 @@ Este documento distingue alterações feitas no código de verificações que ai
 - A folha global `assets/institutional.css` contém regra de redução de botões com `min-height:36px!important`. O CSS local `contato.html` definia 44 px sem prioridade equivalente, por isso perdia no conflito de cascata. Atualizado o seletor específico dos dois controles para impor `min-height:44px!important`, `width:100%!important`, `display:inline-flex!important` e padding coerente. O arranjo mobile de uma coluna permanece definido abaixo de 400 px.
 - Adicionado teste estático em `tests/integridade-site.test.mjs` para impedir a remoção futura da prioridade de 44 px. O teste de navegador continua medindo altura computada e visibilidade nos três formatos.
 - **Ainda falta obter execução posterior dos workflows e inspecionar capturas atualizadas**. Não registrar aceite da entrega 2 até essa comprovação.
+
+## Correção adicional após reprovação de 36 px no Contato (07/11/2026 UTC)
+
+- A execução publicada `42330110729`, já posterior à primeira tentativa de correção, ainda mediu **36 px** de `layoutHeight` e `minHeight` nos botões telefônico e WhatsApp em celular 390 px. Logo, a primeira alteração do CSS não foi suficiente para comprovar a solução.
+- Aplicada declaração explícita `min-height:44px!important` nos dois links de Contato, bem como padding e `box-sizing` locais, para prevalecer sobre a regra de 36 px do CSS global. A regra de layout responsivo continua intacta.
+- O teste estático de integridade passou a exigir essa declaração nos dois botões. O HTML atualizado foi conferido e ambos os botões passaram na verificação de presença e da altura definida. **Ainda falta testar no navegador publicado em celular, tablet e desktop e inspecionar as capturas**, sem declarar homologação antecipadamente.
