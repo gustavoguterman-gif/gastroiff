@@ -71,8 +71,14 @@ const pages=["index.html","contato.html","revistas.html","gestao.html","gestao-d
       assert.equal(await phone.count(),1,"Link de ligação indisponível: "+view);
       assert.equal(await whatsapp.count(),1,"Link de WhatsApp indisponível: "+view);
       assert.ok(await phone.isVisible() && await whatsapp.isVisible(),"Ações de contato invisíveis: "+view);
-      const boxes=await Promise.all([phone.boundingBox(),whatsapp.boundingBox()]);
-      assert.ok(boxes.every(b=>b && b.width>0 && b.height>=40),"Ações de contato pequenas ou ocultas: "+view);
+      // offsetHeight mede a área de toque no layout sem ser reduzida por transformações transitórias.
+      const actions=await Promise.all([phone,whatsapp].map(el=>el.evaluate(node=>{
+       const box=node.getBoundingClientRect(),style=getComputedStyle(node);
+       return {width:box.width,height:box.height,layoutHeight:node.offsetHeight,
+        minHeight:style.minHeight,display:style.display,visibility:style.visibility};
+      })));
+      assert.ok(actions.every(a=>a.width>0 && a.layoutHeight>=40),
+       "Ações de contato pequenas ou ocultas: "+view+" "+JSON.stringify(actions));
     }
     if(file==="revistas.html"){
       assert.ok(await page.getByText("Revista de Ciência de Alimentos e Gastronomia (RCAGT)",{exact:true}).count()>=1,
