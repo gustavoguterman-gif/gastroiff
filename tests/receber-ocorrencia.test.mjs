@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import {
  validateOccurrence, inspectImage, validateOrigin, validateTurnstileProof, InputError,
  MAX_IMAGE_BYTES,
@@ -77,4 +78,17 @@ test("desafio antiabuso exige sucesso, domínio e ação corretos",()=>{
  assert.equal(validateTurnstileProof({...ok,action:"outro"},ok.hostname,ok.action),false);
  assert.equal(validateTurnstileProof({...ok,hostname:"outro.example"},ok.hostname,ok.action),false);
  assert.equal(validateTurnstileProof({...ok,success:false},ok.hostname,ok.action),false);
+});
+
+
+test("endpoint de ocorrências permanece fechado até habilitação explícita",()=>{
+ const source=fs.readFileSync(new URL("../supabase/functions/receber-ocorrencia/index.ts",import.meta.url),"utf8");
+ const guard='Deno.env.get("GASTROIFF_OCCURRENCES_ENABLED") !== "true"';
+ const gate=source.indexOf(guard);
+ const credentials=source.indexOf('Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")');
+ const parsing=source.indexOf('await limitedBytes(req, MAX_REQUEST_BYTES)');
+ assert.ok(gate>0&&credentials>gate&&parsing>gate,
+  "O envio deve ser bloqueado antes da leitura do conteúdo e de credenciais do serviço");
+ assert.match(source.slice(gate,credentials),/return json\(503,/,
+  "O endpoint não autorizado precisa responder 503");
 });
