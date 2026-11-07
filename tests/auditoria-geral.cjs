@@ -38,6 +38,12 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
         }).slice(0,8).map(el=>({tag:el.tagName,text:el.textContent.trim().slice(0,75),width:Math.round(el.getBoundingClientRect().width)}));
         const wideSelects=controls.filter(el=>el.tagName==="SELECT"&&el.getBoundingClientRect().width>270)
           .slice(0,8).map(el=>({id:el.id,width:Math.round(el.getBoundingClientRect().width)}));
+        const overflowSelects=controls.filter(el=>{
+          if(el.tagName!=="SELECT")return false;
+          const box=el.getBoundingClientRect();
+          return box.left < -2 || box.right > innerWidth+2;
+        }).slice(0,8).map(el=>({id:el.id,left:Math.round(el.getBoundingClientRect().left),
+          right:Math.round(el.getBoundingClientRect().right),viewport:innerWidth}));
         const selector=document.querySelector(".gi-personal-choice select");
         const profileSelector=selector?{
           width:Math.round(selector.getBoundingClientRect().width),
@@ -47,12 +53,12 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
         }:null;
         const motion=Boolean(document.querySelector(".gi-motion-ready, .gi-motion-visible"));
         return {overflow:document.documentElement.scrollWidth-innerWidth,title:document.title,
-          brokenImages:localBroken,visual:{controls:controls.length,clipped,wideSelects,profileSelector,motion}};
+          brokenImages:localBroken,visual:{controls:controls.length,clipped,wideSelects,overflowSelects,profileSelector,motion}};
       });
-      if(r.status()!==200||obj.overflow>3||obj.brokenImages.length||errors.length)
+      if(r.status()!==200||obj.overflow>3||obj.brokenImages.length||errors.length||obj.visual.overflowSelects.length)
         findings.push({file,view,http:r.status(),...obj,errors:errors.slice(0,5)});
       else ok.push(file+" "+view);
-      if(obj.visual.clipped.length||obj.visual.wideSelects.length)
+      if(obj.visual.clipped.length||obj.visual.overflowSelects.length)
         designWarnings.push({file,view,...obj.visual});
       if(file==="index.html"){
         if(!obj.visual.profileSelector||obj.visual.profileSelector.width>148
@@ -80,7 +86,7 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
  fs.writeFileSync("reports/auditoria-geral.json",JSON.stringify({date:new Date().toISOString(),pages:files.length,viewports:3,passes:ok.length,findings,designWarnings},null,2));
  console.log("Páginas:",files.length,"testes:",files.length*3,"aprovados:",ok.length,"ocorrências:",findings.length);
  findings.slice(0,40).forEach(x=>console.log("ACHADO:",JSON.stringify(x)));
- console.log("Observações de desenho (não bloqueantes):",designWarnings.length);
+ console.log("Alertas de desenho por corte ou excesso horizontal:",designWarnings.length);
  designWarnings.slice(0,18).forEach(x=>console.log("VISUAL:",JSON.stringify(x)));
  // Não permitir aprovação da implantação com falhas detectadas.
  if(findings.length) {
