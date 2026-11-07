@@ -113,3 +113,9 @@ A implantação **não deve ser liberada se qualquer linha mostrar FAIL**. A con
 A verificação não substitui o ensaio de login com três identidades fictícias de papéis distintos nem os testes reais de criação, leitura, edição, exclusão, logout, recuperação de arquivos e backup. Esses ensaios permanecem obrigatórios antes de habilitar `GASTROIFF_OCCURRENCES_ENABLED` ou `GASTROIFF_EGRESSO_SUBMISSIONS_ENABLED`. O teste estático de integridade da consulta está em `tests/escopos-acesso-sql.test.cjs`.
 
 **Situação:** script preparado no repositório; **não executado em banco real**. A infraestrutura protegida continua desativada.
+
+## Ensaio sem escrita de acesso anônimo e autenticado (07/11/2026)
+
+Foi adicionado `supabase/ensaio-rls-leitura-isolado.sql` para execução **manual e controlada** somente num projeto Supabase isolado, depois das migrações da base e dos escopos. Ele usa transações `READ ONLY`, `SET LOCAL ROLE anon`, `SET LOCAL ROLE authenticated` e `ROLLBACK`, sem criar usuários nem gravar registros. Confere privilégios do papel anônimo, negativa de escopos sem JWT e a ausência de linhas visíveis nas tabelas privadas sem identidade. O operador deve conferir que todos os resultados de privilégio são `PASS` e que cada contagem de linhas visíveis é `0`.
+
+O ensaio **não** substitui a homologação de três identidades fictícias reais, nem verifica acesso e escrita em storage, política de backups, consentimento ou ações do backend. Caso qualquer verificação falhe, não ativar recebimento ou login. Os testes automatizados verificam que o ensaio permanece somente leitura, mas não executam SQL contra um banco ainda inexistente. Nenhum banco foi provisionado, nenhuma credencial foi configurada e a condição operacional permanece pendente.
