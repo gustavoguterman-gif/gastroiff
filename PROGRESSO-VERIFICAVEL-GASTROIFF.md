@@ -151,3 +151,10 @@ Isso comprova o fechamento da parte **automatizada** da auditoria. O marco 2.5 c
 - Segunda execução `42371975291` **concluiu com sucesso**. Migrações aplicadas no PostgreSQL local, `supabase test db` executado, **10 testes de acesso pgTAP aprovados de 10**, resultado `PASS`.
 - Evidência: os dez testes comprovam, em banco local real, o isolamento para visitantes, administrador do projeto, revisor, coordenação ainda sem filtros de curso e autenticado sem papel, nas tabelas de solicitações e fila editorial. Não comprovam autenticação institucional real nem todo o ciclo de arquivos, atualizações, exclusões e backups.
 - **Contagem mantida: 20/35 (57,1%) dos marcos**, porque o 3.3 exige provisionamento autorizado de serviço protegido institucional e o 3.5 exige homologação mais ampla. A primeira prova real de SQL é um avanço significativo dentro da frente 3, mas não substitui esses requisitos.
+
+## Homologação local de políticas de escrita e storage: 23 testes (07/11/2026)
+
+- A execução PostgreSQL isolada `42389429221` concluiu com **sucesso: 23 de 23 testes reais pgTAP aprovados**. Foram 10 cenários de leitura por perfis e 13 sobre privilégios de escrita direta, privacidade dos dois buckets e políticas finais de leitura, inclusão e exclusão de arquivos órfãos.
+- A falha intermediária das execuções `42389012214` e `42389212359` identificou um teste desatualizado: a política ampla `gastroiff_praticas_manager_storage` havia sido removida intencionalmente pela migração `20261104233000_praticas_storage_lock.sql`. A expectativa foi corrigida com base na migração final e confirmada pelo PostgreSQL.
+- O teste estático dos roteiros foi ampliado, **7 de 7 verificações passaram isoladamente**, e a orientação de ativação recebeu as evidências.
+- O resultado ainda não comprova upload, recuperação de anexos, autenticação institucional, backups nem homologação com contas remotas autorizadas. Sem ampliar artificialmente o progresso: **20/35 = 57,1% dos marcos**. A conclusão do marco 3.3 depende da infraestrutura real autorizada.
