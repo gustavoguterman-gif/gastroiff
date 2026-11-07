@@ -1,0 +1,44 @@
+name: Testar RLS em banco local descartavel
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/config.toml'
+      - 'supabase/migrations/**'
+      - 'supabase/tests/**'
+      - '.github/workflows/testar-rls-banco-local.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'supabase/config.toml'
+      - 'supabase/migrations/**'
+      - 'supabase/tests/**'
+      - '.github/workflows/testar-rls-banco-local.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gastroiff-rls-local-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  banco-local:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparar Supabase CLI
+        uses: supabase/setup-cli@v3
+        with:
+          version: latest
+      - name: Iniciar somente banco Supabase local e aplicar migracoes
+        run: supabase db start
+      - name: Executar testes pgTAP de isolamento real
+        run: supabase test db
+      - name: Registrar estado da execucao
+        if: always()
+        run: |
+          echo "O teste usa banco local descartavel do runner." >> "$GITHUB_STEP_SUMMARY"
+          echo "Nao vincula projeto remoto, nao implanta migracoes e nao usa segredos institucionais." >> "$GITHUB_STEP_SUMMARY"
