@@ -55,6 +55,15 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
           return !name;
         }).slice(0,12).map(el=>({tag:el.tagName,id:el.id||null,
           type:el.getAttribute("type")||null,placeholder:el.getAttribute("placeholder")||null}));
+        const unnamedLinks=[...document.querySelectorAll("a[href]")].filter(visible).filter(el=>{
+          const labelledBy=(el.getAttribute("aria-labelledby")||"").split(/\s+/).filter(Boolean)
+            .map(id=>document.getElementById(id)?.textContent?.trim()||"").filter(Boolean).join(" ");
+          const imageAlt=[...el.querySelectorAll("img")].map(img=>img.getAttribute("alt")||"").join(" ").trim();
+          const text=(el.textContent||"").replace(/\s+/g," ").trim();
+          const name=(el.getAttribute("aria-label")||"").trim()||labelledBy||text||imageAlt||
+            (el.getAttribute("title")||"").trim();
+          return !name;
+        }).slice(0,12).map(el=>({href:el.getAttribute("href"),outer:el.outerHTML.slice(0,180)}));
         const selector=document.querySelector(".gi-personal-choice select");
         const profileSelector=selector?{
           width:Math.round(selector.getBoundingClientRect().width),
@@ -64,15 +73,15 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
         }:null;
         const motion=Boolean(document.querySelector(".gi-motion-ready, .gi-motion-visible"));
         return {overflow:document.documentElement.scrollWidth-innerWidth,title:document.title,
-          brokenImages:localBroken,visual:{controls:controls.length,clipped,wideSelects,overflowSelects,unnamedControls,profileSelector,motion}};
+          brokenImages:localBroken,visual:{controls:controls.length,clipped,wideSelects,overflowSelects,unnamedControls,unnamedLinks,profileSelector,motion}};
       });
       if(r.status()!==200||obj.overflow>3||obj.brokenImages.length||errors.length||obj.visual.overflowSelects.length)
         findings.push({file,view,http:r.status(),...obj,errors:errors.slice(0,5)});
       else ok.push(file+" "+view);
       if(obj.visual.clipped.length||obj.visual.overflowSelects.length)
         designWarnings.push({file,view,...obj.visual});
-      if(obj.visual.unnamedControls.length)
-        accessibilityWarnings.push({file,view,controls:obj.visual.unnamedControls});
+      if(obj.visual.unnamedControls.length||obj.visual.unnamedLinks.length)
+        accessibilityWarnings.push({file,view,controls:obj.visual.unnamedControls,links:obj.visual.unnamedLinks});
       if(file==="index.html"){
         if(!obj.visual.profileSelector||obj.visual.profileSelector.width>148
           ||obj.visual.profileSelector.height>38
@@ -84,7 +93,7 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
           "biblioteca.html","projetos.html","eventos.html","oportunidades.html",
           "laboratorios.html","planejamento-docente.html","gestao-praticas.html",
           "gestao.html","gestao-documentos-praticas.html"].includes(file)
-          ||obj.visual.clipped.length>0||obj.visual.wideSelects.length>0||obj.visual.unnamedControls.length>0){
+          ||obj.visual.clipped.length>0||obj.visual.wideSelects.length>0||obj.visual.unnamedControls.length>0||obj.visual.unnamedLinks.length>0){
         // Revelar os elementos para que a captura da página inteira não mostre
         // os elementos abaixo da dobra ainda à espera do IntersectionObserver.
         await page.addStyleTag({content:"main .gi-motion-ready{opacity:1!important;transform:none!important}"});
@@ -101,7 +110,7 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
  findings.slice(0,40).forEach(x=>console.log("ACHADO:",JSON.stringify(x)));
  console.log("Alertas de desenho por corte ou excesso horizontal:",designWarnings.length);
  designWarnings.slice(0,18).forEach(x=>console.log("VISUAL:",JSON.stringify(x)));
- console.log("Possíveis controles sem nome acessível (inspeção necessária):",accessibilityWarnings.length);
+ console.log("Possíveis controles e links sem nome acessível (inspeção necessária):",accessibilityWarnings.length);
  accessibilityWarnings.slice(0,20).forEach(x=>console.log("ACESSIBILIDADE:",JSON.stringify(x)));
  // Não permitir aprovação da implantação com falhas detectadas.
  if(findings.length) {
