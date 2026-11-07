@@ -18,18 +18,18 @@ checks as (
  union all
  select
   'Anon sem leitura/escrita em '||t.name,
-  coalesce(not (has_table_privilege('anon','public.'||t.name,'SELECT')
-    or has_table_privilege('anon','public.'||t.name,'INSERT')
-    or has_table_privilege('anon','public.'||t.name,'UPDATE')
-    or has_table_privilege('anon','public.'||t.name,'DELETE')),false),
+  coalesce(not (has_table_privilege('anon',to_regclass('public.'||t.name),'SELECT')
+    or has_table_privilege('anon',to_regclass('public.'||t.name),'INSERT')
+    or has_table_privilege('anon',to_regclass('public.'||t.name),'UPDATE')
+    or has_table_privilege('anon',to_regclass('public.'||t.name),'DELETE')),false),
   'Perfil anônimo não deve ter privilégios em tabelas privadas'
  from protected_tables t
  union all
  select
   'Autenticado sem escrita direta em '||t.name,
-  coalesce(not (has_table_privilege('authenticated','public.'||t.name,'INSERT')
-    or has_table_privilege('authenticated','public.'||t.name,'UPDATE')
-    or has_table_privilege('authenticated','public.'||t.name,'DELETE')),false),
+  coalesce(not (has_table_privilege('authenticated',to_regclass('public.'||t.name),'INSERT')
+    or has_table_privilege('authenticated',to_regclass('public.'||t.name),'UPDATE')
+    or has_table_privilege('authenticated',to_regclass('public.'||t.name),'DELETE')),false),
   'Escrita de dados privados só pelo serviço autorizado'
  from protected_tables t
  union all
