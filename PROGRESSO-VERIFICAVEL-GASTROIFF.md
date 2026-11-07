@@ -96,3 +96,10 @@ Evidências: workflow publicado 42330367449; workflow completo 42330611424; MAPA
 - Na inspeção do HTML de `ocorrencias.html`, `participacao.html` e `gestao-insumos.html`, os campos identificados como suspeitos por não possuírem atributo `id` estavam inseridos em elementos `label` envolventes. Esse padrão fornece identificação válida e **não foi alterado**.
 - O teste de navegador `tests/auditoria-geral.cjs` passou a inspecionar também os **links visíveis com `href`**, incluindo cabeçalho e rodapé. O diagnóstico examina nome por `aria-label`, `aria-labelledby`, texto, texto alternativo de imagem e atributo `title`. Os links possivelmente sem nome são registrados em `accessibilityWarnings` e motivam captura em 390, 768 e 1440 px.
 - O código atualizado foi verificado no repositório e a sintaxe do script foi conferida; **a execução no Chromium e a avaliação dos alertas ainda estão pendentes**. O marcador 2.5 continua aberto e o placar permanece **20/35 (57,1%)**. Não confundir ampliação de testes com solução comprovada de acessibilidade.
+
+## Avanço da infraestrutura protegida: bloqueio explícito de ocorrências (07/11/2026)
+
+- Preparação do serviço privado aprimorada: `supabase/functions/receber-ocorrencia/index.ts` agora exige `GASTROIFF_OCCURRENCES_ENABLED=true` antes de ler o corpo, consultar credenciais ou tentar gravação. Sem autorização explícita, responde HTTP 503. A trava é independente do bloqueio de egressos.
+- Adicionado teste automático em `tests/receber-ocorrencia.test.mjs`, documentado o pré-requisito no `supabase/config.toml` e no `FASE-2-ACESSO-PROTEGIDO.md`.
+- O novo caso de teste foi executado isoladamente em JavaScript sobre o código real lido do repositório e **passou (1/1)**. O serviço implantado e o pipeline completo posterior ainda precisam de confirmação.
+- Esse aperfeiçoamento reforça o marco 3.2, **já contabilizado**. Não marca 3.3 ou 3.4: nenhum banco ou autenticação institucional foi provisionado. Placar permanece **20/35 = 57,1% dos marcos**.
