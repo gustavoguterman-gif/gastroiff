@@ -7,7 +7,7 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
 (async()=>{
  fs.mkdirSync("reports",{recursive:true});
  const browser=await chromium.launch({headless:true});
- const findings=[],ok=[],designWarnings=[];
+ const findings=[],ok=[],designWarnings=[],accessibilityWarnings=[];
  try{
   for(const [view,width,height] of [["celular",390,844],["tablet",768,1024],["desktop",1440,900]]){
    const context=await browser.newContext({viewport:{width,height},ignoreHTTPSErrors:false,serviceWorkers:"block"});
@@ -44,6 +44,17 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
           return box.left < -2 || box.right > innerWidth+2;
         }).slice(0,8).map(el=>({id:el.id,left:Math.round(el.getBoundingClientRect().left),
           right:Math.round(el.getBoundingClientRect().right),viewport:innerWidth}));
+        const formElements=[...document.querySelectorAll("main input,main select,main textarea,main button")].filter(visible);
+        const unnamedControls=formElements.filter(el=>{
+          if(el.matches('input[type="hidden"],input[type="submit"],input[type="reset"]'))return false;
+          const labels=el.labels?[...el.labels].map(x=>x.textContent.trim()).filter(Boolean):[];
+          const labelledBy=(el.getAttribute("aria-labelledby")||"").split(/\s+/).filter(Boolean)
+            .map(id=>document.getElementById(id)?.textContent?.trim()||"").filter(Boolean);
+          const name=(el.getAttribute("aria-label")||"").trim()||
+            labels.join(" ")||labelledBy.join(" ")||(el.tagName==="BUTTON" ? el.textContent.trim():"");
+          return !name;
+        }).slice(0,12).map(el=>({tag:el.tagName,id:el.id||null,
+          type:el.getAttribute("type")||null,placeholder:el.getAttribute("placeholder")||null}));
         const selector=document.querySelector(".gi-personal-choice select");
         const profileSelector=selector?{
           width:Math.round(selector.getBoundingClientRect().width),
@@ -53,13 +64,15 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
         }:null;
         const motion=Boolean(document.querySelector(".gi-motion-ready, .gi-motion-visible"));
         return {overflow:document.documentElement.scrollWidth-innerWidth,title:document.title,
-          brokenImages:localBroken,visual:{controls:controls.length,clipped,wideSelects,overflowSelects,profileSelector,motion}};
+          brokenImages:localBroken,visual:{controls:controls.length,clipped,wideSelects,overflowSelects,unnamedControls,profileSelector,motion}};
       });
       if(r.status()!==200||obj.overflow>3||obj.brokenImages.length||errors.length||obj.visual.overflowSelects.length)
         findings.push({file,view,http:r.status(),...obj,errors:errors.slice(0,5)});
       else ok.push(file+" "+view);
       if(obj.visual.clipped.length||obj.visual.overflowSelects.length)
         designWarnings.push({file,view,...obj.visual});
+      if(obj.visual.unnamedControls.length)
+        accessibilityWarnings.push({file,view,controls:obj.visual.unnamedControls});
       if(file==="index.html"){
         if(!obj.visual.profileSelector||obj.visual.profileSelector.width>148
           ||obj.visual.profileSelector.height>38
@@ -71,7 +84,7 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
           "biblioteca.html","projetos.html","eventos.html","oportunidades.html",
           "laboratorios.html","planejamento-docente.html","gestao-praticas.html",
           "gestao.html","gestao-documentos-praticas.html"].includes(file)
-          ||obj.visual.clipped.length>0||obj.visual.wideSelects.length>0){
+          ||obj.visual.clipped.length>0||obj.visual.wideSelects.length>0||obj.visual.unnamedControls.length>0){
         // Revelar os elementos para que a captura da página inteira não mostre
         // os elementos abaixo da dobra ainda à espera do IntersectionObserver.
         await page.addStyleTag({content:"main .gi-motion-ready{opacity:1!important;transform:none!important}"});
@@ -83,11 +96,13 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
    await context.close();
   }
  }finally{await browser.close()}
- fs.writeFileSync("reports/auditoria-geral.json",JSON.stringify({date:new Date().toISOString(),pages:files.length,viewports:3,passes:ok.length,findings,designWarnings},null,2));
+ fs.writeFileSync("reports/auditoria-geral.json",JSON.stringify({date:new Date().toISOString(),pages:files.length,viewports:3,passes:ok.length,findings,designWarnings,accessibilityWarnings},null,2));
  console.log("Páginas:",files.length,"testes:",files.length*3,"aprovados:",ok.length,"ocorrências:",findings.length);
  findings.slice(0,40).forEach(x=>console.log("ACHADO:",JSON.stringify(x)));
  console.log("Alertas de desenho por corte ou excesso horizontal:",designWarnings.length);
  designWarnings.slice(0,18).forEach(x=>console.log("VISUAL:",JSON.stringify(x)));
+ console.log("Possíveis controles sem nome acessível (inspeção necessária):",accessibilityWarnings.length);
+ accessibilityWarnings.slice(0,20).forEach(x=>console.log("ACESSIBILIDADE:",JSON.stringify(x)));
  // Não permitir aprovação da implantação com falhas detectadas.
  if(findings.length) {
    console.error("AUDITORIA REPROVADA: "+findings.length+" problemas de navegação ou layout.");
