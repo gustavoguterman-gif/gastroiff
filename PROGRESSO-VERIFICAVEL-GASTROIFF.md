@@ -1,0 +1,79 @@
+# GASTROIFF | Progresso verificável por 35 marcos
+
+Atualização de referência: 07/11/2026 (horário UTC). Documento substitui **a repetição isolada de “1 de 7”** como comunicação de progresso. As sete entregas operacionais permanecem como unidades de aceite, mas cada uma tem cinco marcos independentes e auditáveis.
+
+**Placar de desenvolvimento: 20 de 35 marcos atingidos, equivalentes a 57,1% DOS MARCOS LISTADOS.** Os outros 15 estão pendentes. Cada marco vale uma unidade exclusivamente para o acompanhamento, sem supor que todas as tarefas custem o mesmo esforço ou que 57,1% do trabalho restante seja igual a 42,9% do prazo.
+
+**Placar de operação real:** o portal público básico está utilizável e a bateria de navegação publicada passou; autenticação e banco institucional privados seguem desativados. Portanto, 57,1% não significa 57,1% da plataforma institucional integralmente operacional, nem homologação das sete entregas.
+
+## 1. Portal público básico: 5/5
+- [x] 1.1. Páginas públicas de cursos e apresentação existentes no site.
+- [x] 1.2. Conteúdos de docentes, comunidade e laboratórios disponíveis.
+- [x] 1.3. Pesquisa, revistas acadêmicas e materiais de biblioteca publicados.
+- [x] 1.4. Páginas de oportunidades, eventos, documentos e contato navegáveis.
+- [x] 1.5. Portal básico acessível publicamente, sem exigir login.
+
+## 2. Experiência pública, PWA e três formatos: 4/5
+- [x] 2.1. Escolha pública dos quatro perfis: Visitante, Estudante, Docente e Egresso.
+- [x] 2.2. PWA, manifesto, recursos offline e navegação testados no navegador.
+- [x] 2.3. Conferência automatizada das páginas em celular, tablet e desktop.
+- [x] 2.4. Bateria do site publicado aprovada no GitHub Actions, com 21 capturas (execução 42330367449).
+- [ ] 2.5. Revisão estética e de acessibilidade integral das páginas e fechamento dos 15 avisos de campos largos, sem problemas de contraste, leitura ou interação.
+
+## 3. Infraestrutura protegida: 2/5
+- [x] 3.1. Estrutura proposta de tabelas, papéis de acesso e políticas no código.
+- [x] 3.2. Testes fictícios de autorização, sessões, armazenamento e falhas de rede.
+- [ ] 3.3. Serviço de banco autorizado e provisionado, com proteção efetiva.
+- [ ] 3.4. Login institucional, permissões reais e arquivos privados em operação.
+- [ ] 3.5. Backups, recuperação, trilha de auditoria e homologação de segurança com ambiente real.
+
+## 4. Gestão, docentes e ocorrências: 3/5
+- [x] 4.1. Planejamento de ciclos docentes e consultas locais funcionais.
+- [x] 4.2. Importação e conferência de planilhas, arquivos e insumos em modo local.
+- [x] 4.3. Fluxos de Gestão autenticada simulados, incluindo criação, upload, revisão e bloqueio de aprovação, validados em testes.
+- [ ] 4.4. Fluxo real de documentos, compras e publicações aprovadas com usuários autorizados e histórico persistente.
+- [ ] 4.5. Livro de Ocorrências efetivo: protocolo, anexo, triagem, resposta e acompanhamento protegidos.
+
+## 5. Atualizações e automação editorial: 2/5
+- [x] 5.1. Catálogo de oportunidades, calendário, revistas e fontes institucionais montados.
+- [x] 5.2. Monitor de oportunidades, validação de fontes e prevenção de falhas testados em modo de ensaio.
+- [ ] 5.3. Coleta recorrente real, monitorada e rastreável de vagas, eventos e editais.
+- [ ] 5.4. Revisão/aprovação pela Gestão e publicação automática segura sem duplicatas.
+- [ ] 5.5. Expiração, despublicação, avisos úteis e reprocessamento de falhas comprovados em produção.
+
+## 6. Egressos, pesquisas e Observatório: 2/5
+- [x] 6.1. Perfil público de Egresso e navegação correspondente presentes.
+- [x] 6.2. Instrumentos metodológicos e estrutura de dados protegidos preparados, sem inventar resultados.
+- [ ] 6.3. Pesquisa com consentimento e respostas reais em armazenamento protegido.
+- [ ] 6.4. Relatórios agregados e indicadores verificáveis por turma/coorte.
+- [ ] 6.5. Observatório ativo, com métricas confiáveis, análises e exportações documentadas.
+
+## 7. Qualidade, governança e homologação: 2/5
+- [x] 7.1. Mapa de construção e caderno de requisitos mantidos no repositório.
+- [x] 7.2. Bateria de integração completa aprovada após as correções (execução 42330611424), com 20 etapas de validação concluídas.
+- [ ] 7.3. Avaliação de uso e acessibilidade com pessoas reais nos três formatos.
+- [ ] 7.4. Segurança, privacidade, manutenção e observabilidade de serviços reais homologadas.
+- [ ] 7.5. Aceite acadêmico/institucional do conjunto e plano permanente de operação.
+
+## Cálculo
+
+| Frente | Atingidos | Total | Percentual dentro da frente |
+|---|---:|---:|---:|
+| 1. Portal público | 5 | 5 | 100% |
+| 2. Experiência pública | 4 | 5 | 80% |
+| 3. Infraestrutura protegida | 2 | 5 | 40% |
+| 4. Gestão e ocorrências | 3 | 5 | 60% |
+| 5. Automação e fontes | 2 | 5 | 40% |
+| 6. Egressos e Observatório | 2 | 5 | 40% |
+| 7. Qualidade e homologação | 2 | 5 | 40% |
+| **Total** | **20** | **35** | **57,1% dos marcos** |
+
+## Regras para atualizar
+1. Um marco muda para atingido somente quando existe código, evidência verificável ou comportamento demonstrado correspondente. Preparação de banco nunca substitui operação real.
+2. Cada alteração precisa registrar qual marco mudou, a fonte da comprovação e as pendências. Não repetir simplesmente “1 de 7” como medidor.
+3. Se algum marco antes considerado atendido falhar, ele volta a pendente. O percentual pode cair.
+4. Não acrescentar marcos cumpridos só porque o mesmo comportamento passou em mais um teste; testes repetidos reforçam a evidência, não inflacionam o progresso.
+5. O quadro de 35 marcos mede cobertura das entregas e não horas de trabalho, cronograma, esforço equivalente ou percentual de operação institucional.
+6. A próxima prioridade é fechar 2.5 (experiência pública) e avançar em 3.3 (provisionamento autorizado do serviço privado). O primeiro pode ser testado com o ambiente atual; o segundo depende de autorização e configuração real, sem dados sensíveis no GitHub.
+
+Evidências: workflow publicado 42330367449; workflow completo 42330611424; MAPA-CONSTRUCAO-GASTROIFF.md; CADERNO-COMPLETO-GASTROIFF.md; AUDITORIA.md.
