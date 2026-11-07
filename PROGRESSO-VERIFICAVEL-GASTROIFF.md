@@ -143,3 +143,11 @@ Isso comprova o fechamento da parte **automatizada** da auditoria. O marco 2.5 c
 - Foi criado `supabase/tests/gestao_rls_test.sql` com 10 asserções em pgTAP e registros de teste transacionais: anônimo, administrador project, revisor reviewer, coordenação course e autenticado sem função. A transação termina em `ROLLBACK` e usa apenas identidades fictícias.
 - O script de testes estáticos `tests/escopos-acesso-sql.test.cjs` foi ampliado para conferir os cenários e ausência de `COMMIT`; **6 de 6 testes estáticos passaram** em execução isolada sobre os arquivos do repositório.
 - A execução real do `supabase test db` ainda **não foi feita** por ausência de banco local ou isolado provisionado. Também faltam testes reais com cliente Supabase, autenticação, storage e backup. O marco de implantação 3.3 segue aberto. Total **20/35 = 57,1%**.
+
+## Primeira execução real de PostgreSQL com pgTAP aprovada (07/11/2026)
+
+- Workflow específico `.github/workflows/testar-rls-banco-local.yml`, executado no GitHub Actions em ambiente isolado e descartável, sem banco remoto ou credenciais institucionais.
+- Primeira execução `42371799226` detectou falha de migração antes dos testes: tentativa indevida de executar `alter table storage.objects enable row level security` na tabela gerenciada pelo Supabase, erro PostgreSQL `42501`. Corrigida a migração `20261104230000_praticas_privadas.sql` removendo essa operação. A tabela já possui RLS gerenciado pelo serviço.
+- Segunda execução `42371975291` **concluiu com sucesso**. Migrações aplicadas no PostgreSQL local, `supabase test db` executado, **10 testes de acesso pgTAP aprovados de 10**, resultado `PASS`.
+- Evidência: os dez testes comprovam, em banco local real, o isolamento para visitantes, administrador do projeto, revisor, coordenação ainda sem filtros de curso e autenticado sem papel, nas tabelas de solicitações e fila editorial. Não comprovam autenticação institucional real nem todo o ciclo de arquivos, atualizações, exclusões e backups.
+- **Contagem mantida: 20/35 (57,1%) dos marcos**, porque o 3.3 exige provisionamento autorizado de serviço protegido institucional e o 3.5 exige homologação mais ampla. A primeira prova real de SQL é um avanço significativo dentro da frente 3, mas não substitui esses requisitos.
