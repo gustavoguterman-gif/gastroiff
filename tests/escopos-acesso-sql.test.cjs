@@ -41,3 +41,21 @@ test("nenhuma política da base fornece acesso anônimo a dados pessoais",()=>{
   assert.match(base,/'gastroiff-private'\s*,\s*'gastroiff-private'\s*,\s*false/i);
   assert.match(scopes,/não\s+possui\s+identificação\s+de\s+curso/i);
 });
+
+test("auditoria de pré-ativação é somente leitura e cobre barreiras essenciais",()=>{
+  const audit=fs.readFileSync(path.join(root,"supabase/auditoria-permissoes-pre-ativacao.sql"),"utf8");
+  for(const table of ["gi_admins","gi_requests","gi_attachments","gi_request_actions","gi_publication_queue","gi_recommendations","gi_notifications"]){
+    assert.ok(audit.includes("'"+table+"'"),"Tabela ausente da auditoria: "+table);
+  }
+  assert.match(audit,/relrowsecurity/i);
+  assert.match(audit,/has_table_privilege\('anon'/i);
+  assert.match(audit,/has_table_privilege\('authenticated'/i);
+  assert.match(audit,/storage\.buckets/i);
+  assert.match(audit,/gi_reviewer_queue_read/i);
+  assert.match(audit,/pg_get_functiondef/i);
+  assert.match(audit,/to_regclass/i);
+  assert.match(audit,/case when passed then 'PASS' else 'FAIL' end/i);
+  const executable=audit.replace(/--[^\n]*/g,"");
+  assert.doesNotMatch(executable,/\b(create|alter|drop|insert|update|delete|grant|revoke|truncate|execute|call)\b/i,
+    "Auditoria de pré-ativação não deve modificar o banco");
+});
