@@ -103,3 +103,13 @@ A migração complementar `supabase/migrations/202611070001_gastroiff_escopos_mi
 A distinção acima vale para as **regras SQL preparadas**, não comprova que essas autorizações estejam em execução em um banco. O serviço permanece desativado. Antes de liberar qualquer conta real, aplicar migrações em ambiente separado, testar cada papel e verificar também tentativas indevidas de leitura, envio, alteração e exclusão.
 
 O arquivo `tests/escopos-acesso-sql.test.cjs` impede regressões evidentes no código SQL e foi adicionado ao workflow de validação completa. Seus testes são **estáticos**, não substituem ensaios de Row Level Security com PostgreSQL/Supabase reais. Não conceder escrita direta dos formulários à conta pública.
+
+## Verificação de permissões do banco antes da ativação (07/11/2026)
+
+O arquivo `supabase/auditoria-permissoes-pre-ativacao.sql` oferece uma verificação **somente leitura** para executar no editor SQL de um projeto Supabase isolado, **depois de aplicar as migrações na ordem correta**. A consulta lista resultados PASS ou FAIL para a ativação do RLS nas tabelas sensíveis, ausência de acesso anônimo, proibição de gravação direta por usuários autenticados, privacidade do bucket, acesso restrito de revisores à fila editorial e função de administração exclusiva do escopo do projeto.
+
+A implantação **não deve ser liberada se qualquer linha mostrar FAIL**. A consulta não cria usuários, não envia dados, não altera políticas e não solicita segredos. Guardar o resultado com data e identificador do ambiente de ensaio, sem imprimir nomes, tokens nem registros pessoais.
+
+A verificação não substitui o ensaio de login com três identidades fictícias de papéis distintos nem os testes reais de criação, leitura, edição, exclusão, logout, recuperação de arquivos e backup. Esses ensaios permanecem obrigatórios antes de habilitar `GASTROIFF_OCCURRENCES_ENABLED` ou `GASTROIFF_EGRESSO_SUBMISSIONS_ENABLED`. O teste estático de integridade da consulta está em `tests/escopos-acesso-sql.test.cjs`.
+
+**Situação:** script preparado no repositório; **não executado em banco real**. A infraestrutura protegida continua desativada.
