@@ -87,3 +87,19 @@ A função `supabase/functions/receber-ocorrencia/index.ts` exige a variável de
 A variável só deve ser habilitada depois da autorização institucional, da revisão das políticas de acesso, da configuração do desafio antiabuso e dos testes com usuários fictícios de envio, consulta e exclusão. Não colocar chaves privadas nem dados pessoais nos arquivos públicos do GitHub. O comportamento de bloqueio está protegido por teste em `tests/receber-ocorrencia.test.mjs`.
 
 **Estado:** trava implementada no código e teste adicionado. A implantação e os testes de um serviço real ainda não ocorreram; a funcionalidade não está disponível ao público. Esse avanço pertence ao marco 3.2 já contado e não justifica elevar o progresso de 20/35.
+
+## Escopos mínimos antes de ativar contas reais (07/11/2026)
+
+A migração complementar `supabase/migrations/202611070001_gastroiff_escopos_minimos.sql` precisa ser aplicada **após** `202611040001_gastroiff_base.sql`, apenas no ambiente protegido autorizado e depois dos ensaios com contas fictícias. Ela corrige a autorização excessivamente ampla do esquema inicial: a função `gi_is_admin()` passa a reconhecer apenas `scope='project'`. O papel `reviewer` ganha somente leitura da fila editorial, pela política separada `gi_reviewer_queue_read`. O papel `course` não ganha leitura de registros de terceiros enquanto não existir vinculação autenticada e testada entre a pessoa, o curso e os dados de cada solicitação.
+
+| Perfil | Registros pessoais/ocorrências | Fila editorial | Arquivos privados |
+| --- | --- | --- | --- |
+| Visitante anônimo | Negado | Negado | Negado |
+| Autenticado sem função | Negado | Negado | Negado |
+| Revisor editorial (reviewer) | Negado | Leitura | Negado |
+| Coordenação (course) | Negado enquanto não houver filtro por curso | Negado | Negado |
+| Administrador do projeto (project) | Leitura | Leitura | Leitura |
+
+A distinção acima vale para as **regras SQL preparadas**, não comprova que essas autorizações estejam em execução em um banco. O serviço permanece desativado. Antes de liberar qualquer conta real, aplicar migrações em ambiente separado, testar cada papel e verificar também tentativas indevidas de leitura, envio, alteração e exclusão.
+
+O arquivo `tests/escopos-acesso-sql.test.cjs` impede regressões evidentes no código SQL e foi adicionado ao workflow de validação completa. Seus testes são **estáticos**, não substituem ensaios de Row Level Security com PostgreSQL/Supabase reais. Não conceder escrita direta dos formulários à conta pública.
