@@ -79,3 +79,11 @@ Controle de acesso a arquivos: https://supabase.com/docs/guides/storage/security
 - Docentes escolhem o nome a partir do cadastro já apresentado no portal, sem digitação repetida. Isso facilita o formulário, mas a seleção não prova identidade.
 - Estudantes informam apenas nome completo; matrícula não é solicitada nesta etapa.
 - Em dados protegidos, o envio com nome ou e-mail exige confirmação de que os dados serão usados para registrar e acompanhar a ocorrência. Identificação e resposta seguem os canais autorizados e as regras institucionais.
+
+## Trava de habilitação do recebimento de ocorrências (07/11/2026)
+
+A função `supabase/functions/receber-ocorrencia/index.ts` exige a variável de ambiente privada `GASTROIFF_OCCURRENCES_ENABLED=true` para aceitar um pedido. Sem ela, retorna HTTP 503 e não lê o corpo da requisição nem grava dados, mesmo quando as demais credenciais estiverem configuradas. Esta trava também protege contra a publicação acidental da função. O serviço de egressos já conta com bloqueio separado `GASTROIFF_EGRESSO_SUBMISSIONS_ENABLED=true`.
+
+A variável só deve ser habilitada depois da autorização institucional, da revisão das políticas de acesso, da configuração do desafio antiabuso e dos testes com usuários fictícios de envio, consulta e exclusão. Não colocar chaves privadas nem dados pessoais nos arquivos públicos do GitHub. O comportamento de bloqueio está protegido por teste em `tests/receber-ocorrencia.test.mjs`.
+
+**Estado:** trava implementada no código e teste adicionado. A implantação e os testes de um serviço real ainda não ocorreram; a funcionalidade não está disponível ao público. Esse avanço pertence ao marco 3.2 já contado e não justifica elevar o progresso de 20/35.
