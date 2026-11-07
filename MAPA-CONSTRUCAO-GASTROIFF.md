@@ -3,23 +3,24 @@ Versão 1, 04/11/2026. Documento de continuidade do projeto.
 
 Nota de consolidação de 06/11/2026: a sequência histórica de 9 fases (0 a 8) e as 11 frentes do `CADERNO-COMPLETO-GASTROIFF.md` permanecem como inventários de escopo. Para planejamento e informes de progresso, prevalece o quadro de **7 entregas operacionais** abaixo. Os documentos históricos não devem ser interpretados como uma contagem de avanços concluídos.
 
-## Quadro de progresso operacional (06/11/2026)
+## Quadro de progresso verificável (07/11/2026)
 
-**Medida de planejamento:** 7 entregas verificáveis, das quais **1 já existe em versão utilizável** e **6 ainda exigem trabalho**. É uma contagem de entregas, não uma estimativa de porcentagem de código escrito, prazo ou homologação institucional. As 11 frentes do caderno detalhado continuam como checklist de escopo, mas deixam de ser usadas para comunicar progresso numérico. Não repetir "0 de 11" como indicador de desenvolvimento.
+Acompanhamento principal: **20 de 35 marcos auditáveis atingidos (57,1% dos marcos)**, distribuídos pelas sete frentes abaixo. **15 marcos permanecem abertos**. Os marcos não têm complexidade uniforme: o percentual mede critérios objetivos marcados, **não** horas ou fração do trabalho técnico restante e **não** significa que 57,1% da plataforma esteja em produção.
 
-| Entrega operacional | Estado verificável | O que falta para considerar concluída |
-| --- | --- | --- |
-| 1. Portal público básico | **Entregue em versão inicial**: páginas de cursos, pesquisa, revistas, biblioteca, comunidade, laboratórios, eventos, oportunidades e navegação existentes no repositório. | Ajustes e validação final ficam na entrega 2, sem apagar esta entrega já utilizável. |
-| 2. Experiência pública consistente | **Em andamento**: perfis, abertura visual, PWA, componentes de interface, links e auditorias automatizadas implementados e refinados. | Confirmar o CI da versão principal mais recente, inspecionar capturas de celular/tablet/computador e corrigir problemas efetivos no site publicado. |
-| 3. Infraestrutura protegida | **Preparada no código, não implantada**: banco, políticas e funções de recebimento com ensaios simulados. | Provisionamento autorizado, autenticação real, RLS, armazenamento, recuperação, backup e homologação isolada. |
-| 4. Gestão docente e ocorrências reais | **Protótipos funcionais limitados**: planejamento e importações locais, painéis e formulários. | Vincular dados ao serviço protegido, aprovar/publicar documentos, registrar histórico, encaminhar ocorrências e validar o ciclo completo de insumos. |
-| 5. Atualizações recorrentes | **Parcial**: catálogo, agenda, monitoramentos e verificadores preparados. | Demonstrar descoberta, deduplicação, conferência de validade e publicação controlada de oportunidades, editais e eventos com registros reais. |
-| 6. Egressos, pesquisas e observatório | **Parcial**: páginas, instrumentos planejados, estruturas de dados e resultados vazios sem valores inventados. | Consentimento, respostas protegidas, coleta e agregação reais, indicadores e relatórios com metodologia. |
-| 7. Homologação institucional integral | **Pendente**. | Testes fim a fim com perfis autorizados, segurança, acessibilidade, PWA, manutenção, documentação e formalização acadêmica cabível. |
+| Frente | Marcos atingidos | Marcos totais | Situação funcional |
+| --- | ---: | ---: | --- |
+| 1. Portal básico | 5 | 5 | Portal público utilizável |
+| 2. Experiência pública e PWA | 4 | 5 | Testes de publicação e três formatos aprovados; revisão integral estética e acessível pendente |
+| 3. Infraestrutura protegida | 2 | 5 | Projeto e testes simulados, **sem serviço real ativado** |
+| 4. Gestão e ocorrências | 3 | 5 | Operação local e simulação privada, **sem ciclo real homologado** |
+| 5. Atualizações e automação | 2 | 5 | Catálogo e ensaios, **sem rotina editorial integral em produção** |
+| 6. Egressos e Observatório | 2 | 5 | Perfil e estruturas preparados, **sem coleta e indicadores reais** |
+| 7. Qualidade e homologação | 2 | 5 | Documento-mãe e bateria completa aprovada, **sem aceite institucional** |
+| **Total** | **20** | **35** | **57,1% dos marcos, não da operação integral** |
 
-**Regra de comunicação:** informar "1 de 7 entregas operacionais já disponível; 6 ainda abertas", com o estado concreto de cada uma. Uma correção técnica não reduz sozinha a quantidade de entregas abertas. Somente alterar a contagem mediante atendimento dos critérios de aceite descritos aqui. Não inferir percentual sem uma decomposição verificável de tarefas e testes.
+O detalhamento de cada um dos **35 marcos**, seu critério objetivo e as regras de recuo em caso de regressão estão em [PROGRESSO-VERIFICAVEL-GASTROIFF.md](PROGRESSO-VERIFICAVEL-GASTROIFF.md). O quadro antigo de 1/7 era uma contagem de entregas totalmente encerradas e não deve mais ser usado isoladamente para comunicar avanço. A bateria completa `42330611424` terminou com sucesso; o teste publicado `42330367449` também foi aprovado.
 
-**Prioridade imediata:** encerrar os problemas demonstráveis da entrega 2 e, sem permanecer indefinidamente nela por aperfeiçoamentos cosméticos, avançar em paralelo para a entrega 3, que desbloqueia a operação real das entregas 4 e 6.
+**Prioridade de execução:** resolver o critério 2.5 (inspeção acessível e estética de todas as telas), enquanto se organiza o requisito 3.3 (provisionamento autorizado do serviço protegido), sem publicar credenciais ou cadastrar dados reais por engano.
 
 ## O que este arquivo significa
 Este é o inventário de requisitos e entregas, a ser atualizado a cada fase. A existência de uma página no GitHub não significa que o serviço esteja integralmente funcionando. Os itens são classificados como:
