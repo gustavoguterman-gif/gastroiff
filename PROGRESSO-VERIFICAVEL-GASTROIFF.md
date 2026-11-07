@@ -103,3 +103,10 @@ Evidências: workflow publicado 42330367449; workflow completo 42330611424; MAPA
 - Adicionado teste automático em `tests/receber-ocorrencia.test.mjs`, documentado o pré-requisito no `supabase/config.toml` e no `FASE-2-ACESSO-PROTEGIDO.md`.
 - O novo caso de teste foi executado isoladamente em JavaScript sobre o código real lido do repositório e **passou (1/1)**. O serviço implantado e o pipeline completo posterior ainda precisam de confirmação.
 - Esse aperfeiçoamento reforça o marco 3.2, **já contabilizado**. Não marca 3.3 ou 3.4: nenhum banco ou autenticação institucional foi provisionado. Placar permanece **20/35 = 57,1% dos marcos**.
+
+## Avanço na separação de permissões da infraestrutura privada (07/11/2026)
+
+- Problema de autorização encontrado na migração SQL inicial: `gi_is_admin()` tratava `project`, `course` e `reviewer` como administradores com as mesmas políticas de leitura. Isso daria a revisores e coordenações acesso além do papel previsto se o banco fosse ativado sem correção.
+- Criada migração complementar `supabase/migrations/202611070001_gastroiff_escopos_minimos.sql`, que restringe o administrador amplo a `project`, concede leitura editorial apenas para `reviewer` e mantém o papel `course` bloqueado até existir filtragem por curso efetivamente testada.
+- Criados três testes estáticos em `tests/escopos-acesso-sql.test.cjs`; executados isoladamente contra os arquivos SQL reais via ambiente JavaScript, **3 de 3 passaram**. Teste acrescentado ao pipeline `validacao-completa.yml`. Publicada matriz de permissões no guia de ativação.
+- Testes de RLS contra banco PostgreSQL real, provisionamento, contas autorizadas, armazenamento e recuperação continuam **pendentes**. Nenhum serviço foi ativado. Esse trabalho fortalece o marco **3.2**, já contabilizado; sem inflação do placar: **20/35 (57,1%)**.
