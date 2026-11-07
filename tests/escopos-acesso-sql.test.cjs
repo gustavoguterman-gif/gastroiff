@@ -101,3 +101,21 @@ test("teste pgTAP cobre quatro identidades fictícias e desfaz todos os registro
   assert.match(code,/set_config\('request\.jwt\.claim\.sub'/i);
   assert.match(code,/select\s+\*\s+from\s+finish\(\)/i);
 });
+
+test("ensaio real de escrita e storage verifica políticas finais e não reintroduz a antiga",()=>{
+  const sql=fs.readFileSync(path.join(root,"supabase/tests/gestao_escrita_arquivos_test.sql"),"utf8");
+  const migration=fs.readFileSync(path.join(root,"supabase/migrations/20261104233000_praticas_storage_lock.sql"),"utf8");
+  assert.match(sql,/select\s+plan\(13\)/i);
+  assert.equal((sql.match(/select\s+ok\s*\(/gi)||[]).length,11);
+  assert.equal((sql.match(/select\s+is\s*\(/gi)||[]).length,2);
+  assert.match(sql,/gastroiff_praticas_storage_read/);
+  assert.match(sql,/gastroiff_praticas_storage_insert/);
+  assert.match(sql,/gastroiff_praticas_storage_delete_orphan/);
+  assert.match(sql,/gastroiff_praticas_manager_storage/);
+  assert.match(migration,/drop\s+policy\s+if\s+exists\s+gastroiff_praticas_manager_storage/i);
+  assert.doesNotMatch(migration,/create\s+policy\s+gastroiff_praticas_manager_storage/i);
+  assert.match(sql,/with_check\s+like/i);
+  assert.match(sql,/not\s+has_table_privilege\('authenticated','public\.gi_requests','INSERT'\)/i);
+  assert.match(sql,/cmd\s+in\s*\('UPDATE','ALL'\)/i);
+  assert.match(sql,/\brollback\s*;\s*$/i);
+});
