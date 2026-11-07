@@ -110,3 +110,9 @@ Evidências: workflow publicado 42330367449; workflow completo 42330611424; MAPA
 - Criada migração complementar `supabase/migrations/202611070001_gastroiff_escopos_minimos.sql`, que restringe o administrador amplo a `project`, concede leitura editorial apenas para `reviewer` e mantém o papel `course` bloqueado até existir filtragem por curso efetivamente testada.
 - Criados três testes estáticos em `tests/escopos-acesso-sql.test.cjs`; executados isoladamente contra os arquivos SQL reais via ambiente JavaScript, **3 de 3 passaram**. Teste acrescentado ao pipeline `validacao-completa.yml`. Publicada matriz de permissões no guia de ativação.
 - Testes de RLS contra banco PostgreSQL real, provisionamento, contas autorizadas, armazenamento e recuperação continuam **pendentes**. Nenhum serviço foi ativado. Esse trabalho fortalece o marco **3.2**, já contabilizado; sem inflação do placar: **20/35 (57,1%)**.
+
+## Auditoria de permissões pré-ativação (07/11/2026)
+
+- Criado `supabase/auditoria-permissoes-pre-ativacao.sql`, uma consulta somente leitura que produzirá PASS/FAIL para o RLS das sete tabelas privadas, restrição de usuários anônimos, bloqueio de escrita direta, bucket privado e funções/políticas de autorização em um banco Supabase **isolado e autorizado**.
+- Adicionado teste ao arquivo `tests/escopos-acesso-sql.test.cjs`. Foram executados **4 de 4 testes estáticos**, diretamente sobre os arquivos atuais do repositório em JavaScript isolado. Um falso positivo devido às palavras `INSERT`, `UPDATE`, `DELETE` como parâmetros de verificação foi corrigido no teste.
+- O roteiro de uso está no `FASE-2-ACESSO-PROTEGIDO.md`. **Não há execução do SQL contra banco real**, nem login real ou homologação de RLS. Portanto 3.3, 3.4 e 3.5 continuam pendentes. **Progresso mantido: 20 de 35 marcos (57,1%).**
