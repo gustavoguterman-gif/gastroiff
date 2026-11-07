@@ -137,3 +137,13 @@ O ensaio automatizado `42371975291` no GitHub Actions concluiu com **sucesso**: 
 A primeira tentativa (`42371799226`) falhou por um problema verdadeiro na migração `20261104230000_praticas_privadas.sql`: ela tentava habilitar RLS diretamente em `storage.objects`, tabela administrada pelo Supabase. A instrução indevida foi retirada e a segunda execução passou. As futuras mudanças de permissões devem continuar respeitando o controle da estrutura gerenciada pelo serviço.
 
 Esse resultado libera a **continuidade dos ensaios locais**, mas não autoriza a habilitação das funções públicas nem dispensa testes de armazenamento privado, recuperação de documentos, contas com login real e autorização institucional. As variáveis `GASTROIFF_OCCURRENCES_ENABLED` e `GASTROIFF_EGRESSO_SUBMISSIONS_ENABLED` devem permanecer desativadas até cumprimento de todos os critérios.
+
+## Ensaio PostgreSQL ampliado para gravação e arquivos privados (07/11/2026)
+
+O workflow de banco descartável agora executa também `supabase/tests/gestao_escrita_arquivos_test.sql` para confirmar, no PostgreSQL real, a ausência de privilégios diretos de `INSERT`, `UPDATE` e `DELETE` nas tabelas pessoais testadas, as configurações privadas dos buckets `gastroiff-private` e `gastroiff-praticas-privado` e as políticas finais de arquivos de práticas.
+
+Um primeiro teste foi reprovado porque procurava `gastroiff_praticas_manager_storage`, política mais ampla removida intencionalmente pela migração posterior `20261104233000_praticas_storage_lock.sql`. O diagnóstico mostrou `POLITICA PRATICAS: NAO ENCONTRADA`; a investigação confirmou a substituição por `gastroiff_praticas_storage_read`, `gastroiff_praticas_storage_insert` e `gastroiff_praticas_storage_delete_orphan`. A expectativa do teste foi corrigida para exigir essas três regras e negar política GASTROIFF de atualização direta dos arquivos.
+
+**Resultado efetivo:** execução `42389429221`, concluída com sucesso, **23 de 23 testes pgTAP aprovados**, divididos em 10 testes de isolamento por identidade e 13 testes de escrita/permissões de armazenamento. Os testes estáticos de preservação dos roteiros também foram ampliados, com **7 de 7 aprovados na execução isolada**.
+
+**Limitações:** as verificações demonstram políticas SQL e privilégios no banco de testes, mas não realizam envio de arquivos via API, autenticação institucional real, recuperação de backups, exclusão com registro de auditoria nem garantem ausência de políticas genéricas externas. O armazenamento e recebimento públicos continuam desligados, sujeitos à autorização e à homologação integral.
