@@ -122,3 +122,10 @@ Evidências: workflow publicado 42330367449; workflow completo 42330611424; MAPA
 O artefato `validacao-completa-gastroiff` da execução `42333963438`, consultado diretamente, contém `auditoria-geral.json` com data `2026-11-07T03:29:34.099Z`, **29 páginas, três formatos, 87 aprovações, 0 ocorrências bloqueantes, 0 alertas visuais e 0 suspeitas de controles ou links sem nome acessível**. As 15 observações antigas sobre largura de seletores não são falhas atuais e não devem permanecer descritas como pendências. A validação do site publicado na mesma revisão, execução `42333998753`, também foi aprovada.
 
 Isso comprova o fechamento da parte **automatizada** da auditoria. O marco 2.5 continua aberto porque a revisão humana de contraste, legibilidade, foco e qualidade visual de todas as páginas não foi concluída. Placar: **20/35 (57,1%)**.
+
+## Auditoria ampliada contra políticas adicionais de leitura (07/11/2026)
+
+- A validação completa `42333963438` terminou com sucesso antes das modificações descritas nesta seção.
+- A consulta somente leitura `supabase/auditoria-permissoes-pre-ativacao.sql` ganhou verificações para reprovar políticas de leitura não previstas em tabelas privadas, exigir a política de acesso ao bucket privado e sinalizar políticas adicionais que mencionem explicitamente esse bucket. Sem essa verificação, uma regra nova poderia conceder acesso além dos papéis planejados sem ser detectada pela auditoria original.
+- O teste estático de regressão passou a conferir esses critérios. A primeira execução isolada apresentou um falso negativo causado por expressão regular incorreta no teste, corrigida em seguida; **4 de 4 verificações estáticas passaram** após a correção.
+- Limite: a verificação de políticas adicionais não detecta toda forma de regra de armazenamento ampla que dispense menção explícita ao bucket. A inspeção manual e testes negativos com contas fictícias continuam indispensáveis. Não foi realizada execução em Postgres/Supabase real. Os marcos 3.3, 3.4 e 3.5 seguem pendentes, e o total permanece **20/35 (57,1%)**.
