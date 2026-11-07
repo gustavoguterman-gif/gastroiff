@@ -90,3 +90,9 @@ Evidências: workflow publicado 42330367449; workflow completo 42330611424; MAPA
 - Foi incorporada a `tests/auditoria-geral.cjs` uma verificação para identificar `input`, `select`, `textarea` e `button` visíveis que possam não possuir nome acessível. Considera rótulo `label`, `aria-label`, `aria-labelledby` e texto interno de botões; não aceita `placeholder` como substituto do rótulo.
 - As ocorrências entram em `reports/auditoria-geral.json`, aparecem separadas no log e passam a gerar capturas nas resoluções de 390, 768 e 1440 px. O relatório é inicialmente **diagnóstico**, pois resultados devem ser inspecionados para distinguir erro real de componente especial, sem bloquear todo o site por falsos positivos.
 - O script atualizado teve sua sintaxe conferida, mas a execução de navegador posterior ao commit `377f03f` ainda não foi verificada. O marco 2.5 permanece **pendente**; placar mantém-se **20/35 = 57,1% dos marcos**.
+
+## Marco 2.5: ampliação para links de navegação (07/11/2026 UTC)
+
+- Na inspeção do HTML de `ocorrencias.html`, `participacao.html` e `gestao-insumos.html`, os campos identificados como suspeitos por não possuírem atributo `id` estavam inseridos em elementos `label` envolventes. Esse padrão fornece identificação válida e **não foi alterado**.
+- O teste de navegador `tests/auditoria-geral.cjs` passou a inspecionar também os **links visíveis com `href`**, incluindo cabeçalho e rodapé. O diagnóstico examina nome por `aria-label`, `aria-labelledby`, texto, texto alternativo de imagem e atributo `title`. Os links possivelmente sem nome são registrados em `accessibilityWarnings` e motivam captura em 390, 768 e 1440 px.
+- O código atualizado foi verificado no repositório e a sintaxe do script foi conferida; **a execução no Chromium e a avaliação dos alertas ainda estão pendentes**. O marcador 2.5 continua aberto e o placar permanece **20/35 (57,1%)**. Não confundir ampliação de testes com solução comprovada de acessibilidade.
