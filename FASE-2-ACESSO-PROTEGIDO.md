@@ -119,3 +119,13 @@ A verificação não substitui o ensaio de login com três identidades fictícia
 Foi adicionado `supabase/ensaio-rls-leitura-isolado.sql` para execução **manual e controlada** somente num projeto Supabase isolado, depois das migrações da base e dos escopos. Ele usa transações `READ ONLY`, `SET LOCAL ROLE anon`, `SET LOCAL ROLE authenticated` e `ROLLBACK`, sem criar usuários nem gravar registros. Confere privilégios do papel anônimo, negativa de escopos sem JWT e a ausência de linhas visíveis nas tabelas privadas sem identidade. O operador deve conferir que todos os resultados de privilégio são `PASS` e que cada contagem de linhas visíveis é `0`.
 
 O ensaio **não** substitui a homologação de três identidades fictícias reais, nem verifica acesso e escrita em storage, política de backups, consentimento ou ações do backend. Caso qualquer verificação falhe, não ativar recebimento ou login. Os testes automatizados verificam que o ensaio permanece somente leitura, mas não executam SQL contra um banco ainda inexistente. Nenhum banco foi provisionado, nenhuma credencial foi configurada e a condição operacional permanece pendente.
+
+## Ensaio transacional das quatro identidades com pgTAP (07/11/2026)
+
+O projeto inclui `supabase/tests/gestao_rls_test.sql`, com **10 asserções** para verificar acesso de quatro identidades fictícias: administrador do projeto, revisor editorial, coordenação e conta autenticada sem função, além da negação de privilégios ao visitante anônimo. O arquivo cria usuários e registros exclusivamente de teste **dentro de uma transação** e termina em `ROLLBACK`. Nenhum dado de usuário real deve ser utilizado.
+
+Execução: preparar um ambiente local ou descartável Supabase autorizado, aplicar as migrações `202611040001_gastroiff_base.sql` e `202611070001_gastroiff_escopos_minimos.sql` na ordem correta, instalar/configurar a CLI do Supabase e rodar `supabase test db`. O resultado esperado é que todas as 10 asserções sejam aprovadas e que nenhuma conta ou registro fictício persista depois do `ROLLBACK`. Caso o serviço local não esteja provisionado, o comando não substitui o teste real.
+
+O arquivo `tests/escopos-acesso-sql.test.cjs` contém a proteção de regressão do próprio ensaio, conferindo identidades, asserções, papéis e reversão final. Essa validação do texto do SQL **não equivale** à execução efetiva em PostgreSQL.
+
+Antes do aceite final, ainda são obrigatórias chamadas externas reais com contas fictícias, verificação dos controles de armazenamento de arquivos, autenticação, logout e tratamento das falhas de rede. Nenhum endpoint está autorizado a receber dados institucionais reais nesta etapa.
