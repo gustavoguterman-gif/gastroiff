@@ -33,21 +33,28 @@ select ok(exists(
    and qual like '%gastroiff-private%'
    and qual like '%gi_is_admin%'
 ), '10. Leitura dos anexos de ocorrências exige administrador');
-select diag('POLITICA PRATICAS: ' || coalesce((
- select concat_ws(' / ',cmd,array_to_string(roles,','),qual,with_check)
- from pg_policies
- where schemaname='storage' and tablename='objects'
- and policyname='gastroiff_praticas_manager_storage'
-), 'NAO ENCONTRADA'));
-select ok(exists(
- select 1 from pg_policies
- where schemaname='storage' and tablename='objects'
+select ok(
+ (select count(*) from pg_policies
+  where schemaname='storage' and tablename='objects'
+   and 'authenticated'=any(roles)
+   and (
+    (policyname='gastroiff_praticas_storage_read' and cmd='SELECT'
+     and qual like '%gastroiff-praticas-privado%'
+     and qual like '%gastroiff_is_practice_manager%')
+    or (policyname='gastroiff_praticas_storage_insert' and cmd='INSERT'
+     and with_check like '%gastroiff-praticas-privado%'
+     and with_check like '%gastroiff_is_practice_manager%')
+    or (policyname='gastroiff_praticas_storage_delete_orphan' and cmd='DELETE'
+     and qual like '%gastroiff-praticas-privado%'
+     and qual like '%gastroiff_is_practice_manager%'
+     and qual like '%gastroiff_practice_documents%')
+   ))=3
+ and not exists (
+  select 1 from pg_policies
+  where schemaname='storage' and tablename='objects'
    and policyname='gastroiff_praticas_manager_storage'
-   and cmd='ALL' and 'authenticated'=any(roles)
-   and qual like '%gastroiff-praticas-privado%'
-   and qual like '%gastroiff_is_practice_manager%'
-   and with_check like '%gastroiff_is_practice_manager%'
-), '11. Bucket de práticas depende da autorização do gestor');
+ ),
+ '11. Bucket de práticas exige políticas finais de leitura, inclusão e exclusão órfã');
 select ok(not exists(
  select 1 from pg_policies
  where schemaname='storage' and tablename='objects'
