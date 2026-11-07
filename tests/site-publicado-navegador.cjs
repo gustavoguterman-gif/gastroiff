@@ -13,6 +13,7 @@ const pages=["index.html","contato.html","revistas.html","gestao.html","gestao-d
    for(const file of pages){
     const page=await ctx.newPage(),errors=[];
     page.on("pageerror",error=>errors.push(error.message));
+    try{
     const response=await page.goto(BASE+file,{waitUntil:"domcontentloaded",timeout:30000});
     assert.equal(response.status(),200,file+" "+view+" status");
     await page.waitForTimeout(600);
@@ -89,7 +90,20 @@ const pages=["index.html","contato.html","revistas.html","gestao.html","gestao-d
     assert.deepEqual(errors,[],file+" "+view+" erros JavaScript");
     await page.screenshot({path:"reports/site-publicado/"+view+"-"+file.replace(".html",".png"),fullPage:true,animations:"disabled"});
     checks.push({file,view,...status});
-    await page.close();
+    }catch(error){
+     const location="reports/site-publicado/"+view+"-"+file.replace(".html","")+"-falha";
+     try{
+      await page.screenshot({path:location+".png",fullPage:true,animations:"disabled",timeout:10000});
+     }catch(snapshotError){
+      console.error("Não foi possível capturar a tela com falha:",snapshotError.message);
+     }
+     fs.writeFileSync(location+".json",JSON.stringify({
+      file,view,width,height,reason:error.message,javascriptErrors:errors
+     },null,2));
+     throw error;
+    }finally{
+     await page.close();
+    }
    }
    await ctx.close();
   }
