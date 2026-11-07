@@ -129,3 +129,11 @@ Execução: preparar um ambiente local ou descartável Supabase autorizado, apli
 O arquivo `tests/escopos-acesso-sql.test.cjs` contém a proteção de regressão do próprio ensaio, conferindo identidades, asserções, papéis e reversão final. Essa validação do texto do SQL **não equivale** à execução efetiva em PostgreSQL.
 
 Antes do aceite final, ainda são obrigatórias chamadas externas reais com contas fictícias, verificação dos controles de armazenamento de arquivos, autenticação, logout e tratamento das falhas de rede. Nenhum endpoint está autorizado a receber dados institucionais reais nesta etapa.
+
+## Resultado confirmado do primeiro ensaio PostgreSQL local (07/11/2026)
+
+O ensaio automatizado `42371975291` no GitHub Actions concluiu com **sucesso**: o PostgreSQL local descartável iniciou, as migrações foram aplicadas e o pgTAP confirmou **10 de 10 verificações**. A execução não utilizou conexões, contas nem credenciais de um projeto Supabase externo.
+
+A primeira tentativa (`42371799226`) falhou por um problema verdadeiro na migração `20261104230000_praticas_privadas.sql`: ela tentava habilitar RLS diretamente em `storage.objects`, tabela administrada pelo Supabase. A instrução indevida foi retirada e a segunda execução passou. As futuras mudanças de permissões devem continuar respeitando o controle da estrutura gerenciada pelo serviço.
+
+Esse resultado libera a **continuidade dos ensaios locais**, mas não autoriza a habilitação das funções públicas nem dispensa testes de armazenamento privado, recuperação de documentos, contas com login real e autorização institucional. As variáveis `GASTROIFF_OCCURRENCES_ENABLED` e `GASTROIFF_EGRESSO_SUBMISSIONS_ENABLED` devem permanecer desativadas até cumprimento de todos os critérios.
