@@ -1,3 +1,5 @@
+project_id = "gastroiff-local-rls"
+
 # Arquivos de preparação. Não ativar sem configuração de um projeto seguro.
 # A função de ocorrências só recebe envios se GASTROIFF_OCCURRENCES_ENABLED=true.
 # Não definir essa variável antes de autorizar e testar o serviço protegido.
