@@ -33,6 +33,12 @@ select ok(exists(
    and qual like '%gastroiff-private%'
    and qual like '%gi_is_admin%'
 ), '10. Leitura dos anexos de ocorrências exige administrador');
+select diag('POLITICA PRATICAS: ' || coalesce((
+ select concat_ws(' / ',cmd,array_to_string(roles,','),qual,with_check)
+ from pg_policies
+ where schemaname='storage' and tablename='objects'
+ and policyname='gastroiff_praticas_manager_storage'
+), 'NAO ENCONTRADA'));
 select ok(exists(
  select 1 from pg_policies
  where schemaname='storage' and tablename='objects'
