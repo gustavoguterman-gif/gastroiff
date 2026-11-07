@@ -79,3 +79,25 @@ test("ensaio isolado de RLS troca papéis sem escrever dados",()=>{
   assert.equal((clean.match(/begin transaction read only;/gi)||[]).length,3);
   assert.equal((clean.match(/\brollback;/gi)||[]).length,3);
 });
+
+test("teste pgTAP cobre quatro identidades fictícias e desfaz todos os registros",()=>{
+  const script=fs.readFileSync(path.join(root,"supabase/tests/gestao_rls_test.sql"),"utf8");
+  const code=script.replace(/--[^\n]*/g,"");
+  assert.match(code,/^\s*begin\s*;/i);
+  assert.match(code,/\brollback\s*;\s*$/i);
+  assert.doesNotMatch(code,/\bcommit\s*;/i);
+  assert.match(code,/select\s+plan\(10\)/i);
+  assert.equal((code.match(/select\s+is\s*\(/gi)||[]).length,8);
+  assert.equal((code.match(/select\s+ok\s*\(/gi)||[]).length,2);
+  for(const scope of ["project","reviewer","course"]){
+    assert.ok(code.includes("'"+scope+"'"),"Faltou identidade de ensaio "+scope);
+  }
+  for(const suffix of ["0001","0002","0003","0004"]){
+    assert.ok(code.includes("10000000-0000-4000-8000-00000000"+suffix),
+      "Faltou usuário fictício "+suffix);
+  }
+  assert.match(code,/set\s+local\s+role\s+anon/i);
+  assert.match(code,/set\s+local\s+role\s+authenticated/i);
+  assert.match(code,/set_config\('request\.jwt\.claim\.sub'/i);
+  assert.match(code,/select\s+\*\s+from\s+finish\(\)/i);
+});
