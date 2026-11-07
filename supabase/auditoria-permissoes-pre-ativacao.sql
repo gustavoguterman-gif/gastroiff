@@ -64,6 +64,51 @@ checks as (
   'gi_is_admin deve reconhecer exclusivamente project'
  union all
  select
+  'Sem políticas extras de leitura nas tabelas privadas',
+  not exists (
+   select 1 from pg_policies p
+   where p.schemaname='public'
+     and p.tablename in (
+       'gi_admins','gi_requests','gi_attachments','gi_request_actions',
+       'gi_publication_queue','gi_recommendations','gi_notifications'
+     )
+     and p.cmd in ('SELECT','ALL')
+     and not (
+       (p.tablename='gi_requests' and p.policyname='gi_admin_requests_read')
+       or (p.tablename='gi_attachments' and p.policyname='gi_admin_attachments_read')
+       or (p.tablename='gi_request_actions' and p.policyname='gi_admin_actions_read')
+       or (p.tablename='gi_publication_queue'
+           and p.policyname in ('gi_admin_queue_read','gi_reviewer_queue_read'))
+       or (p.tablename='gi_recommendations' and p.policyname='gi_admin_recommendations_read')
+       or (p.tablename='gi_notifications' and p.policyname='gi_admin_notifications_read')
+     )
+  ),
+  'Nova política de leitura deve bloquear a homologação até revisão específica'
+ union all
+ select
+  'Política privada de storage presente e restrita',
+  exists (
+   select 1 from pg_policies p
+   where p.schemaname='storage' and p.tablename='objects'
+     and p.policyname='gi_private_admin_read'
+     and p.cmd='SELECT' and 'authenticated'=any(p.roles)
+     and p.qual like '%gastroiff-private%'
+     and p.qual like '%gi_is_admin%'
+  ),
+  'O bucket privado deve exigir autenticação e administrador do projeto'
+ union all
+ select
+  'Sem políticas adicionais que mencionem bucket privado',
+  not exists (
+   select 1 from pg_policies p
+   where p.schemaname='storage' and p.tablename='objects'
+     and p.cmd in ('SELECT','ALL')
+     and p.policyname <> 'gi_private_admin_read'
+     and coalesce(p.qual,'') like '%gastroiff-private%'
+  ),
+  'Políticas adicionais de acesso a esse bucket exigem auditoria manual'
+ union all
+ select
   'Revisor não pode consultar storage privado',
   not exists (
    select 1 from pg_policies p
