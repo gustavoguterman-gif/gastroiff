@@ -65,3 +65,17 @@ test("auditoria de pré-ativação é somente leitura e cobre barreiras essencia
   assert.doesNotMatch(executable,/\b(create|alter|drop|insert|update|delete|grant|revoke|truncate|execute|call)\b/i,
     "Auditoria de pré-ativação não deve modificar o banco");
 });
+
+test("ensaio isolado de RLS troca papéis sem escrever dados",()=>{
+  const script=fs.readFileSync(path.join(root,"supabase/ensaio-rls-leitura-isolado.sql"),"utf8");
+  assert.match(script,/set local role anon;/i);
+  assert.match(script,/set local role authenticated;/i);
+  assert.match(script,/auth\.uid\(\)/i);
+  assert.match(script,/public\.gi_is_admin\(\)/i);
+  assert.match(script,/public\.gi_has_scope/i);
+  assert.match(script,/gi_publication_queue/);
+  const clean=script.replace(/--[^\n]*/g,"").replace(/'(?:''|[^'])*'/g,"''");
+  assert.doesNotMatch(clean,/\b(create|alter|drop|insert|update|delete|grant|revoke|truncate|execute|call)\b/i);
+  assert.equal((clean.match(/begin transaction read only;/gi)||[]).length,3);
+  assert.equal((clean.match(/\brollback;/gi)||[]).length,3);
+});
