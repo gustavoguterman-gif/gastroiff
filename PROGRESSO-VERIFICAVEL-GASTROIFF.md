@@ -77,3 +77,10 @@ Atualização de referência: 07/11/2026 (horário UTC). Documento substitui **a
 6. A próxima prioridade é fechar 2.5 (experiência pública) e avançar em 3.3 (provisionamento autorizado do serviço privado). O primeiro pode ser testado com o ambiente atual; o segundo depende de autorização e configuração real, sem dados sensíveis no GitHub.
 
 Evidências: workflow publicado 42330367449; workflow completo 42330611424; MAPA-CONSTRUCAO-GASTROIFF.md; CADERNO-COMPLETO-GASTROIFF.md; AUDITORIA.md.
+
+## Revisão do marco 2.5: formulários nas três resoluções (07/11/2026 UTC)
+
+- A bateria `42331208196`, que inclui a nova captura de páginas com avisos, terminou com **success**. Artefato `13558285011`: **29 páginas**, três resoluções, **87 aprovações** e **0 ocorrências bloqueantes**. O relatório registrava 15 avisos gerados apenas porque o seletor tinha mais de 270 px, sem elementos `clipped`.
+- Inspecionadas capturas efetivas de `ocorrencias.html`, `participacao.html` e `gestao-insumos.html` em 390, 768 e 1440 px. Os controles examinados permanecem dentro das respectivas áreas e não há corte horizontal evidente nesses trechos. Nas vistas de celular, os campos ficam naturalmente empilhados. Formulários longos e revisão estética geral ainda demandam tratamento separado.
+- Auditoria aperfeiçoada para manter larguras maiores que 270 px como **métricas informativas**, mas classificar como alerta/erro apenas os controles que ultrapassarem a janela horizontal ou apresentarem corte de texto. Essas métricas continuam registradas no JSON; a captura de campos largos permanece habilitada. **A nova execução dessa classificação ainda não foi validada**.
+- O marco **2.5 continua pendente**: falta revisão estética e de acessibilidade integral das 29 páginas, não apenas as três acima. O placar permanece **20/35 (57,1%)**. Aprovação repetida do mesmo teste não gera marco adicional.
