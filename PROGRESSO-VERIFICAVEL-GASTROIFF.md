@@ -129,3 +129,10 @@ Isso comprova o fechamento da parte **automatizada** da auditoria. O marco 2.5 c
 - A consulta somente leitura `supabase/auditoria-permissoes-pre-ativacao.sql` ganhou verificações para reprovar políticas de leitura não previstas em tabelas privadas, exigir a política de acesso ao bucket privado e sinalizar políticas adicionais que mencionem explicitamente esse bucket. Sem essa verificação, uma regra nova poderia conceder acesso além dos papéis planejados sem ser detectada pela auditoria original.
 - O teste estático de regressão passou a conferir esses critérios. A primeira execução isolada apresentou um falso negativo causado por expressão regular incorreta no teste, corrigida em seguida; **4 de 4 verificações estáticas passaram** após a correção.
 - Limite: a verificação de políticas adicionais não detecta toda forma de regra de armazenamento ampla que dispense menção explícita ao bucket. A inspeção manual e testes negativos com contas fictícias continuam indispensáveis. Não foi realizada execução em Postgres/Supabase real. Os marcos 3.3, 3.4 e 3.5 seguem pendentes, e o total permanece **20/35 (57,1%)**.
+
+## Ensaio de RLS em banco isolado, preparado sem ativação (07/11/2026)
+
+- Verificada aprovação da validação completa anterior `42366744858`.
+- Preparado `supabase/ensaio-rls-leitura-isolado.sql` para aferir em banco **autorizado e isolado** acesso anônimo negado, ausência de escopo administrativo sem identidade e contagens de registros privados invisíveis para `authenticated` sem JWT. O roteiro contém apenas consultas e transações somente leitura com `ROLLBACK`.
+- Adicionado teste de regressão do arquivo SQL; **5 de 5 testes estáticos passaram** na execução isolada sobre os arquivos atuais do repositório. O roteiro também foi incluído no guia de ativação.
+- **Ainda não houve execução num banco real**, nem teste de identidades fictícias diferenciadas `project`, `reviewer`, `course`, nem teste real de armazenamento. É preparação e não conclusão do marco 3.3. Progresso permanece **20/35 = 57,1% dos marcos**.
