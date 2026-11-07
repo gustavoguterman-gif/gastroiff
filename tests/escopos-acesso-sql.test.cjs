@@ -53,6 +53,12 @@ test("auditoria de pré-ativação é somente leitura e cobre barreiras essencia
   assert.match(audit,/storage\.buckets/i);
   assert.match(audit,/gi_reviewer_queue_read/i);
   assert.match(audit,/pg_get_functiondef/i);
+  assert.match(audit,/Sem políticas extras de leitura nas tabelas privadas/);
+  assert.match(audit,/Sem políticas adicionais que mencionem bucket privado/);
+  assert.match(audit,/Política privada de storage presente e restrita/);
+  assert.match(audit,/gi_private_admin_read/);
+  assert.match(audit,/p\\.cmd in \\('SELECT','ALL'\\)/);
+
   assert.match(audit,/to_regclass/i);
   assert.match(audit,/case when passed then 'PASS' else 'FAIL' end/i);
   const executable=audit.replace(/--[^\n]*/g,"").replace(/'(?:''|[^'])*'/g,"''");
