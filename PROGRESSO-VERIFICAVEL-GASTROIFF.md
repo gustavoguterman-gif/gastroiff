@@ -136,3 +136,10 @@ Isso comprova o fechamento da parte **automatizada** da auditoria. O marco 2.5 c
 - Preparado `supabase/ensaio-rls-leitura-isolado.sql` para aferir em banco **autorizado e isolado** acesso anônimo negado, ausência de escopo administrativo sem identidade e contagens de registros privados invisíveis para `authenticated` sem JWT. O roteiro contém apenas consultas e transações somente leitura com `ROLLBACK`.
 - Adicionado teste de regressão do arquivo SQL; **5 de 5 testes estáticos passaram** na execução isolada sobre os arquivos atuais do repositório. O roteiro também foi incluído no guia de ativação.
 - **Ainda não houve execução num banco real**, nem teste de identidades fictícias diferenciadas `project`, `reviewer`, `course`, nem teste real de armazenamento. É preparação e não conclusão do marco 3.3. Progresso permanece **20/35 = 57,1% dos marcos**.
+
+## Ensaio de quatro identidades fictícias em PostgreSQL (07/11/2026)
+
+- Validação completa anterior `42368744850` aprovada no GitHub Actions.
+- Foi criado `supabase/tests/gestao_rls_test.sql` com 10 asserções em pgTAP e registros de teste transacionais: anônimo, administrador project, revisor reviewer, coordenação course e autenticado sem função. A transação termina em `ROLLBACK` e usa apenas identidades fictícias.
+- O script de testes estáticos `tests/escopos-acesso-sql.test.cjs` foi ampliado para conferir os cenários e ausência de `COMMIT`; **6 de 6 testes estáticos passaram** em execução isolada sobre os arquivos do repositório.
+- A execução real do `supabase test db` ainda **não foi feita** por ausência de banco local ou isolado provisionado. Também faltam testes reais com cliente Supabase, autenticação, storage e backup. O marco de implantação 3.3 segue aberto. Total **20/35 = 57,1%**.
