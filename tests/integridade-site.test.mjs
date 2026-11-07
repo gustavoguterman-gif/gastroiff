@@ -181,6 +181,7 @@ test("contatos do campus e vagas com WhatsApp oferecem tambem ligacao direta",()
  assert.match(contato,/Ligar agora/);
  assert.match(contato,/Abrir WhatsApp/);
  assert.match(contato,/grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
+ assert.match(contato,/main \.contact-card \.contact-phone-actions a\.gi-contact-action\{[^}]*min-height:44px!important;[^}]*\}/,"Botões de Contato devem preservar área de toque de 44px apesar das regras globais");
  const vagas=fs.readFileSync(path.join(root,"oportunidades.html"),"utf8");
  const cards=vagas.match(/<article class="gi-panel gi-vacancy"[\s\S]*?<\/article>/g)||[];
  const comWhatsapp=cards.filter(card=>card.includes("https://wa.me/"));
