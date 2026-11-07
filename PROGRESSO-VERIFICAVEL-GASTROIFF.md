@@ -18,7 +18,7 @@ Atualização de referência: 07/11/2026 (horário UTC). Documento substitui **a
 - [x] 2.2. PWA, manifesto, recursos offline e navegação testados no navegador.
 - [x] 2.3. Conferência automatizada das páginas em celular, tablet e desktop.
 - [x] 2.4. Bateria do site publicado aprovada no GitHub Actions, com 21 capturas (execução 42330367449).
-- [ ] 2.5. Revisão estética e de acessibilidade integral das páginas e fechamento dos 15 avisos de campos largos, sem problemas de contraste, leitura ou interação.
+- [ ] 2.5. Revisão estética e de acessibilidade integral das páginas, incluindo inspeção manual de contraste, foco, leitura e interação. A auditoria automática atual já registra zero avisos visuais e zero suspeitas de nomes acessíveis (execução 42333963438).
 
 ## 3. Infraestrutura protegida: 2/5
 - [x] 3.1. Estrutura proposta de tabelas, papéis de acesso e políticas no código.
@@ -116,3 +116,9 @@ Evidências: workflow publicado 42330367449; workflow completo 42330611424; MAPA
 - Criado `supabase/auditoria-permissoes-pre-ativacao.sql`, uma consulta somente leitura que produzirá PASS/FAIL para o RLS das sete tabelas privadas, restrição de usuários anônimos, bloqueio de escrita direta, bucket privado e funções/políticas de autorização em um banco Supabase **isolado e autorizado**.
 - Adicionado teste ao arquivo `tests/escopos-acesso-sql.test.cjs`. Foram executados **4 de 4 testes estáticos**, diretamente sobre os arquivos atuais do repositório em JavaScript isolado. Um falso positivo devido às palavras `INSERT`, `UPDATE`, `DELETE` como parâmetros de verificação foi corrigido no teste.
 - O roteiro de uso está no `FASE-2-ACESSO-PROTEGIDO.md`. **Não há execução do SQL contra banco real**, nem login real ou homologação de RLS. Portanto 3.3, 3.4 e 3.5 continuam pendentes. **Progresso mantido: 20 de 35 marcos (57,1%).**
+
+## Evidência da auditoria atual da versão f357aa2dd (07/11/2026)
+
+O artefato `validacao-completa-gastroiff` da execução `42333963438`, consultado diretamente, contém `auditoria-geral.json` com data `2026-11-07T03:29:34.099Z`, **29 páginas, três formatos, 87 aprovações, 0 ocorrências bloqueantes, 0 alertas visuais e 0 suspeitas de controles ou links sem nome acessível**. As 15 observações antigas sobre largura de seletores não são falhas atuais e não devem permanecer descritas como pendências. A validação do site publicado na mesma revisão, execução `42333998753`, também foi aprovada.
+
+Isso comprova o fechamento da parte **automatizada** da auditoria. O marco 2.5 continua aberto porque a revisão humana de contraste, legibilidade, foco e qualidade visual de todas as páginas não foi concluída. Placar: **20/35 (57,1%)**.
