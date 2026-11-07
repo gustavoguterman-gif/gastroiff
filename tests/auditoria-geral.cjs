@@ -64,7 +64,8 @@ const files=fs.readdirSync(".").filter(x=>x.endsWith(".html")).sort();
       if(["index.html","cursos.html","docentes.html","pesquisa.html","revistas.html",
           "biblioteca.html","projetos.html","eventos.html","oportunidades.html",
           "laboratorios.html","planejamento-docente.html","gestao-praticas.html",
-          "gestao.html","gestao-documentos-praticas.html"].includes(file)){
+          "gestao.html","gestao-documentos-praticas.html"].includes(file)
+          ||obj.visual.clipped.length>0||obj.visual.wideSelects.length>0){
         // Revelar os elementos para que a captura da página inteira não mostre
         // os elementos abaixo da dobra ainda à espera do IntersectionObserver.
         await page.addStyleTag({content:"main .gi-motion-ready{opacity:1!important;transform:none!important}"});
