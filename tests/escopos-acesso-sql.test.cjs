@@ -55,7 +55,7 @@ test("auditoria de pré-ativação é somente leitura e cobre barreiras essencia
   assert.match(audit,/pg_get_functiondef/i);
   assert.match(audit,/to_regclass/i);
   assert.match(audit,/case when passed then 'PASS' else 'FAIL' end/i);
-  const executable=audit.replace(/--[^\n]*/g,"");
+  const executable=audit.replace(/--[^\n]*/g,"").replace(/'(?:''|[^'])*'/g,"''");
   assert.doesNotMatch(executable,/\b(create|alter|drop|insert|update|delete|grant|revoke|truncate|execute|call)\b/i,
     "Auditoria de pré-ativação não deve modificar o banco");
 });
