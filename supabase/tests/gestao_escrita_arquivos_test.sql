@@ -3,7 +3,7 @@
 -- Nenhuma operação de upload, escrita ou modificação de dados é realizada.
 begin;
 create extension if not exists pgtap with schema extensions;
-select plan(12);
+select plan(13);
 
 select ok(not has_table_privilege('anon','public.gi_requests','INSERT'),
  '01. Visitante não insere ocorrências diretamente');
@@ -58,9 +58,17 @@ select ok(
 select ok(not exists(
  select 1 from pg_policies
  where schemaname='storage' and tablename='objects'
-   and policyname in ('gi_private_admin_read','gastroiff_praticas_manager_storage')
+   and policyname in ('gi_private_admin_read','gastroiff_praticas_storage_read',
+    'gastroiff_praticas_storage_insert','gastroiff_praticas_storage_delete_orphan')
    and 'anon'=any(roles)
 ), '12. Nenhuma política GASTROIFF de arquivos autoriza visitante');
+
+select ok(not exists(
+ select 1 from pg_policies
+ where schemaname='storage' and tablename='objects'
+  and policyname like 'gastroiff_praticas_storage_%'
+  and cmd in ('UPDATE','ALL')
+), '13. Nenhuma política GASTROIFF autoriza substituir arquivos de práticas');
 
 select * from finish();
 rollback;
