@@ -65,8 +65,8 @@ const pages=["index.html","contato.html","revistas.html","gestao.html","gestao-d
       assert.ok(quick.every(box=>box.width<=43&&box.height<=45),"ações compactas no celular: "+view+" "+file);
     }
     if(file==="contato.html"){
-      const phone=page.locator('a[href="tel:+552226459500"]');
-      const whatsapp=page.locator('a[href="https://wa.me/552226459500"]');
+      const phone=page.locator('.contact-phone-actions a.gi-contact-call[href="tel:+552226459500"]');
+      const whatsapp=page.locator('.contact-phone-actions a.gi-contact-whatsapp[href="https://wa.me/552226459500"]');
       assert.equal(await phone.count(),1,"Link de ligação indisponível: "+view);
       assert.equal(await whatsapp.count(),1,"Link de WhatsApp indisponível: "+view);
       assert.ok(await phone.isVisible() && await whatsapp.isVisible(),"Ações de contato invisíveis: "+view);
